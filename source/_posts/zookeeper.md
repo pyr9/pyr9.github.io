@@ -6,9 +6,9 @@ date: 2021-09-22 22:43:51
 tags: 
 
 - 测试
--  分享
+-  zookeeper
 
-categories: 前端
+categories:  zookeeper
 
 ---
 
@@ -34,6 +34,9 @@ categories: 前端
    
 
 > **由于节点自身协调不可靠，性能不高，故需要一个独立服务来做协调，他必须可靠且保证性能。**
+
+<!-- more -->
+
 
 #### 2. zookeeper的概要
 
