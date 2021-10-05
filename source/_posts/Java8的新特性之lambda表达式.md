@@ -2,7 +2,7 @@
 title: Java8的新特性之lambda表达式
 date: 2021-10-04 22:32:27
 tags: lambda表达式
-categories:  jdk
+categories: java8新特性
 ---
 
 ### 1.函数接口
