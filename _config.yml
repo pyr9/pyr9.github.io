@@ -3,7 +3,7 @@ subtitle: ''
 description: ''
 keywords: null
 author: Panyurou
-language: zh-Hans
+language: zh-CN
 timezone: ''
 url: http://example.com
 permalink: ':year/:month/:day/:title/'
@@ -59,8 +59,10 @@ pagination_dir: page
 include: null
 exclude: null
 ignore: null
-theme: next
+theme: fluid
 deploy:
   type: git
   repo: https://github.com/panyurou/panyurou.github.io.git
   branch: main
+toc:
+    maxDepth: 3 
