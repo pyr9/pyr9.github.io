@@ -24,7 +24,7 @@ categories: 性能调优
 
 准备工作：
 
-```mysql
+```sql
  CREATE TABLE `employees` (
    `id` int(11) NOT NULL AUTO_INCREMENT,
    `name` varchar(24) NOT NULL DEFAULT '' COMMENT '姓名',
@@ -41,13 +41,13 @@ categories: 性能调优
 
 Eg1: 
 
-```mysql
+```sql
 mysql> EXPLAIN SELECT * FROM employees WHERE name = 'LiLei';
 ```
 
 ![](https://tva1.sinaimg.cn/large/008i3skNly1gx4g3b8iklj31m606ejsx.jpg)
 
-```mysql
+```sql
 mysql> EXPLAIN SELECT * FROM employees WHERE left(name,3) = 'LiLei';
 ```
 
@@ -55,11 +55,11 @@ mysql> EXPLAIN SELECT * FROM employees WHERE left(name,3) = 'LiLei';
 
 Eg2:
 
-```mysql
+```sql
 mysql> EXPLAIN select * from employees where date(hire_time) ='2018-09-30';
 ```
 
-```mysql
+```sql
 mysql> EXPLAIN select * from employees where hire_time >='2018-09-30 00:00:00' and hire_time <='2018-09-30 23:59:59';
 ```
 

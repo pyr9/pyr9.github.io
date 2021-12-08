@@ -14,7 +14,7 @@ categories: 性能调优
 
 **下面是使用explain的例子：**
 
-```mysql
+```sql 
 mysql> explain select * from actor;
 ```
 
@@ -29,7 +29,7 @@ mysql> explain select * from actor;
 * id的顺序是按select 出现的顺序增长的
 * Id列越大执行优先级越高，id相同则从上往下执行，id为NULL最后执行
 
-```mysql
+```sql 
 mysql> explain select (select 1 from actor limit 1) from film;
 ```
 
@@ -67,7 +67,7 @@ mysql> explain select (select 1 from actor limit 1) from film;
 
 * derived([dɪˈraɪv]) : 包含在from子句中的子查询。Mysql将把结果存放在一个临时表中，也称为派生表。
 
-```mysql
+```sql 
 mysql>  set session optimizer_switch='derived_merge=off';
 mysql>  explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
 ```
@@ -76,7 +76,7 @@ mysql>  explain select (select 1 from actor where id = 1) from (select * from fi
 
 * union ：在union后的select。
 
-```mysql
+```sql 
 mysql> select id,name from actor union all select id, name from film;
 ```
 
@@ -84,7 +84,7 @@ mysql> select id,name from actor union all select id, name from film;
 
 > *  union 用于把来自多个select  语句的结果组合到一个结果集合中。语法为：
 >
->   ```mysql
+>   ```sql 
 >  select  column,......from table1
 >   union [all]
 >  select  column,...... from table2
@@ -105,7 +105,7 @@ mysql> select id,name from actor union all select id, name from film;
 
   > - NULL：mysql在窒息感阶段用不着访问表或者索引。例如索引列中取最小值，可以单独查找索引来完成，不需要执行时访问表。
   >
-  >   ```mysql
+  >   ```sql 
   >   mysql> explain select min(id) from film;
   >   ```
   >
@@ -113,7 +113,7 @@ mysql> select id,name from actor union all select id, name from film;
 
   > * const：直接按 primary key 或 unique key读取，将该列与常数比较，所以表最多有一个匹配行，读取1次，速度比较快
   >
-  >   ```mysql
+  >   ```sql 
   >   mysql> explain select id, name from film where id = 1;
   >   ```
   >
@@ -121,7 +121,7 @@ mysql> select id,name from actor union all select id, name from film;
 
   > * eq_ref：primary key 或 unique key 索引的所有部分被连接使用 ，最多只会返回一条符合 条件的记录。这可能是在 const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。
   >
-  >   ```mysql
+  >   ```sql 
   >   mysql>  explain select * from film_actor left join film on film_actor.film_id = film.id;
   >   ```
   >
@@ -129,7 +129,7 @@ mysql> select id,name from actor union all select id, name from film;
 
   > - ref：相比 eq_ref，不使用唯一索引，而是使用普通索引或者联合索引的部分前缀，索引要 和某个值相比较，可能会找到多个符合条件的行。 
   >
-  > ```mysql
+  > ```sql 
   > mysql> explain select * from film where name = 'film1';
   > ```
   >
@@ -137,7 +137,7 @@ mysql> select id,name from actor union all select id, name from film;
 
   > - range：范围扫描通常出现在 in(), between ,> ,<, >= 等操作中。使用一个索引来检索给定范围的行。 
   >
-  > ```mysql
+  > ```sql 
   > mysql> explain select * from actor where id > 1;
   > ```
   >
@@ -145,7 +145,7 @@ mysql> select id,name from actor union all select id, name from film;
 
   > - index：扫描全表索引，这通常比ALL快一些。即查询的字段都是索引列。
   >
-  > ```mysql
+  > ```sql 
   > mysql>  explain select id,name from film;
   > ```
   >
@@ -155,7 +155,7 @@ mysql> select id,name from actor union all select id, name from film;
 
   > - ALL：即全表扫描，意味着mysql需要从头到尾去查找所需要的行。通常情况下这需要增加索引来进行优化了。
   >
-  > ```mysql
+  > ```sql 
   > mysql>  explain select * from actor;
   > ```
   >
@@ -216,13 +216,13 @@ mysql> select id,name from actor union all select id, name from film;
 
 * Using index condition：会先条件过滤索引，过滤完索引后找到所有符合索引条件的数据行，随后用 WHERE 子句中的其他条件去过滤这些数据行；
 
-  ```mysql
+  ```sql 
   mysql> explain select * from film_actor where film_id > 1;
   ```
 
 * Using temporary：mysql需要创建一张临时表来处理查询。出现这种情况一般是要进行优化的，首先是想到用索引来优化。 
 
-  ```mysql
+  ```sql 
   mysql> explain select distinct name from actor;
   ```
 
@@ -230,7 +230,7 @@ mysql> select id,name from actor union all select id, name from film;
 
 * Using filesort：将用外部排序而不是索引排序，数据较小时从内存排序，否则需要在磁盘完成排序。这种情况下一般也是要考虑使用索引来优化的。
 
-  ```mysql
+  ```sql 
   mysql> explain select * from actor order by name;
   ```
 
@@ -238,7 +238,7 @@ mysql> select id,name from actor union all select id, name from film;
 
 * Select tables optimized away：使用某些聚合函数（比如 max、min）来访问存在索引的某个字段.
 
-  ```mysql
+  ```sql 
   mysql> explain select min(id) from film;
   ```
 
