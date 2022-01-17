@@ -2,7 +2,7 @@
 title: 常见sql优化
 date: 2021-12-05 22:08:58
 tags: mysql索引
-categories: 性能调优
+categories: sql优化
 ---
 
 ## 常见sql优化

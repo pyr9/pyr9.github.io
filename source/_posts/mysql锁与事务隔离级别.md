@@ -4,7 +4,7 @@ date: 2021-12-18 22:03:27
 tags:
  - mysql锁
  - mysql事务隔离级别
-categories: 性能调优
+categories: sql优化
 ---
 
 # 锁是什么？

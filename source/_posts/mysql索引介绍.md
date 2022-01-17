@@ -2,7 +2,7 @@
 title: Mysql索引介绍
 date: 2021-11-04 21:22:22
 tags: mysql索引
-categories: 性能调优
+categories: sql优化
 ---
 
 ## 

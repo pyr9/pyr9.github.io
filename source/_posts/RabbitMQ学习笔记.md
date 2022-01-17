@@ -1,8 +1,8 @@
 ---
 title: RabbitMQ学习笔记
 date: 2021-10-27 21:35:27
-tags: rabbitMQ
-categories: 中间件
+tags: 中间件
+categories: rabbitMQ
 ---
 
 # **什么是RabbitMQ？** 

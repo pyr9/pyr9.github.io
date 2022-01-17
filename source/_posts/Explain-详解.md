@@ -2,7 +2,7 @@
 title: Explain详解
 date: 2021-11-27 13:55:43
 tags: Explain详解
-categories: 性能调优
+categories: sql优化
 ---
 
 # explain使用介绍

@@ -2,7 +2,7 @@
 title: 常见sql优化(二)
 date: 2021-12-07 22:04:18
 tags: mysql索引
-categories: 性能调优
+categories: sql优化
 ---
 
 ## 一  **分页查询优化** 
