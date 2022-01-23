@@ -401,4 +401,18 @@ Insufficient permission : /temp
   zj9LbzdoKijw/kCo1pQJnXBFiq4=
   ```
 
+  ```
+  [zk: localhost:2181(CONNECTED) 28] create /temp2
+  Created /temp2
+  [zk: localhost:2181(CONNECTED) 30] getAcl /temp2
+  'world,'anyone
+  : cdrwa
+  [zk: localhost:2181(CONNECTED) 31] setAcl /temp2 digest:pyr:zj9LbzdoKijw/kCo1pQJnXBFiq4=:rwa
+  [zk: localhost:2181(CONNECTED) 32] getAcl /temp2
+  Insufficient permission : /temp2
+  [zk: 127.0.0.1:2181(CONNECTED) 45] addauth digest pyr:123456
+  [zk: 127.0.0.1:2181(CONNECTED) 46] get /temp2
+  null
+  ```
+  
   
