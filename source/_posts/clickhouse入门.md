@@ -1,8 +1,8 @@
 ---
 title: clickhouse入门
 date: 2022-02-01 14:27:15
-tags: clickhouse
-categories: 分布式框架
+tags: 分布式框架
+categories: clickhouse
 ---
 
 # **ClickHouse** 是什么？

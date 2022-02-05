@@ -1,11 +1,11 @@
 ---
-title: SQL操作
+title: ClickHouse的SQL操作
 date: 2022-02-03 22:50:09
 tags: 数据库
-categories: click house
+categories: clickhouse
 ---
 
-# SQL操作
+# ClickHouse的SQL操作
 
 基本上来说传统关系型数据库（以 MySQL 为例）的 SQL 语句，ClickHouse 基本都支持，这里不会从头讲解 SQL 语法只介绍 ClickHouse 与标准 SQL（MySQL）不一致的地方
 

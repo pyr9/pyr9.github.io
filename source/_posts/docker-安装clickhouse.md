@@ -1,5 +1,5 @@
 ---
-title: docker 安装clickhouse
+title: docker安装clickhouse
 date: 2022-02-01 21:44:28
 tags: 分布式框架
 categories: clickhouse
