@@ -1,5 +1,5 @@
 ---
-title: ClickHouse的SQL操作
+title: clickHouse的SQL操作
 date: 2022-02-03 22:50:09
 tags: 数据库
 categories: clickhouse
