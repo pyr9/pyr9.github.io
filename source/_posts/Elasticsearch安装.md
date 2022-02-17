@@ -2,7 +2,7 @@
 title: Elasticsearch安装
 date: 2022-02-05 20:08:30
 tags: 分布式框架
-categories: Elasticsearch
+categories: ElasticSearch
 ---
 
 # Elasticsearch安装
