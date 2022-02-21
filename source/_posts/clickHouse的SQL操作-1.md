@@ -1,6 +1,6 @@
 ---
 title: clickHouse的SQL操作
-date: 2022-02-03 22:50:09
+date: 2022-02-04 22:50:09
 tags: 数据库
 categories: clickhouse
 ---
@@ -132,4 +132,3 @@ alter table tableName drop column newcolname;
 ```
 
 > 更多语法参考：[ClickHouse Documentation](https://clickhouse.com/docs/en/sql-reference/)
-
