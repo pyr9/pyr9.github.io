@@ -9,7 +9,7 @@ categories: ElasticSearch
 
 ## 批量获取文档数据 
 
-批量获取文档数据是通过_mget的API来实现的 
+> 批量获取文档数据是通过_mget的API来实现的 
 
 ### 在URL中不指定index和type
 
@@ -67,6 +67,20 @@ GET /es_db/_doc/_mget
 
 ## 批量操作文档数据 
 
+- 批量对文档进行写操作是通过_bulk的API来实现的 
+
+- 通过_bulk操作文档，一般至少有两行参数(或偶数行参数) 
+
+  - 第一行参数为指定操作的类型及操作的对象 (index,type和id) 
+  - 第二行参数才是操作的数据 
+
+  参数类似于：
+
+  ```java
+  {"actionName":{"_index":"indexName", "_type":"typeName","_id":"id"}}
+  {"field1":"value1", "field2":"value2"}
+  ```
+
 ### 批量创建文档create
 
 ```sql
@@ -108,6 +122,9 @@ POST _bulk
 ```
 
 ### 普通创建或全量替换index
+
+- 如果原文档不存在，则是创建 
+- 如果原文档存在，则是替换(全量修改原文档)
 
 ```sql
 POST _bulk
