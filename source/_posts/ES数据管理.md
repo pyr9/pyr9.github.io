@@ -55,7 +55,7 @@ DELETE /es_db
 
 ###  添加文档 
 
-- 格式: PUT /索引名称/类型/id(可选，不传会创建默认的id)
+- 格式: POST /索引名称/类型/id(可选，不传会创建默认的id)
 
 ```sql
 POST /es_db/_doc
