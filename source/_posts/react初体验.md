@@ -66,7 +66,7 @@ React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScr
   - 参数二：将渲染的内容，挂载到哪一个HTML元素上
 - 通过{}语法来引入外部的变量或者表达式
 
-```react
+```js
 <body>
   <!--添加react 依赖-->
   <!-- // crossorigin 将远程js的一些错误，显示到本地 -->
@@ -92,7 +92,7 @@ React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScr
   - 1.定义一个类（类名大写，组件的名称是必须大写的，小写会被认为是HTML元素），继承自React.Component
   - 2.实现当前组件的render函数。render当中返回的jsx内容，就是之后React会帮助我们渲染的内容
 
-```react
+```js
 <script type="text/babel">
  class App extends React.Component {
    render(){
@@ -146,7 +146,7 @@ React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScr
 
 # 电影列表案例
 
-```react
+```js
 <script type="text/babel">
  class App extends React.Component {
    constructor(){
@@ -178,7 +178,7 @@ React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScr
 
 # 计数器案例
 
-```react
+```js
 <script type="text/babel">
  class App extends React.Component {
    constructor(){
