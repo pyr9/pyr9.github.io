@@ -14,3 +14,21 @@ postgreSQL 和 mysql的对比
 - PG主表采用堆表存放，MySQL采用索引组织表，能够支持比MySQL更大的数据量。
 - MySQL不支持XML 数据类型，PostgreSQL支持
 - PostgreSQL完全免费，而且是BSD协议，如果把PostgreSQL改一改，然后再拿去卖钱，也没有人管你，这一点很重要，这表明了PostgreSQL数据库不会被其他公司控制。相反，MySQL现在主要是被Oracle公司控制。
+
+
+
+ postgresql 和Mongoldb对比
+
+- postgresql是关系型数据库，Mongoldb 是非关系型数据库，
+- postgresql支持多表联合查询，mongoDB不支持多Collection联合查询
+- mongodb的优势就是文档存储，业务经常变动，需要不时的添加字段，那么mongodb比较适合
+
+
+
+Redis:
+
+- 非常丰富的数据结构
+- Redis提供了事务的功能，可以保证一串 命令的原子性，中间不会被任何操作打断；
+- 数据存在内存中，读写非常的高速，可以达到10w/s的频率
+
+ 
