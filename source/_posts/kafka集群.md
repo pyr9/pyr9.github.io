@@ -5,7 +5,7 @@ tags:
  - 消息队列
  - 集群
  - 分布式框架
-categories: Kafka
+categories: kafka
 ---
 
 # kafka 集群
@@ -112,55 +112,7 @@ categories: Kafka
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h56bycarv6j21gq09cjtm.jpg)
 
-## 集群消费
 
-- leader处理所有的针对这个partition的读写请求。
-- 而followers被动复制leader的结果，不提供读写(主要是为了保证多副本数据与消费的一致性）。如果这个leader失效了，其中的一个follower将会自动的变成新的leader。
-
-## 消费顺序怎么保证？
-
-- 一个partition同一个时刻，在一个consumer group里只能有一个consumer去消费，从而保证消费顺序。
-
-- 发送消息的时候，往一个partition 中去发。取消息的时候也从一个partition 中去取。
-- consumer group中consumer 的数量应小于分区的数量，否则多出的consumer得不到信息。
-- Kafka 只能在partition范围内保证消费顺序，不能不能保证在一个topic中，多个partition的消费顺序。
-- 如果有在总体上保证消费顺序的需求，那么我们可以通过将topic的partition数量设置为1，将consumer group中的 
-
-consumer 数量也设置为1，但是这样会影响性能，所以kafka的顺序消费很少用。
-
-
-
-#### kafka producer 中ack的配置是什么意思？
-
-Kafka通过配置request.required.acks属性来确认消息的生产：
-
-- 0 生产者将数据发送出去就不管了，不去等待任何返回。这种情况下数据传输效率最高，但是数据可靠性确是最低的，存在丢消息：数据还没写入leader，leader就挂了
-- 1（默认） 数据发送到Kafka后，经过leader成功接收消息的的确认，就算是发送成功了。在这种情况下，如果leader宕机了，则会丢失数据。因为follo wer还没同步数据。
-- -1或all producer需要等待ISR中的所有follower都确认接收到数据后才算一次发送完成，可靠性最高。当ISR中所有Replica都向Leader发送ACK时，leader才commit，这时候producer才能认为一个请求中的消息都commit了。这种性能不高，一般是金融级别或者和钱打交道的时候采用。
-
-
-
-#### **消费者消费消息的offset记录机制** ?
-
-每个consumer会定期将自己消费分区的offset提交给kafka内部topic：**__consumer_offsets**，提交过去的时候，**key是** 
-
-**consumerGroupId+topic+分区号，value就是当前offset的值**，kafka会定期清理topic里的消息，最后就保留最新的 
-
-那条数据 
-
-因为__consumer_offsets可能会接收高并发的请求，kafka默认给其**分配50个分区**(可以通过 offsets.topic.num.partitions设置)，这样可以通过加机器的方式抗大并发。 
-
-
-
-#### Zookeeper 在 Kafka 中的作用?
-
-##### 1、Broker注册
-
-**Broker是分布式部署并且相互之间相互独立，但是需要有一个注册系统能够将整个集群中的Broker管理起来**，此时就使用到了Zookeeper。在Zookeeper上会有一个专门**用来进行Broker服务器列表记录**的节点：
-
-每个Broker在启动时，都会到Zookeeper上进行注册，即到/brokers/ids下创建属于自己的节点，如/brokers/ids/[0...N]。
-
-Kafka使用了全局唯一的数字来指代每个Broker服务器，不同的Broker必须使用不同的Broker ID进行注册，创建完节点后，**每个Broker就会将自己的IP地址和端口信息记录**到该节点中去。其中，Broker创建的节点类型是临时节点，一旦Broker宕机，则对应的临时节点也会被自动删除。
 
 
 
