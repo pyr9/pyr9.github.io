@@ -1,5 +1,5 @@
 ---
-title: springCloud之zidongkuozhan
+title: springCloud之自动扩展
 date: 2022-08-20 21:52:57
 tags:
 - 分布式
