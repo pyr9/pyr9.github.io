@@ -2,7 +2,7 @@
 title: kafka设计原理
 date: 2022-08-13 17:26:18
 tags: 消息队列
-categories: Kafka
+categories: kafka
 ---
 
 # Kafka 设计原理

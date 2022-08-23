@@ -1,6 +1,6 @@
 ---
 title: springCloud之集成Feign
-date: 2022-08-18 09:13:24
+date: 2022-07-18 19:13:24
 tags: 分布式
 categories: springCloud
 ---
@@ -45,7 +45,28 @@ categories: springCloud
    }
    ```
 
-5. 创建一个RestClientController来实现对Feign客户端的调用
+5. 修改启动类
+
+   ```java
+   package com.pyr.spring.cloud.weather;
+   
+   import org.springframework.boot.SpringApplication;
+   import org.springframework.boot.autoconfigure.SpringBootApplication;
+   import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+   import org.springframework.cloud.openfeign.EnableFeignClients;
+   
+   @SpringBootApplication
+   @EnableDiscoveryClient
+   @EnableFeignClients
+   public class Application {
+   
+     public static void main(String[] args) {
+       SpringApplication.run(Application.class, args);
+     }
+   }
+   
+
+6. 创建一个RestClientController来实现对Feign客户端的调用
 
    ```java
    package com.pyr.spring.cloud.weather.controller;
@@ -67,7 +88,7 @@ categories: springCloud
    }
    ```
 
-6. 查看euraka服务端，可以看到该客户端注册成功，访问[localhost:8085/cities，可以获取到指定服务接口的返回
+7. 查看euraka服务端，可以看到该客户端注册成功，访问[localhost:8085/cities，可以获取到指定服务接口的返回
 
    ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5ap6lysrwj21ek0u00xb.jpg)
 

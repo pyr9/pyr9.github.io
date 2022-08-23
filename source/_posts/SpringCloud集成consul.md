@@ -1,11 +1,11 @@
 ---
 title: SpringCloud集成consul
-date: 2022-08-22 14:11:59
+date: 2022-07-22 24:11:59
 tags:
 - 分布式
 - 注册中心
 - consul
-categories: SpringCloud
+categories: springCloud
 ---
 
 # Consul

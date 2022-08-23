@@ -1,5 +1,5 @@
 ---
-title: postgresql的区别
+title: postgreSQL、mysql、Mongoldb、redis的对比
 date: 2022-08-16 16:59:09
 tags: 面试题
 categories: postgreSQL

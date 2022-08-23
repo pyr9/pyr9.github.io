@@ -1,6 +1,6 @@
 ---
 title: springCloud之集成SpringCloud Config
-date: 2022-08-18 17:37:36
+date: 2022-07-18 17:37:36
 tags: 
 - 分布式 
 - 集中化配置
@@ -148,3 +148,16 @@ categories: springCloud
    <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7p3re81j20na08sgm3.jpg" style="zoom:50%;" />
 
    
+
+# Config客户端之动态刷新
+
+避免每次修改githib上的配置都需要重启客户端
+
+## 手动版
+
+优点：解决了重启 Config 客户端才能获取最新配置的问题，
+
+缺点：只要配置仓库中的配置发生改变，就需要我们挨个向 Config 客户端手动发送 POST 请求，通知它们重新拉取配置。
+
+那么有没有“一次通知，处处生效”的方式呢？答案是肯定的。Spring Cloud Config 配合 Bus 就可以实现配置的动态刷新。
+

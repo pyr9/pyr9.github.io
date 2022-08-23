@@ -1,6 +1,6 @@
 ---
 title: SpringCloud集成Ribbon
-date: 2022-08-22 15:12:41
+date: 2022-07-22 15:12:41
 tags:
 - 分布式
 - 负载均衡
@@ -98,7 +98,23 @@ categories: springCloud
    eureka.client.serviceUrl.defaultZone: http://localhost:8761//eureka/
    ```
 
-4. 创建一个名为 RestConfiguration 的配置类，将 RestTemplate 注入到容器中，代码如下。
+4. 修改启动类
+
+   ```java
+   @SpringBootApplication
+   @EnableDiscoveryClient
+   public class Application {
+   
+     public static void main(String[] args) {
+       SpringApplication.run(Application.class, args);
+     }
+   
+   }
+   ```
+
+   
+
+5. 创建一个名为 RestConfiguration 的配置类，将 RestTemplate 注入到容器中，代码如下。
 
    ```java
    package com.pyr.spring.cloud.weather.config;
