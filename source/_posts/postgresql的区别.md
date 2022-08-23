@@ -20,7 +20,7 @@ postgreSQL 和 mysql的对比
  postgresql 和Mongoldb对比
 
 - postgresql是关系型数据库，Mongoldb 是非关系型数据库，
-- postgresql支持多表联合查询，mongoDB不支持多Collection联合查询
+- 查询语法不同。postgresql使用基本的sql操作，mongodb使用pipeline，比如pg join ，mongo $lookup
 - mongodb的优势就是文档存储，业务经常变动，需要不时的添加字段，那么mongodb比较适合
 
 

@@ -38,6 +38,14 @@ Eureka 采用 CS（Client/Server，客户端/服务器） 架构，它包括以�
 
 
 
+## eureka停止更新了
+
+[Home · Netflix/eureka Wiki (github.com)](https://github.com/Netflix/eureka/wiki)
+
+<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fdi19u9dj215a0u0q7v.jpg" style="zoom:100%;" />
+
+
+
 # Eureka Server搭建
 
 参考[GitHub - spring-cloud-samples/eureka](https://github.com/spring-cloud-samples/eureka)
