@@ -53,6 +53,12 @@ categories: rabbitMQ
 
 
 
+## MQ中消息失效
+
+RabbtiMQ 是可以设置过期时间 的，也就是 TTL。如果消息在 queue 中积压超过一定的时间就会被 RabbitMQ 给清理掉，这个数据就没了。
+
+解决：批量重导。就是大量积压的时候，我们当时就 直接丢弃数据了，然后等过了高峰期以后。将丢失的那批数据，写个临时程序，一点一点的查出来，然后重新灌入 mq 里面去
+
 ## 消息的幂等性
 
 造成消息重复的根本原因是：网络不可达。 
@@ -76,8 +82,6 @@ categories: rabbitMQ
   ```
   update account set price = price -100, version = version + 1, where id = 1 and version = 1
   ```
-
-
 
 
 
@@ -158,3 +162,4 @@ rabbitmq现在不支持延迟队列，延迟队列的实现需要借助TTL和死
 
 * 死信队列，监听的是Queue1,成为死信的消息会被丢到DLX中，或者不处理自己清理掉
 * 延迟队列，监听的是死信队列
+

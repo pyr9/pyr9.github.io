@@ -38,7 +38,7 @@ categories: kafka
 6. 消息的删除时间上：
 
    1. rabbitMQ 消费完了就删除。
-   2. kafka一般不会删除消息，不管这些消息有没有被消费。只会根据配置的日志保留时间(log.retention.hours)确认消息多 久被删除，默认保留最近一周的日志消息。这些日志可以被重复读取和无限期保留。
+   2. kafka一般不会删除消息，不管这些消息有没有被消费。只会根据配置的日志保留时间(log.retention.hours)确认消息多久被删除，默认保留最近一周的日志消息。这些日志可以被重复读取和无限期保留。
 
    
 
@@ -132,16 +132,6 @@ Kafka 遵循了一种大部分消息系统共同的传统的设计：producer �
 
   
 
-#### kafka producer 中ack的配置是什么意思？
-
-Kafka通过配置request.required.acks属性来确认消息的生产：
-
-- 0 生产者将数据发送出去就不管了，不去等待任何返回。这种情况下数据传输效率最高，但是数据可靠性确是最低的，存在丢消息：数据还没写入leader，leader就挂了
-- 1（默认） 数据发送到Kafka后，经过leader成功接收消息的的确认，就算是发送成功了。在这种情况下，如果leader宕机了，则会丢失数据。因为follo wer还没同步数据。
-- -1或all producer需要等待ISR中的所有follower都确认接收到数据后才算一次发送完成，可靠性最高。当ISR中所有Replica都向Leader发送ACK时，leader才commit，这时候producer才能认为一个请求中的消息都commit了。这种性能不高，一般是金融级别或者和钱打交道的时候采用。
-
-**避免消息丢失就可以将ack设置成-1或all**
-
 
 
 ### kafka 如何不消费重复数据？
@@ -225,7 +215,12 @@ Zookeeper 主要用于在集群中不同节点之间进行通信
 
 
 
+## 设计一个MQ的思路
+
+- 可伸缩性：需要的时候快速扩容，就可以增加吞吐量和容量。参照一下 kafka 的设计理念， broker -> topic -> partition，每个 partition 放一个机器，就存一部分数据。 如果现在资源不够了，给 topic 增加 partition。
+- 持久化：mq 的数据要落地磁盘，参考kafka顺序写，顺序读。这样就没有磁盘随机读写的寻址开销，磁盘顺序读写的性能是很高的
+- 高可用性：多副本 -> leader & follower，broker 挂了重新选举 leader
+- 数据 0 丢失：
 
 
-什么是注册中心？
 
