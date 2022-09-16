@@ -220,7 +220,7 @@ Zookeeper 主要用于在集群中不同节点之间进行通信
 - 可伸缩性：需要的时候快速扩容，就可以增加吞吐量和容量。参照一下 kafka 的设计理念， broker -> topic -> partition，每个 partition 放一个机器，就存一部分数据。 如果现在资源不够了，给 topic 增加 partition。
 - 持久化：mq 的数据要落地磁盘，参考kafka顺序写，顺序读。这样就没有磁盘随机读写的寻址开销，磁盘顺序读写的性能是很高的
 - 高可用性：多副本 -> leader & follower，broker 挂了重新选举 leader
-- 数据 0 丢失：
+- 数据 0 丢失：参考：[RabbitMQ的消息零丢失方案 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/RabbitMQ的消息零丢失方案/)， [kafka的消息零丢失方案 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/kafka的消息零丢失方案/)
 
 
 
