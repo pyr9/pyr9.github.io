@@ -65,7 +65,7 @@ deploy:
   repo: https://github.com/panyurou/panyurou.github.io.git
   branch: main
 toc:
-    maxDepth: 3 
+    maxDepth: 5 
 # index2 generator是否包含官方的hexo-generator-index，默认true（包含）
 index2_include_index: true
 index2_generator:

@@ -1,18 +1,16 @@
 ---
-title: java命令--jstack 工具
+title: java命令--jstack的使用
 date: 2022-09-15 09:50:24
 tags:
 - java命令
 categories: 性能调优
 ---
 
-# **jstack**
-
 jstack用于生成java虚拟机当前时刻的线程快照。可以用来分析线程问题（如死锁），CPU突然飙升问题
 
-## 案例一： jstack找出死锁
+# 1. 案例一 找出死锁
 
-- 代码示例
+## 1.1 问题代码
 
 ```java
 public class DeadLockTest {
@@ -52,7 +50,12 @@ public class DeadLockTest {
 }
 ```
 
-- 运行结果：
+## 1.2 问题定位
+
+### 1.2.1 方式一 jps+jstack
+
+1. 运行`jps`，查看当前所有java进程的pid
+2. `jstack pid` 查看当前进程的堆栈状态，如果有死锁会打印出来found 1 deadLock
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h671lb0pnvj21d50u0q9l.jpg)
 
@@ -60,25 +63,56 @@ public class DeadLockTest {
 
 ​       可以定位出是17行出了死锁问题。
 
-- 还可以用jvisualvm自动检测死锁 
+### 1.2.2 方式二 jvisualvm自动检测死锁 
 
-  ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h671owo3ajj21y20u012b.jpg)
+代码运行起来后，启动jvisualvm，在线程页面会直接有一个红色的显示：监测到死锁
+
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h671owo3ajj21y20u012b.jpg)
 
 
 
-## 案例二：jstack找出占用cpu最高的线程堆栈信息
+# 2 案例二 找出占用cpu最高的线程堆栈信息
 
-## 1.top
+## 2.1 问题代码
 
-在服务器上，我们可以通过top命令查看各个进程的cpu使用情况，它默认是按cpu使用率由高到低排序的
+```java
+public class Math {
+
+  public static final int initData = 666;
+  public static User user = new User();
+
+  public int compute() {  //一个方法对应一块栈帧内存区域
+    int a = 1;
+    int b = 2;
+    int c = (a + b) * 10;
+    return c;
+  }
+
+  public static void main(String[] args) {
+   Math math = new Math();
+    while (true) {
+      math.compute();
+    }
+  }
+}
+```
+
+## 2.2 问题定位
+
+### 2.2.1 命令top -p <pid> ，显示你的java进程的内存情况，找到当前进程的PID
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h672961ju6j215k0b6ju6.jpg)
 
-### 2. jstack pid
+### 2.2.2 按H，获取每个线程的内存情况 
 
-通过top命令定位到cpu占用率较高的线程之后，接着使用jstack pid命令来查看当前java进程的堆栈状态，
+### 2.2.3 找到内存和cpu占用最高的线程tid
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h672bftvhsj214a0lo795.jpg)
+### 2.2.4 执行 `jstack PID|grep -A 10 4cd0`
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h672cg23khj20su0ng0up.jpg" style="zoom:50%;" />
+比如tid为19664 ，转为十六进制得到 0x4cd0，执行 jstack 19663|grep -A 10 4cd0，得到线程堆栈信息中 4cd0 这个线程所在行的后面10行，从堆栈中可以发现导致cpu飙高的调用方法 
+
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h68vvrrxt4j211c08mwgw.jpg)
+
+6，查看对应的堆栈信息找出可能存在问题的代码 
+
 

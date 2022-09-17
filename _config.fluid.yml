@@ -35,6 +35,9 @@ force_https: false
 # 代码块的增强配置
 # Enhancements to code blocks
 code:
+  language:
+    enable: true
+    default: "TEXT"
   # 是否开启复制代码的按钮
   # Enable copy code button
   copy_btn: true
@@ -210,7 +213,7 @@ custom_html: ''
 # 网页访问统计
 # Analysis of website visitors
 web_analytics:  # 网页访问统计
-  enable: false
+  enable: true
 
   # 百度统计的 Key，值需要获取下方链接中 `hm.js?` 后边的字符串
   # Baidu analytics, get the string behind `hm.js?`
@@ -570,12 +573,13 @@ post:
   # Table of contents (TOC)
   toc:
     enable: true
+    placement: left
     # 目录会选择这些节点作为标题
     # TOC will select these nodes as headings
     headingSelector: "h1,h2,h3,h4,h5,h6"
     # 层级的折叠深度，0 是全部折叠，大于 0 后如果存在下级标题则默认展开
     # Collapse depth. If 0, all headings collapsed. If greater than 0, it will be expanded by default if there are sub headings
-    collapseDepth: 0
+    collapseDepth: 5
 
   # 版权声明，会显示在每篇文章的结尾
   # Copyright, will be displayed at the end of each post
