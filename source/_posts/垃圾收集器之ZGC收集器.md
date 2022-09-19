@@ -4,7 +4,7 @@ date: 2022-09-16 13:58:51
 tags:
 - 性能调优
 - 垃圾收集器
-categories: JVM
+categories: JVM调优
 ---
 
 # **ZGC收集器**(-XX:+UseZGC)

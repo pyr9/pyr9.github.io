@@ -3,7 +3,7 @@ title: JVM调优案例(一)——日均百万级订单交易系统如何设置JV
 date: 2022-09-14 17:29:19
 tags:
 - 性能调优
-categories: JVM
+categories: JVM调优
 ---
 
 # 场景分析

@@ -3,7 +3,7 @@ title: JVM内存模型
 date: 2022-09-14 14:22:34
 tags:
 - 性能调优
-categories: JVM
+categories: JVM调优
 ---
 
 # JVM内存模型

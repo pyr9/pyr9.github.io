@@ -3,7 +3,7 @@ title: JVM内存参数设置
 date: 2022-09-14 16:02:28
 tags:
 - 性能调优
-categories: JVM
+categories: JVM调优
 ---
 
 # **JVM内存参数设置**
