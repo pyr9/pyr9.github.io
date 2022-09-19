@@ -4,7 +4,7 @@ date: 2022-09-13 18:29:57
 tags:
 - java命令
 - 性能调优
-categories: 性能调优
+categories: JVM性能调优
 ---
 
 # **Jmap** 

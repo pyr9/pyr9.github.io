@@ -1,9 +1,9 @@
 ---
 title: java命令--jinfo&jstat
-date: 2022-09-15 11:36:07
+date: 2022-06-19 21:36:07
 tags:
 - java命令
-categories: 性能调优
+categories: JVM调优
 ---
 
 # **Jstat** 
