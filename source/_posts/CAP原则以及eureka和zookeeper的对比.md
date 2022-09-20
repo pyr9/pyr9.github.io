@@ -8,7 +8,7 @@ tags:
 categories: springCloud
 ---
 
-# CAP理论是什么？
+# 1 CAP理论是什么？
 
 CAP即：
 
@@ -20,7 +20,7 @@ CAP即：
 
 
 
-# 分布式CAP定理，为什么不能同时满足三个特性
+# 2 分布式CAP定理，为什么不能同时满足三个特性
 
 假设有两台服务器，一台放着应用A和数据库V，一台放着应用B和数据库V，他们之间的网络可以互通，也就相当于分布式系统的两个部分。
 
@@ -36,40 +36,30 @@ CAP即：
 
 
 
-# 作为服务中心，eureka和zookeeper的对比
+# 3 作为服务中心，eureka和zookeeper的对比
 
 <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjrq1o9mj20y00b2q49.jpg" style="zoom:50%;" />
 
-Zookeeper集群和Eureka集群有一个最大的区别，zookeeper集群是存在leader和follower关系的，也就是一主多从。
-
-而eureka集群却不是这样，eureka集群中的各个节点是平等的地位，peer to peer对等通信。这是一种**去中心化**的架构，在这种架构风格中，节点通过彼此互相注册来提高可用性，每个节点都可被视为其他节点的副本
 
 
 
-**Zookeeper保证 CP**
 
-- Apache Zookeeper 在设计时就紧遵CP原则，即任何时候对 Zookeeper 的访问请求能得到一致的数据结果，同时系统对网络分割具备容错性，但是 Zookeeper 不能保证每次服务请求都是可达的。
-- 一致性体现在两个方面。
-  - 当往zookeeper的leader节点写数据时，leader会对剩下的follower节点进行主从数据同步，它必须得同步超过半数的follower节点才给客户端返回写成功的信号。所以从这点上它是保证了数据一致性，但是却不是强一致性。
-  - 在使用 Zookeeper 获取服务列表时，如果此时的 Zookeeper 集群中的 Leader 宕机了，该集群就要进行 Leader 的选举，选举是需要时间的，在这一段时间内，将无法处理请求。所以说，Zookeeper 不能保证服务可用性。
+## 3.1 集群方式不同
 
+- zookeeper集群是存在leader和follower关系的，也就是一主多从。
 
+- eureka集群中的各个节点是平等的地位，peer to peer对等通信。这是一种**去中心化**的架构，在这种架构风格中，节点通过彼此互相注册来提高可用性，每个节点都可被视为其他节点的副本
 
-**eureka保证 AP**
+## 3.2 zookeeper 保证CP，**eureka保证 AP**
 
-- eureka优先保证可用性。在Eureka平台中，如果某台服务器宕机，Eureka不会有类似于ZooKeeper的选举leader的过程；客户端请求会自动切换到新的Eureka节点，只要有一台Eureka还在，就能保证注册服务可用，只不过查到的信息可能不是最新的。
-- 当宕机的服务器重新恢复后，Eureka 会再次将其纳入到服务器集群管理之中。
-- Eureka还有之中自我保护机制，如果在15分钟内超过85%的节点都没有正常的心跳，那么Eureka就认为客户端与注册中心出现了网络故障，此时会出现以下几种情况：
-  - Eureka不在从注册列表中移除因为长时间没收到心跳而应该过期的服务
-  - Eureka仍然能够接受新服务的注册和查询请求，但是不会被同步到其他节点上 (即保证当前节点依然可用)
-  - 当网络稳定时，当前实例新的注册信息会被同步到其他节点中
+- **Zookeeper保证 CP**，在使用 Zookeeper 获取服务列表时，如果此时的 Zookeeper 集群中的 Leader 宕机了，该集群就要进行 Leader 的选举，**选举是需要时间的，在这一段时间内，将无法处理请求**。所以说，Zookeeper 不能保证服务可用性。
+- **eureka保证 AP**，在Eureka平台中，如果某台服务器宕机，客户端请求会自动切换到新的Eureka节点，**只要有一台Eureka还在，就能保证注册服务可用，只不过查到的信息可能不是最新的**。当宕机的服务器重新恢复后，Eureka 会再次将其纳入到服务器集群管理之中。
+
+## 3.3 zookeeper的实时性更好
+
+eureka是通过心跳体制，检测节点是否正常，相比于zookeeper的watcher机制，实时性稍差一点
 
 
 
-**consul保证 CP**
+**正常情况下，为了满足用户体验，应该先选可用性。所以，理论上来说，Eureka作为系统服务的注册中心是最适合的。**
 
-Consul的使用依靠简单的http请求就能满足服务发现的所有逻辑。服务每次都从consul agent获取其他服务的存活状态，相比于zookeeper的watcher机制，实时性稍差一点。
-
-
-
-**因此，Eureka可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像zookeeper那样使整个注册服务瘫痪**，**所以，理论上来说，Eureka作为系统服务的注册中心是最适合的。**

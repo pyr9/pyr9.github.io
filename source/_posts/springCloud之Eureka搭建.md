@@ -27,6 +27,8 @@ Eureka 采用 CS（Client/Server，客户端/服务器） 架构，它包括以�
 
 - 默认情况下,EurekaClient会定时向EurekaServer端发送心跳，如果EurekaServer在一定时间内没有收到EurekaClient发送的心跳，便会把该实例从注册服务列表中剔除（默认是90秒)
 - 但是在短时间内丢失大量的实例心跳，这时候EurekaServer会开启自我保护机制，[Eureka](https://so.csdn.net/so/search?q=Eureka&spm=1001.2101.3001.7020)不会踢出该服务，而是会对该服务的信息进行保存。
+- Eureka仍然能够接受新服务的注册和查询请求，但是不会被同步到其他节点上 (即保证当前节点依然可用)
+- 当网络稳定时，当前实例新的注册信息会被同步到其他节点中
 
 ## 产生原因
 
