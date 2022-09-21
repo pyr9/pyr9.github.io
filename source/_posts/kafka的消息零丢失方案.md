@@ -4,18 +4,18 @@ date: 2022-09-13 10:05:03
 tags:
 - MQ
 - 消息可靠性
-categories:
+categories: kafka
 ---
 
-# RabbitMQ如何保证消息的可靠性？
+# Kafka如何保证消息的可靠性？
 
 ## 哪些环节会有丢消息的可能？
 
 [RabbitMQ的消息零丢失方案 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/RabbitMQ的消息零丢失方案/#哪些环节会有丢消息的可能？)
 
-## RabbitMQ怎么保证消息可靠性?
+## Kafka怎么保证消息可靠性?
 
-### 1. 生产者保证消息正确发送到RibbitMQ?
+### 1. 生产者保证消息正确发送到Kafka?
 
 Kafka通过配置request.required.acks属性来确认消息的生产：
 

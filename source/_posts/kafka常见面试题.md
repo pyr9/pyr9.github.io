@@ -72,19 +72,6 @@ Kafka 遵循了一种大部分消息系统共同的传统的设计：producer �
 
 
 
-## 消费进度Offset的理解
-
-- 在消费者对指定消息分区进行消息消费的过程中，**需要定时地将分区消息的消费进度Offset记录到Zookeeper上**，以便在该消费者进行重启或者其他消费者重新接管该消息分区的消息消费后，能够从之前的进度开始继续进行消息消费。
-
-- 现在是放在了一个叫做__consumer_offset 的topic 里，**key是** consumerGroupId+topic+分区号，value就是当前offset的值。默认是50个分区，由consumer自己管理。 
-
-- **每个consumer是基于自己在commit log中的消费进度(offset)来进行工作的**。
-- 这意味kafka中的consumer对集群的影响是非常小的，添加一个或者减少一个consumer，对于集群或者其他consumer 来说，都是没有影响的，因为每个consumer维护各自的消费offset。
-
-- 一般情况下我们按照顺序逐条消费commit log中的消息，当然我可以通过指定offset来重复消费某些消息， 或者跳过某些消息。
-
-
-
 ## 集群消费
 
 - leader处理所有的针对这个partition的读写请求。
@@ -150,17 +137,26 @@ Kafka 遵循了一种大部分消息系统共同的传统的设计：producer �
 
 
 
-#### Zookeeper 在 Kafka 中的作用?
+- # 6 Zookeeper 在 Kafka 中的作用?
 
-Zookeeper 主要用于在集群中不同节点之间进行通信
+  ZooKeeper 主要为 Kafka 提供元数据的管理的功能。
 
-- 在Zookeeper上会有一个专门**用来进行Broker服务器列表记录**的节点/brokers/ids
+  1. **Broker 注册** ：在Zookeeper上会有一个专门**用来进行Broker服务器列表记录**的节点/brokers/ids，每个Broker在启动时，都会到Zookeeper上进行注册，即到/brokers/ids下创建属于自己的节点，如/brokers/ids/[0…N]。Kafka使用了全局唯一的数字来指代每个Broker服务器，不同的Broker必须使用不同的Broker ID进行注册，创建完节点后，**每个Broker就会将自己的IP地址和端口信息记录**到该节点中去。其中，Broker创建的节点类型是临时节点，一旦Broker宕机，则对应的临时节点也会被自动删除。
 
-- 每个Broker在启动时，都会到Zookeeper上进行注册，即到/brokers/ids下创建属于自己的节点，如/brokers/ids/[0...N]。
+  2. **Topic 注册**： 在 Kafka 中，同一个**Topic 的消息会被分成多个分区**并将其分布在多个 Broker 上，**这些分区信息及与 Broker 的对应关系**也都是由 Zookeeper 在维护。比如我创建了一个名字为 my-topic 的主题并且它有两个分区，对应到 zookeeper 中会创建这些文件夹：`/brokers/topics/my-topic/Partitions/0`、`/brokers/topics/my-topic/Partitions/1`
+  3. **负载均衡** ：Kafka 通过给特定 Topic 指定多个 Partition, 而各个 Partition 可以分布在不同的 Broker 上, 这样便能提供比较好的并发能力。 对于同一个 Topic 的不同 Partition，Kafka 会尽力将这些 Partition 分布到不同的 Broker 服务器上。当生产者产生消息后也会尽量投递到不同 Broker 的 Partition 里面。**当 Consumer 消费的时候，Zookeeper 可以根据当前的 Partition 数量以及 Consumer 数量来实现动态负载均衡。**
+  4. 之前，在消费者对指定消息分区进行消息消费的过程中，**需要定时地将分区消息的消费进度Offset记录到Zookeeper上**，以便在该消费者进行重启或者其他消费者重新接管该消息分区的消息消费后，能够从之前的进度开始继续进行消息消费。
 
-- Kafka使用了全局唯一的数字来指代每个Broker服务器，不同的Broker必须使用不同的Broker ID进行注册，创建完节点后，**每个Broker就会将自己的IP地址和端口信息记录**到该节点中去。其中，Broker创建的节点类型是临时节点，一旦Broker宕机，则对应的临时节点也会被自动删除。
+## 消费进度Offset的理解
 
+- 在消费者对指定消息分区进行消息消费的过程中，**需要定时地将分区消息的消费进度Offset记录到Zookeeper上**，以便在该消费者进行重启或者其他消费者重新接管该消息分区的消息消费后，能够从之前的进度开始继续进行消息消费。
 
+- 现在是放在了一个叫做__consumer_offset 的topic 里，**key是** consumerGroupId+topic+分区号，value就是当前offset的值。默认是50个分区，由consumer自己管理。 
+
+- **每个consumer是基于自己在commit log中的消费进度(offset)来进行工作的**。
+- 这意味kafka中的consumer对集群的影响是非常小的，添加一个或者减少一个consumer，对于集群或者其他consumer 来说，都是没有影响的，因为每个consumer维护各自的消费offset。
+
+- 一般情况下我们按照顺序逐条消费commit log中的消息，当然我可以通过指定offset来重复消费某些消息， 或者跳过某些消息。
 
 ## 延迟队列的实现
 

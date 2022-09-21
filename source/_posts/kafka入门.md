@@ -7,9 +7,7 @@ tags:
 categories: kafka
 ---
 
-# Kafka
-
-## kafka 是什么？
+# 1 kafka 是什么？
 
 Kafka 是一个分布式，支持分区（partition）, 多副本（replication）,基于zookeeper 的分布式消息系统。它最大的特性就是可以实时的处理大数据量。
 
@@ -20,7 +18,7 @@ Kafka的使用场景：
 - 用户活动跟踪：Kafka经常被用来记录web用户或者app用户的各种活动，如浏览网页、搜索、点击等活动，这些活动信息被各个服务器发布到kafka的topic中，然后订阅者通过订阅这些topic来做实时的监控分析，或者装载到hadoop、数据仓库中做离线分析和掘。
 - 运营指标：Kafka也经常用来记录运营监控数据。包括收集各种分布式应用的数据，生产各种操作的集中反馈，比如报警和报告。
 
-## kafka 的整体设计
+# 2 kafka 的整体设计
 
 从一个较高的层面上来看，producer通过网络发送消息到Kafka集群，然后consumer来进行消费，如下图
 
@@ -44,7 +42,7 @@ Kafka的使用场景：
 
 - Consumer: 消息消费者，从Broker读取消息的客户端 
 
-## Kafka 的基本使用
+# 3 Kafka 的基本使用
 
 1. 启动zookeeper [zookeeper特性与节点介绍 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2021/09/22/zookeeper特性与节点介绍/)
 
@@ -166,7 +164,7 @@ Kafka的使用场景：
 	- log-end-offset：主题对应分区消息的结束偏移量(HW) 
 	- lag：当前消费组未消费的消息数
 
-## Topic 和 partition 详解
+# 4 Topic 和 partition 详解
 
 - topic 是一个类别的名称，同类消息，发送到一个topic下，对于每一个topic可以有多个分区(partition)。
 
@@ -193,14 +191,39 @@ Kafka的使用场景：
   Created topic test2.
   ```
 
+  
+
+# 5 **Kafka副本集**
+
+- Kafka副本集是指将日志复制多份，我们知道Kafka的数据是存储在日志文件中的，这就相当于数据的备份、冗余
+- Kafka可以为每个Topic设置副本集，Kafka中的Topic只是个逻辑概念，实际存储数据的是Partition，所以真正被复制的也是Partition，副本集是相对于Partition来说的
+- 一个Topic的副本集可以分布在多个Broker中，当一个Broker挂掉了，其他的Broker上还有数据，这就提高了数据的可靠性，这也是副本集的主要作用。
+
+<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6elomwzmrj211w0fk0v4.jpg" style="zoom:50%;" />
+
 - 查看下topic的情况
 
-  ```java
-  ➜  kafka_2.12-3.2.1 bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic test2
-  ```
+```java
+➜  kafka_2.12-3.2.1 bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic test2
+```
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h556vki097j21hy04q0tz.jpg" style="zoom:150%;" />
+<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h556vki097j21hy04q0tz.jpg" style="zoom:150%;" />
 
-  - leader节点负责给定partition的所有读写请求。
-  - replicas 表示某个partition在哪几个broker上存在备份。不管这个几点是不是”leader“，甚至这个节点挂了，也会列出。
-  - isr**(InSyncRepli)** ：leader副本保持一定同步程度的副本（包括leader）组成ISR。是replicas的一个子集。
+- leader节点负责给定partition的所有读写请求。
+- replicas 表示某个partition在哪几个broker上存在备份。不管这个几点是不是”leader“，甚至这个节点挂了，也会列出。
+- isr**(InSyncRepli)** ：leader副本保持一定同步程度的副本（包括leader）组成ISR。是replicas的一个子集。
+
+
+
+# 6 **Kafka节点故障原因及处理方式**
+
+Kafka节点（Broker）故障的两种情况：
+
+- Kafka节点与Zookeeper心跳未保持视为节点故障
+- 当follower的消息落后于leader太多也会视为节点故障
+
+Kafka对节点故障的处理方式：
+
+- Kafka会对故障节点进行移除，所以基本不会因为节点故障而丢失数据
+- Kafka的语义担保也很大程度上避免了数据丢失
+- Kafka会对消息进行集群内平衡，减少消息在某些节点热度过高

@@ -5,24 +5,22 @@ tags: 分布式框架
 categories: zookeeper
 ---
 
-## Zookeeper集群
-
 ---
 
-## 目的
+## 1 集群的目的
 
-zookeeper集群是为了保证系统的性能，能够承载更多的客户端连接。通过集群可以实现以下功能：
+zookeeper集群是为了保证系统的性能，能够承载更多的客户端连接。通过集群(主从模式可以实现以下功能：
 
 * 读写分离：提高承载，为更多的客户端提供连接，并保障性能。
 * 主从自动切换：提高服务容错性，部分节点故障不会影响整个服务集群。
 
-##  半数以上运行机制说明
+##  2 半数以上运行机制说明
 
 集群至少需要三台服务器，并且强烈建议使用奇数个服务器。
 
 因为zookeeper 通过判断大多数节点的存活来判断整个服务是否可用。比如3个节点，挂掉了2个表示整个集群挂掉，而用偶数4个，挂掉了2个也表示其并不是大部分存活，因此也会挂掉。
 
-## 集群部署
+## 3 集群部署
 
 ### 配置语法：
 ```server.<节点ID>=<ip>:<数据同步端口>:<选举端口>```
@@ -164,7 +162,7 @@ Created /tt0000000001
 
 
 
-## 集群角色说明
+## 4 集群角色说明
 
 zookeeper 集群中总共有三种角色，分别是leader（主节点）follower(子节点) observer（次级子节点）
 
@@ -181,7 +179,7 @@ zookeeper 集群中总共有三种角色，分别是leader（主节点）followe
 server.3=127.0.0.1:2889:3889:observer
 ```
 
-## 选举机制
+## 5 集群选举机制
 
 通过 ./bin/zkServer.sh status <zoo配置文件> 命令可以查看到节点状态，可以发现中间的2182 是leader状态
 
@@ -194,7 +192,7 @@ Mode: leader
 Mode: follower
 ```
 
-### 投票机制说明
+## 5.1 投票机制说明
 
 1. 第一轮投票全部投给自己
 
@@ -204,44 +202,40 @@ Mode: follower
 
 其选举机制如下图：
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gywytfrbw1j31bi0u0gpa.jpg)
+<img src="https://tva1.sinaimg.cn/large/008i3skNly1gywytfrbw1j31bi0u0gpa.jpg" style="zoom:33%;" />
 
-### **选举触发：**
+## 5.2 **选举触发：**
+
 当集群中的服务器出现已下两种情况时会进行Leader的选举
 
 1. 服务节点初始化启动。当节点初始起动时会在集群中寻找Leader节点，如果找到则与Leader建立连接，其自身状态变化**follower**或**observer。**如果没有找到Leader，当前节点状态将变化LOOKING，进入选举流程。
 2. 半数以上的节点无法和Leader建立连接。在集群运行其间如果有follower或observer节点宕机只要不超过半数并不会影响整个集群服务的正常运行。但如果leader宕机，将暂停对外服务，所有follower将进入LOOKING 状态，进入选举流程。
 
-## 数据同步机制
+## 5.3 数据同步机制
 
 zookeeper 的数据同步是为了保证各节点中数据的一至性，同步时涉及两个流程，一个是正常的客户端数据提交，另一个是集群某个节点宕机在恢复后的数据同步。
 
-### 客户端写入请求
+## 5.3.1 客户端写入请求
 
-写入请求的大至流程是，收leader接收客户端写请求，并同步给各个子节点。如下图：
+当我们使用zookeeper客户端向Zookeeper 集群的某一个 Server 发送事务请求时，也就是对 Znode 节点的增删改操作时。
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gywz51yujxj30xi0r2taw.jpg" style="zoom:50%;" />
-
-但实际情况要复杂的多，比如client 它并不知道哪个节点是leader 有可能写的请求会发给follower ，由follower在转发给leader进行同步处理
-
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gywz6vog9pj316g0u00wf.jpg" style="zoom: 50%;" />
-
-客户端写入流程说明：
-
-1. client向zk中的server发送写请求，如果该server不是leader，则会将该写请求转发给leader server，leader将请求事务以proposal（建议）形式分发给follower；
+1. 如果该server不是leader，则会将该写请求转发给leader server，leader将请求事务以proposal（建议）形式分发给follower；
 2. 当follower收到收到leader的proposal时，根据接收的先后顺序处理proposal；
 3. 当Leader收到follower针对某个proposal过半的ack后，（即follower过半都已经同步完成）则发起事务提交，重新发起一个commit的proposal
 4. Follower收到commit的proposal后，记录事务提交，并把数据更新到内存数据库；
 5. 当写成功后，反馈给client。
 
-### 服务节点初始化同步
+<img src="https://tva1.sinaimg.cn/large/008i3skNly1gywz6vog9pj316g0u00wf.jpg" style="zoom: 33%;" />
+
+## 5.3.2 服务节点初始化同步
+
 - 在集群运行过程当中如果有一个follower节点宕机，由于宕机节点没过半，集群仍然能正常服务。
 
 - 当leader 收到新的客户端请求，此时无法同步给宕机的节点。造成数据不一致。为了解决这个问题，当节点启动时，第一件事情就是找当前的Leader，比对数据是否一致。不一致则开始同步,同步完成之后在进行对外提供服务。故在节点同步数据期间，该节点不会对外提供服务。
 
 - Leader挂了后，选举leader的过程中，集群不可以对外提供服务。
 
-### 5.四字运维命令
+# 6 四字运维命令
 
 ZooKeeper响应少量命令。每个命令由四个字母组成。可通过telnet或nc向ZooKeeper发出命令。
 这些命令默认是关闭的，需要配置4lw.commands.whitelist来打开，可打开部分或全部示例如下：
