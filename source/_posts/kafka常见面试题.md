@@ -15,11 +15,6 @@ categories: kafka
    - RabbitMQ,遵循AMQP协议，用在实时的对可靠性要求比较高的消息传递上。
    - kafka它主要用于处理活跃的流式数据,大数据量的数据处理上。
 
-2. 在架构模型上：
-
-   - RabbitMQ遵循AMQP协议，RabbitMQ的broker由Exchange,Binding,queue组成。其中exchange和binding组成了消息的路由键；客户端Producer通过连接channel和server进行通信，Consumer从queue获取消息进行消费（长连接，queue有消息会推送到consumer端，consumer循环从输入流读取数据）。rabbitMQ以broker为中心；有消息的确认机制。
-   - kafka遵从一般的MQ结构，producer，broker，consumer，以consumer为中心，消息的消费信息保存的客户端consumer上，consumer根据消费的点，从broker上批量pull数据；无消息确认机制。
-
 3. 吞吐量上：
 
    - rabbitMQ在吞吐量方面稍逊于kafka，他们的出发点不一样，rabbitMQ支持对消息的可靠的传递，支持事务，不支持批量的操作
@@ -131,11 +126,14 @@ Kafka 遵循了一种大部分消息系统共同的传统的设计：producer �
 
  解决方式：
 
--  数据库/redis：设置一个唯一的id去标志这条消息，消费时去查询一下，如果已经消费过了，则不进行消费。 
+-  消费消息服务做幂等校验，比如：数据库/redis：设置一个唯一的id去标志这条消息，消费时去查询一下，如果已经消费过了，则不进行消费。 
 
-- redis分布式锁
+-  将`enable.auto.commit`参数设置为 false，关闭自动提交，开发者在代码中手动提交 offset。那么这里会有个问题：
 
+   什么时候提交offset合适？
 
+   - 处理完消息再提交：依旧有消息重复消费的风险，和自动提交一样
+   - 拉取到消息即提交：会有消息丢失的风险。允许消息延时的场景，一般会采用这种方式。然后，通过定时任务在业务不繁忙（比如凌晨）的时候做数据兜底。
 
 - # 6 Zookeeper 在 Kafka 中的作用?
 

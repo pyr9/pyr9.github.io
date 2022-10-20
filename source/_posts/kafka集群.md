@@ -13,7 +13,12 @@ categories: kafka
 # 1 概念
 
 - Kafka集群依赖于Zookeeper进行协调，Kafka节点只要注册到同一个Zookeeper上就代表它们是同一个集群的
+
 - Kafka通过brokerId来区分集群中的不同节点
+
+  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fdishipej211g0jstbf.jpg" style="zoom:50%;" />
+
+<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fdhfzd18j215u0gsach.jpg" style="zoom:50%;" />
 
 # 2 **Kafka集群中的几个角色：**
 
@@ -36,14 +41,14 @@ categories: kafka
 1. producer 先从 zookeeper 的 "/brokers/.../state" 节点找到该 partition 的 leader 
 2. producer 将消息发送给该 leader 
 3. leader 将消息写入本地 log 
-4. followers 从 leader pull 消息，写入本地 log 后 leader 发送 ACK 
+4. followers 从 leader pull  消息，写入本地 log 后 leader 发送 ACK 
 5. leader 收到所有 ISR 中的 replica 的 ACK 后，增加 HW（high watermark，最后 commit 的 offset） 并向 producer 发送 ACK
 
-# 5 **Kafka Leader选举机制简介**
+# 5 Partition副本选举Leader机制
 
 - 如果有接触过其他一些分布式组件就会了解到大部分组件都是通过投票选举来在众多节点中选举出一个leader，但在Kafka中没有采用投票选举来选举leader
 - Kafka会动态维护一组Leader数据的副本（ISR）
-- Kafka会在ISR中选择一个速度比较快的设为leader
+- Kafka会在ISR列表里挑第一个broker作为leader(第一个broker最先放进ISR列表，可能是同步数据最多的副本)
 
 Kafka有一种无奈的情况，就是ISR中副本全部宕机。对于这种情况，Kafka默认会进行unclean leader选举。Kafka提供了两种不同的方式进行处理：
 
@@ -55,7 +60,19 @@ Kafka有一种无奈的情况，就是ISR中副本全部宕机。对于这种情
 
 - 并未包含所有已被之前Leader Commit过的消息，因此会造成数据丢失，但可用性较高
 
+# 6 Controller
 
+在kafka集群启动的时候，会自动选举一台broker作为controller，它负责管理整个集群中所有分区和副本的状态。
+
+-  当某个分区的leader副本出现故障时，由控制器负责为该分区**选举新的leader**副本。
+- 当检测到某个分区的ISR集合发生变化时，由控制器负责**通知所有broker更新其元数据信息**。
+- 当使用kafka-topics.sh脚本为某个topic**增加分区数量**时，同样还是由控制器负责让新分区被其他节点感知到。
+
+# 7 Controller选举机制
+
+- 集群中每个broker都会尝试在zookeeper上创建一个 /controller 临时节点
+- zookeeper会保证有且仅有一个broker能创建成功，这个broker就会成为集群的总控器controller
+- 当这个controller角色的broker宕机了，此时zookeeper临时节点会消失，集群里其他broker会一直监听这个临时节点，发现临时节点消失了，就竞争再次创建临时节点
 
 # 3 集群配置流程
 

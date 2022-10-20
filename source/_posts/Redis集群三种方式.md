@@ -42,6 +42,8 @@ categories: redis
 
 #### 1. 全量复制流程：
 
+Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Master上的所有数据都复制一份，具体步骤如下：
+
 <img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv2yicirhj30tq0lggnx.jpg" style="zoom:50%;" />
 
 1. 如果你为master配置了一个slave，不管这个slave是否是第一次连接上Master，它都会发送一个**SYNC**命令(redis2.8版本之前的命令)master请求复制数据。
@@ -72,7 +74,12 @@ categories: redis
    - 从节点数据下标 offset还在缓存队列里，那么将会从slave记录的数据下标开始从缓存区复制。
    - 如果master进程id变化了，或者从节点数据下标 offset太旧，已经不在master的缓存队列里了，那么将会进行一次全量数据的复制
    
-   
+
+#### 3 增量复制
+
+- 是指在初始化的全量复制并开始正常工作之后，master服务器将发生的写操作同步到slave服务器的过程
+
+- 增量复制的过程主要是master服务器每执行一个写命令就会向slave服务器发送相同的写命令，slave服务器接收并执行收到的写命令。
 
 ## 2. 哨兵模式
 
