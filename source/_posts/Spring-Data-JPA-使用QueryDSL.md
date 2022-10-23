@@ -12,7 +12,7 @@ categories: JPA
 - QueryDSL是基于ORM框架或SQL平台上的**一个通用查询框架**。借助QueryDSL可以在任何支持的ORM框架或SQL平台 **上以通用API方式构建查询。**
 - JPA是QueryDSL的主要集成技术，是JPQL和Criteria查询的代替方法。目前QueryDSL支持的平台包括 JPA,JDO,SQL,Mongodb 等等
 
-- Querydsl扩展能让我们以链式方式代码编写查询方法。该扩展需要一个接口QueryDslPredicateExecutor，它定义了很多查询方法。
+- Querydsl扩展能让我们以**链式方式代码编写查询方法**。该扩展需要一个接口QueryDslPredicateExecutor，它定义了很多查询方法。
 
 # 2 Spring Data JPA 使用QueryDSL
 
@@ -93,7 +93,7 @@ categories: JPA
 
 ## 2 . 添加实体类和Jpa的配置
 
-参考：
+参考：[Spring data JPA的CRUD - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/Spring data JPA的CRUD/)
 
 ## 3. 编写Repository
 
@@ -153,14 +153,4 @@ public class QueryDslTest {
 ```
 
 
-
-
-
-
-
-```java
-14 public void test02(){ 
-  QCustomer qCustomer = QCustomer.customer; 
-  Iterable<Customer> all = repository.findAll(qCustomer.id.in(1L, 5L).and(qCustomer.firstName.in("徐庶", "王五"))); 17 System.out.println(all);
-```
 

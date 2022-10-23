@@ -18,7 +18,7 @@ Github: https://github.com/panyurou
 
 # 用于浏览器标签的图标
 # Icon for browser tab
-favicon: /img/favicon.png
+favicon: https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg
 
 # 用于苹果设备的图标
 # Icon for Apple touch
@@ -314,7 +314,7 @@ navbar:
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
-    - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
+    #- { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
@@ -429,12 +429,12 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: /img/05.jpeg
-
+#  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fkyiiocfj31hc0u0wkx.jpg
+  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fl1j9pa4j31hc0u0wje.jpg
   # 头图高度，屏幕百分比
   # Height ratio of banner image
   # Available: 0 - 100
-  banner_img_height: 100
+  banner_img_height: 80
 
   # 头图黑色蒙版的不透明度，available: 0 - 1.0， 1 是完全不透明
   # Opacity of the banner mask, 1.0 is completely opaque
@@ -501,7 +501,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/05.jpeg
+  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
@@ -805,8 +805,8 @@ cusdis:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/05.jpeg
-  banner_img_height: 60
+  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fl5xjem7j31hc0u0wkx.jpg
+  banner_img_height: 80
   banner_mask_alpha: 0.3
   subtitle:
 
@@ -817,8 +817,8 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/05.jpeg
-  banner_img_height: 60
+  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7flak1v6xj31o00u00xr.jpg
+  banner_img_height: 80
   banner_mask_alpha: 0.3
   subtitle:
 
@@ -847,7 +847,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/05.jpeg
+  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fl05uc98j30zk0k00tv.jpg
   banner_img_height: 80
   banner_mask_alpha: 0.3
   subtitle:
@@ -864,8 +864,8 @@ tag:
 # About Page
 #---------------------------
 about:
-  enable: true
-  banner_img: /img/05.jpeg
+  enable: false
+  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fk9sr1a4j31hc0u0wje.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
