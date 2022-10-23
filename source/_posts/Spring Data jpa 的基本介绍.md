@@ -1,5 +1,5 @@
 ---
-title: Spring Data jpa
+title: Spring Data jpa 的基本介绍
 date: 2022-10-16 16:03:46
 tags: JPA
 categories: JPA
@@ -40,9 +40,12 @@ Spring Data是Spring 社区的一个子项目，主要用于简化数据（关�
 
 # 5 **Spring Data JPA**是什么？
 
-- Spring Data JPA是在实现了JPA规范的基础上封装的一套 JPA 应用框架。
+- Spring Data JPA是spring提供的，在实现了JPA规范的基础上封装的一套 **JPA 应用框架**。
 - Spring Data JPA旨在通过将统一ORM框架的访问持久层的操作，来提高开发人的效率。
-- 虽然ORM框架都实现了JPA规范，但是在不同的ORM框架之间切换仍然需要编写不同的代码，而使用Spring Data JPA能够方便大家在不同的ORM框架之间进行切换而不需要更改代码。
+- 虽然ORM框架都实现了JPA规范，但是在不同的ORM框架之间切换仍然需要编写不同的代码，而使用**Spring Data JPA能够方便大家在不同的ORM框架之间进行切换而不需要更改代码**。
+- 按照约定好的规则进行【方法命名】去写dao层接口，就可以在不写接口实现的情况下，实现对数据库的访问和操作。同时提供了很多除了CRUD之外的功能，如分页、排序、复杂查询等等
+- Spring Data JPA 让我们解脱了DAO层的操作，基本上所有CRUD都可以依赖于它来实现,
+- 在实际的工作工程中，**推荐使用Spring Data JPA + ORM（如：hibernate）**完成操作，这样在切换不同的ORM框架时提供了极大的方便，同时也使数据库层操作更加简单，方便解耦
 
 ## 5.1 **Spring Data JPA给我们提供的主要的类和接口**
 
@@ -52,7 +55,11 @@ Spring Data是Spring 社区的一个子项目，主要用于简化数据（关�
 
   - CrudRepository
 
-  - JpaRepository
+  - JpaRepository = 基本`CRUD`功能+分页+按“实例”查询
+
+    ```java
+    public interface JpaRepository<T, ID> extends PagingAndSortingRepository<T, ID>, QueryByExampleExecutor
+    ```
 
 - Repository 实现类：
 

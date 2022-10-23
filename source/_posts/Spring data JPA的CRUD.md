@@ -1,21 +1,15 @@
 ---
-title: Spring Data JPA“
+title: Spring data JPA的CRUD
 date: 2022-10-19 22:49:49
 tags: 
 - 数据库
+- springData JPA
 categories: JPA
 ---
 
-# 1 **Spring data JPA**是什么？
+# 1 Spring data JPA的CRUD
 
-- spirng data jpa是spring提供的一套**简化JPA开发的框架**，按照约定好的规则进行【方法命名】去写dao层接口，就可以在不写接口实现的情况下，实现对数据库的访问和操作。同时提供了很多除了CRUD之外的功能，如分页、排序、复杂查询等等
-
-- **Spring Data JPA 旨在改** **进数据访问层的实现以提升开发效率**
-- Spring Data JPA 让我们解脱了DAO层的操作，基本上所有CRUD都可以依赖于它来实现,在实际的工作工程中，推荐使用Spring Data JPA + ORM（如：hibernate）完成操作，这样在切换不同的ORM框架时提供了极大的方便，同时也使数据库层操作更加简单，方便解耦
-
-# 2 整合步骤
-
-## 2.1 引入依赖
+## 1.1 引入依赖
 
 ```xml
 dependencies>
@@ -50,7 +44,7 @@ dependencies>
     </dependencyManagement>
 ```
 
-## 2.2 配置spring Data JPA
+## 1.2 配置spring Data JPA
 
 ```java
 package org.pyr.config;
@@ -106,7 +100,7 @@ public class JPAConfig {
 }
 ```
 
-## 2.3 添加实体类
+## 1.3 添加实体类
 
 ```java
 package org.pyr.entity;
@@ -143,7 +137,7 @@ public class Customer{
 }
 ```
 
-## 2.4 编写测试类
+## 1.4 编写测试类
 
 ```java
 package org.pyr;
@@ -195,106 +189,3 @@ public class JPATest {
     }
 }
 ```
-
-# 3 spring Data JPA 使用JPQL
-
-JPQL（Java Presistence Query Language ）是EJB3.0中的JPA造出来的对象查询语言。JPQL是完全面向对象的，具备继承、多态和关联等特性，和hibernate HQL很相似。
-
-- Repository 方法
-
-```java
-package org.pyr.repositories;
-
-import org.pyr.entity.Customer;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-@Repository
-public interface CustomerJPQLRepository extends PagingAndSortingRepository<Customer, Long> {
-
-    @Query("From Customer where custName = :custName")
-    Customer findCustomerByCustName(@Param("custName") String custName);
-
-    @Query("From Customer where custName = ?1")
-    Customer findCustomerByCustName2(String custName);
-
-    @Transactional // 通常在业务逻辑中service增加，而不是这里
-    @Modifying
-    @Query("UPDATE Customer set custName = :custName where custId = :custId")
-    int updateCutomserNameById(@Param("custName") String custName, @Param("custId") long custId);
-
-    @Transactional // 通常在业务逻辑中service增加，而不是这里
-    @Modifying
-    @Query("DELETE from Customer where custId = :custId")
-    int deleteCutomserById(@Param("custId") long custId);
-}
-
-```
-
-- 测试方法
-
-```java
-package org.pyr;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.pyr.config.JPAConfig;
-import org.pyr.entity.Customer;
-import org.pyr.repositories.CustomerJPQLRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-@ContextConfiguration(classes = JPAConfig.class)
-@RunWith(SpringJUnit4ClassRunner.class)
-public class JPATest2 {
-    @Autowired
-    CustomerJPQLRepository customerJPQLRepository;
-
-    @Test
-    public void testFindByName(){
-        Customer customer = customerJPQLRepository.findCustomerByCustName("徐庶143");
-        System.out.println(customer);
-    }
-
-    @Test
-    public void testFindById(){
-        Customer customer = customerJPQLRepository.findCustomerByCustName2("徐庶143");
-        System.out.println(customer);
-    }
-
-    @Test
-    public void testUpdate(){
-        customerJPQLRepository.updateCutomserNameById("lisa", 2L);
-    }
-
-    @Test
-    public void testDelete(){
-        customerJPQLRepository.deleteCutomserById(2L);
-    }
-}
-```
-
-# 4  spring Data JPA 使用SQL
-
-- Repository 方法
-
-```java
-    @Query(value = "select * from cst_customer where cust_name = :custName", nativeQuery = true)
-    Customer findCustomerByCustNameWithNative(@Param("custName") String custName);
-```
-
-- 测试
-
-```java
-    @Test
-    public void testFindCustomerByCustNameWithNative(){
-        Customer customer = customerJPQLRepository.findCustomerByCustNameWithNative("aa");
-        System.out.println(customer);
-    }
-```
-
