@@ -83,6 +83,91 @@ categories: Vue
 </body>
 ```
 
+## 5 模版语法
 
+-  ` {{ message }}` 展示字符串文本
+- `v-bind:class="'btnb tn-sm'"` 绑定属性
+
+<img src="/Users/panyurou/Library/Application Support/typora-user-images/image-20221023232100807.png" alt="image-20221023232100807" style="zoom:50%;" />
+
+- `v-html`: 翻译成html标签
+- `{{ ok ? 'YES':'No' }}` 三元运算
+- `{{ message.spilt('').join(',') }}`:  vue支持js表达式
+
+
+
+- V-if 控制元素是否切换
+
+```vue
+<div id="app-3">
+  <p v-if="seen">现在你看到我了</p>
+</div>
+```
+
+```js
+var app3 = new Vue({
+  el: '#app-3',
+  data: {
+    seen: true
+  }
+})
+```
+
+- @click 绑定事件
+
+<img src="/Users/panyurou/Library/Application Support/typora-user-images/image-20221023231840513.png" alt="image-20221023231840513" style="zoom:50%;" />
 
  
+
+![image-20221023232442286](/Users/panyurou/Library/Application Support/typora-user-images/image-20221023232442286.png)
+
+
+
+
+
+- 可以定义请求返回的数据的格式
+
+```
+data: function () {
+    return {
+        isEdit: false,
+        businessDataFromApi: null
+    }
+}
+
+ getBusinessDataByQueryApi() {
+            if (this.queryApi !== undefined) {
+                let url = `${this.$store.state[this.entity].baseModuleUrl}/${this.entity}/` + this.queryApi;
+                this.$store.dispatch('api/post', {
+                    url: url,
+                    data: {
+                        idFilter: this.businessData.id === undefined ? this.$route.query.id : this.businessData.id
+                    }
+                }).then(response => {
+                    if (response.data.list.length === 1) {
+                        this.businessDataFromApi = response.data.list[0];
+                    }
+                })
+            }
+        }
+```
+
+- ![image-20221024231200647](/Users/panyurou/Library/Application Support/typora-user-images/image-20221024231200647.png)
+
+![image-20221024231215526](/Users/panyurou/Library/Application Support/typora-user-images/image-20221024231215526.png)
+
+- 
+
+- ```
+  handleClick(col, $event) 
+  ```
+
+- @click="handleClick()" 和@click="handleClick"的区别在于：第一个拿不到event事件，如果要拿到事件，需要写成@click="handleClick($event)"
+
+- 阻止默认行为@click.prevent
+
+- @click.once 只执行一次事件触发
+
+- @click.self 只有e.target = e.currentTarget的时候才会执行
+
+  <img src="/Users/panyurou/Library/Application Support/typora-user-images/image-20221108210854373.png" alt="image-20221108210854373" style="zoom: 33%;" /> 
