@@ -2,7 +2,7 @@
 title: clickhouse基本数据类型
 date: 2022-02-01 22:18:40
 tags: 分布式框架
-categories: clickhouse
+categories: Clickhouse
 ---
 
 # clickhouse基本数据类型

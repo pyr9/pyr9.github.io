@@ -2,7 +2,7 @@
 title: 第一个SpringBoot项目
 date: 2021-12-25 20:13:48
 tags: springboot
-categories: springboot
+categories: Springboot
 ---
 
 # 编写代码

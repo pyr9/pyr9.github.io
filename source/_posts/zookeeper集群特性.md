@@ -2,7 +2,7 @@
 title: zookeeper集群特性
 date: 2021-09-24 20:41:20
 tags: 分布式框架
-categories: zookeeper
+categories: Zookeeper
 ---
 
 ---

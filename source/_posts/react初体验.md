@@ -2,7 +2,7 @@
 title: react初体验
 date: 2022-04-27 22:52:51
 tags: 概念
-categories: react
+categories: React
 ---
 
 # React是什么？

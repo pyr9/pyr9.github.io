@@ -2,7 +2,7 @@
 title: clickhouse表引擎
 date: 2022-02-03 13:24:24
 tags: 数据库
-categories: clickhouse
+categories: Clickhouse
 ---
 
 # 表引擎介绍

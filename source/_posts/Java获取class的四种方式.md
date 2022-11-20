@@ -1,8 +1,9 @@
 ---
 title: Java获取class的五种方式
 date: 2022-07-13 22:32:32
-tags: Java基础
-categories: Java
+tags: 
+- java基础
+categories: Java基础
 ---
 
 # 获取Class 类实例的五种方式

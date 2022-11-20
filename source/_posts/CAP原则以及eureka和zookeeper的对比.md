@@ -5,7 +5,7 @@ tags:
 - 分布式
 - CAP原则
 - eureka
-categories: springCloud
+categories: 微服务
 ---
 
 # 1 CAP理论是什么？

@@ -2,7 +2,7 @@
 title: springCloud之集成Feign
 date: 2022-07-18 19:13:24
 tags: 分布式
-categories: springCloud
+categories: 微服务
 ---
 
 # Feign是什么？

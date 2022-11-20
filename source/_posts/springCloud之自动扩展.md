@@ -4,7 +4,7 @@ date: 2022-07-20 21:52:57
 tags:
 - 分布式
 - 自动扩展
-categories: springCloud
+categories: 微服务
 ---
 
 # 什么是自动扩展？

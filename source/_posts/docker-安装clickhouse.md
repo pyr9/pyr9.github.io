@@ -2,7 +2,7 @@
 title: docker安装clickhouse
 date: 2022-02-01 21:44:28
 tags: 分布式框架
-categories: clickhouse
+categories: Clickhouse
 ---
 
 1.启动容器服务，加载镜像

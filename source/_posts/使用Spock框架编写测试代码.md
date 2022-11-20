@@ -2,7 +2,8 @@
 title: 使用Spock框架编写测试代码
 date: 2021-10-07 19:02:07
 tags:
-categories: spock
+- spock
+categories: 测试框架
 ---
 
 ## Spock 介绍

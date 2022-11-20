@@ -2,7 +2,7 @@
 title: isAssignableFrom()
 date: 2022-07-17 16:24:24
 tags: java基础
-categories: java
+categories: Java基础
 ---
 
 # isAssignableFrom()

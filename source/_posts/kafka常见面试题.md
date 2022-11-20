@@ -2,7 +2,7 @@
 title: kafka知识点整理
 date: 2022-08-16 14:48:37
 tags: 整理
-categories: kafka
+categories: Kafka
 ---
 
 ### kafka和RabbitMq的对比

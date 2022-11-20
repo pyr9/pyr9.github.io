@@ -2,7 +2,7 @@
 title: rabbitMq集群
 date: 2022-09-21 23:38:13
 tags: 集群
-categories: rabbitMQ
+categories: RabbitMQ
 ---
 
 # 普通集群模式

@@ -2,7 +2,7 @@
 title: Redis集群三种方式
 date: 2021-12-28 22:45:20
 tags: redis主从架构
-categories: redis
+categories: Redis
 ---
 
 # 为什么要有集群

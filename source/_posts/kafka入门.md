@@ -4,7 +4,7 @@ date: 2022-08-13 09:33:28
 tags: 
  - 消息队列
  - 分布式框架
-categories: kafka
+categories: Kafka
 ---
 
 # 1 kafka 是什么？

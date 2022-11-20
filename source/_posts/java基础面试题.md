@@ -2,7 +2,7 @@
 title: java知识点整理
 date: 2022-08-16 09:28:59
 tags: 整理
-categories: java
+categories: Java基础
 ---
 
 ### 死锁

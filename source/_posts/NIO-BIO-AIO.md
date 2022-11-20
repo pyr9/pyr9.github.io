@@ -2,7 +2,7 @@
 title: 'NIO,BIO,AIO'
 date: 2022-08-15 18:03:23
 tags:
-categories: java
+categories: Java基础
 ---
 
 ### 1.BIO、NIO、AIO定义

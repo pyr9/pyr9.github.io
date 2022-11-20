@@ -2,7 +2,7 @@
 title: redis持久化
 date: 2021-12-27 22:40:53
 tags: redis持久化
-categories: redis
+categories: Redis
 ---
 
 > redis 持久化主要有2种方式：RDB 和AOF

@@ -3,7 +3,7 @@ title: mysql锁
 date: 2021-12-18 22:03:27
 tags:
  - mysql锁
-categories: mysql
+categories: 数据库
 ---
 
 # 锁是什么？

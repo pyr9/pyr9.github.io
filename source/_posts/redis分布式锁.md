@@ -6,7 +6,7 @@ tags:
 - redis
 - mysql
 - zookeeper
-categories: 分布式
+categories: Zookeeper
 ---
 
 # 1 什么是分布式锁

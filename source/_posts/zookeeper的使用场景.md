@@ -2,7 +2,7 @@
 title: zookeeper的使用场景
 date: 2022-09-20 16:28:35
 tags: 
-categories: zookeeper
+categories: Zookeeper
 ---
 
 # 1 ZooKeeper 实现分布式 ID

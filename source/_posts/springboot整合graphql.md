@@ -2,7 +2,7 @@
 title: springboot整合graphql
 date: 2021-10-06 17:49:08
 tags: graphql
-categories: springboot
+categories: Springboot
 ---
 
  GraphQL是比REST更高效、强大和灵活的**新一代API标准**。详细的可以看官网[GraphQL](https://graphql.cn/)。

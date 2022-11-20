@@ -3,7 +3,7 @@ title: Redis缓存问题
 date: 2021-12-29 22:45:20
 tags: 
 - 缓存
-categories: redis
+categories: Redis
 ---
 
 # 1 **缓存穿透**

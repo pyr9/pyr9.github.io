@@ -4,7 +4,7 @@ date: 2022-07-18 17:37:36
 tags: 
 - 分布式 
 - 集中化配置
-categories: springCloud
+categories: 微服务
 ---
 
 # 集中化配置

@@ -5,7 +5,7 @@ tags:
 - 分布式
 - 注册中心
 - consul
-categories: springCloud
+categories: 微服务
 ---
 
 # Consul

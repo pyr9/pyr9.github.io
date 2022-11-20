@@ -2,7 +2,7 @@
 title: clickHouse的SQL操作
 date: 2022-02-04 22:50:09
 tags: 数据库
-categories: clickhouse
+categories: Clickhouse
 ---
 
 # ClickHouse的SQL操作

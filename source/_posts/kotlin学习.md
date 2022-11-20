@@ -1,8 +1,8 @@
 ---
-title: kotlin学习
+title: kotlin基础
 date: 2021-10-06 21:51:30
 tags:
-categories: kotlin
+categories: Kotlin
 ---
 
 ## 1.Kotlin 是什么？ 

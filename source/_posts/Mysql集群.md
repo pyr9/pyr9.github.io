@@ -3,7 +3,7 @@ title: Mysql集群
 date: 2022-09-21 16:46:09
 tags:
 - 集群
-categories: mysql
+categories: 数据库
 ---
 
 # 1 主从模式

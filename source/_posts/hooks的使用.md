@@ -2,7 +2,7 @@
 title: hooks的使用
 date: 2022-05-12 23:23:38
 tags: hook 
-categories: react
+categories: React
 ---
 # useRef
 案例效果：

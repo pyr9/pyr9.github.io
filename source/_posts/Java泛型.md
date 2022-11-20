@@ -3,7 +3,7 @@ title: Java泛型
 date: 2022-11-09 22:31:12
 tags: 
 - 泛型
-categories: java
+categories: Java基础
 ---
 
 # 1.泛型概念

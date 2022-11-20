@@ -2,7 +2,7 @@
 title: Kafka 持久化
 date: 2022-08-13 17:26:18
 tags: 消息队列
-categories: kafka
+categories: Kafka
 ---
 
 # 1 Kafka 持久化

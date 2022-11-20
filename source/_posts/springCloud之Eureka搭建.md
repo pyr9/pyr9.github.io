@@ -2,7 +2,7 @@
 title: springCloud之Eureka搭建
 date: 2022-07-17 23:02:31
 tags: 微服务
-categories: springCloud
+categories: 微服务
 ---
 
 # Eureka是什么？

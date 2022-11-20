@@ -2,7 +2,7 @@
 title: mysql事务隔离性的实现
 date: 2022-06-13 21:43:17
 tags: mysql事务
-categories: mysql
+categories: 数据库
 ---
 
 # mysql事务隔离性的实现

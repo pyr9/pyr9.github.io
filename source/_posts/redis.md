@@ -2,7 +2,7 @@
 title: redis 核心数据结构
 date: 2021-12-26 19:07:28
 tags: redis 核心数据结构
-categories: redis
+categories: Redis
 ---
 
 # redis 是什么？

@@ -2,7 +2,7 @@
 title: zookeeper节点介绍
 date: 2022-09-20 15:46:47
 tags: 分布式框架
-categories: zookeeper
+categories: Zookeeper
 ---
 
 # 1 Zookeeper 数据模型

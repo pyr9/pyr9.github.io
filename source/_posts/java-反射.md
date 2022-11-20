@@ -2,7 +2,7 @@
 title: java 反射
 date: 2022-07-17 16:43:34
 tags: java基础
-categories: java
+categories: Java基础
 ---
 
 # 反射是什么？

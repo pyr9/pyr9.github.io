@@ -5,7 +5,7 @@ tags:
  - 消息队列
  - 集群
  - 分布式框架
-categories: kafka
+categories: Kafka
 ---
 
 # kafka 集群

@@ -3,7 +3,7 @@ title: Java8的新特性之方法引用
 date: 2021-10-04 22:30:22
 tags:
   - 方法引用
-categories:  java8新特性
+categories: Java基础
 ---
 
 ### 1.方法引用是什么？

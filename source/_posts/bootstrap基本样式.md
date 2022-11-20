@@ -2,8 +2,8 @@
 title: bootstrap基本样式
 date: 2022-10-28 09:43:26
 tags: 
-- 前端
-categories: CSS
+- CSS
+categories: 前端
 ---
 
 # 边框

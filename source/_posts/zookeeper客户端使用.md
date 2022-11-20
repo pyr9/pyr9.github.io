@@ -2,7 +2,7 @@
 title: zookeeper客户端使用
 date: 2021-09-23 21:51:20
 tags: 分布式框架
-categories: zookeeper
+categories: Zookeeper
 ---
 
 ## 客户端API常规应用

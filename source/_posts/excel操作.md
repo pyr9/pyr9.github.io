@@ -1,8 +1,8 @@
 ---
 title: Excel基本写操作
 date: 2022-03-20 21:40:36
-tags: poi
-categories: excel
+tags: excel
+categories: Java基础
 ---
 
 # Excel基本写操作

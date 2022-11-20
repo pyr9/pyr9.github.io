@@ -2,7 +2,7 @@
 title: java 代理
 date: 2022-08-16 11:11:18
 tags: 面试题
-categories: java 
+categories: Java基础 
 ---
 
 # 代理

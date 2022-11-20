@@ -2,7 +2,7 @@
 title: RabbitMQ的7种工作模式
 date: 2021-10-27 21:35:27
 tags: 消息中间件
-categories: rabbitMQ
+categories: RabbitMQ
 ---
 
 # **RabbitMQ的7种工作模式** 

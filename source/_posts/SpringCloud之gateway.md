@@ -4,7 +4,7 @@ date: 2022-07-22 23:15:11
 tags:
 - gateWay
 - 网关
-categories: springCloud
+categories: 微服务
 ---
 
 # Spring Cloud Gateway

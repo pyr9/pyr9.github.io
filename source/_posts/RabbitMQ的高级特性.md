@@ -2,7 +2,7 @@
 title: RabbitMQ的高级特性
 date: 2022-09-10 22:17:03
 tags: 消息中间件
-categories: rabbitMQ
+categories: RabbitMQ
 ---
 
 # RabbitMQ的高级特性

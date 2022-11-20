@@ -2,7 +2,7 @@
 title: springCloud之Config+Bus
 date: 2022-07-23 23:11:50
 tags:
-categories: springCloud
+categories: 微服务
 ---
 
 # 消息总线

@@ -4,7 +4,7 @@
 title: Java8新特性之Stream流
 date: 2021-10-04 22:36:47
 tags: stream流
-categories: java8新特性
+categories: Java基础
 
 ---
 

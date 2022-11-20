@@ -4,7 +4,7 @@ date: 2022-08-23 09:39:25
 tags: 
 - 整理
 - 分布式
-categories: springCloud
+categories: 微服务
 ---
 
 ## 为什么会出现SpringCloud?

@@ -4,7 +4,7 @@ date: 2022-09-12 12:37:48
 tags: 
 - MQ
 - 消息可靠性
-categories: rabbitMQ
+categories: RabbitMQ
 ---
 
 # RabbitMQ如何保证消息的可靠性？

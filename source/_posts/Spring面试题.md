@@ -3,7 +3,7 @@ title: Spring知识点整理
 date: 2022-08-16 09:51:49
 tags:
 - 整理
-categories: java
+categories: Java基础
 ---
 
 #### Spring是什么？有什么优点

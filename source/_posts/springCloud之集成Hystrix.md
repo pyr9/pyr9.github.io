@@ -4,7 +4,7 @@ date: 2022-07-20 14:34:54
 tags:
 - 分布式
 - 服务熔断
-categories: springCloud
+categories: 微服务
 ---
 
 # 服务熔断

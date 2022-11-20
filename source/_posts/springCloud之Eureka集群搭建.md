@@ -5,7 +5,7 @@ tags:
 - 分布式
 - 集群
 - eureka
-categories: springCloud
+categories: 微服务
 ---
 
 # springCloud之Eureka集群搭建

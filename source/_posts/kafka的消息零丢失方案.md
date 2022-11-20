@@ -4,7 +4,7 @@ date: 2022-09-13 10:05:03
 tags:
 - MQ
 - 消息可靠性
-categories: kafka
+categories: Kafka
 ---
 
 # Kafka如何保证消息的可靠性？

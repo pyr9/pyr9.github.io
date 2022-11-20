@@ -2,7 +2,7 @@
 title: Mongodb集群
 date: 2022-09-22 23:01:54
 tags: 集群
-categories: mongoDB
+categories: MongoDB
 ---
 
 # 1. 主从模式

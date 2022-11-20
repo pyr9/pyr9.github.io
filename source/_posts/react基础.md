@@ -2,7 +2,7 @@
 title: react基础
 date: 2022-04-04 16:03:29
 tags: 组件
-categories: react 
+categories: React 
 ---
 
 # react组件基础

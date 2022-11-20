@@ -2,7 +2,7 @@
 title: rabbitMQ入门
 date: 2022-09-09 11:16:52
 tags: 消息中间件
-categories: rabbitMQ
+categories: RabbitMQ
 ---
 
 # MQ介绍

@@ -3,7 +3,7 @@ title: mysql分库分表
 date: 2022-09-22 14:43:41
 tags:
 - 分库分表
-categories: mysql
+categories: 数据库
 ---
 
 # 1 分库分表是什么

@@ -1,8 +1,8 @@
 ---
-title: oauth2
+title: Oauth2
 date: 2021-09-26 22:51:27
-tags: oauth2
-categories: oauth2
+tags: Oauth2
+categories: Oauth2
 
 ---
 

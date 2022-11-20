@@ -2,7 +2,7 @@
 title: springCloud之集成Zuul
 date: 2022-07-18 22:06:53
 tags: 分布式
-categories: springCloud
+categories: 微服务
 ---
 
 # API 网关

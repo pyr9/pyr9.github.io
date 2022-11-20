@@ -5,7 +5,7 @@ tags:
 - 分布式
 - 负载均衡
 - Ribbon
-categories: springCloud
+categories: 微服务
 ---
 
 # 负载均衡（load balance）

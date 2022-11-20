@@ -1,5 +1,5 @@
 ---
-title: Spring Data jpa 的基本介绍
+title: spring data JPA 的基本介绍
 date: 2022-10-16 16:03:46
 tags: JPA
 categories: JPA

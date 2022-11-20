@@ -2,7 +2,7 @@
 title: mysql事务隔离级别
 date: 2022-06-14 22:28:21
 tags: mysql事务
-categories: mysql
+categories: 数据库
 ---
 
 # mysql 事务
