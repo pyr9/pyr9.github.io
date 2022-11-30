@@ -62,8 +62,8 @@ ignore: null
 theme: fluid
 deploy:
   type: git
-  repo: https://github.com/panyurou/panyurou.github.io.git
-  branch: main
+  repo: git@github.com:panyuro/panyuro.github.io.git
+  branch: master
 toc:
     maxDepth: 5 
 # index2 generator是否包含官方的hexo-generator-index，默认true（包含）
