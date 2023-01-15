@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>mac下启动tomcat</title>
+    <link href="/mac%E4%B8%8B%E5%90%AF%E5%8A%A8tomcat/"/>
+    <url>/mac%E4%B8%8B%E5%90%AF%E5%8A%A8tomcat/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h1><p>登录Apache Tomcat官网，地址 <a href="http://tomcat.apache.org/">http://tomcat.apache.org</a> ，左边的Download，点击选择需要下载的版本 Tomcat8</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115204748.png"></p><h2 id="2-启动"><a href="#2-启动" class="headerlink" title="2 启动"></a>2 启动</h2><p>下载下来解压，进入bin目录，运行<code>./startup.sh</code></p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115205133.png"></p><p>停止运行 <code>./shutdown.sh</code></p><h1 id="3-修改默认端口号"><a href="#3-修改默认端口号" class="headerlink" title="3 修改默认端口号"></a>3 修改默认端口号</h1><p>不修改的话，可以直接访问8080端口，我这里修改成了8888</p><ol><li>进入conf 目录 <code>cd conf</code></li><li>修改server.xml  <code>vim server.xml</code></li></ol><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115205500.png"></p><h1 id="4-设置用户信息"><a href="#4-设置用户信息" class="headerlink" title="4 设置用户信息"></a>4 设置用户信息</h1><p>如果需要manager App，还需要增加用户名和密码</p><ol><li><p>进入conf 目录 <code>cd conf</code></p></li><li><p>修改server.xml  <code>vim tomcat-users.xml</code></p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115205918.png"></p></li></ol><h1 id="5-访问-8888端口"><a href="#5-访问-8888端口" class="headerlink" title="5 访问 8888端口"></a>5 访问 8888端口</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115210632.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>tomcat</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>nexus私服搭建与核心功能</title>
+    <link href="/nexus%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/"/>
+    <url>/nexus%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-私服使用场景"><a href="#1-私服使用场景" class="headerlink" title="1. 私服使用场景"></a>1. 私服使用场景</h1><p>分布式系统，多个项目依赖的共享</p><h1 id="2-nexus安装"><a href="#2-nexus安装" class="headerlink" title="2 nexus安装"></a>2 nexus安装</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>maven</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>jenkins之war包部署</title>
     <link href="/jekins%E6%94%AFwar%E5%8C%85%E9%83%A8%E7%BD%B2/"/>
     <url>/jekins%E6%94%AFwar%E5%8C%85%E9%83%A8%E7%BD%B2/</url>
@@ -125,19 +163,6 @@
       <category>Vue</category>
       
     </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>travel</title>
-    <link href="/travel/"/>
-    <url>/travel/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
     
     
   </entry>
