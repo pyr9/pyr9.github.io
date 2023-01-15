@@ -4,6 +4,147 @@
   
   
   <entry>
+    <title>jenkins之war包部署</title>
+    <link href="/jekins%E6%94%AFwar%E5%8C%85%E9%83%A8%E7%BD%B2/"/>
+    <url>/jekins%E6%94%AFwar%E5%8C%85%E9%83%A8%E7%BD%B2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-插件安装"><a href="#1-插件安装" class="headerlink" title="1. 插件安装"></a>1. 插件安装</h1><ul><li><p>Maven Integration</p></li><li><p>Pipeline Maven Integration</p></li><li><p>Deploy to container</p></li></ul><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115200509.png"></p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115200537.png"></p><h1 id="2-新建任务"><a href="#2-新建任务" class="headerlink" title="2. 新建任务"></a>2. 新建任务</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/202301152009848.png"></p><h1 id="3-源码配置"><a href="#3-源码配置" class="headerlink" title="3 源码配置"></a>3 源码配置</h1><ul><li>Credentials 需要选择在用户列表，配置了该仓库ssh key的用户</li></ul><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115201137.png"></p><h1 id="4-构建后操作"><a href="#4-构建后操作" class="headerlink" title="4 构建后操作"></a>4 构建后操作</h1><p>构建后，部署war包到指定服务器，我这里是部署在了本地的tomcat服务上</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/202301152014790.png"></p><p>注意：</p><ul><li><p>war文件地址，如果不在当前项目的target下，需要写成类似 <code>**/target/*.war</code></p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115202448.png"></p></li></ul><h1 id="5-构建项目"><a href="#5-构建项目" class="headerlink" title="5  构建项目"></a>5  构建项目</h1><p>如果构建失败，可以在控制台查看报错信息</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230115202724.png"></p><h1 id="6-启动tomcat"><a href="#6-启动tomcat" class="headerlink" title="6 启动tomcat"></a>6 启动tomcat</h1><p>可以查看已经部署成功的服务了</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/202301152016375.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>jenkins</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>IDEA解决resources资源找不到</title>
+    <link href="/IDEA%E8%A7%A3%E5%86%B3resources%E8%B5%84%E6%BA%90%E6%89%BE%E4%B8%8D%E5%88%B0/"/>
+    <url>/IDEA%E8%A7%A3%E5%86%B3resources%E8%B5%84%E6%BA%90%E6%89%BE%E4%B8%8D%E5%88%B0/</url>
+    
+    <content type="html"><![CDATA[<p>pom中删除<code>&lt;packaging&gt;pom&lt;/packaging&gt;</code>。加了这个pom不会处理resources目录</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/202301121549744.png"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>jekins入门</title>
+    <link href="/Mac%E4%B8%8B%E5%AE%89%E8%A3%85jekins/"/>
+    <url>/Mac%E4%B8%8B%E5%AE%89%E8%A3%85jekins/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-可持续化集成CI"><a href="#1-可持续化集成CI" class="headerlink" title="1. 可持续化集成CI"></a>1. 可持续化集成CI</h1><p>​      持续集成即CI（Continuous integration）是一种软件开发实践,可以让团队在持续的基础上不断收到反馈并进行改进，不必等到开发周期后期才寻找缺陷。持续集成要点：</p><ul><li>统一的代码库 git</li><li>统一的依赖包管理 nexus</li><li>测试自动化</li><li>构建全自动化 maven</li><li>部署自动化</li><li>可追踪的集成记录 ：某一次有问题，可以找到上次集成。或者上上次集成，然后代码回滚</li></ul><p>持续集成的流程：</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230108202610.png"></p><h1 id="2-jenkins概述"><a href="#2-jenkins概述" class="headerlink" title="2 jenkins概述"></a>2 jenkins概述</h1><p>jenkins就是为了满足上述持续集成的要点而设计的一款工具，主体框架是采用java开发，实质内部功能都是通过插件实现，极大程度提高了系统的扩展性。</p><p>其不仅可以满足java系统的集成，也可以实现PHP等语言的集成发布。</p><p>通过pipeline插件，用户可以随自己需要定制集成流程。</p><h1 id="3-mac-下安装-jenkins"><a href="#3-mac-下安装-jenkins" class="headerlink" title="3 mac 下安装 jenkins"></a>3 mac 下安装 jenkins</h1><p>用brew 安装</p><p><code> brew install jenkins</code></p><p>启动jenkins</p><p><code>brew services start jenkins</code></p><p>停止jenkins</p><p><code> brew services stop jenkins</code></p><h1 id="4-修改jenkins默认端口配置"><a href="#4-修改jenkins默认端口配置" class="headerlink" title="4 修改jenkins默认端口配置"></a>4 修改jenkins默认端口配置</h1><h2 id="1-查看jenkins安装路径"><a href="#1-查看jenkins安装路径" class="headerlink" title="1.查看jenkins安装路径"></a>1.查看jenkins安装路径</h2><ul><li><code>brew list jenkins</code></li></ul><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230110221220.png" style="zoom:150%;" /><h2 id="2-修改homebrew-mxcl-jenkins-plist"><a href="#2-修改homebrew-mxcl-jenkins-plist" class="headerlink" title="2. 修改homebrew.mxcl.jenkins.plist"></a>2. 修改homebrew.mxcl.jenkins.plist</h2><ul><li><p>打开文件 <code>vim /opt/homebrew/Cellar/jenkins/2.385/homebrew.mxcl.jenkins.plist</code></p></li><li><p>修改默认端口号</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230110221801.png"></p></li></ul><h2 id="3-修改jenkins系统配置url"><a href="#3-修改jenkins系统配置url" class="headerlink" title="3. 修改jenkins系统配置url"></a>3. 修改jenkins系统配置url</h2><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230110222629.png"  /><img src="/Users/panyurou/Library/Application Support/typora-user-images/image-20230110222115537.png" alt="image-20230110222115537" style="zoom:86%;" />]]></content>
+    
+    
+    <categories>
+      
+      <category>jenkins</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>jekins</title>
+    <link href="/jekins/"/>
+    <url>/jekins/</url>
+    
+    <content type="html"><![CDATA[<h2 id="jenkins-安装"><a href="#jenkins-安装" class="headerlink" title="jenkins 安装"></a>jenkins 安装</h2><ul><li>brew install jenkins</li><li>运行 jenkins</li></ul><p>![image-20230109220809714](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230109220809714.png)</p><p>![image-20230109221132155](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230109221132155.png)</p><p>Maven Integration</p><p>Pipeline Maven Integration</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>jenkins</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>工作流</title>
+    <link href="/%E5%B7%A5%E4%BD%9C%E6%B5%81/"/>
+    <url>/%E5%B7%A5%E4%BD%9C%E6%B5%81/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-工作流是什么？"><a href="#1-工作流是什么？" class="headerlink" title="1. 工作流是什么？"></a>1. 工作流是什么？</h1><p>工作流就是计算机对业务流程自动化执行管理。有了工作流可以更好的管理业务流程，提高系统扩展性。</p><h2 id="2-Activity-7"><a href="#2-Activity-7" class="headerlink" title="2. Activity 7"></a>2. Activity 7</h2><p>activity是一个工作流引擎，activity可以将业务系统中复杂的业务流程抽取出来，使用专门的建模语言BPMN2.0进行定义。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>maven基本概念</title>
+    <link href="/maven%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
+    <url>/maven%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>大型系统迭代实践</title>
+    <link href="/%E5%A4%A7%E5%9E%8B%E7%B3%BB%E7%BB%9F%E8%BF%AD%E4%BB%A3%E5%AE%9E%E8%B7%B5/"/>
+    <url>/%E5%A4%A7%E5%9E%8B%E7%B3%BB%E7%BB%9F%E8%BF%AD%E4%BB%A3%E5%AE%9E%E8%B7%B5/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>vue的生命周期选项</title>
+    <link href="/vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <url>/vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1-beforeCreate"><a href="#1-beforeCreate" class="headerlink" title="1. beforeCreate"></a>1. beforeCreate</h2><ul><li><p>在组件实例初始化之后调用，也就是new Vue()之后</p></li><li><p>初始化了主要的生命周期函数</p></li></ul><h2 id="2-created"><a href="#2-created" class="headerlink" title="2. created"></a>2. created</h2><ul><li>初始化了data()，computed()，methods()，watch()</li><li>使用场景：调用ajax来获取自己的首屏数据</li></ul><h2 id="3-beforeMount"><a href="#3-beforeMount" class="headerlink" title="3.beforeMount"></a>3.beforeMount</h2><ul><li>内存中已经编译生成好了html结构，但是还没有渲染。</li></ul><blockquote><p>mount表示挂载的意思，就是说要将内存中渲染的html结构，渲染到页面上。</p></blockquote><h2 id="4-mounted"><a href="#4-mounted" class="headerlink" title="4. mounted"></a>4. mounted</h2><ul><li>内存中渲染好的html结构，替换到页面上</li><li>其自身的 DOM 树已经创建完成并插入了父容器中。</li><li>所有同步子组件都已经被挂载</li></ul><p><strong>使用场景</strong>：</p><p>在此处发送 异步请求 （ajax，fetch，axios等），获取服务器上的数据，显示在DOM里。</p><p>比如：根据输入框里输入的元素，去服务器查询数据</p><h2 id="5-beforeUpdate"><a href="#5-beforeUpdate" class="headerlink" title="5. beforeUpdate"></a>5. <strong>beforeUpdate</strong></h2><ul><li>组件更新（数据更新）之前执行的函数</li></ul><h2 id="6-updated"><a href="#6-updated" class="headerlink" title="6.updated"></a>6.<strong>updated</strong></h2><p>组件更新（数据更新）后执行的函数</p><h2 id="7-beforeDestroy"><a href="#7-beforeDestroy" class="headerlink" title="7. beforeDestroy"></a>7. beforeDestroy</h2><ul><li>vue（组件）对象销毁之前</li></ul><h2 id="8-destroyed"><a href="#8-destroyed" class="headerlink" title="8. destroyed"></a>8. destroyed</h2><ul><li>组件销毁后</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Vue</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>travel</title>
+    <link href="/travel/"/>
+    <url>/travel/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>响应式开发</title>
     <link href="/Bootstrap%E4%BD%BF%E7%94%A8/"/>
     <url>/Bootstrap%E4%BD%BF%E7%94%A8/</url>
@@ -836,9 +977,9 @@
       
       <tag>性能调优</tag>
       
-      <tag>垃圾收集算法</tag>
-      
       <tag>垃圾收集器</tag>
+      
+      <tag>垃圾收集算法</tag>
       
     </tags>
     
