@@ -27,7 +27,7 @@
     <link href="/nexus%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/"/>
     <url>/nexus%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/</url>
     
-    <content type="html"><![CDATA[<h1 id="1-私服使用场景"><a href="#1-私服使用场景" class="headerlink" title="1. 私服使用场景"></a>1. 私服使用场景</h1><p>分布式系统，多个项目依赖的共享</p><h1 id="2-nexus安装"><a href="#2-nexus安装" class="headerlink" title="2 nexus安装"></a>2 nexus安装</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="1-私服使用场景"><a href="#1-私服使用场景" class="headerlink" title="1. 私服使用场景"></a>1. 私服使用场景</h1><p>分布式系统，多个项目依赖的共享</p><h1 id="2-nexus安装"><a href="#2-nexus安装" class="headerlink" title="2 nexus安装"></a>2 nexus安装</h1><ol><li><p>进入<a href="https://help.sonatype.com/repomanager2">Repository Manager 2 (sonatype.com)</a>，选择对应的版本进行下载</p></li><li><p>下载解压后，进入bin目录，运行 <code>./nexus start</code></p></li><li><p>访问<a href="http://localhost:8081/nexus">http://localhost:8081/nexus</a></p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230116212514.png"></p></li></ol><p>注：nexus启动失败，查看报错日志（nexus-2.15.1-02&#x2F;logs&#x2F;wrapper.log）</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230116212959.png"></p><p>修复：将javax.activation-1.2.0.jar 和jaxb-api-2.3.0.jar包放到nexus的lib下</p><p>4  登陆nexus，nexus2 默认用户名和密码是<code>admin</code> and <code>admin123</code> .不确定的可以查看官方文档<a href="https://help.sonatype.com/repomanager2/installing-and-running/running">Running (sonatype.com)</a></p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230116215507.png"></p><ol start="5"><li><p>查看仓库</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230116220006.png"></p></li></ol>]]></content>
     
     
     <categories>
@@ -1002,9 +1002,9 @@
       
       <tag>性能调优</tag>
       
-      <tag>垃圾收集器</tag>
-      
       <tag>垃圾收集算法</tag>
+      
+      <tag>垃圾收集器</tag>
       
     </tags>
     
