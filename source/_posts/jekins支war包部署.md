@@ -31,6 +31,8 @@ categories: jenkins
 
 # 4 构建后操作
 
+## 4.1 部署到服务器
+
 构建后，部署war包到指定服务器，我这里是部署在了本地的tomcat服务上
 
 ![](https://panyuro.oss-cn-beijing.aliyuncs.com/202301152014790.png)
@@ -40,6 +42,30 @@ categories: jenkins
 - war文件地址，如果不在当前项目的target下，需要写成类似 `**/target/*.war`
 
   ![](https://panyuro.oss-cn-beijing.aliyuncs.com/20230115202448.png)
+
+## 4.2 上传到私服
+
+我这里是上传到了nexus上
+
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/20230122205100.png)
+
+对英需要修改setting.xml
+
+```xml
+<server>
+  <id>SNAPSHOT</id>
+  <username>deployment</username>
+  <password>deployment123</password>
+</server>
+
+<server>
+  <id>RELEASE</id>
+  <username>deployment</username>
+  <password>deployment123</password>
+</server>
+```
+
+
 
 # 5  构建项目
 
@@ -52,3 +78,9 @@ categories: jenkins
 可以查看已经部署成功的服务了
 
 ![](https://panyuro.oss-cn-beijing.aliyuncs.com/202301152016375.png)
+
+# 7. 登陆nexus
+
+可以看到war包已经上传到了nexus
+
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/202301222054195.png)

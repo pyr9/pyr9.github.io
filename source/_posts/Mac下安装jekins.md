@@ -1,5 +1,5 @@
 ---
-title: jekins入门
+title: Mac下安装jenkins
 date: 2023-01-10 22:04:19
 tags:
 categories: jenkins
@@ -62,4 +62,6 @@ jenkins就是为了满足上述持续集成的要点而设计的一款工具，�
 
 <img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230110222629.png"  />
 
-<img src="/Users/panyurou/Library/Application Support/typora-user-images/image-20230110222115537.png" alt="image-20230110222115537" style="zoom:86%;" />
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/202301221541401.png)
+
+# 5 pipeline 集成原理  ![](https://panyuro.oss-cn-beijing.aliyuncs.com/20230124113315.png)
