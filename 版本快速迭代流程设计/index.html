@@ -16,19 +16,20 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 整体流程设计![image-20230124123255413](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230124123255413.png) ![image-20230124123214861](&#x2F;Users&amp;#x2F">
+    <meta name="description" content="1 整体流程设计 不同的开发提交当天的变动到统一的代码仓库 jenkins集成部署到开发环境 测试手动从jenkins的test仓库拉取打好的jar包，部署到测试环境，进行测试 测试完成后由运维从jenkins的release仓库拉取打好的jar包，部署到生产环境   2. 发布窗口机制上述发布流程是比较重的，我们不可能每天走一遍。可以设置一个固定的发布时间，一般设置在周四。  比如周四下午四点，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="版本快速迭代流程设计">
 <meta property="og:url" content="http://example.com/%E7%89%88%E6%9C%AC%E5%BF%AB%E9%80%9F%E8%BF%AD%E4%BB%A3%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 整体流程设计![image-20230124123255413](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230124123255413.png) ![image-20230124123214861](&#x2F;Users&amp;#x2F">
+<meta property="og:description" content="1 整体流程设计 不同的开发提交当天的变动到统一的代码仓库 jenkins集成部署到开发环境 测试手动从jenkins的test仓库拉取打好的jar包，部署到测试环境，进行测试 测试完成后由运维从jenkins的release仓库拉取打好的jar包，部署到生产环境   2. 发布窗口机制上述发布流程是比较重的，我们不可能每天走一遍。可以设置一个固定的发布时间，一般设置在周四。  比如周四下午四点，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/202301241237881.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230124123255413.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128200518146.png">
 <meta property="article:published_time" content="2023-01-24T04:31:55.000Z">
-<meta property="article:modified_time" content="2023-01-24T04:38:22.001Z">
+<meta property="article:modified_time" content="2023-01-28T12:09:57.933Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/202301241237881.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230124123255413.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -210,7 +211,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          742 字
+          470 字
         
       </span>
     
@@ -222,7 +223,7 @@
         
         
           <!-- compatible with older versions-->
-          3 分钟
+          2 分钟
         
       </span>
     
@@ -274,12 +275,30 @@
             
             <div class="markdown-body">
               
-              <h1 id="1-整体流程设计"><a href="#1-整体流程设计" class="headerlink" title="1 整体流程设计"></a>1 整体流程设计</h1><p>![image-20230124123255413](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230124123255413.png)</p>
-<p>![image-20230124123214861](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230124123214861.png)</p>
-<p>![image-20230124123230440](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230124123230440.png)</p>
-<p>![image-20230124123414651](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230124123414651.png)</p>
-<p>![image-20230124123821308](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230124123821308.png)</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/202301241237881.png" srcset="/img/loading.gif" lazyload></p>
+              <h1 id="1-整体流程设计"><a href="#1-整体流程设计" class="headerlink" title="1 整体流程设计"></a>1 整体流程设计</h1><ol>
+<li>不同的开发提交当天的变动到统一的代码仓库</li>
+<li>jenkins集成部署到开发环境</li>
+<li>测试手动从jenkins的test仓库拉取打好的jar包，部署到测试环境，进行测试</li>
+<li>测试完成后由运维从jenkins的release仓库拉取打好的jar包，部署到生产环境</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230124123255413.png" srcset="/img/loading.gif" lazyload alt="image-20230124123255413"></p>
+<h1 id="2-发布窗口机制"><a href="#2-发布窗口机制" class="headerlink" title="2. 发布窗口机制"></a>2. 发布窗口机制</h1><p>上述发布流程是比较重的，我们不可能每天走一遍。可以设置一个固定的发布时间，一般设置在周四。</p>
+<ul>
+<li><p>比如周四下午四点，如果这个点还没有来得及实现或者完成测试，则需要等到下个窗口才能发布。</p>
+</li>
+<li><p>这样的目的：是为了让团队的每个人有一个清晰的时间观念，知道什么时候干什么事，避免手忙脚乱脚乱的随意发布。</p>
+</li>
+</ul>
+<h1 id="3-发布计划"><a href="#3-发布计划" class="headerlink" title="3. 发布计划"></a>3. 发布计划</h1><ul>
+<li><p>很多时候我们的需求之间是有联系的，因此我们需要提前计划好下个窗口能上线的需求，避免A需求上线时，他所依赖的B需求不能上线。</p>
+</li>
+<li><p>中间随意添加需求，会使发布变的困难。</p>
+</li>
+</ul>
+<h1 id="4-实施计划"><a href="#4-实施计划" class="headerlink" title="4 实施计划"></a>4 实施计划</h1><p>除了发布计划，我们需要有实施说明，比如：需要更新那些sql脚本，修改哪些配置文件</p>
+<h1 id="5-时间节点"><a href="#5-时间节点" class="headerlink" title="5 时间节点"></a>5 时间节点</h1><p>整个过程涉及团队协作，只要有一方延误，就会造成其他方等待或者工作推迟发生。为避免这种情况我们需要设计精细的时间节点如下：</p>
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128200518146.png" srcset="/img/loading.gif" lazyload alt="image-20230128200518146" style="zoom:50%;" />
+
 
               
             </div>
@@ -349,8 +368,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/jenkins%E5%8F%82%E6%95%B0%E5%8C%96%E6%9E%84%E5%BB%BA/" title="jenkins参数化构建">
-                        <span class="hidden-mobile">jenkins参数化构建</span>
+                      <a href="/mac%E4%B8%8B%E5%90%AF%E5%8A%A8tomcat/" title="mac下启动tomcat">
+                        <span class="hidden-mobile">mac下启动tomcat</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
