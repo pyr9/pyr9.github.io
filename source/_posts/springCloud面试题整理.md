@@ -268,4 +268,4 @@ Netflix OSS 开源组件集成，包括Eureka、Hystrix、Ribbon、Feign、Zuul�
 
 ## CAP原则以及eureka和zookeeper的对比
 
-[CAP原则以及eureka和zookeeper的对比 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/07/21/CAP原则以及eureka和zookeeper的对比/)
+[CAP原则以及eureka和zookeeper的对比 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/07/21/CAP原则以及eureka和zookeeper的对比/)

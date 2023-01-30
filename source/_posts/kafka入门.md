@@ -44,7 +44,7 @@ Kafka的使用场景：
 
 # 3 Kafka 的基本使用
 
-1. 启动zookeeper [zookeeper特性与节点介绍 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2021/09/22/zookeeper特性与节点介绍/)
+1. 启动zookeeper [zookeeper特性与节点介绍 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2021/09/22/zookeeper特性与节点介绍/)
 
 2. 下载并解压： [Apache Kafka](https://kafka.apache.org/downloads)
 

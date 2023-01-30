@@ -41,7 +41,7 @@ categories: 微服务
 
 ## 搭建 Config 服务端
 
-1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/08/17/springCloud之Eureka搭建/)
+1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/08/17/springCloud之Eureka搭建/)
 
 2. github或者码云上创建一个仓库存储配置信息，github国内不是很稳定，我用了码云
 
@@ -98,7 +98,7 @@ categories: 微服务
 
 ## 搭建 Config客户端
 
-1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/08/17/springCloud之Eureka搭建/)
+1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/08/17/springCloud之Eureka搭建/)
 
 2. 引入依赖
 

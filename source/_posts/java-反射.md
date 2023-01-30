@@ -18,7 +18,7 @@ categories: Java基础
 
 反射允许我们在程序运行时，取得任何一个已知class的内部信息，包括其属性，方法等，并可以在运行时改变他们呢。
 
-获取class对象的五种方式：[Java获取class的五种方式 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/07/13/Java获取class的四种方式/)
+获取class对象的五种方式：[Java获取class的五种方式 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/07/13/Java获取class的四种方式/)
 
 # 反射的具体实现
 

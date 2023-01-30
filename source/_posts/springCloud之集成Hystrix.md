@@ -77,7 +77,7 @@ categories: 微服务
 
 ## SpringCloud 集成hystrix
 
-1. 搭建Eureka Client并集成Feign ：[springCloud之Feign搭建 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/08/18/springCloud之Feign搭建/)
+1. 搭建Eureka Client并集成Feign ：[springCloud之Feign搭建 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/08/18/springCloud之Feign搭建/)
 
 2. 导入依赖
 

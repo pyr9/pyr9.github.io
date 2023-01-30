@@ -11,7 +11,7 @@ categories:
 
 ![](https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164658.png)
 
-4 .流程部署
+# 2 流程部署
 
 即：将流程图的内容存储到数据库
 
@@ -54,33 +54,33 @@ public class ActivitiDemo {
 
 - act_re_procdef 流程定义表，部署每个新的流程定义都会在这张表中增加一条记录。比如章三的话费报销是一条记录，李四的话费报销是一条记录。
 
-  ![image-20230128204451742](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204451742.png) ![image-20230128204449359](/Users/panyurou/Library/Application Support/typora-user-images/image-20230128204449359.png)
+  ![image-20230128204451742](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204451742.png) ![image-20230128204449359](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204449359.png)
 
 - act_ge_bytearray 流程资源表
 
   ![image-20230128204546011](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204546011.png)
 
-5. 启动流程实例
+# 3 启动流程实例
 
-   ```java
-       @Test
-       public void testStartProcess(){
-           // 1. 创建ProcessEngine
-           ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-           // 2. 获取RuntimeService
-           RuntimeService runtimeService = processEngine.getRuntimeService();
-           // 3. 根据流程ID启动流程
-           ProcessInstance instance = runtimeService.startProcessInstanceByKey("myProcess");
-           // 4. 输出
-           System.out.println("流程定义id="+instance.getProcessDefinitionId());
-           System.out.println("流程实例id="+instance.getId());
-           System.out.println("当前活动的id="+instance.getActivityId());
-       }
-   ```
+```java
+    @Test
+    public void testStartProcess(){
+        // 1. 创建ProcessEngine
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        // 2. 获取RuntimeService
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+        // 3. 根据流程ID启动流程
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("myProcess");
+        // 4. 输出
+        System.out.println("流程定义id="+instance.getProcessDefinitionId());
+        System.out.println("流程实例id="+instance.getId());
+        System.out.println("当前活动的id="+instance.getActivityId());
+    }
+```
 
-   ![image-20230128210529180](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210529180.png)
+![image-20230128210529180](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210529180.png)
 
-    操作activiti的表如下：
+ 操作activiti的表如下：
 
 ​	     act_hi_actinst 流程实例执行历史
 
@@ -96,7 +96,9 @@ public class ActivitiDemo {
 
 ​		act_ru_task 当前代办的任务信息
 
-6. 查询自己所能处理的任务 
+# 4 任务查询
+
+查询自己所能处理的任务 
 
        ```java
     @Test
@@ -122,58 +124,69 @@ public class ActivitiDemo {
 
 ![image-20230128210841640](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210841640.png)
 
-7. 完成个人任务
+# 5 流程任务处理
 
-   ```java
-       @Test
-       public void testCompleteTask(){
-           // 1. 创建ProcessEngine
-           ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-           // 2. 获取taskService
-           TaskService taskService = processEngine.getTaskService();
-           // 3. 根据任务id完成任务
-           taskService.complete("2505");
-       }
-   ```
+完成个人任务
 
-   操作activiti的表如下：
+```java
+    @Test
+    public void testCompleteTask(){
+        // 1. 创建ProcessEngine
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        // 2. 获取taskService
+        TaskService taskService = processEngine.getTaskService();
+        // 3. 根据任务id完成任务
+        taskService.complete("2505");
+    }
+```
 
-   act_hi_taskinst:  已经完成的历史任务信息 -> 插入新数据; 更新完成任务的结束时间
+操作activiti的表如下：
 
-   ![image-20230128213152660](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213152660.png)
+act_hi_taskinst:  已经完成的历史任务信息 -> 插入新数据; 更新完成任务的结束时间
 
-   act_ru_task：当前代办的任务信息 -> 删除旧数据，插入新数据
+![image-20230128213152660](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213152660.png)
 
-   ![image-20230128213015838](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213015838.png)
+act_ru_task：当前代办的任务信息 -> 删除旧数据，插入新数据
+
+![image-20230128213015838](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213015838.png)
 
 ​       act_hi_identitylink: 流程的参与用户历史信息  -> 插入新数据
 
-![image-20230128213626199](/Users/panyurou/Library/Application Support/typora-user-images/image-20230128213626199.png)
+![image-20230128213626199](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213626199.png)
 
 ​		  
 
-   8. 更加灵活的完成个人任务
+**更加灵活的完成个人任务：**
 
-      ```java
-          @Test
-          public void testCompleteTask2(){
-              // 1. 创建ProcessEngine
-              ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-              // 2. 获取taskService
-              TaskService taskService = processEngine.getTaskService();
-              // 3. 如果可以确定是一个任务，可以直接通过singleResult获得，依次修改taskAssignee为直线经理，部门经理，财务人员
-              Task task = taskService.createTaskQuery()
-                      .processDefinitionKey("myProcess")
-                      .taskAssignee("财务人员")
-                      .singleResult();
-              // 3. 根据任务id完成任务
-              taskService.complete(task.getId());
-              System.out.println("DONE!");
-          }
-      ```
+```java
+    @Test
+    public void testCompleteTask2(){
+        // 1. 创建ProcessEngine
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        // 2. 获取taskService
+        TaskService taskService = processEngine.getTaskService();
+        // 3. 如果可以确定是一个任务，可以直接通过singleResult获得，依次修改taskAssignee为直线经理，部门经理，财务人员
+        Task task = taskService.createTaskQuery()
+                .processDefinitionKey("myProcess")
+                .taskAssignee("财务人员")
+                .singleResult();
+        // 3. 根据任务id完成任务
+        taskService.complete(task.getId());
+        System.out.println("DONE!");
+    }
+```
 
-      此时查看act_ru_task表，已经没有数据了，因为任务执行完了
+此时查看act_ru_task表，已经没有数据了，因为任务执行完了
 
-      查看act_hi_actinst，可以看到END_TIME都已经填充上了
+查看act_hi_actinst，可以看到END_TIME都已经填充上了
 
-      ![image-20230128231354324](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128231354324.png)
+![image-20230128231354324](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128231354324.png)
+
+
+
+# 6 流程定义信息查询
+
+
+
+
+

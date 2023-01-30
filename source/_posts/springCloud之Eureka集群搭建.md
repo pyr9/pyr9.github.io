@@ -12,7 +12,7 @@ categories: 微服务
 
 ## 1. 搭建3个Eureka server
 
-- 参考：[springCloud之Eureka搭建 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/08/17/springCloud之Eureka搭建/)
+- 参考：[springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/08/17/springCloud之Eureka搭建/)
 
 - 三个eureka-server的application.yml文件如下：
 

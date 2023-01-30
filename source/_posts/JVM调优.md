@@ -23,7 +23,7 @@ categories: JVM调优
 
 - 方式： 检查是否有OutOfMemory 等内存异常， 检查哪些对象在系统中数量最大，避免频繁生成新对象，类似天气预报系统里有一个分页展示，每次批量去操作5000个对象，会频繁触发Minor GC 和 Full GC，后面调成500个，基本上就没有Full GC了。
 - 工具：jmap ‐dump，生成Java虚拟机的堆转储快照dump文件，用jvisualvm命令工具导入该dump文件分析，最多的类是哪些
-- 参考地址：[java命令--jmap工具 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/java命令--jmap工具/)
+- 参考地址：[java命令--jmap工具 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/java命令--jmap工具/)
 
 ## 2.2 死锁检查
 
@@ -36,7 +36,7 @@ categories: JVM调优
 
    代码运行起来后，启动jvisualvm，在线程页面会直接有一个红色的显示：监测到死锁
 
-- 参考地址：[java命令--jstack的使用 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/java命令-jstack-工具/)
+- 参考地址：[java命令--jstack的使用 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/java命令-jstack-工具/)
 
 ## 2.3 CPU分析，哪些方法占用的大量CPU时间
 

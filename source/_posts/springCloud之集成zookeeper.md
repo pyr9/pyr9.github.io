@@ -10,7 +10,7 @@ categories: 微服务
 
 # zookeeper
 
-- zookeeper基本概念：[zookeeper特性与节点介绍 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2021/09/22/zookeeper特性与节点介绍/)
+- zookeeper基本概念：[zookeeper特性与节点介绍 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2021/09/22/zookeeper特性与节点介绍/)
 - zookeeper 是一个分布式协调服务，可以用来实现注册中心功能，类似eureka
 - 服务节点是临时结点
 
