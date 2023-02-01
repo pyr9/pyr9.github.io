@@ -62,7 +62,7 @@ ignore: null
 theme: fluid
 deploy:
   type: git
-  repo: git@github.com:panyuro/pyr9.github.io.git
+  repo: git@github.com:pyr9/pyr9.github.io.git
   branch: master
 toc:
     maxDepth: 5 
