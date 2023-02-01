@@ -24,7 +24,7 @@
 <meta property="og:description" content="1 ZooKeeper 实现分布式 ID1.1 为什么需要分布式ID在单体结构的应用中，我们可以使用 MySQL 数据库的主键自增来为我们的数据设置唯一标识 ID，但是在分布式环境中，单个数据库的吞吐量成为整个应用的性能瓶颈，我们就可以搭建数据库集群来提升数据库的性能，此时如果还使用 MySQL 的主键自增来设置数据 ID 的话，就会出现重复的 ID，这样就会出现主键冲突的情况。 如果使用分布式的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-20T08:28:35.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:40:35.814Z">
+<meta property="article:modified_time" content="2023-01-28T16:02:10.868Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -306,8 +306,8 @@
 <p>服务的调用者到注册中心里面查找：能提供所需服务的服务器列表，然后自己根据负载均衡算法，从中选取一台服务器进行连接</p>
 <h1 id="3-Zookeeper-实现配置中心"><a href="#3-Zookeeper-实现配置中心" class="headerlink" title="3 Zookeeper 实现配置中心"></a>3 Zookeeper 实现配置中心</h1><p>配置中心来更新配置的方式有两种，一种是由配置中心的配置更新后向服务推送更新的配置，另一种是服务定时轮询的方式的去配置中心拉取配置，发现配置中心的配置被更新就更新自己的配置。</p>
 <p>Zookeeper 实现配置中心的方式：服务把自己的配置信息存储到 Zookeeper 节点的 data 上，并且对这个节点开启 Watch 监听，只要这个节点的数据发生变化，Zookeeper 就会把这个消息推送给服务，服务在回调事件中去获取该节点的数据，然后使用新的数据更新自己的配置。那么根据这个思路，我们就开始使用 Zookeeper 来实现配置中心。</p>
-<h1 id="4-Zookeeper-实现分布式锁"><a href="#4-Zookeeper-实现分布式锁" class="headerlink" title="4 Zookeeper 实现分布式锁"></a>4 Zookeeper 实现分布式锁</h1><p><a target="_blank" rel="noopener" href="https://panyurou.github.io/Zookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">Zookeeper实现分布式锁 - 楼上有只喵 (panyurou.github.io)</a></p>
-<h1 id="5-Zookeeper-实现注册中心"><a href="#5-Zookeeper-实现注册中心" class="headerlink" title="5 Zookeeper 实现注册中心"></a>5 Zookeeper 实现注册中心</h1><p><a target="_blank" rel="noopener" href="https://panyurou.github.io/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">注册中心 - 楼上有只喵 (panyurou.github.io)</a></p>
+<h1 id="4-Zookeeper-实现分布式锁"><a href="#4-Zookeeper-实现分布式锁" class="headerlink" title="4 Zookeeper 实现分布式锁"></a>4 Zookeeper 实现分布式锁</h1><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/Zookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">Zookeeper实现分布式锁 - 楼上有只喵 (pyr9.github.io)</a></p>
+<h1 id="5-Zookeeper-实现注册中心"><a href="#5-Zookeeper-实现注册中心" class="headerlink" title="5 Zookeeper 实现注册中心"></a>5 Zookeeper 实现注册中心</h1><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">注册中心 - 楼上有只喵 (pyr9.github.io)</a></p>
 
               
             </div>
