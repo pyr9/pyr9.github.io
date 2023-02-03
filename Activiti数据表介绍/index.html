@@ -16,32 +16,25 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 安装插件里搜索Activiti BPMN visualizer安装  2 画一个流程图1. 右键生成一个bpmn20.xml文件 2. 在文件的任意位置点击右键：view bpmn(Activiti)Diagram 3. 打开可视化编辑器， 右键start events –&gt;start event画一个开始事件。    用户任务   添加结束   连线   查看更新后的xml文件">
+    <meta name="description" content="Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两个字母标识。 用途也和服务的 API 对应  表的命名规则和作用 ACT_RE ：’RE’表示 repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。 ACT_RU：’RU’表示 runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Activiti BPMN visualizer 的安装和使用">
-<meta property="og:url" content="http://example.com/Activiti-BPMN-visualizer-%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="Activiti数据表介绍">
+<meta property="og:url" content="http://example.com/Activiti%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 安装插件里搜索Activiti BPMN visualizer安装  2 画一个流程图1. 右键生成一个bpmn20.xml文件 2. 在文件的任意位置点击右键：view bpmn(Activiti)Diagram 3. 打开可视化编辑器， 右键start events –&gt;start event画一个开始事件。    用户任务   添加结束   连线   查看更新后的xml文件">
+<meta property="og:description" content="Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两个字母标识。 用途也和服务的 API 对应  表的命名规则和作用 ACT_RE ：’RE’表示 repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。 ACT_RU：’RU’表示 runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128163406.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128163554.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/202301281638479.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128163950.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164045.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164125.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164453.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164612.png">
-<meta property="article:published_time" content="2023-01-28T08:33:08.000Z">
-<meta property="article:modified_time" content="2023-02-02T13:31:29.202Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230202215607751.png">
+<meta property="article:published_time" content="2023-02-02T13:55:15.000Z">
+<meta property="article:modified_time" content="2023-02-02T14:34:09.932Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128163406.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230202215607751.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Activiti BPMN visualizer 的安装和使用 - 楼上有只喵</title>
+  <title>Activiti数据表介绍 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -193,7 +186,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Activiti BPMN visualizer 的安装和使用"></span>
+            <span id="subtitle" data-typed-text="Activiti数据表介绍"></span>
           
         </div>
 
@@ -204,8 +197,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-01-28 16:33" pubdate>
-          2023年1月28日 下午
+        <time datetime="2023-02-02 21:55" pubdate>
+          2023年2月2日 晚上
         </time>
       </span>
     
@@ -217,7 +210,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          167 字
+          844 字
         
       </span>
     
@@ -229,7 +222,7 @@
         
         
           <!-- compatible with older versions-->
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -277,32 +270,142 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Activiti BPMN visualizer 的安装和使用</h1>
+            <h1 style="display: none">Activiti数据表介绍</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h1><p>插件里搜索Activiti BPMN visualizer安装</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128163406.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="2-画一个流程图"><a href="#2-画一个流程图" class="headerlink" title="2 画一个流程图"></a>2 画一个流程图</h1><h2 id="1-右键生成一个bpmn20-xml文件"><a href="#1-右键生成一个bpmn20-xml文件" class="headerlink" title="1. 右键生成一个bpmn20.xml文件"></a>1. 右键生成一个bpmn20.xml文件</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128163554.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="2-在文件的任意位置点击右键：view-bpmn-Activiti-Diagram"><a href="#2-在文件的任意位置点击右键：view-bpmn-Activiti-Diagram" class="headerlink" title="2. 在文件的任意位置点击右键：view bpmn(Activiti)Diagram"></a>2. 在文件的任意位置点击右键：view bpmn(Activiti)Diagram</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/202301281638479.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="3-打开可视化编辑器，"><a href="#3-打开可视化编辑器，" class="headerlink" title="3. 打开可视化编辑器，"></a>3. 打开可视化编辑器，</h2><ol>
-<li>右键start events –&gt;start event画一个开始事件。</li>
-</ol>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128163950.png" srcset="/img/loading.gif" lazyload></p>
-<ol start="2">
-<li><p>用户任务</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164045.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-<li><p>添加结束</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164125.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-<li><p>连线</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164453.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-<li><p>查看更新后的xml文件</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164612.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-</ol>
+              <p>Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两个字母标识。 用途也和服务的 API 对应</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230202215607751.png" srcset="/img/loading.gif" lazyload alt="image-20230202215607751"></p>
+<h3 id="表的命名规则和作用"><a href="#表的命名规则和作用" class="headerlink" title="表的命名规则和作用"></a>表的命名规则和作用</h3><ul>
+<li><strong>ACT_RE</strong> ：’RE’表示 repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。</li>
+<li><strong>ACT_RU</strong>：’RU’表示 runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti 只在流程实例执行过程中保存这些数据， 在流程结束时就会删除这些记录。 这样运行时表可以一直很小速度很快。</li>
+<li><strong>ACT_HI</strong>：’HI’表示 history。 这些表包含历史数据，比如历史流程实例， 变量，任务等等。</li>
+<li><strong>ACT_GE</strong> ： GE 表示 general。 通用数据， 用于不同场景下</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>表分类</strong></th>
+<th><strong>表名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一般数据</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_GE_BYTEARRAY]</td>
+<td>通用的流程定义和流程资源</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_GE_PROPERTY]</td>
+<td>系统相关属性</td>
+</tr>
+<tr>
+<td>流程历史记录</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_HI_ACTINST]</td>
+<td>历史的流程实例</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_HI_ATTACHMENT]</td>
+<td>历史的流程附件</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_HI_COMMENT]</td>
+<td>历史的说明性信息</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_HI_DETAIL]</td>
+<td>历史的流程运行中的细节信息</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_HI_IDENTITYLINK]</td>
+<td>历史的流程运行过程中用户关系</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_HI_PROCINST]</td>
+<td>历史的流程实例</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_HI_TASKINST]</td>
+<td>历史的任务实例</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_HI_VARINST]</td>
+<td>历史的流程运行中的变量信息</td>
+</tr>
+<tr>
+<td>流程定义表</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RE_DEPLOYMENT]</td>
+<td>部署单元信息</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RE_MODEL]</td>
+<td>模型信息</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RE_PROCDEF]</td>
+<td>已部署的流程定义 -&gt; 同一个流程，部署一次增加一条记录</td>
+</tr>
+<tr>
+<td>运行实例表</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RU_EVENT_SUBSCR]</td>
+<td>运行时事件</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RU_EXECUTION]</td>
+<td>运行时流程执行实例</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RU_IDENTITYLINK]</td>
+<td>运行时用户关系信息，存储任务节点与参与者的相关信息</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RU_JOB]</td>
+<td>运行时作业</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RU_TASK]</td>
+<td>运行时任务</td>
+</tr>
+<tr>
+<td></td>
+<td>[ACT_RU_VARIABLE]</td>
+<td>运行时变量表</td>
+</tr>
+</tbody></table>
 
               
             </div>
@@ -340,8 +443,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Activiti BPMN visualizer 的安装和使用</div>
-      <div>http://example.com/Activiti-BPMN-visualizer-的安装和使用/</div>
+      <div>Activiti数据表介绍</div>
+      <div>http://example.com/Activiti数据表介绍/</div>
     </div>
     <div class="license-meta">
       
@@ -353,7 +456,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年1月28日</div>
+          <div>2023年2月2日</div>
         </div>
       
       
@@ -383,18 +486,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/activiti%E6%B5%81%E7%A8%8B%E6%93%8D%E4%BD%9C/" title="Activiti流程操作">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Activiti流程操作</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/jenkins%E9%9B%86%E6%88%90%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83%E6%9E%84%E5%BB%BA/" title="jenkins集成部署环境构建">
-                        <span class="hidden-mobile">jenkins集成部署环境构建</span>
+                      <a href="/activiti%E6%B5%81%E7%A8%8B%E6%93%8D%E4%BD%9C/" title="Activiti流程操作">
+                        <span class="hidden-mobile">Activiti流程操作</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
