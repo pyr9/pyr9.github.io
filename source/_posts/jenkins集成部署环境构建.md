@@ -200,4 +200,6 @@ tomcat() {
 }
 ```
 
+项目打包完成后，运行`deploy.sh`完成更新
+
 **代码地址**：[pyr9/jenkins-script (github.com)](https://github.com/pyr9/jenkins-script)

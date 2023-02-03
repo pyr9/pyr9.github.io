@@ -2,7 +2,7 @@
 title: Activiti BPMN visualizer 的安装和使用
 date: 2023-01-28 16:33:08
 tags:
-categories: 
+categories: Activiti
 ---
 
 # 1 安装

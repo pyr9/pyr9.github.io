@@ -1,8 +1,8 @@
 ---
-title: activiti流程操作
+title: Activiti流程操作
 date: 2023-01-28 23:21:44
 tags:
-categories:
+categories: Activiti
 ---
 
 # 1 流程定义
@@ -188,7 +188,61 @@ act_ru_task：当前代办的任务信息 -> 删除旧数据，插入新数据
 
 # 6 流程定义信息查询
 
+查询流程相关信息，包含流程定义，流程部署，流程定义版本    -> ACT_RE_PROCDEF
+
+```java
+ @Test
+    public void queryProcessDefinition(){
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+        List<ProcessDefinition> definitionList = processDefinitionQuery.processDefinitionKey("myProcess")
+                .orderByProcessDefinitionVersion()
+                .desc()
+                .list();
+        for (ProcessDefinition processDefinition : definitionList) {
+            System.out.println("流程定义 id="+processDefinition.getId());
+            System.out.println("流程定义 name="+processDefinition.getName());
+            System.out.println("流程定义 key="+processDefinition.getKey());
+            System.out.println("流程定义 Version="+processDefinition.getVersion());
+            System.out.println("流程部署ID ="+processDefinition.getDeploymentId());
+        }
+    }
+```
 
 
 
+# 7. 流程删除
 
+说明：
+
+1)       使用repositoryService删除流程定义，历史表信息不会被删除
+
+2)       如果该流程定义下没有正在运行的流程，则可以用普通删除。
+
+如果该流程定义下存在已经运行的流程，使用普通删除报错，可用级联删除方法将流程及相关记录全部删除。
+
+先删除没有完成流程节点，最后就可以完全删除流程定义信息
+
+项目开发中级联删除操作一般只开放给超级管理员使用.
+
+```java
+    @Test
+    public void deleteDeployment() {
+        // 流程部署id
+        String deploymentId = "1";
+
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        // 通过流程引擎获取repositoryService
+        RepositoryService repositoryService = processEngine
+                .getRepositoryService();
+        //删除流程定义，如果该流程定义已有流程实例启动则删除时出错
+        //repositoryService.deleteDeployment(deploymentId);
+        //设置true 级联删除流程定义，即使该流程有流程实例启动也可以删除，设置为false非级别删除方式，如果流程
+        repositoryService.deleteDeployment(deploymentId, true);
+    }
+```
+
+# 8. 流程历史信息的查看
+
+即使流程定义已经删除了，流程执行的历史信息通过前面的分析，依然保存在activiti的act_hi_*相关的表中。所以我们还是可以查询流程执行的历史信息，可以通过HistoryService来查看相关的历史记录。
