@@ -24,8 +24,10 @@
 <meta property="og:description" content="更新机制是指项目如何进行更新，主要有两种方式：一种是自动推送，另外一种是手动拉取。前者用于开发环境、后者可以用于所有环境 1. 手动拉取拉取更新流程：    sudo -i 输入密码，进入root目录 上述流程由 deploy.sh 脚本实现：  123456789101112#!&#x2F;bin&#x2F;bash -ecd &quot;&#96;dirname $0&#96;&quot;. .&#x2F;pom.sh#1. downlo">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230126125309.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206160008255.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206154056839.png">
 <meta property="article:published_time" content="2023-01-26T04:52:41.000Z">
-<meta property="article:modified_time" content="2023-02-01T02:37:05.590Z">
+<meta property="article:modified_time" content="2023-02-06T08:02:36.937Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230126125309.png">
@@ -210,7 +212,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          4.6k 字
+          5.4k 字
         
       </span>
     
@@ -222,7 +224,7 @@
         
         
           <!-- compatible with older versions-->
-          15 分钟
+          17 分钟
         
       </span>
     
@@ -295,6 +297,20 @@
 
 <p>项目打包完成后，运行<code>deploy.sh</code>完成更新</p>
 <p><strong>代码地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/pyr9/jenkins-script">pyr9&#x2F;jenkins-script (github.com)</a></p>
+<h2 id="2-自动推送"><a href="#2-自动推送" class="headerlink" title="2 自动推送"></a>2 自动推送</h2><p>自动推送方式采用在 jenkins 构建完成之后，执行远程 sh 脚本用于下载本次构建 WAR 包，在自动部署重启。</p>
+<h3 id="1-jenkins-授予可读权限"><a href="#1-jenkins-授予可读权限" class="headerlink" title="1. jenkins 授予可读权限"></a>1. jenkins 授予可读权限</h3><p>不配置会403</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206160008255.png" srcset="/img/loading.gif" lazyload alt="image-20230206160008255"></p>
+<h3 id="2-jenkins-配置执行脚本"><a href="#2-jenkins-配置执行脚本" class="headerlink" title="2. jenkins 配置执行脚本"></a>2. jenkins 配置执行脚本</h3><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206154056839.png" srcset="/img/loading.gif" lazyload alt="image-20230206154056839"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">BUILD_ID=dontKillMe<br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$BUILD_ID</span><br>ssh root@localhost BUILD_URL=<span class="hljs-variable">$BUILD_URL</span> /var/root/svr/services/test-jenkins-demo/jenkins.sh<br></code></pre></td></tr></table></figure>
+
+<p> jenkins.sh内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash -e</span><br><span class="hljs-built_in">source</span> /etc/profile<br><span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;`dirname <span class="hljs-variable">$0</span>`&quot;</span><br>. ./pom.sh<br><br><br><span class="hljs-comment">#1. download war, ready env</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deploy time: <span class="hljs-variable">$work_time</span>&quot;</span><br>mkdir -p war/<br><span class="hljs-comment"># 配置下载存放目录</span><br>war=war/<span class="hljs-variable">$pom_a</span>-<span class="hljs-variable">$pom_v</span>.war<br><span class="hljs-comment"># 基于远程传过来的 BUILD_URL下载本次构建</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BUILD_URL&#125;</span><span class="hljs-variable">$&#123;pom_g&#125;</span>\$<span class="hljs-variable">$&#123;pom_a&#125;</span>/artifact/<span class="hljs-variable">$pom_g</span>/<span class="hljs-variable">$pom_a</span>/<span class="hljs-variable">$pom_v</span>/<span class="hljs-variable">$pom_a</span>-<span class="hljs-variable">$pom_v</span>.war&quot;</span><br>/opt/homebrew/bin/wget  <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BUILD_URL&#125;</span><span class="hljs-variable">$&#123;pom_g&#125;</span>\$<span class="hljs-variable">$&#123;pom_a&#125;</span>/artifact/<span class="hljs-variable">$pom_g</span>/<span class="hljs-variable">$pom_a</span>/<span class="hljs-variable">$pom_v</span>/<span class="hljs-variable">$pom_a</span>-<span class="hljs-variable">$pom_v</span>.war&quot;</span> -O <span class="hljs-variable">$war</span><br><span class="hljs-comment"># 执行部署函数</span><br>deploy_war<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-ssh需要设置免密登录"><a href="#3-ssh需要设置免密登录" class="headerlink" title="3. ssh需要设置免密登录"></a>3. ssh需要设置免密登录</h3><p>（添加公钥到服务器）</p>
+<p>注意事项⚠️：</p>
+<ol>
+<li>上面如果使用wget 而不是&#x2F;opt&#x2F;homebrew&#x2F;bin&#x2F;wget 会出现  404 Not Found</li>
+</ol>
 
               
             </div>
