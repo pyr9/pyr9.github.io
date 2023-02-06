@@ -203,3 +203,53 @@ tomcat() {
 项目打包完成后，运行`deploy.sh`完成更新
 
 **代码地址**：[pyr9/jenkins-script (github.com)](https://github.com/pyr9/jenkins-script)
+
+# 2 自动推送
+
+自动推送方式采用在 jenkins 构建完成之后，执行远程 sh 脚本用于下载本次构建 WAR 包，在自动部署重启。
+
+### 1. jenkins 授予可读权限
+
+不配置会403
+
+![image-20230206160008255](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206160008255.png)
+
+### 2. jenkins 配置执行脚本
+
+![image-20230206154056839](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206154056839.png)
+
+```sh
+BUILD_ID=dontKillMe
+echo $BUILD_ID
+ssh root@localhost BUILD_URL=$BUILD_URL /var/root/svr/services/test-jenkins-demo/jenkins.sh
+```
+
+ jenkins.sh内容：
+
+```sh
+#!/bin/bash -e
+source /etc/profile
+cd "`dirname $0`"
+. ./pom.sh
+
+
+#1. download war, ready env
+echo "deploy time: $work_time"
+mkdir -p war/
+# 配置下载存放目录
+war=war/$pom_a-$pom_v.war
+# 基于远程传过来的 BUILD_URL下载本次构建
+echo "${BUILD_URL}${pom_g}\$${pom_a}/artifact/$pom_g/$pom_a/$pom_v/$pom_a-$pom_v.war"
+/opt/homebrew/bin/wget  "${BUILD_URL}${pom_g}\$${pom_a}/artifact/$pom_g/$pom_a/$pom_v/$pom_a-$pom_v.war" -O $war
+# 执行部署函数
+deploy_war
+```
+
+### 3. ssh设置免密登录
+
+（添加公钥到服务器）[SSH免密登录 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/SSH免密登录/)
+
+注意事项⚠️：
+
+1. 上面如果使用wget 而不是/opt/homebrew/bin/wget 会出现  404 Not Found
+
