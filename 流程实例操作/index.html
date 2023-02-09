@@ -16,34 +16,25 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两个字母标识。 用途也和服务的 API 对应  表的命名规则和作用 ACT_RE ：’RE’表示 repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。 ACT_RU：’RU’表示 runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti">
+    <meta name="description" content="1. 流程实例操作1. 概念流程实例（ProcessInstance）代表流程定义的执行实例。例如：用户或程序按照流程定义内容发起一个流程，这就是一个流程实例。 流程定义和流程实例的图解：  2. 启动流程实例 并添加Businesskey Businesskey：业务标识，通常为业务表的主键，业务标识和流程实例一一对应。业务标识来源于业务系统。存储业务标识就是根据业务标识来关联查询业务系统的数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Activiti数据表介绍">
-<meta property="og:url" content="http://example.com/Activiti%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:title" content="流程实例">
+<meta property="og:url" content="http://example.com/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两个字母标识。 用途也和服务的 API 对应  表的命名规则和作用 ACT_RE ：’RE’表示 repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。 ACT_RU：’RU’表示 runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti">
+<meta property="og:description" content="1. 流程实例操作1. 概念流程实例（ProcessInstance）代表流程定义的执行实例。例如：用户或程序按照流程定义内容发起一个流程，这就是一个流程实例。 流程定义和流程实例的图解：  2. 启动流程实例 并添加Businesskey Businesskey：业务标识，通常为业务表的主键，业务标识和流程实例一一对应。业务标识来源于业务系统。存储业务标识就是根据业务标识来关联查询业务系统的数据">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230202215607751.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207214202834.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221224629.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221402715.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221437355.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221609189.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221658209.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221801474.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221833964.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221951039.png">
-<meta property="article:published_time" content="2023-02-02T13:55:15.000Z">
-<meta property="article:modified_time" content="2023-02-07T14:23:28.100Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230209223705740.png">
+<meta property="article:published_time" content="2023-02-09T03:17:34.000Z">
+<meta property="article:modified_time" content="2023-02-09T15:20:57.117Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230202215607751.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230209223705740.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Activiti数据表介绍 - 楼上有只喵</title>
+  <title>流程实例 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +186,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Activiti数据表介绍"></span>
+            <span id="subtitle" data-typed-text="流程实例"></span>
           
         </div>
 
@@ -206,8 +197,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-02 21:55" pubdate>
-          2023年2月2日 晚上
+        <time datetime="2023-02-09 11:17" pubdate>
+          2023年2月9日 上午
         </time>
       </span>
     
@@ -219,7 +210,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1k 字
+          3k 字
         
       </span>
     
@@ -231,7 +222,7 @@
         
         
           <!-- compatible with older versions-->
-          4 分钟
+          10 分钟
         
       </span>
     
@@ -279,176 +270,33 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Activiti数据表介绍</h1>
+            <h1 style="display: none">流程实例</h1>
             
             <div class="markdown-body">
               
-              <p>Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两个字母标识。 用途也和服务的 API 对应</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230202215607751.png" srcset="/img/loading.gif" lazyload alt="image-20230202215607751"></p>
-<h3 id="表的命名规则和作用"><a href="#表的命名规则和作用" class="headerlink" title="表的命名规则和作用"></a>表的命名规则和作用</h3><ul>
-<li><strong>ACT_RE</strong> ：’RE’表示 repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。</li>
-<li><strong>ACT_RU</strong>：’RU’表示 runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti 只在流程实例执行过程中保存这些数据， 在流程结束时就会删除这些记录。 这样运行时表可以一直很小速度很快。</li>
-<li><strong>ACT_HI</strong>：’HI’表示 history。 这些表包含历史数据，比如历史流程实例， 变量，任务等等。</li>
-<li><strong>ACT_GE</strong> ： GE 表示 general。 通用数据， 用于不同场景下</li>
+              <h1 id="1-流程实例操作"><a href="#1-流程实例操作" class="headerlink" title="1. 流程实例操作"></a>1. 流程实例操作</h1><h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h2><p><strong>流程实例</strong>（ProcessInstance）代表流程定义的执行实例。例如：用户或程序按照流程定义内容发起一个流程，这就是一个流程实例。</p>
+<p>流程定义和流程实例的图解：</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230209223705740.png" srcset="/img/loading.gif" lazyload alt="image-20230209223705740"></p>
+<h2 id="2-启动流程实例-并添加Businesskey"><a href="#2-启动流程实例-并添加Businesskey" class="headerlink" title="2. 启动流程实例 并添加Businesskey"></a>2. 启动流程实例 并添加Businesskey</h2><ul>
+<li>Businesskey：业务标识，通常为业务表的主键，业务标识和流程实例一一对应。业务标识来源于业务系统。存储业务标识就是根据业务标识来关联查询业务系统的数据。</li>
+<li>启动流程实例时，指定的businesskey，就会在act_ru_execution #流程实例的执行表中存储businesskey。</li>
+<li>比如：出差流程启动一个流程实例，就可以将出差单的id作为业务标识存储到activiti中，将来查询activiti的流程实例信息就可以获取出差单的id从而关联查询业务系统数据库得到出差单信息。</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th><strong>表分类</strong></th>
-<th><strong>表名</strong></th>
-<th><strong>解释</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>一般数据</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_GE_BYTEARRAY]</td>
-<td>通用的流程定义和流程资源</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_GE_PROPERTY]</td>
-<td>系统相关属性</td>
-</tr>
-<tr>
-<td>流程历史记录</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_HI_ACTINST]</td>
-<td>历史的流程实例</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_HI_ATTACHMENT]</td>
-<td>历史的流程附件</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_HI_COMMENT]</td>
-<td>历史的说明性信息</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_HI_DETAIL]</td>
-<td>历史的流程运行中的细节信息</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_HI_IDENTITYLINK]</td>
-<td>历史的流程运行过程中用户关系</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_HI_PROCINST]</td>
-<td>历史的流程实例</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_HI_TASKINST]</td>
-<td>历史的任务实例</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_HI_VARINST]</td>
-<td>历史的流程运行中的变量信息</td>
-</tr>
-<tr>
-<td>流程定义表</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RE_DEPLOYMENT]</td>
-<td>部署单元信息</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RE_MODEL]</td>
-<td>模型信息</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RE_PROCDEF]</td>
-<td>已部署的流程定义 -&gt; 同一个流程，部署一次增加一条记录</td>
-</tr>
-<tr>
-<td>运行实例表</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RU_EVENT_SUBSCR]</td>
-<td>运行时事件</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RU_EXECUTION]</td>
-<td>运行时流程执行实例</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RU_IDENTITYLINK]</td>
-<td>运行时用户关系信息，存储任务节点与参与者的相关信息</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RU_JOB]</td>
-<td>运行时作业</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RU_TASK]</td>
-<td>运行时任务</td>
-</tr>
-<tr>
-<td></td>
-<td>[ACT_RU_VARIABLE]</td>
-<td>运行时变量表</td>
-</tr>
-</tbody></table>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207214202834.png" srcset="/img/loading.gif" lazyload alt="image-20230207214202834"></p>
-<p>下面的数据是：一个流程，部署后，开启了两个assginee不同的流程实例：</p>
-<ul>
-<li>act_re_deployment：</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221224629.png" srcset="/img/loading.gif" lazyload alt="image-20230207221224629"></p>
-<ul>
-<li>act_re_procdef：</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221402715.png" srcset="/img/loading.gif" lazyload alt="image-20230207221402715"></p>
-<ul>
-<li>act_hi_procinst：</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221437355.png" srcset="/img/loading.gif" lazyload alt="image-20230207221437355"></p>
-<ul>
-<li>act_hi_actinst：</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221609189.png" srcset="/img/loading.gif" lazyload alt="image-20230207221609189"></p>
-<ul>
-<li>act_hi_taskinst：</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221658209.png" srcset="/img/loading.gif" lazyload alt="image-20230207221658209"></p>
-<ul>
-<li>act_hi_varinst：</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221801474.png" srcset="/img/loading.gif" lazyload alt="image-20230207221801474"></p>
-<ul>
-<li>act_hi_identitylink：</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221833964.png" srcset="/img/loading.gif" lazyload alt="image-20230207221833964"></p>
-<ul>
-<li>act_ru_task：</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221951039.png" srcset="/img/loading.gif" lazyload alt="image-20230207221951039"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 启动流程实例，添加businessKey</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addBusinessKey</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-comment">//        1、得到ProcessEngine</span><br>        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br><span class="hljs-comment">//        2、得到RunTimeService</span><br>        RuntimeService runtimeService = processEngine.getRuntimeService();<br><span class="hljs-comment">//        3、启动流程实例，同时还要指定业务标识businessKey，也就是出差申请单id，这里是1001</span><br>        ProcessInstance processInstance = runtimeService.<br>                startProcessInstanceByKey(<span class="hljs-string">&quot;myProcess&quot;</span>,<span class="hljs-string">&quot;0001&quot;</span>);<br><span class="hljs-comment">//        4、输出processInstance相关属性</span><br>        System.out.println(<span class="hljs-string">&quot;业务id==&quot;</span>+processInstance.getBusinessKey());<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-挂起、激活流程实例"><a href="#3-挂起、激活流程实例" class="headerlink" title="3. 挂起、激活流程实例"></a>3. 挂起、激活流程实例</h2><p>某些情况可能由于流程变更需要将当前运行的流程暂停而不是直接删除，流程暂停后将不会继续执行。</p>
+<h3 id="3-1-全部流程实例挂起"><a href="#3-1-全部流程实例挂起" class="headerlink" title="3.1 全部流程实例挂起"></a>3.1 全部流程实例挂起</h3><p>流程定义为挂起状态时：</p>
+<ol>
+<li>该流程定义将不允许启动新的流程实例，</li>
+<li>该流程定义下所有的流程实例将全部挂起暂停执行。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SuspendAllProcessInstance</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-comment">//        获取processEngine</span><br>        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br><span class="hljs-comment">//        获取repositoryService</span><br>        RepositoryService repositoryService = processEngine.getRepositoryService();<br><span class="hljs-comment">//        查询流程定义的对象</span><br>        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().<br>                processDefinitionKey(<span class="hljs-string">&quot;myProcess&quot;</span>).<br>                singleResult();<br><span class="hljs-comment">//        得到当前流程定义的实例是否都为暂停状态</span><br>        <span class="hljs-keyword">boolean</span> suspended = processDefinition.isSuspended();<br><span class="hljs-comment">//        流程定义id</span><br>        String processDefinitionId = processDefinition.getId();<br><span class="hljs-comment">//        判断是否为暂停</span><br>        <span class="hljs-keyword">if</span>(suspended)&#123;<br><span class="hljs-comment">//         如果是暂停，可以执行激活操作 ,参数1 ：流程定义id ，参数2：是否激活，参数3：激活时间</span><br>            repositoryService.activateProcessDefinitionById(processDefinitionId,<br>                    <span class="hljs-keyword">true</span>,<br>                    <span class="hljs-keyword">null</span><br>            );<br>            System.out.println(<span class="hljs-string">&quot;流程定义：&quot;</span>+processDefinitionId+<span class="hljs-string">&quot;,已激活&quot;</span>);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br><span class="hljs-comment">//          如果是激活状态，可以暂停，参数1 ：流程定义id ，参数2：是否暂停，参数3：暂停时间</span><br>            repositoryService.suspendProcessDefinitionById(processDefinitionId,<br>                    <span class="hljs-keyword">true</span>,<br>                    <span class="hljs-keyword">null</span>);<br>            System.out.println(<span class="hljs-string">&quot;流程定义：&quot;</span>+processDefinitionId+<span class="hljs-string">&quot;,已挂起&quot;</span>);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2-单个流程实例挂起"><a href="#3-2-单个流程实例挂起" class="headerlink" title="3.2 单个流程实例挂起"></a>3.2 单个流程实例挂起</h3><p>单个流程实例挂起，则此流程不再继续执行，完成该流程实例的当前任务将报异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SuspendSingleProcessInstance</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-comment">//        获取processEngine</span><br>        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br><span class="hljs-comment">//        RuntimeService</span><br>        RuntimeService runtimeService = processEngine.getRuntimeService();<br><span class="hljs-comment">//        查询流程定义的对象</span><br>        ProcessInstance processInstance = runtimeService.<br>                createProcessInstanceQuery().<br>                processInstanceId(<span class="hljs-string">&quot;15001&quot;</span>).<br>                singleResult();<br><span class="hljs-comment">//        得到当前流程定义的实例是否都为暂停状态</span><br>        <span class="hljs-keyword">boolean</span> suspended = processInstance.isSuspended();<br><span class="hljs-comment">//        流程定义id</span><br>        String processDefinitionId = processInstance.getId();<br><span class="hljs-comment">//        判断是否为暂停</span><br>        <span class="hljs-keyword">if</span>(suspended)&#123;<br><span class="hljs-comment">//         如果是暂停，可以执行激活操作 ,参数：流程定义id</span><br>            runtimeService.activateProcessInstanceById(processDefinitionId);<br>            System.out.println(<span class="hljs-string">&quot;流程定义：&quot;</span>+processDefinitionId+<span class="hljs-string">&quot;,已激活&quot;</span>);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br><span class="hljs-comment">//          如果是激活状态，可以暂停，参数：流程定义id</span><br>            runtimeService.suspendProcessInstanceById( processDefinitionId);<br>            System.out.println(<span class="hljs-string">&quot;流程定义：&quot;</span>+processDefinitionId+<span class="hljs-string">&quot;,已挂起&quot;</span>);<br>        &#125;<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+
 
               
             </div>
@@ -486,8 +334,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Activiti数据表介绍</div>
-      <div>http://example.com/Activiti数据表介绍/</div>
+      <div>流程实例</div>
+      <div>http://example.com/流程实例操作/</div>
     </div>
     <div class="license-meta">
       
@@ -499,7 +347,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月2日</div>
+          <div>2023年2月9日</div>
         </div>
       
       
@@ -529,9 +377,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" title="SSH免密登录">
+                      <a href="/%E6%B5%81%E7%A8%8B%E5%AE%9A%E4%B9%89%E6%93%8D%E4%BD%9C/" title="流程定义操作">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SSH免密登录</span>
+                        <span class="hidden-mobile">流程定义操作</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -539,8 +387,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/activiti%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" title="Activiti基本操作">
-                        <span class="hidden-mobile">Activiti基本操作</span>
+                      <a href="/SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" title="SSH免密登录">
+                        <span class="hidden-mobile">SSH免密登录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

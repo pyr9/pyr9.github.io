@@ -16,36 +16,23 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 流程定义使用idea插件设置流程图， 设置流程中需要的节点，节点负责人。具体步骤参考：  2 流程部署即：将流程图的内容存储到数据库 1234567891011121314151617181920212223242526package com.pyr;import org.activiti.engine.ProcessEngine;import org.activiti.engine.Proc">
+    <meta name="description" content="1 流程定义信息查询查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF 1234567891011121314151617@Test   public void queryProcessDefinition()&amp;#123;       ProcessEngine processEngine &#x3D; ProcessEngines.getDefaultP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Activiti流程操作">
-<meta property="og:url" content="http://example.com/activiti%E6%B5%81%E7%A8%8B%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:title" content="流程定义操作">
+<meta property="og:url" content="http://example.com/%E6%B5%81%E7%A8%8B%E5%AE%9A%E4%B9%89%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 流程定义使用idea插件设置流程图， 设置流程中需要的节点，节点负责人。具体步骤参考：  2 流程部署即：将流程图的内容存储到数据库 1234567891011121314151617181920212223242526package com.pyr;import org.activiti.engine.ProcessEngine;import org.activiti.engine.Proc">
+<meta property="og:description" content="1 流程定义信息查询查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF 1234567891011121314151617@Test   public void queryProcessDefinition()&amp;#123;       ProcessEngine processEngine &#x3D; ProcessEngines.getDefaultP">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164658.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210614102.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128204308.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204451742.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204449359.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204546011.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210529180.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210841640.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213152660.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213015838.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213626199.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128231354324.png">
-<meta property="article:published_time" content="2023-01-28T15:21:44.000Z">
-<meta property="article:modified_time" content="2023-02-02T14:18:44.121Z">
+<meta property="article:published_time" content="2023-02-09T15:18:56.000Z">
+<meta property="article:modified_time" content="2023-02-09T15:20:20.927Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164658.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Activiti流程操作 - 楼上有只喵</title>
+  <title>流程定义操作 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Activiti流程操作"></span>
+            <span id="subtitle" data-typed-text="流程定义操作"></span>
           
         </div>
 
@@ -208,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-01-28 23:21" pubdate>
-          2023年1月28日 晚上
+        <time datetime="2023-02-09 23:18" pubdate>
+          2023年2月9日 晚上
         </time>
       </span>
     
@@ -221,7 +208,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          5.2k 字
+          1.6k 字
         
       </span>
     
@@ -233,7 +220,7 @@
         
         
           <!-- compatible with older versions-->
-          17 分钟
+          5 分钟
         
       </span>
     
@@ -281,66 +268,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Activiti流程操作</h1>
+            <h1 style="display: none">流程定义操作</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-流程定义"><a href="#1-流程定义" class="headerlink" title="1 流程定义"></a>1 流程定义</h1><p>使用idea插件设置流程图， 设置流程中需要的节点，节点负责人。具体步骤参考：</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164658.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="2-流程部署"><a href="#2-流程部署" class="headerlink" title="2 流程部署"></a>2 流程部署</h1><p>即：将流程图的内容存储到数据库</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.pyr;<br><br><span class="hljs-keyword">import</span> org.activiti.engine.ProcessEngine;<br><span class="hljs-keyword">import</span> org.activiti.engine.ProcessEngines;<br><span class="hljs-keyword">import</span> org.activiti.engine.RepositoryService;<br><span class="hljs-keyword">import</span> org.activiti.engine.repository.Deployment;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ActivitiDemo</span> </span>&#123;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testDeployment</span><span class="hljs-params">()</span></span>&#123;<br>      <span class="hljs-comment">// 1. 创建ProcessEngine</span><br>        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>      <span class="hljs-comment">// 2. 获取RepositoryService</span><br>        RepositoryService repositoryService = processEngine.getRepositoryService();<br>      <span class="hljs-comment">// 3. 使用service进行流程的部署，定义流程名字，把bpmn部署到数据库中</span><br>        Deployment deploy = repositoryService.createDeployment()<br>                .name(<span class="hljs-string">&quot;话费报销&quot;</span>)<br>                .addClasspathResource(<span class="hljs-string">&quot;bpmn/phoneExpense.bpmn20.xml&quot;</span>)<br>                .deploy();<br>      <span class="hljs-comment">// 4. 输出部署信息</span><br>        System.out.println(<span class="hljs-string">&quot;流程部署id=&quot;</span>+deploy.getId());<br>        System.out.println(<span class="hljs-string">&quot;流程部署名字=&quot;</span>+deploy.getName());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210614102.png" srcset="/img/loading.gif" lazyload alt="image-20230128210614102"></p>
-<p>流程定义部署后操作activiti的3张表如下：</p>
-<ul>
-<li><p>act_re_deployment 流程定义部署表，每部署一次增加一条记录</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128204308.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-<li><p>act_re_procdef 流程定义表，部署每个新的流程定义都会在这张表中增加一条记录。比如章三的话费报销是一条记录，李四的话费报销是一条记录。</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204451742.png" srcset="/img/loading.gif" lazyload alt="image-20230128204451742"> <img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204449359.png" srcset="/img/loading.gif" lazyload alt="image-20230128204449359"></p>
-</li>
-<li><p>act_ge_bytearray 流程资源表</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128204546011.png" srcset="/img/loading.gif" lazyload alt="image-20230128204546011"></p>
-</li>
-</ul>
-<h1 id="3-启动流程实例"><a href="#3-启动流程实例" class="headerlink" title="3 启动流程实例"></a>3 启动流程实例</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStartProcess</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-comment">// 1. 创建ProcessEngine</span><br>    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>    <span class="hljs-comment">// 2. 获取RuntimeService</span><br>    RuntimeService runtimeService = processEngine.getRuntimeService();<br>    <span class="hljs-comment">// 3. 根据流程ID启动流程</span><br>    ProcessInstance instance = runtimeService.startProcessInstanceByKey(<span class="hljs-string">&quot;myProcess&quot;</span>);<br>    <span class="hljs-comment">// 4. 输出</span><br>    System.out.println(<span class="hljs-string">&quot;流程定义id=&quot;</span>+instance.getProcessDefinitionId());<br>    System.out.println(<span class="hljs-string">&quot;流程实例id=&quot;</span>+instance.getId());<br>    System.out.println(<span class="hljs-string">&quot;当前活动的id=&quot;</span>+instance.getActivityId());<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210529180.png" srcset="/img/loading.gif" lazyload alt="image-20230128210529180"></p>
-<p> 操作activiti的表如下：</p>
-<p>​	     act_hi_actinst 流程实例执行历史</p>
-<p>​		act_hi_identitylink 流程的参与用户历史信息</p>
-<p>​		act_hi_procinst 流程实例历史信息</p>
-<p>​		act_hi_taskinst 已经完成的任务信息</p>
-<p>​		act_ru_execution 流程执行信息</p>
-<p>​		act_ru_identitylink 流程的参与用户信息</p>
-<p>​		act_ru_task 当前代办的任务信息</p>
-<h1 id="4-任务查询"><a href="#4-任务查询" class="headerlink" title="4 任务查询"></a>4 任务查询</h1><p>查询自己所能处理的任务 </p>
-<pre><code class="hljs">   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testFindPersonalTasks</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-comment">// 1. 创建ProcessEngine</span><br>    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>    <span class="hljs-comment">// 2. 获取taskService</span><br>    TaskService taskService = processEngine.getTaskService();<br>    <span class="hljs-comment">// 3. 根据流程key和任务负责人 查询任务</span><br>    List&lt;Task&gt; tasks = taskService.createTaskQuery()<br>            .processDefinitionKey(<span class="hljs-string">&quot;myProcess&quot;</span>)<br>            .taskAssignee(<span class="hljs-string">&quot;张三&quot;</span>)<br>            .list();<br>    <span class="hljs-comment">// 4. 输出</span><br>    tasks.forEach(task -&gt; &#123;<br>        System.out.println(<span class="hljs-string">&quot;流程实例id=&quot;</span>+task.getProcessInstanceId());<br>        System.out.println(<span class="hljs-string">&quot;任务id=&quot;</span>+task.getId());<br>        System.out.println(<span class="hljs-string">&quot;任务负责人=&quot;</span>+task.getAssignee());<br>        System.out.println(<span class="hljs-string">&quot;任务名称=&quot;</span>+task.getName());<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
-</code></pre>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128210841640.png" srcset="/img/loading.gif" lazyload alt="image-20230128210841640"></p>
-<h1 id="5-流程任务处理"><a href="#5-流程任务处理" class="headerlink" title="5 流程任务处理"></a>5 流程任务处理</h1><p>完成个人任务</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testCompleteTask</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-comment">// 1. 创建ProcessEngine</span><br>    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>    <span class="hljs-comment">// 2. 获取taskService</span><br>    TaskService taskService = processEngine.getTaskService();<br>    <span class="hljs-comment">// 3. 根据任务id完成任务</span><br>    taskService.complete(<span class="hljs-string">&quot;2505&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>操作activiti的表如下：</p>
-<p>act_hi_taskinst:  已经完成的历史任务信息 -&gt; 插入新数据; 更新完成任务的结束时间</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213152660.png" srcset="/img/loading.gif" lazyload alt="image-20230128213152660"></p>
-<p>act_ru_task：当前代办的任务信息 -&gt; 删除旧数据，插入新数据</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213015838.png" srcset="/img/loading.gif" lazyload alt="image-20230128213015838"></p>
-<p>​       act_hi_identitylink: 流程的参与用户历史信息  -&gt; 插入新数据</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128213626199.png" srcset="/img/loading.gif" lazyload alt="image-20230128213626199"></p>
-<p>​		  </p>
-<p><strong>更加灵活的完成个人任务：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testCompleteTask2</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-comment">// 1. 创建ProcessEngine</span><br>    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>    <span class="hljs-comment">// 2. 获取taskService</span><br>    TaskService taskService = processEngine.getTaskService();<br>    <span class="hljs-comment">// 3. 如果可以确定是一个任务，可以直接通过singleResult获得，依次修改taskAssignee为直线经理，部门经理，财务人员</span><br>    Task task = taskService.createTaskQuery()<br>            .processDefinitionKey(<span class="hljs-string">&quot;myProcess&quot;</span>)<br>            .taskAssignee(<span class="hljs-string">&quot;财务人员&quot;</span>)<br>            .singleResult();<br>    <span class="hljs-comment">// 3. 根据任务id完成任务</span><br>    taskService.complete(task.getId());<br>    System.out.println(<span class="hljs-string">&quot;DONE!&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>此时查看act_ru_task表，已经没有数据了，因为任务执行完了</p>
-<p>查看act_hi_actinst，可以看到END_TIME都已经填充上了</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128231354324.png" srcset="/img/loading.gif" lazyload alt="image-20230128231354324"></p>
-<h1 id="6-流程定义信息查询"><a href="#6-流程定义信息查询" class="headerlink" title="6 流程定义信息查询"></a>6 流程定义信息查询</h1><p>查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF</p>
+              <h1 id="1-流程定义信息查询"><a href="#1-流程定义信息查询" class="headerlink" title="1 流程定义信息查询"></a>1 流程定义信息查询</h1><p>查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">queryProcessDefinition</span><span class="hljs-params">()</span></span>&#123;<br>       ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>       RepositoryService repositoryService = processEngine.getRepositoryService();<br>       ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();<br>       List&lt;ProcessDefinition&gt; definitionList = processDefinitionQuery.processDefinitionKey(<span class="hljs-string">&quot;myProcess&quot;</span>)<br>               .orderByProcessDefinitionVersion()<br>               .desc()<br>               .list();<br>       <span class="hljs-keyword">for</span> (ProcessDefinition processDefinition : definitionList) &#123;<br>           System.out.println(<span class="hljs-string">&quot;流程定义 id=&quot;</span>+processDefinition.getId());<br>           System.out.println(<span class="hljs-string">&quot;流程定义 name=&quot;</span>+processDefinition.getName());<br>           System.out.println(<span class="hljs-string">&quot;流程定义 key=&quot;</span>+processDefinition.getKey());<br>           System.out.println(<span class="hljs-string">&quot;流程定义 Version=&quot;</span>+processDefinition.getVersion());<br>           System.out.println(<span class="hljs-string">&quot;流程部署ID =&quot;</span>+processDefinition.getDeploymentId());<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure>
 
 
 
-<h1 id="7-流程删除"><a href="#7-流程删除" class="headerlink" title="7. 流程删除"></a>7. 流程删除</h1><p>说明：</p>
+<h1 id="2-流程定义删除"><a href="#2-流程定义删除" class="headerlink" title="2. 流程定义删除"></a>2. 流程定义删除</h1><p>说明：</p>
 <ol>
 <li><pre><code class="hljs">  使用repositoryService删除流程定义，历史表信息不会被删除
 </code></pre>
@@ -354,7 +291,6 @@
 <p>项目开发中级联删除操作一般只开放给超级管理员使用.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deleteDeployment</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 流程部署id</span><br>    String deploymentId = <span class="hljs-string">&quot;1&quot;</span>;<br><br>    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>    <span class="hljs-comment">// 通过流程引擎获取repositoryService</span><br>    RepositoryService repositoryService = processEngine<br>            .getRepositoryService();<br>    <span class="hljs-comment">//删除流程定义，如果该流程定义已有流程实例启动则删除时出错</span><br>    <span class="hljs-comment">//repositoryService.deleteDeployment(deploymentId);</span><br>    <span class="hljs-comment">//设置true 级联删除流程定义，即使该流程有流程实例启动也可以删除，设置为false非级别删除方式，如果流程</span><br>    repositoryService.deleteDeployment(deploymentId, <span class="hljs-keyword">true</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h1 id="8-流程历史信息的查看"><a href="#8-流程历史信息的查看" class="headerlink" title="8. 流程历史信息的查看"></a>8. 流程历史信息的查看</h1><p>即使流程定义已经删除了，流程执行的历史信息通过前面的分析，依然保存在activiti的act_hi_*相关的表中。所以我们还是可以查询流程执行的历史信息，可以通过HistoryService来查看相关的历史记录。</p>
 
               
             </div>
@@ -392,8 +328,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Activiti流程操作</div>
-      <div>http://example.com/activiti流程操作/</div>
+      <div>流程定义操作</div>
+      <div>http://example.com/流程定义操作/</div>
     </div>
     <div class="license-meta">
       
@@ -405,7 +341,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年1月28日</div>
+          <div>2023年2月9日</div>
         </div>
       
       
@@ -435,9 +371,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Activiti%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%BB%8B%E7%BB%8D/" title="Activiti数据表介绍">
+                      <a href="/%E4%B8%AA%E4%BA%BA%E4%BB%BB%E5%8A%A1/" title="个人任务">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Activiti数据表介绍</span>
+                        <span class="hidden-mobile">个人任务</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -445,8 +381,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Activiti-BPMN-visualizer-%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" title="Activiti BPMN visualizer 的安装和使用">
-                        <span class="hidden-mobile">Activiti BPMN visualizer 的安装和使用</span>
+                      <a href="/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/" title="流程实例">
+                        <span class="hidden-mobile">流程实例</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
