@@ -42,3 +42,44 @@ Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两
 |              | [ACT_RU_TASK]         | 运行时任务                                           |
 |              | [ACT_RU_VARIABLE]     | 运行时变量表                                         |
 
+
+
+
+
+![image-20230207214202834](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207214202834.png)
+
+
+
+下面的数据是：一个流程，部署后，开启了两个assginee不同的流程实例：
+
+- act_re_deployment： 
+
+![image-20230207221224629](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221224629.png)
+
+- act_re_procdef：
+
+![image-20230207221402715](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221402715.png)
+
+- act_hi_procinst：
+
+![image-20230207221437355](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221437355.png)
+
+- act_hi_actinst：
+
+![image-20230207221609189](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221609189.png)
+
+- act_hi_taskinst： 
+
+![image-20230207221658209](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221658209.png)
+
+- act_hi_varinst：
+
+![image-20230207221801474](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221801474.png)
+
+- act_hi_identitylink：
+
+![image-20230207221833964](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221833964.png)
+
+- act_ru_task：
+
+![image-20230207221951039](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230207221951039.png)
