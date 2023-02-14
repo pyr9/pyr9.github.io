@@ -16,23 +16,30 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 流程定义信息查询查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF 1234567891011121314151617@Test   public void queryProcessDefinition()&amp;#123;       ProcessEngine processEngine &#x3D; ProcessEngines.getDefaultP">
+    <meta name="description" content="网关用来控制流程的流向  1. 排他网关ExclusiveGateway1.1 概念排他网关，用来在流程中实现决策。 当流程执行到这个网关，所有分支都会判断条件是否为true，如果为true则执行该分支，排他网关只会选择一个为true的分支执行。如果有两个分支条件都为true，排他网关会选择id值较小的一条分支去执行。 为什么要用排他网关？ 不用排他网关也可以实现分支，如：在连线的condit">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Activiti——流程定义操作">
-<meta property="og:url" content="http://example.com/%E6%B5%81%E7%A8%8B%E5%AE%9A%E4%B9%89%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:title" content="Activiti——网关">
+<meta property="og:url" content="http://example.com/%E7%BD%91%E5%85%B3/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 流程定义信息查询查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF 1234567891011121314151617@Test   public void queryProcessDefinition()&amp;#123;       ProcessEngine processEngine &#x3D; ProcessEngines.getDefaultP">
+<meta property="og:description" content="网关用来控制流程的流向  1. 排他网关ExclusiveGateway1.1 概念排他网关，用来在流程中实现决策。 当流程执行到这个网关，所有分支都会判断条件是否为true，如果为true则执行该分支，排他网关只会选择一个为true的分支执行。如果有两个分支条件都为true，排他网关会选择id值较小的一条分支去执行。 为什么要用排他网关？ 不用排他网关也可以实现分支，如：在连线的condit">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-09T15:18:56.000Z">
-<meta property="article:modified_time" content="2023-02-14T14:46:30.005Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213225917585.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213232953567.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213230034272.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213231916621.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213225657718.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213231023874.png">
+<meta property="article:published_time" content="2023-02-12T13:51:36.000Z">
+<meta property="article:modified_time" content="2023-02-14T14:45:14.981Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213225917585.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Activiti——流程定义操作 - 楼上有只喵</title>
+  <title>Activiti——网关 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +191,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Activiti——流程定义操作"></span>
+            <span id="subtitle" data-typed-text="Activiti——网关"></span>
           
         </div>
 
@@ -195,8 +202,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-09 23:18" pubdate>
-          2023年2月9日 晚上
+        <time datetime="2023-02-12 21:51" pubdate>
+          2023年2月12日 晚上
         </time>
       </span>
     
@@ -208,7 +215,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.6k 字
+          1.3k 字
         
       </span>
     
@@ -220,7 +227,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          4 分钟
         
       </span>
     
@@ -268,29 +275,61 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Activiti——流程定义操作</h1>
+            <h1 style="display: none">Activiti——网关</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-流程定义信息查询"><a href="#1-流程定义信息查询" class="headerlink" title="1 流程定义信息查询"></a>1 流程定义信息查询</h1><p>查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">queryProcessDefinition</span><span class="hljs-params">()</span></span>&#123;<br>       ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>       RepositoryService repositoryService = processEngine.getRepositoryService();<br>       ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();<br>       List&lt;ProcessDefinition&gt; definitionList = processDefinitionQuery.processDefinitionKey(<span class="hljs-string">&quot;myProcess&quot;</span>)<br>               .orderByProcessDefinitionVersion()<br>               .desc()<br>               .list();<br>       <span class="hljs-keyword">for</span> (ProcessDefinition processDefinition : definitionList) &#123;<br>           System.out.println(<span class="hljs-string">&quot;流程定义 id=&quot;</span>+processDefinition.getId());<br>           System.out.println(<span class="hljs-string">&quot;流程定义 name=&quot;</span>+processDefinition.getName());<br>           System.out.println(<span class="hljs-string">&quot;流程定义 key=&quot;</span>+processDefinition.getKey());<br>           System.out.println(<span class="hljs-string">&quot;流程定义 Version=&quot;</span>+processDefinition.getVersion());<br>           System.out.println(<span class="hljs-string">&quot;流程部署ID =&quot;</span>+processDefinition.getDeploymentId());<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure>
-
-
-
-<h1 id="2-流程定义删除"><a href="#2-流程定义删除" class="headerlink" title="2. 流程定义删除"></a>2. 流程定义删除</h1><p>说明：</p>
-<ol>
-<li><pre><code class="hljs">  使用repositoryService删除流程定义，历史表信息不会被删除
-</code></pre>
+              <blockquote>
+<p> 网关用来控制流程的流向</p>
+</blockquote>
+<h1 id="1-排他网关ExclusiveGateway"><a href="#1-排他网关ExclusiveGateway" class="headerlink" title="1. 排他网关ExclusiveGateway"></a>1. 排他网关ExclusiveGateway</h1><h2 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h2><p>排他网关，用来在流程中实现决策。 当流程执行到这个网关，所有分支都会判断条件是否为true，如果为true则执行该分支，排他网关只会选择一个为true的分支执行。如果有两个分支条件都为true，排他网关会选择id值较小的一条分支去执行。</p>
+<p><strong>为什么要用排他网关？</strong></p>
+<p>不用排他网关也可以实现分支，如：在连线的condition条件上设置分支条件。</p>
+<p>在连线设置condition条件的缺点：如果条件都不满足，流程就结束了(是异常结束)。如果从网关出去的线所有条件都不满足则系统抛出异常。</p>
+<h2 id="1-2-案例"><a href="#1-2-案例" class="headerlink" title="1.2 案例"></a>1.2 案例</h2><p>出差申请大于等于3天需要先由总经理审批再由财务审批，小于3天直接由财务审批。</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213225917585.png" srcset="/img/loading.gif" lazyload alt="image-20230213225917585"></p>
+<p>测试：</p>
+<p>当部门经理审批后，当出差天数为5时，会根据条件判断，当前需要走【总经理审批】，当前任务表：SELECT * FROM act_ru_task   </p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213232953567.png" srcset="/img/loading.gif" lazyload alt="image-20230213232953567"></p>
+<p>上图中：只有总经理审批是当前的任务在执行。</p>
+<h1 id="2-并行网关ParallelGateway"><a href="#2-并行网关ParallelGateway" class="headerlink" title="2. 并行网关ParallelGateway"></a>2. 并行网关ParallelGateway</h1><h2 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h2><ul>
+<li><p>并行网关允许将流程分成多条分支，也可以把多条分支汇聚到一起。</p>
 </li>
-<li><pre><code class="hljs">  如果该流程定义下没有正在运行的流程，则可以用普通删除。
-</code></pre>
+<li><p>并行网关的功能是基于进入和外出顺序流的：</p>
+<ul>
+<li><p>分支：并行后的所有外出顺序流，为每个顺序流都创建一个并发分支。</p>
 </li>
-</ol>
-<p>如果该流程定义下存在已经运行的流程，使用普通删除报错，可用级联删除方法将流程及相关记录全部删除。</p>
-<p>先删除没有完成流程节点，最后就可以完全删除流程定义信息</p>
-<p>项目开发中级联删除操作一般只开放给超级管理员使用.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deleteDeployment</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 流程部署id</span><br>    String deploymentId = <span class="hljs-string">&quot;1&quot;</span>;<br><br>    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br>    <span class="hljs-comment">// 通过流程引擎获取repositoryService</span><br>    RepositoryService repositoryService = processEngine<br>            .getRepositoryService();<br>    <span class="hljs-comment">//删除流程定义，如果该流程定义已有流程实例启动则删除时出错</span><br>    <span class="hljs-comment">//repositoryService.deleteDeployment(deploymentId);</span><br>    <span class="hljs-comment">//设置true 级联删除流程定义，即使该流程有流程实例启动也可以删除，设置为false非级别删除方式，如果流程</span><br>    repositoryService.deleteDeployment(deploymentId, <span class="hljs-keyword">true</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<li><p>join汇聚： 所有到达并行网关，在此等待的进入分支， 直到所有进入顺序流的分支都到达以后， 流程就会通过汇聚网关。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>注意，如果同一个并行网关有多个进入和多个外出顺序流， 它就同时具有分支和汇聚功能。 这时，网关会先汇聚所有进入的顺序流，然后再切分成多个并行分支。</p>
+<p><strong>与其他网关的主要区别是，并行网关不会解析条件。</strong> <strong>即使顺序流中定义了条件，也会被忽略。</strong></p>
+<h2 id="2-2-案例"><a href="#2-2-案例" class="headerlink" title="2.2 案例"></a>2.2 案例</h2><p>出差申请由部门经理审批后，需要同时由总经理审批和财务审批，才可以结束。</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213230034272.png" srcset="/img/loading.gif" lazyload alt="image-20230213230034272"></p>
+<p>测试：</p>
+<p>当部门经理审批后，当前需要走【财务审批+总经理审批】，当前任务表：SELECT * FROM act_ru_task   </p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213231916621.png" srcset="/img/loading.gif" lazyload alt="image-20230213231916621"></p>
+<p>上图中：财务审批、总经理审批 都是当前的任务，在并行执行。</p>
+<h1 id="3-包含网关InclusiveGateway"><a href="#3-包含网关InclusiveGateway" class="headerlink" title="3.包含网关InclusiveGateway"></a>3.包含网关InclusiveGateway</h1><h2 id="3-1-概念"><a href="#3-1-概念" class="headerlink" title="3.1 概念"></a>3.1 概念</h2><ul>
+<li><p>包含网关可以看做是排他网关和并行网关的结合体。 </p>
+</li>
+<li><p>和排他网关一样，你可以在外出顺序流上定义条件，包含网关会解析它们。 但是主要的区别是包含网关可以选择多于一条顺序流，这和并行网关一样。</p>
+</li>
+<li><p>包含网关的功能是基于进入和外出顺序流的：</p>
+<ul>
+<li>分支：所有外出顺序流的条件都会被解析，结果为true的顺序流会以并行方式继续执行， 会为每个顺序流创建一个分支。	</li>
+<li>汇聚：所有并行分支到达包含网关，会进入等待状态， 直到每个包含流程token的进入顺序流的分支都到达。 这是与并行网关的最大不同。换句话说，包含网关只会等待被选中执行了的进入顺序流。 在汇聚之后，流程会穿过包含网关继续执行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2-案例"><a href="#3-2-案例" class="headerlink" title="3.2 案例"></a>3.2 案例</h2><p>出差申请大于等于3天需要由总经理审批，小于3天由财务审批，出差申请必须经过部门经理审批。</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213225657718.png" srcset="/img/loading.gif" lazyload alt="image-20230213225657718"></p>
+<p>测试：</p>
+<p>当出差天数为2时，会根据条件判断，当前需要走【财务审批+部门经理审批】，当前任务表：SELECT * FROM act_ru_task   </p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230213231023874.png" srcset="/img/loading.gif" lazyload alt="image-20230213231023874"></p>
+<p>上图中：财务审批、部门经理审批 都是当前的任务，在并行执行。</p>
 
               
             </div>
@@ -328,8 +367,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Activiti——流程定义操作</div>
-      <div>http://example.com/流程定义操作/</div>
+      <div>Activiti——网关</div>
+      <div>http://example.com/网关/</div>
     </div>
     <div class="license-meta">
       
@@ -341,7 +380,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月9日</div>
+          <div>2023年2月12日</div>
         </div>
       
       
@@ -371,18 +410,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Activiti%E2%80%94%E2%80%94%E5%88%86%E9%85%8D%E4%BB%BB%E5%8A%A1%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="Activiti——分配任务负责人">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Activiti——分配任务负责人</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/" title="Activiti——流程实例">
-                        <span class="hidden-mobile">Activiti——流程实例</span>
+                      <a href="/%E7%BB%84%E4%BB%BB%E5%8A%A1/" title="Activiti——组任务">
+                        <span class="hidden-mobile">Activiti——组任务</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
