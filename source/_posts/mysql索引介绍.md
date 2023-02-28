@@ -15,13 +15,13 @@ categories: 数据库
 
 #### 二叉树：单边增长的场景会导致全表扫描。
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gwoa8e7thzj30am0dkwek.jpg" style="zoom: 67%;" />
+![image-20230228230316043](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230316043.png)
 
 <!-- more -->
 
 #### 红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gwoabk973sj30dy08cjrf.jpg"  />
+![image-20230228230321402](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230321402.png)
 
 #### Hash
 
@@ -42,7 +42,7 @@ categories: 数据库
 
 2. 如果使用了innoDb存储引擎，结点的data元素就可能存储的是除了索引外的其他所有列，会占用比较大的存储空间，对于一个大结点而言，可以存放的结点数量就会比较小
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gwoaf7s92lj30ne07oq3a.jpg"  />
+![image-20230228230329788](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230329788.png)
 
  #### B+tree(B-tree变种)
 
@@ -52,7 +52,7 @@ categories: 数据库
    > - 叶子结点包含所有的索引字段。
    > - 叶子结点用指针连接，提高区间访问的性能。
 
-   ![](https://tva1.sinaimg.cn/large/008i3skNly1gwoarcvziwj30r80bwjs3.jpg)
+   ![image-20230228230339454](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230339454.png)
 
 
 
@@ -72,7 +72,7 @@ mysql建议一个结点大小为16kb,这样一次iO速度比较快，一个大�
 
 * 表结构文件是xxx.frm, 索引文件是xxx.MYI, 数据文件是xxx.MYD
 
-  ![](https://tva1.sinaimg.cn/large/008i3skNly1gwqkxbz5qvj30j80f8mxz.jpg)
+  ![image-20230228230349979](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230349979.png)
 
 > 执行流程：当有一条查询语句：where Col1 = 49， 先判断有没有走索引，走索引的话，先根据49快速在MYI文件中定位到结点，获取该结点存储的索引所在行的磁盘文件指针0x90，再去MYD中定位数据。
 
@@ -86,7 +86,7 @@ mysql建议一个结点大小为16kb,这样一次iO速度比较快，一个大�
 
   
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gwql7jmw80j30si0dmgmn.jpg)
+![image-20230228230401564](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230401564.png)
 
 #### 为什么InnoDb表要尽量设定一个主键
 
@@ -121,4 +121,4 @@ mysql建议一个结点大小为16kb,这样一次iO速度比较快，一个大�
 * 5个单值索引，对应5棵B+树，联合索引就只需要一棵树，所以日常推荐使用联合索引而不是单值索引。
 * 索引排序的时候会按照字段顺序，逐个去排序
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gwqm2wi1m8j30og0c8dgy.jpg)
+![image-20230228230412331](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png)

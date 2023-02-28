@@ -202,7 +202,7 @@ Mode: follower
 
 其选举机制如下图：
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gywytfrbw1j31bi0u0gpa.jpg" style="zoom:33%;" />
+![image-20230228223714485](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223714485.png)
 
 ## 5.2 **选举触发：**
 
@@ -225,7 +225,7 @@ zookeeper 的数据同步是为了保证各节点中数据的一至性，同步�
 4. Follower收到commit的proposal后，记录事务提交，并把数据更新到内存数据库；
 5. 当写成功后，反馈给client。
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gywz6vog9pj316g0u00wf.jpg" style="zoom: 33%;" />
+![image-20230228223852985](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223852985.png)
 
 ## 5.3.2 服务节点初始化同步
 
@@ -275,13 +275,13 @@ stat is not executed because it is not in the whitelist.
 
 eg1: 节点数据的变更
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyx6ctcstxj31460siaea.jpg)
+![image-20230228223906822](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223906822.png)
 
 Eg2: 某个节点挂掉重新选举
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyx6bhhfxpj30we0qmgpn.jpg)
+![image-20230228223916530](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223916530.png)
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyx66k725nj31620tytd3.jpg)
+![image-20230228223927521](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223927521.png)
 
 **思考题：**
 如果leader 节点宕机，在恢复后它还能被选为leader吗？

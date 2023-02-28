@@ -9,7 +9,7 @@ categories: RabbitMQ
 
 ## 1. simple模式
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h61vr62rxtj20cq01sa9y.jpg)
+![image-20230228223058625](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223058625.png)
 
 - 最简单的收发模式。生产者发送一个消息到一个指定的queue，中间不需要任何exchange规则。消费者端通过queue方式进行消费。
 
@@ -33,7 +33,7 @@ categories: RabbitMQ
 
 ## 2. work工作模式(资源的竞争)
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h61vqu9trgj20b403umx4.jpg)
+![image-20230228223108418](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223108418.png)
 
 * 一个生产者，多个消费者。
 
@@ -48,7 +48,7 @@ categories: RabbitMQ
 
 ## 3. publish/subscribe发布订阅(共享资源)
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h61vrnqw4bj20cw02wmx5.jpg)
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223121109.png)
 
 -  type为**"fanout"** 的exchange
 
@@ -73,7 +73,7 @@ categories: RabbitMQ
 
 ## **4. Routing路由模式** 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h61vsezs1tj20cw04o74c.jpg)
+![image-20230228223131996](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223131996.png)
 
 - type为”**direct**” 的exchange
 
@@ -100,7 +100,7 @@ categories: RabbitMQ
 
 ## **5.topic 主题模式(路由模式的一种)** 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h61vstpqczj20de04g3yj.jpg)
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223142678.png)
 
 - type为"**topic**" 的exchange
 
@@ -131,7 +131,7 @@ categories: RabbitMQ
 
 ## 6. RPC模式(路由模式的一种)
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h61vtu8rx3j20je06iq37.jpg)
+![image-20230228223151956](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223151956.png)
 
 实现不同服务间的远程调用。 springCloud feign
 

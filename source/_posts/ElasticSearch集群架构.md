@@ -13,11 +13,11 @@ categories: ElasticSearch
 
 - 通过配置文件修改，或者在命令行中 -E cluster.name=es-cluster进行设定
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fpfb23tij21ay0men14.jpg" style="zoom:50%;" />
+![image-20230228221740498](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221740498.png)
 
 # 2  集群节点类型
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fp2uzs1oj21ac0h6mz9.jpg" style="zoom:50%;" />
+![image-20230228221752056](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221752056.png)
 
 - Master Node：主节点 
 
@@ -69,7 +69,7 @@ categories: ElasticSearch
  } }
 ```
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fpbrd4qkj21au0maq4v.jpg" style="zoom:50%;" />
+![image-20230228221807970](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221807970.png)
 
 ## 3.2.1 **设置副本分片数** 
 
@@ -93,7 +93,7 @@ categories: ElasticSearch
 4. node上的primary shard处理请求，然后将数据同步到replica node 
 5. coordinating node如果发现primary node和所有的replica node都保存好了文档， 就会返回请求到客户端 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6fpsiccuqj21ds0nwmzn.jpg)
+![image-20230228221821340](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221821340.png)
 
 # 5 **ES读取数据的过程** 
 

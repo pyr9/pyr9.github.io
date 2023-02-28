@@ -25,7 +25,7 @@ categories: 微服务
 
 - 在微服务架构中，每个微服务通常会以RESTFUL API的形式对外提供服务，API网关就是集合多个API，统一API入口。
 
-  ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5gipv0ig0j21i40n8abz.jpg)
+  ![image-20230228232252488](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232252488.png)
 
 ## 优点和缺点
 
@@ -119,7 +119,7 @@ public class Application {
 
 5. 访问[localhost:9090/demo/hello](http://localhost:9090/demo/hello)，得到micro-weather-eureka-client 服务的数据
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5azw9rud2j20l208o3yu.jpg)
+![image-20230228232304736](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232304736.png)
 
 
 

@@ -45,11 +45,11 @@ categories: 微服务
 
 2. github或者码云上创建一个仓库存储配置信息，github国内不是很稳定，我用了码云
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7fi607gj21ja0u0q8a.jpg)
+   ![image-20230228232125832](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232125832.png)
 
 3. 在config-repo路径下，编写配置文件config-dev.yml
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7h5hk5oj21h10u0n1z.jpg)
+   ![image-20230228232134545](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232134545.png)
 
    
 
@@ -88,11 +88,11 @@ categories: 微服务
 
 5. 启动项目，访问[localhost:8888/config-dev.yml](http://localhost:8888/config-dev.yml)，我们可以看到8888微服务可以成功的读取到远端的配置文件。如下图：
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7ik0y9ij20qy0ag74v.jpg" style="zoom:50%;" />
+   ![image-20230228232147874](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232147874.png)
 
 访问[localhost:8888/config/dev/master](http://localhost:8888/config/dev/master)
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7jb4rhyj225k09m0vc.jpg)
+![image-20230228232155081](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232155081.png)
 
 
 
@@ -145,7 +145,7 @@ categories: 微服务
 
 5. 测试，访问[localhost:9091/config](http://localhost:9091/config)，可以查询到正确的配置
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7p3re81j20na08sgm3.jpg" style="zoom:50%;" />
+   ![image-20230228232205076](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232205076.png)
 
    
 

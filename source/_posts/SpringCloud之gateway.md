@@ -59,7 +59,7 @@ categories: 微服务
 
 7. 响应原路返回给客户端。
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5gj9e5wjij20pq0qcgmo.jpg" style="zoom:50%;" />
+   ![image-20230228224346059](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224346059.png)
 
 ## Spring Cloud Gateway 动态路由
 
@@ -130,13 +130,13 @@ lb://service-name
 
    可以看到根据路由匹配，通过http://localhost:9090/访问到了http://localhost:9091/的接口
 
-   访问[localhost:9091/test/张三](http://localhost:9091/test/张三)
+   - 访问[localhost:9091/test/张三](http://localhost:9091/test/张三)
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5gjhkg8tkj20ii05u74i.jpg" style="zoom:50%;" />
+   ![image-20230228224437860](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224437860.png)
 
-   访问[localhost:9090/test/张三](http://localhost:9090/test/张三)
+   - 访问[localhost:9090/test/张三](http://localhost:9090/test/张三)
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5gjgixj2wj20iw066dg2.jpg" style="zoom:50%;" />
+   ![image-20230228224445551](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224445551.png)
 
 
 
@@ -144,7 +144,7 @@ lb://service-name
 
 修改application.yml 的配置，使用注册中心中的微服务名创建动态路由进行转发
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5gjtqzp2gj21aj0u0wj8.jpg)
+![image-20230228224403815](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224403815.png)
 
 
 

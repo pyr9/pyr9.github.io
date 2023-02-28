@@ -11,7 +11,7 @@ categories: Clickhouse
 ➜  ~ docker run -d --name ch-server --ulimit nofile=262144:262144 -p 8123:8123 -p 9000:9000 -p 9009:9009 yandex/clickhouse-server
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyycj48p14j31py0g4tcd.jpg)
+![image-20230228225548754](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225548754.png)
 
 2.查看服务
 
@@ -19,7 +19,7 @@ categories: Clickhouse
 ➜  ~ docker ps
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyycjh5146j31yy05075c.jpg)
+![image-20230228225555839](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225555839.png)
 
 3.进入docker容器内，使用用户名和密码连接数据库。
 
@@ -28,7 +28,7 @@ categories: Clickhouse
 root@46bb792f7762:/# clickhouse-client
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyycl6slqwj30w008qjsx.jpg)
+![image-20230228225603858](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225603858.png)
 
 >如果有密码，输入下面命令：
 >
@@ -42,8 +42,8 @@ root@46bb792f7762:/# clickhouse-client
 46bb792f7762 :) show databases;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyydfocs7yj30r00fyq3t.jpg)
+![image-20230228225615339](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225615339.png)
 
 5.dbeaver 查看
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyydcukk8nj318m0u0q6x.jpg)
+![image-20230228225624031](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225624031.png)

@@ -18,7 +18,7 @@ categories: ElasticSearch
 
 # 3 Es和传统关系性数据库比较
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gz2vkt8j0jj30zu0fsgn8.jpg" style="zoom:50%;" />
+![image-20230228224035138](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224035138.png)
 
 # 4 什么是全文检索
 

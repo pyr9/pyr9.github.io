@@ -24,7 +24,7 @@ Kafka的使用场景：
 
 > 服务端(brokers)和客户端(producer、consumer)之间通信通过**TCP协议**来完成。 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h54w9l8j1hj21je0u0jy3.jpg)
+![image-20230228231340194](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231340194.png)
 
 还有几个概念：
 
@@ -158,7 +158,7 @@ Kafka的使用场景：
     ➜  kafka_2.12-3.2.1 bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group group1
     ```
 
-    <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h554bsqyijj222a066jsz.jpg" style="zoom: 100%;" />
+    ![image-20230228231400113](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231400113.png)
 
 	- current-offset：当前消费组的已消费偏移量
 	- log-end-offset：主题对应分区消息的结束偏移量(HW) 
@@ -168,7 +168,7 @@ Kafka的使用场景：
 
 - topic 是一个类别的名称，同类消息，发送到一个topic下，对于每一个topic可以有多个分区(partition)。
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h55j4kirf2j215i0oi0v5.jpg" style="zoom:30%;" />
+  ![image-20230228231408951](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231408951.png)
 
 - partition 是一个有序的message序列，这些message将按顺序添加到commitlog文件中。一个partition 对应一个commit log 文件，对应存放在配置的log文件中。
 
@@ -199,7 +199,7 @@ Kafka的使用场景：
 - Kafka可以为每个Topic设置副本集，Kafka中的Topic只是个逻辑概念，实际存储数据的是Partition，所以真正被复制的也是Partition，副本集是相对于Partition来说的
 - 一个Topic的副本集可以分布在多个Broker中，当一个Broker挂掉了，其他的Broker上还有数据，这就提高了数据的可靠性，这也是副本集的主要作用。
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6elomwzmrj211w0fk0v4.jpg" style="zoom:50%;" />
+![image-20230228231420153](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231420153.png)
 
 - 查看下topic的情况
 
@@ -207,7 +207,7 @@ Kafka的使用场景：
 ➜  kafka_2.12-3.2.1 bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic test2
 ```
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h556vki097j21hy04q0tz.jpg" style="zoom:150%;" />
+![image-20230228231430788](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231430788.png)
 
 - leader节点负责给定partition的所有读写请求。
 - replicas 表示某个partition在哪几个broker上存在备份。不管这个几点是不是”leader“，甚至这个节点挂了，也会列出。

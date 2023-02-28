@@ -179,3 +179,7 @@ public class MyUserService implements UserDetailsService {
         return "admin Auth  33!";
     }
 ```
+
+代码地址：
+
+https://github.com/pyr9/springboot-security-demo

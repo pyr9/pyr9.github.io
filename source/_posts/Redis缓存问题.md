@@ -50,7 +50,7 @@ String get(String key) {
 
 所以在访问数据是否存在时，他也会把这几个位置算出来，如果这几个位置有一个为0，那么就说明这个数据一定不存在。因为存在hash碰撞，所以如果所有位都为1，不能说明这个key一定存在。
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b4zmcp7yj214e0bqq3l.jpg)
+![image-20230228225351935](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225351935.png)
 
 ```java
 package com.redisson;
@@ -232,7 +232,7 @@ String get(String key) {
   2. 线程2也去写数据库，更新缓存
   3. 线程1再去更新缓存的时候，是有问题的，因为他的数据不是最新的。
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6b5d86e75j20vo0pk40i.jpg" style="zoom:50%;" />
+  ![image-20230228225410250](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225410250.png)
 
 - 读写并发不一致 
 
@@ -248,7 +248,7 @@ String get(String key) {
 
   
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6b5elmw30j210l0u0n0k.jpg" style="zoom:50%;" />
+  ![image-20230228225417391](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225417391.png)
 
 
 
@@ -261,8 +261,4 @@ String get(String key) {
 - 如果不能容忍缓存数据不一致，可以通过加**分布式读写锁**保证并发读写或写写的时候按顺序排好队，**读的时候相当于无锁**，redsion就支持。
 - **放入缓存的数据应该是对实时性、一致性要求不是很高的数据。**如果**写多读多**的情况又不能容忍缓存数据不一致，那就没必要加缓存了，可以直接操作数据库。如果数据库抗不住压力，还可以把缓存作为数据读写的主存储，异步将数据同步到数据库，数据库只是作为数据的备份。 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b46sz65lj21fk0nc77w.jpg)
-
-
-
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b47tu06fj21g80lqjur.jpg)
+![image-20230228225427756](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225427756.png)

@@ -70,15 +70,11 @@ sudo vim /etc/hosts
 
 ## 3. 启动三个eureka-server，并访问
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fas7jqlnj21vc0u0wjx.jpg)
-
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fassbxfuj21uk0u00xx.jpg)
-
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fat91b5gj21uu0u0wjo.jpg)
+![image-20230228231901993](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231901993.png)
 
 注意⚠️：
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fauhebrjj228k09udgs.jpg)
+![image-20230228231913871](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231913871.png)
 
 - 这里的意思就是这两个注册中心是当前注册中心的集群节点，当前注册中心会从这两个节点同步服务
 

@@ -18,7 +18,7 @@ categories: 数据库
 mysql> explain select * from actor;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gwztv72dgxj31aq06mq45.jpg)
+![image-20230228223313016](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223313016.png)
 
 ## explain中的列
 
@@ -33,7 +33,7 @@ mysql> explain select * from actor;
 mysql> explain select (select 1 from actor limit 1) from film;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg)
+![image-20230228223320796](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223320796.png)
 
 ### select_type列
 
@@ -43,7 +43,7 @@ mysql> explain select (select 1 from actor limit 1) from film;
 mysql> explain select * from film where id = 2;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gx1xees8p5j31cm06ujso.jpg)
+![image-20230228223331408](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223331408.png)
 
 * primary : 复杂查询中最外层的select。
 
@@ -53,7 +53,7 @@ mysql> explain select * from film where id = 2;
 
 中的：`select *** from film ` 
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg)
+![image-20230228223341496](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223341496.png)
 
 * subsquery: 复杂查询中的子查询（不在from子句中）。
 
@@ -63,7 +63,7 @@ mysql> explain select (select 1 from actor limit 1) from film;
 
 中的：`select 1 from actor limit 1`
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg)
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223405616.png)
 
 * derived([dɪˈraɪv]) : 包含在from子句中的子查询。Mysql将把结果存放在一个临时表中，也称为派生表。
 
@@ -72,7 +72,7 @@ mysql>  set session optimizer_switch='derived_merge=off';
 mysql>  explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gx1xvhx932j31pa08owgo.jpg)
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223416134.png)
 
 * union ：在union后的select。
 
@@ -80,14 +80,14 @@ mysql>  explain select (select 1 from actor where id = 1) from (select * from fi
 mysql> select id,name from actor union all select id, name from film;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gx399g82jsj31ey07ejsz.jpg)
+![image-20230228223426632](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223426632.png)
 
 > *  union 用于把来自多个select  语句的结果组合到一个结果集合中。语法为：
 >
 >   ```sql 
->  select  column,......from table1
+>    select  column,......from table1
 >   union [all]
->  select  column,...... from table2
+>    select  column,...... from table2
 >   ```
 
 ### table列
@@ -109,7 +109,7 @@ mysql> select id,name from actor union all select id, name from film;
   >   mysql> explain select min(id) from film;
   >   ```
   >
-  >   ![](https://tva1.sinaimg.cn/large/008i3skNly1gx39keqvk8j31kc072myn.jpg)
+  >   ![image-20230228223438382](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223438382.png)
 
   > * const：直接按 primary key 或 unique key读取，将该列与常数比较，所以表最多有一个匹配行，读取1次，速度比较快
   >
@@ -117,7 +117,7 @@ mysql> select id,name from actor union all select id, name from film;
   >   mysql> explain select id, name from film where id = 1;
   >   ```
   >
-  >   ![](https://tva1.sinaimg.cn/large/008i3skNly1gx39u1jkh4j31cm084400.jpg)
+  >   ![image-20230228223446506](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223446506.png)
 
   > * eq_ref：primary key 或 unique key 索引的所有部分被连接使用 ，最多只会返回一条符合 条件的记录。这可能是在 const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。
   >
@@ -125,7 +125,7 @@ mysql> select id,name from actor union all select id, name from film;
   >   mysql>  explain select * from film_actor left join film on film_actor.film_id = film.id;
   >   ```
   >
-  >   ![](https://tva1.sinaimg.cn/large/008i3skNly1gx3a5jmvsej31m207wjt5.jpg)
+  >   ![image-20230228223459495](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223459495.png)
 
   > - ref：相比 eq_ref，不使用唯一索引，而是使用普通索引或者联合索引的部分前缀，索引要 和某个值相比较，可能会找到多个符合条件的行。 
   >
@@ -133,7 +133,7 @@ mysql> select id,name from actor union all select id, name from film;
   > mysql> explain select * from film where name = 'film1';
   > ```
   >
-  > ![](https://tva1.sinaimg.cn/large/008i3skNly1gx3a7ju6ugj31fk06mta5.jpg)
+  > ![image-20230228223509760](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223509760.png)
 
   > - range：范围扫描通常出现在 in(), between ,> ,<, >= 等操作中。使用一个索引来检索给定范围的行。 
   >
@@ -141,7 +141,7 @@ mysql> select id,name from actor union all select id, name from film;
   > mysql> explain select * from actor where id > 1;
   > ```
   >
-  > ![](https://tva1.sinaimg.cn/large/008i3skNly1gx3acp599sj31ea06sta0.jpg)
+  > ![image-20230228223520759](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223520759.png)
 
   > - index：扫描全表索引，这通常比ALL快一些。即查询的字段都是索引列。
   >
@@ -149,7 +149,7 @@ mysql> select id,name from actor union all select id, name from film;
   > mysql>  explain select id,name from film;
   > ```
   >
-  > ![](https://tva1.sinaimg.cn/large/008i3skNly1gx3ahaf61zj31eo06mwft.jpg)
+  > ![image-20230228223531307](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223531307.png)
 
   ​		
 
@@ -159,7 +159,7 @@ mysql> select id,name from actor union all select id, name from film;
   > mysql>  explain select * from actor;
   > ```
   >
-  > ![](https://tva1.sinaimg.cn/large/008i3skNly1gx3amcxg5rj31am06yjsm.jpg)
+  > ![image-20230228223546942](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223546942.png)
 
 ### **possible_keys列** 
 

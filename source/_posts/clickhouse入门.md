@@ -30,15 +30,15 @@ ClickHouse 是俄罗斯的 Yandex 于 2016 年开源的列式存储数据库（D
 
 以下面的表为例：
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyy3x95nv3j31580est9i.jpg)
+![image-20230228230156414](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230156414.png)
 
 - 采用行式存储时，数据在磁盘上的组织结构为：
 
-  ![](https://tva1.sinaimg.cn/large/008i3skNly1gyy3xu1e5zj315s05igm7.jpg)
+  ![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230204375.png)
 
 - 采用列式存储时，数据在磁盘上的组织结构为：
 
-  ![](https://tva1.sinaimg.cn/large/008i3skNly1gyy3yqqgzzj315405kjrz.jpg)
+  ![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230212410.png)
 
 ### **列式储存的好处：**
 
@@ -78,7 +78,7 @@ ClickHouse 和 MySQL 类似，把表级的存储引擎插件化，根据表的�
 
 [深入浅出分析LSM树（日志结构合并树） - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/415799237)
 
-> ![](https://tva1.sinaimg.cn/large/008i3skNly1gyy4aob591j314o0hg0uk.jpg)
+> ![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230231533.png)
 
 ### **数据分区与线程级并行**
 

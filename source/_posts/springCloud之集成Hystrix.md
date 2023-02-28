@@ -149,7 +149,7 @@ categories: 微服务
 
 7. 访问[localhost:8085/cities](http://localhost:8085/cities)
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5dkaubuqbj20iw07yjro.jpg" style="zoom:50%;" />
+   ![image-20230228232404189](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232404189.png)
 
 **另一种实现方式**
 
@@ -198,7 +198,7 @@ categories: 微服务
 
 5. 停止micro-weather-city-eureka服务，访问[localhost:8085/cities](http://localhost:8085/cities)
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5dbm2suxzj20lm08c74q.jpg" style="zoom:50%;" />
+   ![image-20230228232412332](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232412332.png)
 
 注：这种方式不需要添加
 

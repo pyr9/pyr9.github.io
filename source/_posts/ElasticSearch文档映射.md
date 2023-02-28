@@ -17,7 +17,7 @@ ES中映射可以分为动态映射和静态映射
 
 动态映射规则如下： 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h00k181remj21fm0jqgn5.jpg)
+![image-20230228233355466](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233355466.png)
 
 **操作示例**
 

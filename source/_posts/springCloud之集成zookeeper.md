@@ -102,4 +102,4 @@ public class Application {
 
 可以看到 micro-weather-zookeeper服务已经存在，SpringCloud以[Zookeeper]为注册中心整合成功
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fhw2g43sj21ew0dk0wm.jpg)
+![image-20230228233716687](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233716687.png)

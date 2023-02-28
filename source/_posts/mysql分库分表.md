@@ -25,13 +25,13 @@ categories: 数据库
 - 按照业务来对数据进行分片，按照业务将表进行归类，分布到不同的数据库或表中，从而将压力分散至不同的数据库或表。
 - 如果垂直分片之后，表中的数据量依然超过单节点所能承载的阈值，则需要水平分片来进一步处理。
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fhk161jqj20r00n2wgg.jpg" style="zoom: 33%;" />
+![image-20230228221440881](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221440881.png)
 
 ## 3.2 水平分片
 
 - 又称横向分片。通过某个字段(或某几个字段)，根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fhopq97lj216d0u0mzd.jpg" style="zoom: 33%;" />
+![image-20230228221453079](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221453079.png)
 
 ### 3.2.1 水平分片常用的分片策略
 

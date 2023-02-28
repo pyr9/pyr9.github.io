@@ -90,6 +90,4 @@ categories: 微服务
 
 7. 查看euraka服务端，可以看到该客户端注册成功，访问[localhost:8085/cities，可以获取到指定服务接口的返回
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5ap6lysrwj21ek0u00xb.jpg)
-
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5ap87sv66j228m0k4zw9.jpg)
+   ![image-20230228232728757](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232728757.png)

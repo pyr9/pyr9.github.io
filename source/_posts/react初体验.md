@@ -84,7 +84,7 @@ React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScr
 </body>
 ```
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h1ps9n22m7j20b204gmx2.jpg" style="zoom:50%;" />
+![image-20230228233834887](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233834887.png)
 
 # HelloReact– 组件化开发
 
@@ -174,7 +174,7 @@ React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScr
 </script>
 ```
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h1pub9n1n9j209o07ut8s.jpg" style="zoom:50%;" />
+![image-20230228233846219](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233846219.png)
 
 # 计数器案例
 
@@ -214,6 +214,6 @@ React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScr
 </script>
 ```
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h1puc680j4j20bk090dfu.jpg" style="zoom:50%;" />
+![image-20230228233857215](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233857215.png)
 
 2ED3-DF39

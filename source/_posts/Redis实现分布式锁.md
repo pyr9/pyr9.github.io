@@ -23,13 +23,13 @@ categories: Redis
 
 ## redis分布式锁
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b11433hoj21kg0u0adf.jpg)
+![image-20230228222015374](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222015374.png)
 
 - 多个线程，只有一个线程会执行成功
 - 必须使用try catch 在finally中释放锁，否则有异常，锁便没法释放，其他线程进来就会一直执行失败
 - 分布式锁需要设置一个超时时间，因为有可能宕机或者被运维重启了，需要保证原子性，写成一个命令
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b1621v7yj21ec0goq5r.jpg)
+![image-20230228222025578](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222025578.png)
 
 存在问题：现在有两个线程A，B，加锁时长设置的是10秒
 
@@ -39,7 +39,7 @@ categories: Redis
 
 解决方式，给每一个线程分配一个UUID
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b1hwkaarj21jw0scn1d.jpg)
+![image-20230228222036009](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222036009.png)
 
 存在问题：
 
@@ -55,15 +55,11 @@ redison
 
 使用：
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b1ygqebkj217s0ccwfs.jpg)
-
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b1z3x7w3j20eq034gll.jpg)
-
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b1wzvpx3j21dn0u0tck.jpg)
+![image-20230228222056848](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222056848.png)
 
 原理：
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6b22djvmej21260o8whq.jpg)
+![image-20230228222105112](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222105112.png)
 
 
 

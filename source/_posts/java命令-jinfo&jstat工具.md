@@ -10,7 +10,7 @@ categories: JVM调优
 
 jstat命令可以查看堆内存各部分的使用量，以及加载类的数量。
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h67521v5p3j21060lmadr.jpg)
+![image-20230228230728148](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230728148.png)
 
 
 
@@ -18,7 +18,7 @@ jstat命令可以查看堆内存各部分的使用量，以及加载类的数量
 
 **jstat -gc pid 最常用**，可以评估程序内存使用及GC压力整体情况 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h678gi8orqj21no03274w.jpg)
+![image-20230228230735468](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230735468.png)
 
 - S0C：第一个幸存区的大小，单位KB
 
@@ -58,7 +58,7 @@ jstat命令可以查看堆内存各部分的使用量，以及加载类的数量
 
  **jstat -gc pid 1000 10 (每隔1秒执行1次命令，共执行10次)**
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h678iroyusj21o404u404.jpg)
+![image-20230228230742585](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230742585.png)
 
 
 
@@ -66,7 +66,7 @@ jstat命令可以查看堆内存各部分的使用量，以及加载类的数量
 
 命令：`jstat -gccapacity 3548`
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h678m9ifvgj21tk02uaau.jpg)
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230751160.png)
 
 - NGCMN：新生代最小容量
 - NGCMX：新生代最大容量
@@ -93,7 +93,7 @@ jstat命令可以查看堆内存各部分的使用量，以及加载类的数量
 
  命令：`jstat -gcnew 3548`
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h678n8ozf5j20us02qq36.jpg)
+![image-20230228230803600](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230803600.png)
 
 - S0C：第一个幸存区的大小
 - S1C：第二个幸存区的大小
@@ -113,7 +113,7 @@ jstat命令可以查看堆内存各部分的使用量，以及加载类的数量
 
 `jstat -gcnewcapacity 3548`
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h678oy5h2zj217i02y3yy.jpg)
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230814113.png)
 
 - NGCMN：新生代最小容量
 - NGCMX：新生代最大容量
@@ -155,9 +155,9 @@ jstat命令可以查看堆内存各部分的使用量，以及加载类的数量
 
 查看正在运行的Java应用程序的扩展参数 以及jvm的参数 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6751095p4j20v20c675s.jpg)
+![image-20230228230825681](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230825681.png)
 
 ##  -flags
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h674zwtq82j219605u0uk.jpg)
+![image-20230228230833623](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230833623.png)
 

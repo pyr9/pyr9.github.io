@@ -57,9 +57,7 @@ public class DeadLockTest {
 1. 运行`jps`，查看当前所有java进程的pid
 2. `jstack pid` 查看当前进程的堆栈状态，如果有死锁会打印出来found 1 deadLock
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h671lb0pnvj21d50u0q9l.jpg)
-
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h671lmfphjj212w0rs438.jpg)
+![image-20230228231139474](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231139474.png)
 
 ​       可以定位出是17行出了死锁问题。
 
@@ -67,7 +65,7 @@ public class DeadLockTest {
 
 代码运行起来后，启动jvisualvm，在线程页面会直接有一个红色的显示：监测到死锁
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h671owo3ajj21y20u012b.jpg)
+![image-20230228231151238](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231151238.png)
 
 
 
@@ -101,7 +99,7 @@ public class Math {
 
 ### 2.2.1 命令top -p <pid> ，显示你的java进程的内存情况，找到当前进程的PID
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h672961ju6j215k0b6ju6.jpg)
+![image-20230228231203454](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231203454.png)
 
 ### 2.2.2 按H，获取每个线程的内存情况 
 
@@ -111,8 +109,7 @@ public class Math {
 
 比如tid为19664 ，转为十六进制得到 0x4cd0，执行 jstack 19663|grep -A 10 4cd0，得到线程堆栈信息中 4cd0 这个线程所在行的后面10行，从堆栈中可以发现导致cpu飙高的调用方法 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h68vvrrxt4j211c08mwgw.jpg)
+![image-20230228231212070](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231212070.png)
 
 6，查看对应的堆栈信息找出可能存在问题的代码 
-
 

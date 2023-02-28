@@ -196,7 +196,7 @@ Kafka 遵循了一种大部分消息系统共同的传统的设计：producer �
 
   注：**其实零拷贝，并不是说拷贝的次数为零，只是说没有cup拷贝的过程，这里的零拷贝指的是cpu拷贝次数为零**，
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h645mwunu9j214i0msn0o.jpg" style="zoom:50%;" />
+  ![image-20230228234101159](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228234101159.png)
 
 >  什么是用户态、内核态?
 

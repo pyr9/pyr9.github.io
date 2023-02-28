@@ -11,7 +11,7 @@ categories: JVM调优
 
 ZGC是一款JDK 11中新加入的具有实验性质的低延迟垃圾收集器。JDK 11只支持linux系统，JDK 14才支持了macOs和Windows系统
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h68eptrgcjj218s0hgwge.jpg)
+![image-20230228225702509](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225702509.png)
 
 ## 一 特点
 
@@ -40,7 +40,7 @@ ZGC是一款JDK 11中新加入的具有实验性质的低延迟垃圾收集器�
 
 大型Region（Large Region） ： 容量不固定， 可以动态变化， 但必须为2MB的整数倍， 用于放置4MB或 以上的大对象。 每个大型Region中 ，只会存放一个大对象
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h68eya6svwj211k0n40zq.jpg)
+![image-20230228225713386](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225713386.png)
 
 ## 二 **ZGC存**在的问题
 
@@ -107,7 +107,7 @@ ZGC目前有4中机制触发GC：
 
 6. 4G以下可以用parallel，4-8G可以用ParNew+CMS，8G以上可以用G1，几百G以上用ZGC
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h68gwgek4ij21jq0a2tax.jpg)
+![image-20230228225722421](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225722421.png)
 
 
 
