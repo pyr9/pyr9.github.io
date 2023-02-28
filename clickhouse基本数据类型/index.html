@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="clickhouse基本数据类型整型固定长度的整型，包括有符号整型或无符号整型。 整型范围（-2n-1~2n-1-1）： Int8 - [-128 : 127] Int16 - [-32768 : 32767] Int32 - [-2147483648 : 2147483647] Int64 - [-9223372036854775808 : 9223372036854775807] 无符号整型范">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyye8yqx9pj30u00u9mz9.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyye7wjb2nj30qw0g83zh.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyye721a9uj30ry0hkgn4.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyye7bn8x2j30oo0ecwfg.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225239055.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225247973.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225259859.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225307055.png">
 <meta property="article:published_time" content="2022-02-01T14:18:40.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:41:58.750Z">
+<meta property="article:modified_time" content="2023-02-28T14:53:12.187Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="分布式框架">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyye8yqx9pj30u00u9mz9.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225239055.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -341,13 +341,13 @@
 <li><p><strong>这个</strong> <strong>x</strong> 列只能存储类型定义中列出的值：hello或world</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">46</span>bb792f7762 :) <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> t_enum <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">&#x27;hello&#x27;</span>), (<span class="hljs-string">&#x27;world&#x27;</span>), (<span class="hljs-string">&#x27;hello&#x27;</span>);<br></code></pre></td></tr></table></figure></li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyye8yqx9pj30u00u9mz9.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225239055.png" srcset="/img/loading.gif" lazyload alt="image-20230228225239055"></p>
 <ul>
 <li><strong>如果需要看到对应行的数值，则必须将</strong> <strong>Enum</strong> <strong>值转换为整数类型</strong></li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">46</span>bb792f7762 :)  <span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">CAST</span>(x, <span class="hljs-string">&#x27;Int8&#x27;</span>) <span class="hljs-keyword">FROM</span> t_enum;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyye7wjb2nj30qw0g83zh.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225247973.png" srcset="/img/loading.gif" lazyload alt="image-20230228225247973"></p>
 <blockquote>
 <p>使用场景：对一些状态、类型的字段算是一种空间优化，也算是一种数据约束。但是实</p>
 <p>际使用中往往因为一些数据内容的变化增加一定的维护成本，甚至是数据丢失问题。所以谨慎使用。</p>
@@ -364,13 +364,13 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-keyword">AS</span> x, toTypeName(x) ;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyye721a9uj30ry0hkgn4.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225259859.png" srcset="/img/loading.gif" lazyload alt="image-20230228225259859"></p>
 <ul>
 <li>创建数组方式 2：使用方括号</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>] <span class="hljs-keyword">AS</span> x, toTypeName(x);<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyye7bn8x2j30oo0ecwfg.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225307055.png" srcset="/img/loading.gif" lazyload alt="image-20230228225307055"></p>
 <p>还有很多数据结构，可以参考官方文档：<a target="_blank" rel="noopener" href="https://clickhouse.com/docs/zh/sql-reference/data-types/">简介 | ClickHouse文档</a></p>
 
               

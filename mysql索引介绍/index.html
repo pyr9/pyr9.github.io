@@ -23,19 +23,19 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="索引的本质 索引是帮助Mysql高效获取数据的排好序的数据结构  索引的数据结构二叉树：单边增长的场景会导致全表扫描。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwoa8e7thzj30am0dkwek.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwoabk973sj30dy08cjrf.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwoaf7s92lj30ne07oq3a.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwoarcvziwj30r80bwjs3.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwqkxbz5qvj30j80f8mxz.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwql7jmw80j30si0dmgmn.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwqm2wi1m8j30og0c8dgy.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230316043.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230321402.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230329788.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230339454.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230349979.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230401564.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png">
 <meta property="article:published_time" content="2021-11-04T13:22:22.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:16:28.504Z">
+<meta property="article:modified_time" content="2023-02-28T15:04:14.610Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="mysql索引">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwoa8e7thzj30am0dkwek.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230316043.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -284,12 +284,10 @@
               <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="索引的本质"><a href="#索引的本质" class="headerlink" title="索引的本质"></a>索引的本质</h2><blockquote>
 <p>索引是帮助Mysql高效获取数据的排好序的数据结构</p>
 </blockquote>
-<h2 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h2><h4 id="二叉树：单边增长的场景会导致全表扫描。"><a href="#二叉树：单边增长的场景会导致全表扫描。" class="headerlink" title="二叉树：单边增长的场景会导致全表扫描。"></a>二叉树：单边增长的场景会导致全表扫描。</h4><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwoa8e7thzj30am0dkwek.jpg" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
-
+<h2 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h2><h4 id="二叉树：单边增长的场景会导致全表扫描。"><a href="#二叉树：单边增长的场景会导致全表扫描。" class="headerlink" title="二叉树：单边增长的场景会导致全表扫描。"></a>二叉树：单边增长的场景会导致全表扫描。</h4><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230316043.png" srcset="/img/loading.gif" lazyload alt="image-20230228230316043"></p>
 <span id="more"></span>
 
-<h4 id="红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。"><a href="#红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。" class="headerlink" title="红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。"></a>红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。</h4><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwoabk973sj30dy08cjrf.jpg" srcset="/img/loading.gif" lazyload  />
-
+<h4 id="红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。"><a href="#红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。" class="headerlink" title="红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。"></a>红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。</h4><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230321402.png" srcset="/img/loading.gif" lazyload alt="image-20230228230321402"></p>
 <h4 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h4><p>一次hash算法就可以定位到文件的位置，但存在缺点：</p>
 <ul>
 <li>不支持范围查找</li>
@@ -309,8 +307,7 @@
 <ol start="2">
 <li>如果使用了innoDb存储引擎，结点的data元素就可能存储的是除了索引外的其他所有列，会占用比较大的存储空间，对于一个大结点而言，可以存放的结点数量就会比较小</li>
 </ol>
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gwoaf7s92lj30ne07oq3a.jpg" srcset="/img/loading.gif" lazyload  />
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230329788.png" srcset="/img/loading.gif" lazyload alt="image-20230228230329788"></p>
 <h4 id="B-tree-B-tree变种"><a href="#B-tree-B-tree变种" class="headerlink" title="B+tree(B-tree变种)"></a>B+tree(B-tree变种)</h4><ol>
 <li><p>特点：</p>
 <blockquote>
@@ -320,7 +317,7 @@
 <li>叶子结点用指针连接，提高区间访问的性能。</li>
 </ul>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwoarcvziwj30r80bwjs3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230339454.png" srcset="/img/loading.gif" lazyload alt="image-20230228230339454"></p>
 </li>
 </ol>
 <h2 id="索引是怎么支持千万级表快速查找？"><a href="#索引是怎么支持千万级表快速查找？" class="headerlink" title="索引是怎么支持千万级表快速查找？"></a>索引是怎么支持千万级表快速查找？</h2><p>mysql建议一个结点大小为16kb,这样一次iO速度比较快，一个大结点下的一个索引元素大约是14b，所以一个大结点里面约有1170个索引元素，对于一个高度为3的b+树，可以存储<code>16* 1170* 1170 </code>&#x3D; 2000万。</p>
@@ -329,7 +326,7 @@
 <li><p>MyISAM索引文件和数据文件是分离的</p>
 </li>
 <li><p>表结构文件是xxx.frm, 索引文件是xxx.MYI, 数据文件是xxx.MYD</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwqkxbz5qvj30j80f8mxz.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230349979.png" srcset="/img/loading.gif" lazyload alt="image-20230228230349979"></p>
 </li>
 </ul>
 <blockquote>
@@ -343,7 +340,7 @@
 <li><p>表结构文件是xxx.frm, 索引文件+ 数据文件 是xxx.ibd</p>
 </li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwql7jmw80j30si0dmgmn.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230401564.png" srcset="/img/loading.gif" lazyload alt="image-20230228230401564"></p>
 <h4 id="为什么InnoDb表要尽量设定一个主键"><a href="#为什么InnoDb表要尽量设定一个主键" class="headerlink" title="为什么InnoDb表要尽量设定一个主键"></a>为什么InnoDb表要尽量设定一个主键</h4><ul>
 <li>innnoDb表数据文件本身就是按B+tree组织的一个索引文件</li>
 <li>主键是数据库确保数据行在整张表唯一性的保障.</li>
@@ -369,7 +366,7 @@
 <li>5个单值索引，对应5棵B+树，联合索引就只需要一棵树，所以日常推荐使用联合索引而不是单值索引。</li>
 <li>索引排序的时候会按照字段顺序，逐个去排序</li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwqm2wi1m8j30og0c8dgy.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png" srcset="/img/loading.gif" lazyload alt="image-20230228230412331"></p>
 
               
             </div>
@@ -457,7 +454,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Explain-%E8%AF%A6%E8%A7%A3/" title="Explain详解">
+                      <a href="/Explain%E8%AF%A6%E8%A7%A3/" title="Explain详解">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">Explain详解</span>
                         <span class="visible-mobile">上一篇</span>

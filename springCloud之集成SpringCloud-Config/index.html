@@ -23,18 +23,18 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="集中化配置为什么要集中化配置？ 微服务数量多，配置多 手工管理配置繁琐  配置分类 按照来源，分为：源代码，文件，数据库连接，服务调用等 按照配置环境，分为开发环境，测试环境，生产环境 集成阶段，编译，打包，运行  配置中心的要求 面向可配置的编码：避免硬编码，设置常量，运行时可读取 个理性：生产环境的配置和测试环境配置不一样 一致性：相同部署环境下，应该配置相同 集中化配置：分布式环境下，应用的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7fi607gj21ja0u0q8a.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7h5hk5oj21h10u0n1z.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7ik0y9ij20qy0ag74v.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7jb4rhyj225k09m0vc.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7p3re81j20na08sgm3.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232125832.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232134545.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232147874.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232155081.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232205076.png">
 <meta property="article:published_time" content="2022-07-18T09:37:36.000Z">
-<meta property="article:modified_time" content="2023-01-28T16:02:10.427Z">
+<meta property="article:modified_time" content="2023-02-28T15:22:07.272Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="分布式">
 <meta property="article:tag" content="集中化配置">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7fi607gj21ja0u0q8a.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232125832.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -308,10 +308,10 @@
 <li><p>搭建Eureka Client : <a target="_blank" rel="noopener" href="https://pyr9.github.io/2022/08/17/springCloud%E4%B9%8BEureka%E6%90%AD%E5%BB%BA/">springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)</a></p>
 </li>
 <li><p>github或者码云上创建一个仓库存储配置信息，github国内不是很稳定，我用了码云</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7fi607gj21ja0u0q8a.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232125832.png" srcset="/img/loading.gif" lazyload alt="image-20230228232125832"></p>
 </li>
 <li><p>在config-repo路径下，编写配置文件config-dev.yml</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7h5hk5oj21h10u0n1z.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232134545.png" srcset="/img/loading.gif" lazyload alt="image-20230228232134545"></p>
 </li>
 <li><p>引入依赖</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">implementation <span class="hljs-string">&#x27;org.springframework.cloud:spring-cloud-config-server&#x27;</span><br></code></pre></td></tr></table></figure>
@@ -323,10 +323,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableDiscoveryClient</span><br><span class="hljs-meta">@EnableConfigServer</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>    SpringApplication.run(Application.class, args);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>启动项目，访问<a target="_blank" rel="noopener" href="http://localhost:8888/config-dev.yml">localhost:8888&#x2F;config-dev.yml</a>，我们可以看到8888微服务可以成功的读取到远端的配置文件。如下图：</p>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7ik0y9ij20qy0ag74v.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></li>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232147874.png" srcset="/img/loading.gif" lazyload alt="image-20230228232147874"></p>
+</li>
 </ol>
 <p>访问<a target="_blank" rel="noopener" href="http://localhost:8888/config/dev/master">localhost:8888&#x2F;config&#x2F;dev&#x2F;master</a></p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7jb4rhyj225k09m0vc.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232155081.png" srcset="/img/loading.gif" lazyload alt="image-20230228232155081"></p>
 <h2 id="搭建-Config客户端"><a href="#搭建-Config客户端" class="headerlink" title="搭建 Config客户端"></a>搭建 Config客户端</h2><ol>
 <li><p>搭建Eureka Client : <a target="_blank" rel="noopener" href="https://pyr9.github.io/2022/08/17/springCloud%E4%B9%8BEureka%E6%90%AD%E5%BB%BA/">springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)</a></p>
 </li>
@@ -343,7 +344,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConfigController</span> </span>&#123;<br><br>  <span class="hljs-meta">@Value(&quot;$&#123;config.info&#125;&quot;)</span><br>  <span class="hljs-keyword">private</span> String info;<br><br>  <span class="hljs-meta">@Value(&quot;$&#123;config.version&#125;&quot;)</span><br>  <span class="hljs-keyword">private</span> String version;<br><br>  <span class="hljs-meta">@GetMapping(&quot;/config&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">config</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;info: &quot;</span>+info+<span class="hljs-string">&quot; version: &quot;</span>+version;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>测试，访问<a target="_blank" rel="noopener" href="http://localhost:9091/config">localhost:9091&#x2F;config</a>，可以查询到正确的配置</p>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7p3re81j20na08sgm3.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></li>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232205076.png" srcset="/img/loading.gif" lazyload alt="image-20230228232205076"></p>
+</li>
 </ol>
 <h1 id="Config客户端之动态刷新"><a href="#Config客户端之动态刷新" class="headerlink" title="Config客户端之动态刷新"></a>Config客户端之动态刷新</h1><p>避免每次修改githib上的配置都需要重启客户端</p>
 <h2 id="手动版"><a href="#手动版" class="headerlink" title="手动版"></a>手动版</h2><p>优点：解决了重启 Config 客户端才能获取最新配置的问题，</p>

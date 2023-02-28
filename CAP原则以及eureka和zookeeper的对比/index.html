@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1 CAP理论是什么？CAP即：  Consistency（一致性）：对于客户端的每次读操作，要么读到的是最新的数据，要么读取失败，返回一个错误或超时，其强调的是数据正确。 Availability（可用性）：任何客户端的请求都能得到响应数据，不会出现响应错误，但不保证数据最新，强调的是不出错。比如我们购买商品时，他的点赞数就与购买商品无关，我们可以允许他不是最新的。 Partition tole">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjrq1o9mj20y00b2q49.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233310740.png">
 <meta property="article:published_time" content="2022-07-21T14:23:30.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:18:57.458Z">
+<meta property="article:modified_time" content="2023-02-28T15:33:14.732Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="分布式">
 <meta property="article:tag" content="CAP原则">
 <meta property="article:tag" content="eureka">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjrq1o9mj20y00b2q49.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233310740.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -290,12 +290,7 @@
 <p>上面是正常运作的情况，但分布式系统中，最大的问题就是网络，现在假设一种极端情况，N1和N2之间的网络断开了，但我们仍要支持这种网络异常，也就是满足分区容错性，那么这样能不能同时满足一致性和可用性呢？</p>
 <p>假设N1和N2之间通信的时候网络突然出现故障，有用户向N1发送数据更新请求，那N1中的数据DB0将被更新为DB1，由于网络是断开的，N2中的数据库仍旧是DB0；</p>
 <p>如果这个时候，有用户向N2发送数据读取请求，由于数据还没有进行同步，应用程序没办法立即给用户返回最新的数据DB1，怎么办呢？有二种选择，第一，牺牲数据一致性，响应旧的数据DB0给用户；第二，牺牲可用性，阻塞等待，直到网络连接恢复，数据更新操作完成之后，再给用户响应最新的数据DB1。</p>
-<h1 id="3-作为服务中心，eureka和zookeeper的对比"><a href="#3-作为服务中心，eureka和zookeeper的对比" class="headerlink" title="3 作为服务中心，eureka和zookeeper的对比"></a>3 作为服务中心，eureka和zookeeper的对比</h1><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjrq1o9mj20y00b2q49.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
-
-
-
-
-
+<h1 id="3-作为服务中心，eureka和zookeeper的对比"><a href="#3-作为服务中心，eureka和zookeeper的对比" class="headerlink" title="3 作为服务中心，eureka和zookeeper的对比"></a>3 作为服务中心，eureka和zookeeper的对比</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233310740.png" srcset="/img/loading.gif" lazyload alt="image-20230228233310740"></p>
 <h2 id="3-1-集群方式不同"><a href="#3-1-集群方式不同" class="headerlink" title="3.1 集群方式不同"></a>3.1 集群方式不同</h2><ul>
 <li><p>zookeeper集群是存在leader和follower关系的，也就是一主多从。</p>
 </li>

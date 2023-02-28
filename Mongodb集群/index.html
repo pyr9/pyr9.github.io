@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1. 主从模式主从最大的问题就是无法自动故障转移，对于简单的主从复制无法自动故障转移的缺陷，各个数据库都在改进，MySQL推出的Fabric ，Redis的哨兵，Mongodb的复制集。 2. 复制集模式 Mongodb复制集（Replication Set）由一组Mongod实例（进程）组成，包含一个 Primary节点和多个Secondary节点 Mongodb Driver（客户端）的所有数">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fsdovm2kj20yu0reabs.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fslw8k0lj217e0hotak.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fslnd5tsj21a60h4405.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224723229.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224732217.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224740040.png">
 <meta property="article:published_time" content="2022-09-22T15:01:54.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:43:12.415Z">
+<meta property="article:modified_time" content="2023-02-28T14:47:42.301Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="集群">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fsdovm2kj20yu0reabs.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224723229.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -289,8 +289,7 @@
 </ul>
 </li>
 </ul>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fsdovm2kj20yu0reabs.jpg" srcset="/img/loading.gif" lazyload style="zoom:33%;" />
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224723229.png" srcset="/img/loading.gif" lazyload alt="image-20230228224723229"></p>
 <h2 id="2-1-三节点复制集模式"><a href="#2-1-三节点复制集模式" class="headerlink" title="2.1 三节点复制集模式"></a>2.1 <strong>三节点复制集模式</strong></h2><p>常见的复制集架构由3个成员节点组成，其中存在几种不同的模式</p>
 <h3 id="2-1-1-PSS模式（官方推荐模式）"><a href="#2-1-1-PSS模式（官方推荐模式）" class="headerlink" title="2.1.1 PSS模式（官方推荐模式）"></a>2.1.1 <strong>PSS模式（官方推荐模式）</strong></h3><ul>
 <li><p>PSS模式由一个主节点和两个备节点所组成，即Primary+Secondary+Secondary</p>
@@ -300,15 +299,13 @@
 <li><p>旧的主节点在可用时重新加入复制集。</p>
 </li>
 </ul>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fslw8k0lj217e0hotak.jpg" srcset="/img/loading.gif" lazyload style="zoom:33%;" />
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224732217.png" srcset="/img/loading.gif" lazyload alt="image-20230228224732217"></p>
 <h3 id="2-1-2-PSA模式（官方推荐模式）"><a href="#2-1-2-PSA模式（官方推荐模式）" class="headerlink" title="2.1.2 *PSA模式（官方推荐模式）*"></a>2.1.2 *<em><strong>PSA</strong>模式（官方推荐模式）</em>*</h3><ul>
 <li>PSA模式由一个主节点、一个备节点和一个仲裁者节点组成，即 Primary+Secondary+Arbiter </li>
 <li>此模式仅提供数据的一个完整副本，如果主节点不可用，则复制 集将选择备节点作为主节点。</li>
 <li>Arbiter节点不存储数据副本，也不提供业务的读写操作。Arbiter节点发生故障不影 响业务，仅影响选举投票。因为需要半数选举，但机器成本不够再申请一台</li>
 </ul>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fslnd5tsj21a60h4405.jpg" srcset="/img/loading.gif" lazyload style="zoom:33%;" />
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224740040.png" srcset="/img/loading.gif" lazyload alt="image-20230228224740040"></p>
 <h1 id="3-分片集群架构"><a href="#3-分片集群架构" class="headerlink" title="3 分片集群架构"></a>3 <strong>分片集群架构</strong></h1><p>MongoDB 分片集群（Sharded Cluster）是对数据进行水平扩展的一种方式</p>
 <h2 id="3-1-使用场景"><a href="#3-1-使用场景" class="headerlink" title="3.1 使用场景"></a>3.1 使用场景</h2><ul>
 <li>写IOPS超出单个MongoDB节点的写服务能力</li>

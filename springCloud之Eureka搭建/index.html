@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="Eureka是什么？ Eureka是 Netflix 公司开发的一款开源的服务注册与发现组件。 Spring Cloud 将 Eureka 与 Netflix 中的其他开源服务组件（例如 Ribbon、Feign 以及 Hystrix 等）一起整合进 Spring Cloud Netflix 模块中，整合后的组件全称为 Spring Cloud Netflix Eureka。 Eureka 是 S">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fdi19u9dj215a0u0q7v.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5ap4xbr46j21ex0u0jvx.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5aordxc7lj21dz0u0434.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232003650.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232017385.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232035911.png">
 <meta property="article:published_time" content="2022-07-17T15:02:31.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:18:57.462Z">
+<meta property="article:modified_time" content="2023-02-28T15:20:42.049Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="微服务">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fdi19u9dj215a0u0q7v.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232003650.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -298,10 +298,7 @@
 <h2 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h2><p>为了防止EurekaClient正常运行，但是与EurekaServer网络不通（延迟、拥堵、卡顿）的情况下，EurekaServer不会对EurekaClient服务进行剔除，因为微服务本身是建康的，此时不应该注销这个微服务。</p>
 <h2 id="何时使用"><a href="#何时使用" class="headerlink" title="何时使用"></a>何时使用</h2><p>本地环境建议禁止自我保护，生产环境建议开启自我保护。</p>
 <h2 id="eureka停止更新了"><a href="#eureka停止更新了" class="headerlink" title="eureka停止更新了"></a>eureka停止更新了</h2><p><a target="_blank" rel="noopener" href="https://github.com/Netflix/eureka/wiki">Home · Netflix&#x2F;eureka Wiki (github.com)</a></p>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fdi19u9dj215a0u0q7v.jpg" srcset="/img/loading.gif" lazyload style="zoom:100%;" />
-
-
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232003650.png" srcset="/img/loading.gif" lazyload alt="image-20230228232003650"></p>
 <h1 id="Eureka-Server搭建"><a href="#Eureka-Server搭建" class="headerlink" title="Eureka Server搭建"></a>Eureka Server搭建</h1><p>参考<a target="_blank" rel="noopener" href="https://github.com/spring-cloud-samples/eureka">GitHub - spring-cloud-samples&#x2F;eureka</a></p>
 <ul>
 <li><p>Step1: 新建一个springBoot项目</p>
@@ -316,7 +313,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.pyr.spring.cloud.weather;<br><br><span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;<br><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;<br><span class="hljs-keyword">import</span> org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;<br><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableEurekaServer</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> </span>&#123;<br><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>    SpringApplication.run(Application.class, args);<br>  &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>启动成功后，访问<a target="_blank" rel="noopener" href="http://localhost:8761/">Eureka</a>可以看到如下页面，可以看出此时还没有实例注册到该服务上。</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5ap4xbr46j21ex0u0jvx.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232017385.png" srcset="/img/loading.gif" lazyload alt="image-20230228232017385"></p>
 </li>
 </ul>
 <h1 id="Eureka-Client搭建"><a href="#Eureka-Client搭建" class="headerlink" title="Eureka Client搭建"></a>Eureka Client搭建</h1><ul>
@@ -332,7 +329,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.pyr.spring.cloud.weather;<br><br><span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;<br><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;<br><span class="hljs-keyword">import</span> org.springframework.cloud.client.discovery.EnableDiscoveryClient;<br><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableDiscoveryClient</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>    SpringApplication.run(Application.class, args);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>刷新</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5aordxc7lj21dz0u0434.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232035911.png" srcset="/img/loading.gif" lazyload alt="image-20230228232035911"></p>
 </li>
 </ul>
 

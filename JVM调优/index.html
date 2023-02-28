@@ -23,19 +23,19 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1 调优原则 多数导致GC问题的Java应⽤，都不是因为我们参数设置错误，⽽是代码问题；  实际使用中，分析GC优化代码，比优化JVM参数效果要好，JVM 参数的默认（推荐）值都是经过 JVM 团队的反复测试和前人的充分验证得出的比较合理的值，因此通常来说是比较靠谱和通用的，一般不会出大问题。  如果满足下面的指标，则一般不需要进行GC：  Minor GC执行时间不到50ms，不低于10秒一次；">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h68t6kw94aj20bs05m0sx.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avlmvphuj21pc0lmdql.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avmoyunkj21nf0u0tnc.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avoot12aj21k80u0q9y.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avprtd0tj21h20u012w.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avzmzupaj21ru0mqgwc.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222903395.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222923471.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222946533.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222956571.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223006680.png">
 <meta property="article:published_time" content="2022-09-17T08:57:45.000Z">
-<meta property="article:modified_time" content="2023-01-28T16:02:10.367Z">
+<meta property="article:modified_time" content="2023-02-28T14:30:11.672Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="性能调优">
 <meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h68t6kw94aj20bs05m0sx.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -386,12 +386,12 @@
 
 <h2 id="3-2-观察GC整体情况"><a href="#3-2-观察GC整体情况" class="headerlink" title="3.2 观察GC整体情况"></a>3.2 观察GC整体情况</h2><ul>
 <li><p>step1 : 运行<code> jps</code>看下, 查看当前java进程PID</p>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h68t6kw94aj20bs05m0sx.jpg" srcset="/img/loading.gif" lazyload style="zoom:100%;" />
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png" srcset="/img/loading.gif" lazyload alt="image-20230228222821739"></p>
 </li>
 <li><p>step2: 运行 <code>jstat -gc 2593 3000 10000</code>，每隔3秒，打印下GC压力整体情况。观察可发现，程序突然开始频繁Young Gc 和Full GC。</p>
 </li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avlmvphuj21pc0lmdql.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222903395.png" srcset="/img/loading.gif" lazyload alt="image-20230228222903395"></p>
 <h2 id="3-2-思考频繁Full-Gc-触发条件"><a href="#3-2-思考频繁Full-Gc-触发条件" class="headerlink" title="3.2 思考频繁Full Gc 触发条件"></a>3.2 思考频繁Full Gc 触发条件</h2><ul>
 <li><p>调用System.gc()方法的调用。   <strong>-&gt; 不可能，系统中没这样调用</strong></p>
 </li>
@@ -411,12 +411,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">-Xms1536M -Xmx1536M -Xmn1024M -Xss256K -XX:SurvivorRatio=<span class="hljs-number">6</span> -XX:MetaspaceSize=256M -XX:MaxMetaspaceSize=512M  -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=<span class="hljs-number">75</span> -XX:+UseCMSInitiatingOccupancyOnly<br></code></pre></td></tr></table></figure>
 
 <p>我们发现young gc和full gc依然很频繁了，而且看到有大量的对象频繁的被挪动到老年代</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avmoyunkj21nf0u0tnc.jpg" srcset="/img/loading.gif" lazyload>这种情况我们可以借助jmap或者jvisualvm命令大概看下是什么对象</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avoot12aj21k80u0q9y.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222923471.png" srcset="/img/loading.gif" lazyload alt="image-20230228222923471"></p>
+<p>这种情况我们可以借助jmap或者jvisualvm命令大概看下是什么对象</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222946533.png" srcset="/img/loading.gif" lazyload alt="image-20230228222946533"></p>
 <p>查到了有大量User对象产生，这个可能是问题所在，但不确定，还必须找到对应的代码确认，如何去找对应的代码了？ </p>
 <p>1、代码里全文搜索生成User对象的地方(适合只有少数几处地方的情况) </p>
 <p>2、如果生成User对象的地方太多，无法定位具体代码，我们可以同时分析下占用cpu较高的线程，一般有大量对象不断产生，对应的方法 代码肯定会被频繁调用，占用的cpu必然较高 </p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avprtd0tj21h20u012w.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222956571.png" srcset="/img/loading.gif" lazyload alt="image-20230228222956571"></p>
 <p>可以用上面讲过的jstack或jvisualvm来定位cpu使用较高的代码，最终定位到的代码如下： </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/report&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WeatherReportController</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 模拟批量查询城市天气预报场景</span><br><span class="hljs-comment">   */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> ArrayList&lt;City&gt; <span class="hljs-title">queryCities</span><span class="hljs-params">()</span> </span>&#123;<br>    ArrayList&lt;City&gt; cities = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5000</span>; i++) &#123;<br>      cities.add(<span class="hljs-keyword">new</span> City(String.valueOf(i),<span class="hljs-string">&quot;深圳&quot;</span>));<br>    &#125;<br>    <span class="hljs-keyword">return</span> cities;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -424,7 +425,7 @@
 
 <p>同时，java的代码也是需要优化的，一次查询出500M的对象出来，明显不合适，要根据之前说的各种原则尽量优化到合适的值，尽量消除这种朝生夕死的对象导致的full gc</p>
 <p>改成批量查询500后，Full GC 基本不再发生</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6avzmzupaj21ru0mqgwc.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223006680.png" srcset="/img/loading.gif" lazyload alt="image-20230228223006680"></p>
 <h1 id="4-内存泄露到底是怎么回事"><a href="#4-内存泄露到底是怎么回事" class="headerlink" title="4 内存泄露到底是怎么回事"></a>4 <strong>内存泄露到底是怎么回事</strong></h1><p>一般电商架构可能会使用多级缓存架构，就是redis加上JVM级缓存，大多数同学可能为了图方便对于JVM级缓存就简单使用一个hashmap，于是不断往里面放缓存数据，但是很少考虑这个map的容量问题，结果这个缓存map越来越大，一直占用着老年代的很多空间，时间长了就会导致full gc非常频繁，这就是一种内存泄漏，对于一些老旧数据没有及时清理导致一直占用着宝贵的内存资源，时间长了除了导致full gc，还有可能导致OOM。 </p>
 <p>这种情况完全可以考虑采用一些成熟的JVM级缓存框架来解决，比如ehcache等自带一些LRU数据淘汰算法的框架来作为JVM级的缓存。</p>
 

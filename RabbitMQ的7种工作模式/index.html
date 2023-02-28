@@ -23,18 +23,18 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="RabbitMQ的7种工作模式1. simple模式  最简单的收发模式。生产者发送一个消息到一个指定的queue，中间不需要任何exchange规则。消费者端通过queue方式进行消费。  代码  producer: 123channel.queueDeclare(QUEUE_NAME, true, false, false, null);String message &#x3D; &quot;hello">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vr62rxtj20cq01sa9y.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vqu9trgj20b403umx4.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vrnqw4bj20cw02wmx5.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vsezs1tj20cw04o74c.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vstpqczj20de04g3yj.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vtu8rx3j20je06iq37.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223058625.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223108418.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223121109.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223131996.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223142678.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223151956.png">
 <meta property="article:published_time" content="2021-10-27T13:35:27.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:41:18.826Z">
+<meta property="article:modified_time" content="2023-02-28T14:32:00.776Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="消息中间件">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vr62rxtj20cq01sa9y.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223058625.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -280,7 +280,7 @@
             
             <div class="markdown-body">
               
-              <h1 id="RabbitMQ的7种工作模式"><a href="#RabbitMQ的7种工作模式" class="headerlink" title="RabbitMQ的7种工作模式"></a><strong>RabbitMQ的7种工作模式</strong></h1><h2 id="1-simple模式"><a href="#1-simple模式" class="headerlink" title="1. simple模式"></a>1. simple模式</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vr62rxtj20cq01sa9y.jpg" srcset="/img/loading.gif" lazyload></p>
+              <h1 id="RabbitMQ的7种工作模式"><a href="#RabbitMQ的7种工作模式" class="headerlink" title="RabbitMQ的7种工作模式"></a><strong>RabbitMQ的7种工作模式</strong></h1><h2 id="1-simple模式"><a href="#1-simple模式" class="headerlink" title="1. simple模式"></a>1. simple模式</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223058625.png" srcset="/img/loading.gif" lazyload alt="image-20230228223058625"></p>
 <ul>
 <li><p>最简单的收发模式。生产者发送一个消息到一个指定的queue，中间不需要任何exchange规则。消费者端通过queue方式进行消费。</p>
 </li>
@@ -294,7 +294,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="2-work工作模式-资源的竞争"><a href="#2-work工作模式-资源的竞争" class="headerlink" title="2. work工作模式(资源的竞争)"></a>2. work工作模式(资源的竞争)</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vqu9trgj20b403umx4.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="2-work工作模式-资源的竞争"><a href="#2-work工作模式-资源的竞争" class="headerlink" title="2. work工作模式(资源的竞争)"></a>2. work工作模式(资源的竞争)</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223108418.png" srcset="/img/loading.gif" lazyload alt="image-20230228223108418"></p>
 <ul>
 <li><p>一个生产者，多个消费者。</p>
 </li>
@@ -309,7 +309,7 @@
 <li><p>隐患：高并发情况下,默认会产生某一个消息被多个消费者共同使用,可以设置一个开关(syncronize) 保证一条消息只能被一个消费者使用。</p>
 </li>
 </ul>
-<h2 id="3-publish-x2F-subscribe发布订阅-共享资源"><a href="#3-publish-x2F-subscribe发布订阅-共享资源" class="headerlink" title="3. publish&#x2F;subscribe发布订阅(共享资源)"></a>3. publish&#x2F;subscribe发布订阅(共享资源)</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vrnqw4bj20cw02wmx5.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-publish-x2F-subscribe发布订阅-共享资源"><a href="#3-publish-x2F-subscribe发布订阅-共享资源" class="headerlink" title="3. publish&#x2F;subscribe发布订阅(共享资源)"></a>3. publish&#x2F;subscribe发布订阅(共享资源)</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223121109.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li><p>type为**”fanout”** 的exchange</p>
 </li>
@@ -325,7 +325,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="4-Routing路由模式"><a href="#4-Routing路由模式" class="headerlink" title="4. Routing路由模式"></a><strong>4. Routing路由模式</strong></h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vsezs1tj20cw04o74c.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="4-Routing路由模式"><a href="#4-Routing路由模式" class="headerlink" title="4. Routing路由模式"></a><strong>4. Routing路由模式</strong></h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223131996.png" srcset="/img/loading.gif" lazyload alt="image-20230228223131996"></p>
 <ul>
 <li><p>type为”<strong>direct</strong>” 的exchange</p>
 </li>
@@ -341,7 +341,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="5-topic-主题模式-路由模式的一种"><a href="#5-topic-主题模式-路由模式的一种" class="headerlink" title="5.topic 主题模式(路由模式的一种)"></a><strong>5.topic 主题模式(路由模式的一种)</strong></h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vstpqczj20de04g3yj.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="5-topic-主题模式-路由模式的一种"><a href="#5-topic-主题模式-路由模式的一种" class="headerlink" title="5.topic 主题模式(路由模式的一种)"></a><strong>5.topic 主题模式(路由模式的一种)</strong></h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223142678.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li><p>type为”<strong>topic</strong>“ 的exchange</p>
 </li>
@@ -359,7 +359,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="6-RPC模式-路由模式的一种"><a href="#6-RPC模式-路由模式的一种" class="headerlink" title="6. RPC模式(路由模式的一种)"></a>6. RPC模式(路由模式的一种)</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h61vtu8rx3j20je06iq37.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="6-RPC模式-路由模式的一种"><a href="#6-RPC模式-路由模式的一种" class="headerlink" title="6. RPC模式(路由模式的一种)"></a>6. RPC模式(路由模式的一种)</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223151956.png" srcset="/img/loading.gif" lazyload alt="image-20230228223151956"></p>
 <p>实现不同服务间的远程调用。 springCloud feign</p>
 <h2 id="7-Publisher-Confirms-发送者消息确认"><a href="#7-Publisher-Confirms-发送者消息确认" class="headerlink" title="7. Publisher Confirms 发送者消息确认"></a>7. Publisher Confirms <strong>发送者消息确认</strong></h2><ul>
 <li><p>这个模块就是通过给发送者提供一些确认机制，来保证这个消息发送的过程是成功的</p>

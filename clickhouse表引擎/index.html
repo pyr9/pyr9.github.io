@@ -23,25 +23,25 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="表引擎介绍表引擎是 ClickHouse 的一大特色。不同的引擎有不同的作用，可以说， 表引擎决定了如何存储表的数据。包括： ➢ 数据的存储方式和位置，写到哪里以及从哪里读取数据。 （一般的引擎都存在磁盘中，但是存在与其他数据库继承的场景，比如和mysql集成，数据放在mysql服务端。） ➢ 支持哪些查询以及如何支持。（有些语法只有在特定的引擎才可以使用，比如不能在 MergeTree 表中存储">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0c4bfsguj30rw0iqjtg.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0c7984cnj30ui0s8wi5.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0c8dbd1bj30og0y6tce.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0cf9ividj31460nigq3.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0ik5e2dtj30ns0fe0u6.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0ilgoy7mj30tc120wi1.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0iqo7gd7j30ze0m476i.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0of9u8h5j30ps0j00ui.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0olyjbfej30oo0qgjuc.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0ovmauddj30ow0imjt6.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0p639ls5j30py0igabu.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0p8yhgnfj30pq0liq5h.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0pau5gw1j30oq0qm0ve.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225811773.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225822725.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225836780.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225859455.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225917132.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225930135.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225939573.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225956910.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230010636.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230022485.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230039985.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230047812.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230057295.png">
 <meta property="article:published_time" content="2022-02-03T05:24:24.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:41:58.761Z">
+<meta property="article:modified_time" content="2023-02-28T15:01:06.589Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz0c4bfsguj30rw0iqjtg.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225811773.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -318,7 +318,7 @@
 <h5 id="2-可选"><a href="#2-可选" class="headerlink" title="2. 可选"></a>2. 可选</h5><p>可选的，如果不填，只会使用一个分区。</p>
 <h5 id="3-分区目录"><a href="#3-分区目录" class="headerlink" title="3.分区目录"></a>3.<strong>分区目录</strong></h5><p>MergeTree 是以列文件+索引文件+表定义文件组成的，但是如果设定了分区那么这些文</p>
 <p>件就会保存到不同的分区目录中。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0c4bfsguj30rw0iqjtg.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225811773.png" srcset="/img/loading.gif" lazyload alt="image-20230228225811773"></p>
 <h5 id="4-并行"><a href="#4-并行" class="headerlink" title="4.并行"></a>4.<strong>并行</strong></h5><p>分区后，面对涉及跨分区的查询统计，ClickHouse 会以分区为单位并行处理。</p>
 <h5 id="5-数据写入与分区合并"><a href="#5-数据写入与分区合并" class="headerlink" title="5.数据写入与分区合并"></a>5.<strong>数据写入与分区合并</strong></h5><ul>
 <li><p>任何一个批次的数据写入都会产生一个临时分区，不会纳入任何一个已有的分区。</p>
@@ -337,9 +337,10 @@
 <ul>
 <li>查看数据并没有纳入任何分区</li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0c7984cnj30ui0s8wi5.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225822725.png" srcset="/img/loading.gif" lazyload alt="image-20230228225822725"></p>
 </li>
-<li><p>手动 optimize 之后，再次查询  <img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0c8dbd1bj30og0y6tce.jpg" srcset="/img/loading.gif" lazyload></p>
+<li><p>手动 optimize 之后，再次查询</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225836780.png" srcset="/img/loading.gif" lazyload alt="image-20230228225836780"></p>
 </li>
 </ul>
 <h4 id="primary-key-主键"><a href="#primary-key-主键" class="headerlink" title="primary key 主键"></a><strong>primary key</strong> <strong>主键</strong></h4><ul>
@@ -354,7 +355,7 @@
 <p>index granularity： 直接翻译的话就是索引粒度，指在稀疏索引中两个相邻索引对应数据的间隔。ClickHouse 中的 MergeTree 默认是 8192。官方不建议修改这个值，除非该列存在大量重复值，比如在一个分区中几万行才有一个不同数据。</p>
 </blockquote>
 <p><strong>稀疏索引：</strong></p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0cf9ividj31460nigq3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225859455.png" srcset="/img/loading.gif" lazyload alt="image-20230228225859455"></p>
 <p>稀疏索引的好处就是可以用很少的索引数据，定位更多的数据，代价就是只能定位到索	引粒度的第一行，然后再进行进行一点扫描。</p>
 <blockquote>
 <p>比如要查找id为15151的数据，可以判断出他大于10101 小于32343 ，因此会在这个区域内进行查找，类似的根据二分查找定位到具体的值。</p>
@@ -423,19 +424,19 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_mt7 <span class="hljs-keyword">values</span><br>(<span class="hljs-number">106</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">1000.00</span>,<span class="hljs-string">&#x27;2022-02-03 10:44:32&#x27;</span>),<br>(<span class="hljs-number">107</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2022-02-03 10:44:32&#x27;</span>),<br>(<span class="hljs-number">110</span>,<span class="hljs-string">&#x27;sku_003&#x27;</span>,<span class="hljs-number">600.00</span>,<span class="hljs-string">&#x27;2022-02-04 19:20:30&#x27;</span>);<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0ik5e2dtj30ns0fe0u6.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225917132.png" srcset="/img/loading.gif" lazyload alt="image-20230228225917132"></p>
 <ul>
 <li><p>手动合并，查看效果 到期后，指定的字段数据归 0</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">optimize <span class="hljs-keyword">table</span> t_order_mt7 <span class="hljs-keyword">final</span>;<br></code></pre></td></tr></table></figure></li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0ilgoy7mj30tc120wi1.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225930135.png" srcset="/img/loading.gif" lazyload alt="image-20230228225930135"></p>
 <h4 id="2-表-TTL"><a href="#2-表-TTL" class="headerlink" title="2.表 TTL"></a>2.表 TTL</h4><ul>
 <li><p>表可以设置一个用于移除过期行的表达式，以及多个用于在磁盘或卷上自动转移数据片段的表达式。当表中的行过期时，ClickHouse 会删除所有对应的行。对于数据片段的转移特性，必须所有的行都满足转移条件。</p>
 </li>
 <li><p>下面的这条语句是数据会在 create_time 之后 10 秒丢失</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> t_order_mt3 MODIFY TTL create_time <span class="hljs-operator">+</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">10</span> <span class="hljs-keyword">SECOND</span>;<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h5 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h5><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0iqo7gd7j30ze0m476i.jpg" srcset="/img/loading.gif" lazyload></p>
+<h5 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h5><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225939573.png" srcset="/img/loading.gif" lazyload alt="image-20230228225939573"></p>
 <h2 id="ReplacingMergeTree"><a href="#ReplacingMergeTree" class="headerlink" title="ReplacingMergeTree"></a>ReplacingMergeTree</h2><ul>
 <li><p>ReplacingMergeTree 是 MergeTree 的一个变种，它存储特性完全继承 MergeTree，只是多了一个去重的功能。 </p>
 </li>
@@ -466,17 +467,17 @@
 <p>可以看到插入的数据是根据id和sku_id 去重过的。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> t_order_rmt;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0of9u8h5j30ps0j00ui.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225956910.png" srcset="/img/loading.gif" lazyload></p>
 <p>（4）再次插入数据</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_rmt <span class="hljs-keyword">values</span><br>(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">1000.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>) ,<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 11:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_004&#x27;</span>,<span class="hljs-number">2500.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">12000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">600.00</span>,<span class="hljs-string">&#x27;2020-06-02 12:00:00&#x27;</span>);<br></code></pre></td></tr></table></figure>
 
 <p>(5) 再次查询，可以看到这次依旧只插入了4条数据，但是和第一次插入的数据没有进行去重，依旧存在重复数据。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0olyjbfej30oo0qgjuc.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230010636.png" srcset="/img/loading.gif" lazyload alt="image-20230228230010636"></p>
 <p>（6）手动合并</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">OPTIMIZE <span class="hljs-keyword">TABLE</span> t_order_rmt <span class="hljs-keyword">FINAL</span>;<br></code></pre></td></tr></table></figure>
 
 <p>  (7) 再执行一次查询，此时数据已经根据分区进行了最终去重。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0ovmauddj30ow0imjt6.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230022485.png" srcset="/img/loading.gif" lazyload alt="image-20230228230022485"></p>
 <h3 id="案例结论"><a href="#案例结论" class="headerlink" title="案例结论"></a>案例结论</h3><p>➢ 实际上是使用 order by 字段作为唯一键</p>
 <p>➢ 去重不能跨分区</p>
 <p>➢ 只有同一批插入（新版本）或合并分区时才会进行去重</p>
@@ -499,15 +500,15 @@
 <p>（3）执行第一次查询，可以看到已经做了一次聚合</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> t_order_smt;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0p639ls5j30py0igabu.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230039985.png" srcset="/img/loading.gif" lazyload alt="image-20230228230039985"></p>
 <p>（4）再次插入一条重复数据，并查询。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_smt <span class="hljs-keyword">values</span><br>(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0p8yhgnfj30pq0liq5h.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230047812.png" srcset="/img/loading.gif" lazyload alt="image-20230228230047812"></p>
 <p>（5）手动合并,并再次执行查询，可以看到数据已经全部聚合</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">OPTIMIZE <span class="hljs-keyword">TABLE</span> t_order_smt <span class="hljs-keyword">FINAL</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz0pau5gw1j30oq0qm0ve.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230057295.png" srcset="/img/loading.gif" lazyload alt="image-20230228230057295"></p>
 <h3 id="案例结论-1"><a href="#案例结论-1" class="headerlink" title="案例结论"></a>案例结论</h3><p>➢ 以 SummingMergeTree（）中指定的列作为汇总数据列 </p>
 <p>➢ 以 order by 的列为准，作为维度列</p>
 <p>➢ 可以填写多列必须数字列，如果不填，以所有非维度列且为数字列的字段为汇总数据列</p>

@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="对象内存分配策略 JVM通过逃逸分析确定该对象不会被外部访问。如果不会逃逸可以将该对象在栈上分配内存 大多数情况下，对象在新生代中 Eden 区分配。 大对象直接进入老年代 长期存活的对象将进入老年代  对象动态年龄判断 老年代空间分配担保机制  对象栈上分配概念 我们通过JVM内存分配可以知道JAVA中的对象都是在堆上进行分配，当对象没有被引用的时候，需要依靠GC进行回收内存，如果对象数量较多的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6682py1jcj20zi0acwfu.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6681yzllhj216v0u0476.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h66hg26wq5j217i0u043e.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232619185.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232628497.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232645030.png">
 <meta property="article:published_time" content="2022-09-14T08:04:09.000Z">
-<meta property="article:modified_time" content="2022-09-19T01:37:21.201Z">
+<meta property="article:modified_time" content="2023-02-28T15:26:47.976Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="性能调优">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6682py1jcj20zi0acwfu.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232619185.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -307,19 +307,13 @@
 </ul>
   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">‐Xmx15m ‐Xms15m ‐XX:+DoEscapeAnalysis ‐XX:+PrintGC ‐XX:+EliminateAllocations<br></code></pre></td></tr></table></figure>
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6682py1jcj20zi0acwfu.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
-
+<p>  <img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232619185.png" srcset="/img/loading.gif" lazyload alt="image-20230228232619185"></p>
 <ul>
 <li>使用如下参数都会发生大量GC</li>
 </ul>
   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">‐Xmx15m ‐Xms15m ‐XX:‐DoEscapeAnalysis ‐XX:+PrintGC ‐XX:+EliminateAllocations<br>‐Xmx15m ‐Xms15m ‐XX:+DoEscapeAnalysis ‐XX:+PrintGC ‐XX:‐EliminateAllocations<br></code></pre></td></tr></table></figure>
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6681yzllhj216v0u0476.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
-
-
-
-
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232628497.png" srcset="/img/loading.gif" lazyload alt="image-20230228232628497"></p>
 <h2 id="对象在Eden区分配"><a href="#对象在Eden区分配" class="headerlink" title="对象在Eden区分配"></a><strong>对象在Eden区分配</strong></h2><ul>
 <li><p>大多数情况下，对象在新生代中 Eden 区分配。当 Eden 区没有足够空间进行分配时，虚拟机将发起一次Minor GC。</p>
 </li>
@@ -363,7 +357,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h66hg26wq5j217i0u043e.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232645030.png" srcset="/img/loading.gif" lazyload alt="image-20230228232645030"></p>
 
               
             </div>

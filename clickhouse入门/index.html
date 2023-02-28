@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="ClickHouse 是什么？ClickHouse 是俄罗斯的 Yandex 于 2016 年开源的列式存储数据库（DBMS），使用 C++ 语言编写，主要用于在线分析处理查询（OLAP），能够使用 SQL 查询实时生成分析数据报 告。   OLTP:   联机事务处理（Online Transaction Processing)。是mysql，oracle这种传统的关系型数据库的主要应用，适合做">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyy3x95nv3j31580est9i.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyy3xu1e5zj315s05igm7.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyy3yqqgzzj315405kjrz.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyy4aob591j314o0hg0uk.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230156414.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230204375.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230212410.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230231533.png">
 <meta property="article:published_time" content="2022-02-01T06:27:15.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:41:58.765Z">
+<meta property="article:modified_time" content="2023-02-28T15:02:38.890Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="分布式框架">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyy3x95nv3j31580est9i.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230156414.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -294,13 +294,13 @@
 </li>
 </ul>
 <p>以下面的表为例：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyy3x95nv3j31580est9i.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230156414.png" srcset="/img/loading.gif" lazyload alt="image-20230228230156414"></p>
 <ul>
 <li><p>采用行式存储时，数据在磁盘上的组织结构为：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyy3xu1e5zj315s05igm7.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230204375.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 <li><p>采用列式存储时，数据在磁盘上的组织结构为：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyy3yqqgzzj315405kjrz.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230212410.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ul>
 <h3 id="列式储存的好处："><a href="#列式储存的好处：" class="headerlink" title="列式储存的好处："></a><strong>列式储存的好处：</strong></h3><ul>
@@ -330,7 +330,7 @@
 <p>100Byte 估算，大约相当于 50W-200W 条&#x2F;s 的写入速度。</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/415799237">深入浅出分析LSM树（日志结构合并树） - 知乎 (zhihu.com)</a></p>
 <blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyy4aob591j314o0hg0uk.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230231533.png" srcset="/img/loading.gif" lazyload></p>
 </blockquote>
 <h3 id="数据分区与线程级并行"><a href="#数据分区与线程级并行" class="headerlink" title="数据分区与线程级并行"></a><strong>数据分区与线程级并行</strong></h3><ul>
 <li>ClickHouse 将数据划分为多个 partition，每个 partition 再进一步划分为多个 index</li>

@@ -19,30 +19,30 @@
     <meta name="description" content="explain使用介绍 使用EXPLAIN关键字可以模拟优化器执行SQL语句，分析你的查询语句或是结构的性能瓶颈   在 select 语句之前增加 explain 关键字，MySQL 会在查询上设置一个标记，执行查询会返回执行计划的信息，而不是执行这条SQL （如果 from 中包含子查询，仍会执行该子查询，将结果放入临时表中）。  在查询中的每个表会输出一行，如果有两个表通过 join 连接查">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Explain详解">
-<meta property="og:url" content="http://example.com/Explain-%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:url" content="http://example.com/Explain%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="explain使用介绍 使用EXPLAIN关键字可以模拟优化器执行SQL语句，分析你的查询语句或是结构的性能瓶颈   在 select 语句之前增加 explain 关键字，MySQL 会在查询上设置一个标记，执行查询会返回执行计划的信息，而不是执行这条SQL （如果 from 中包含子查询，仍会执行该子查询，将结果放入临时表中）。  在查询中的每个表会输出一行，如果有两个表通过 join 连接查">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwztv72dgxj31aq06mq45.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx1xees8p5j31cm06ujso.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx1xvhx932j31pa08owgo.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx399g82jsj31ey07ejsz.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx39keqvk8j31kc072myn.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx39u1jkh4j31cm084400.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx3a5jmvsej31m207wjt5.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx3a7ju6ugj31fk06mta5.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx3acp599sj31ea06sta0.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx3ahaf61zj31eo06mwft.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx3amcxg5rj31am06yjsm.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223313016.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223320796.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223331408.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223341496.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223405616.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223416134.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223426632.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223438382.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223446506.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223459495.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223509760.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223520759.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223531307.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223546942.png">
 <meta property="article:published_time" content="2021-11-27T05:55:43.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:16:28.531Z">
+<meta property="article:modified_time" content="2023-02-28T14:35:53.514Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="Explain详解">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwztv72dgxj31aq06mq45.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223313016.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -299,7 +299,7 @@
 <p><strong>下面是使用explain的例子：</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> actor;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwztv72dgxj31aq06mq45.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223313016.png" srcset="/img/loading.gif" lazyload alt="image-20230228223313016"></p>
 <h2 id="explain中的列"><a href="#explain中的列" class="headerlink" title="explain中的列"></a>explain中的列</h2><h3 id="id列"><a href="#id列" class="headerlink" title="id列"></a>id列</h3><ul>
 <li><p>id列的编号就是select的序列号，有几个select就有几个id</p>
 </li>
@@ -310,44 +310,44 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> (<span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">from</span> actor limit <span class="hljs-number">1</span>) <span class="hljs-keyword">from</span> film;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223320796.png" srcset="/img/loading.gif" lazyload alt="image-20230228223320796"></p>
 <h3 id="select-type列"><a href="#select-type列" class="headerlink" title="select_type列"></a>select_type列</h3><ul>
 <li>simple: 简单查询。查询中不含子查询和联合查询。</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> film <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx1xees8p5j31cm06ujso.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223331408.png" srcset="/img/loading.gif" lazyload alt="image-20230228223331408"></p>
 <ul>
 <li>primary : 复杂查询中最外层的select。</li>
 </ul>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> (<span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">from</span> actor limit <span class="hljs-number">1</span>) <span class="hljs-keyword">from</span> film;<br></code></pre></td></tr></table></figure>
 
 <p>中的：<code>select *** from film </code> </p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223341496.png" srcset="/img/loading.gif" lazyload alt="image-20230228223341496"></p>
 <ul>
 <li>subsquery: 复杂查询中的子查询（不在from子句中）。</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> (<span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">from</span> actor limit <span class="hljs-number">1</span>) <span class="hljs-keyword">from</span> film;<br></code></pre></td></tr></table></figure>
 
 <p>中的：<code>select 1 from actor limit 1</code></p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gwzu3b6nonj31fo07m75y.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223405616.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li>derived([dɪˈraɪv]) : 包含在from子句中的子查询。Mysql将把结果存放在一个临时表中，也称为派生表。</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span>  <span class="hljs-keyword">set</span> session optimizer_switch<span class="hljs-operator">=</span><span class="hljs-string">&#x27;derived_merge=off&#x27;</span>;<br>mysql<span class="hljs-operator">&gt;</span>  explain <span class="hljs-keyword">select</span> (<span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">from</span> actor <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>) <span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> film <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>) der;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx1xvhx932j31pa08owgo.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223416134.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li>union ：在union后的select。</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> id,name <span class="hljs-keyword">from</span> actor <span class="hljs-keyword">union</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">select</span> id, name <span class="hljs-keyword">from</span> film;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx399g82jsj31ey07ejsz.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223426632.png" srcset="/img/loading.gif" lazyload alt="image-20230228223426632"></p>
 <blockquote>
 <ul>
 <li>union 用于把来自多个select  语句的结果组合到一个结果集合中。语法为：</li>
 </ul>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  <span class="hljs-keyword">column</span>,......<span class="hljs-keyword">from</span> table1<br> <span class="hljs-keyword">union</span> [<span class="hljs-keyword">all</span>]<br><span class="hljs-keyword">select</span>  <span class="hljs-keyword">column</span>,...... <span class="hljs-keyword">from</span> table2<br></code></pre></td></tr></table></figure>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"> <span class="hljs-keyword">select</span>  <span class="hljs-keyword">column</span>,......<span class="hljs-keyword">from</span> table1<br><span class="hljs-keyword">union</span> [<span class="hljs-keyword">all</span>]<br> <span class="hljs-keyword">select</span>  <span class="hljs-keyword">column</span>,...... <span class="hljs-keyword">from</span> table2<br></code></pre></td></tr></table></figure>
 </blockquote>
 <h3 id="table列"><a href="#table列" class="headerlink" title="table列"></a>table列</h3><ul>
 <li>这一列表示explain的这一行在执行哪个表</li>
@@ -364,7 +364,7 @@
 <li><p>NULL：mysql在窒息感阶段用不着访问表或者索引。例如索引列中取最小值，可以单独查找索引来完成，不需要执行时访问表。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> <span class="hljs-built_in">min</span>(id) <span class="hljs-keyword">from</span> film;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx39keqvk8j31kc072myn.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223438382.png" srcset="/img/loading.gif" lazyload alt="image-20230228223438382"></p>
 </li>
 </ul>
 </blockquote>
@@ -373,7 +373,7 @@
 <li><p>const：直接按 primary key 或 unique key读取，将该列与常数比较，所以表最多有一个匹配行，读取1次，速度比较快</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> id, name <span class="hljs-keyword">from</span> film <span class="hljs-keyword">where</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx39u1jkh4j31cm084400.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223446506.png" srcset="/img/loading.gif" lazyload alt="image-20230228223446506"></p>
 </li>
 </ul>
 </blockquote>
@@ -382,7 +382,7 @@
 <li><p>eq_ref：primary key 或 unique key 索引的所有部分被连接使用 ，最多只会返回一条符合 条件的记录。这可能是在 const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span>  explain <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> film_actor <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> film <span class="hljs-keyword">on</span> film_actor.film_id <span class="hljs-operator">=</span> film.id;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx3a5jmvsej31m207wjt5.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223459495.png" srcset="/img/loading.gif" lazyload alt="image-20230228223459495"></p>
 </li>
 </ul>
 </blockquote>
@@ -392,7 +392,7 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> film <span class="hljs-keyword">where</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;film1&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx3a7ju6ugj31fk06mta5.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223509760.png" srcset="/img/loading.gif" lazyload alt="image-20230228223509760"></p>
 </blockquote>
 <blockquote>
 <ul>
@@ -400,7 +400,7 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> explain <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> actor <span class="hljs-keyword">where</span> id <span class="hljs-operator">&gt;</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx3acp599sj31ea06sta0.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223520759.png" srcset="/img/loading.gif" lazyload alt="image-20230228223520759"></p>
 </blockquote>
 <blockquote>
 <ul>
@@ -408,7 +408,7 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span>  explain <span class="hljs-keyword">select</span> id,name <span class="hljs-keyword">from</span> film;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx3ahaf61zj31eo06mwft.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223531307.png" srcset="/img/loading.gif" lazyload alt="image-20230228223531307"></p>
 </blockquote>
 <p>​		</p>
 <blockquote>
@@ -417,7 +417,7 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span>  explain <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> actor;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx3amcxg5rj31am06yjsm.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223546942.png" srcset="/img/loading.gif" lazyload alt="image-20230228223546942"></p>
 </blockquote>
 </li>
 </ul>
@@ -545,7 +545,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Explain详解</div>
-      <div>http://example.com/Explain-详解/</div>
+      <div>http://example.com/Explain详解/</div>
     </div>
     <div class="license-meta">
       

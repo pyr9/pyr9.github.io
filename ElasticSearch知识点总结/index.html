@@ -23,13 +23,13 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1 Es是什么？ Elasticsearch是用Java开发并且是当前最流行的开源的企业级搜索引擎。 能够达到实时搜索，稳定，可靠，快速，安装使用方便。 客户端支持Java、.NET（C#）、PHP、Python、Ruby等多种语言。  2 为什么要使用ES? 数据量在几万或者几十万时候，所以采用以往的模糊查询，实时与数据库交互，会导致效率特别低下 不能将搜索词拆分开来，如果采用以往的模糊查询，比">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz2vkt8j0jj30zu0fsgn8.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224035138.png">
 <meta property="article:published_time" content="2022-09-22T09:27:04.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:29:55.678Z">
+<meta property="article:modified_time" content="2023-02-28T14:40:38.136Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="分布式框架">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz2vkt8j0jj30zu0fsgn8.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224035138.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -284,8 +284,7 @@
 <li>数据量在几万或者几十万时候，所以采用以往的模糊查询，实时与数据库交互，会导致效率特别低下</li>
 <li>不能将搜索词拆分开来，如果采用以往的模糊查询，比如 <code>name</code> &#x3D;’手机%’， 只能搜索名字是“手机”开头的手机商品，如果想搜出“华为手机”或者”手机壳“那是搜索不出来的。</li>
 </ul>
-<h1 id="3-Es和传统关系性数据库比较"><a href="#3-Es和传统关系性数据库比较" class="headerlink" title="3 Es和传统关系性数据库比较"></a>3 Es和传统关系性数据库比较</h1><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz2vkt8j0jj30zu0fsgn8.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
-
+<h1 id="3-Es和传统关系性数据库比较"><a href="#3-Es和传统关系性数据库比较" class="headerlink" title="3 Es和传统关系性数据库比较"></a>3 Es和传统关系性数据库比较</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224035138.png" srcset="/img/loading.gif" lazyload alt="image-20230228224035138"></p>
 <h1 id="4-什么是全文检索"><a href="#4-什么是全文检索" class="headerlink" title="4 什么是全文检索"></a>4 什么是全文检索</h1><ul>
 <li>全文检索是指：通过一个程序扫描文本中的每一个单词，针对单词建立索引，并保存该单词在文本中的位置、以及出现的次数。</li>
 <li>用户查询时，通过之前建立好的索引来查询，将索引中单词对应的文本位置、出现的次数返回给用户，因为有了具体文本的位置，所以就可以将具体内容读取出来了</li>

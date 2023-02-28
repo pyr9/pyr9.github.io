@@ -23,17 +23,17 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1.启动容器服务，加载镜像 1➜  ~ docker run -d --name ch-server --ulimit nofile&#x3D;262144:262144 -p 8123:8123 -p 9000:9000 -p 9009:9009 yandex&#x2F;clickhouse-server   2.查看服务 1➜  ~ docker ps   3.进入docker容器内，使用用户名和密码连接数据库。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyycj48p14j31py0g4tcd.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyycjh5146j31yy05075c.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyycl6slqwj30w008qjsx.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyydfocs7yj30r00fyq3t.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyydcukk8nj318m0u0q6x.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225548754.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225555839.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225603858.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225615339.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225624031.png">
 <meta property="article:published_time" content="2022-02-01T13:44:28.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:41:58.745Z">
+<meta property="article:modified_time" content="2023-02-28T14:56:26.354Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="分布式框架">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gyycj48p14j31py0g4tcd.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225548754.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -282,15 +282,15 @@
               <p>1.启动容器服务，加载镜像</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">➜  <span class="hljs-operator">~</span> docker run <span class="hljs-operator">-</span>d <span class="hljs-comment">--name ch-server --ulimit nofile=262144:262144 -p 8123:8123 -p 9000:9000 -p 9009:9009 yandex/clickhouse-server</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyycj48p14j31py0g4tcd.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225548754.png" srcset="/img/loading.gif" lazyload alt="image-20230228225548754"></p>
 <p>2.查看服务</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">➜  <span class="hljs-operator">~</span> docker ps<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyycjh5146j31yy05075c.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225555839.png" srcset="/img/loading.gif" lazyload alt="image-20230228225555839"></p>
 <p>3.进入docker容器内，使用用户名和密码连接数据库。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">➜  <span class="hljs-operator">~</span> docker <span class="hljs-keyword">exec</span> <span class="hljs-operator">-</span>it <span class="hljs-number">46</span>bb792f7762 <span class="hljs-operator">/</span>bin<span class="hljs-operator">/</span>bash<br>root<span class="hljs-variable">@46bb792f7762</span>:<span class="hljs-operator">/</span># clickhouse<span class="hljs-operator">-</span>client<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyycl6slqwj30w008qjsx.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225603858.png" srcset="/img/loading.gif" lazyload alt="image-20230228225603858"></p>
 <blockquote>
 <p>如果有密码，输入下面命令：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">&gt;</span>root<span class="hljs-variable">@46bb792f7762</span>:<span class="hljs-operator">/</span># clickhouse<span class="hljs-operator">-</span>client <span class="hljs-operator">-</span>u <span class="hljs-keyword">default</span> <span class="hljs-comment">--password test</span><br></code></pre></td></tr></table></figure>
@@ -298,9 +298,9 @@
 <p>4.查看数据库</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">46</span>bb792f7762 :) <span class="hljs-keyword">show</span> databases;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyydfocs7yj30r00fyq3t.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225615339.png" srcset="/img/loading.gif" lazyload alt="image-20230228225615339"></p>
 <p>5.dbeaver 查看</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gyydcukk8nj318m0u0q6x.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225624031.png" srcset="/img/loading.gif" lazyload alt="image-20230228225624031"></p>
 
               
             </div>

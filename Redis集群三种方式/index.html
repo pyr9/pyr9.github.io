@@ -23,17 +23,17 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="为什么要有集群 单个Redis存在不稳定性，当Redis服务宕机或硬盘故障，系统崩溃之后，就没有可用的服务了，还会造成数据的丢失 单个Redis的读写能力也是有限的 还由于互联网的三高架构，高并发，高性能，高可用   通过添加服务器的数量，提供相同的服务，从而让服务器达到一个稳定，高效的状态  Redis集群的三种模式1. 主从模式产生的原因 避免单点Redis服务器故障。数据丢失，可能对业务造成">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gxv2a0o0mqj30oi0lsgmm.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gxv2yicirhj30tq0lggnx.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gxv2xkkaizj318w0ro78b.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gxv33qmtvpj319e0pktbv.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h6501y1ohvj21fo0sadjh.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224935732.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224944541.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224955344.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225006830.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225016550.png">
 <meta property="article:published_time" content="2021-12-28T14:45:20.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:41:39.304Z">
+<meta property="article:modified_time" content="2023-02-28T14:50:30.729Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="redis主从架构">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gxv2a0o0mqj30oi0lsgmm.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224935732.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -305,11 +305,9 @@
 <li><p>master挂了以后，不会在slave节点中重新选一个master，只能手动的一个一个改，不合适，就有了之后的哨兵</p>
 </li>
 </ul>
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv2a0o0mqj30oi0lsgmm.jpg" srcset="/img/loading.gif" lazyload style="zoom:30%;" />
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224935732.png" srcset="/img/loading.gif" lazyload alt="image-20230228224935732"></p>
 <h3 id="Redis主从复制工作原理"><a href="#Redis主从复制工作原理" class="headerlink" title="Redis主从复制工作原理"></a><strong>Redis主从复制工作原理</strong></h3><h4 id="1-全量复制流程："><a href="#1-全量复制流程：" class="headerlink" title="1. 全量复制流程："></a>1. 全量复制流程：</h4><p>Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Master上的所有数据都复制一份，具体步骤如下：</p>
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv2yicirhj30tq0lggnx.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224944541.png" srcset="/img/loading.gif" lazyload alt="image-20230228224944541"></p>
 <ol>
 <li>如果你为master配置了一个slave，不管这个slave是否是第一次连接上Master，它都会发送一个<strong>SYNC</strong>命令(redis2.8版本之前的命令)master请求复制数据。</li>
 <li>master收到SYNC命令后，会在后台进行数据持久化通过bgsave生成最新的rdb快照文件。</li>
@@ -326,8 +324,7 @@
 <p>如果master收到了多个slave并发连接请求，它只会进行一次持久化，而不是一个连接一次，然后再把这一份持久化的数据发送给多个并发连接的slave。  </p>
 </blockquote>
 <p><strong>当master和slave断开重连后，一般都会对整份数据进行复制。但从redis2.8版本开始，master和slave断开重连后支持部分复制</strong>。</p>
-<h4 id="2-部分复制流程"><a href="#2-部分复制流程" class="headerlink" title="2. 部分复制流程"></a>2. 部分复制流程</h4><img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv2xkkaizj318w0ro78b.jpg" srcset="/img/loading.gif" lazyload style="zoom: 33%;" />
-
+<h4 id="2-部分复制流程"><a href="#2-部分复制流程" class="headerlink" title="2. 部分复制流程"></a>2. 部分复制流程</h4><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224955344.png" srcset="/img/loading.gif" lazyload alt="image-20230228224955344"></p>
 <ol>
 <li>从2.8版本开始，slave与master能够在网络连接断开<strong>重连后只进行部分数据复制。</strong> </li>
 <li>master会在其内存中创建一个复制数据用的缓存队列，缓存最近一段时间的数据。master和它所有的slave都维护了复制的数据下标offset和master的进程id。</li>
@@ -358,8 +355,7 @@
 <li>哨兵也是一台redis服务器，只是不提供数据服务</li>
 <li>为了高可用一般都推荐至少部署三个哨兵节点</li>
 </ul>
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv33qmtvpj319e0pktbv.jpg" srcset="/img/loading.gif" lazyload style="zoom:33%;" />
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225006830.png" srcset="/img/loading.gif" lazyload alt="image-20230228225006830"></p>
 <h3 id="哨兵leader选举流程"><a href="#哨兵leader选举流程" class="headerlink" title="哨兵leader选举流程"></a><strong>哨兵leader选举流程</strong></h3><p>当一个master服务器被某sentinel视为下线状态后，该sentinel会与其他sentinel协商选出sentinel的leader进行故障转移工作。</p>
 <ol>
 <li>每个发现master服务器进入下线的sentinel都可以要求其他sentinel选自己为sentinel的 leader，选举是先到先得。</li>
@@ -376,8 +372,7 @@
 <li>每个master节点下面还需要添加至少1个slave节点，这样当某个master节点发生故障后，可以从它的slave节点中选举一个作为新的master节点继续提供服务</li>
 <li>Redis Cluster 将所有数据划分为 16384 个 slots(槽位)，每个节点负责其中一部分槽位。槽位的信息存储于每 个节点中。当 Redis Cluster 的客户端来连接集群时，它也会得到一份集群的槽位配置信息并将其缓存在客户端本地。这样当客户端要查找某个 key 时，可以直接定位到目标节点。</li>
 </ul>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6501y1ohvj21fo0sadjh.jpg" srcset="/img/loading.gif" lazyload style="zoom:33%;" />
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225016550.png" srcset="/img/loading.gif" lazyload alt="image-20230228225016550"></p>
 <h3 id="槽位定位算法"><a href="#槽位定位算法" class="headerlink" title="槽位定位算法"></a><strong>槽位定位算法</strong></h3><p>Cluster 默认会对 key 值使用 crc16 算法进行 hash 得到一个整数值，然后用这个整数值对 16384 进行取模 来得到具体槽位。 </p>
 <p><code>HASH_SLOT = CRC16(key) mod 16384</code> </p>
 <h3 id="网络抖动"><a href="#网络抖动" class="headerlink" title="网络抖动"></a><strong>网络抖动</strong></h3><ul>

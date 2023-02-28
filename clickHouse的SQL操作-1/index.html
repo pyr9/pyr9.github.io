@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="ClickHouse的SQL操作基本上来说传统关系型数据库（以 MySQL 为例）的 SQL 语句，ClickHouse 基本都支持，这里不会从头讲解 SQL 语法只介绍 ClickHouse 与标准 SQL（MySQL）不一致的地方 Insert基本与标准 SQL（MySQL）基本一致 （1）标准 1insert into [table_name] values(…),(….)  （2）从表到表">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz1rqitalcj30hg0tamz1.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz1rt0556dj30hu0x0di6.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz1rutq1qaj30j20im75i.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222258542.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222316833.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222331141.png">
 <meta property="article:published_time" content="2022-02-04T14:50:09.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:41:58.771Z">
+<meta property="article:modified_time" content="2023-02-28T14:23:32.920Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gz1rqitalcj30hg0tamz1.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222258542.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -314,14 +314,14 @@
 <p>可以看出分别根据  【id,sku_id】【id】【(空)】 进行了分组</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">bfdf602492c9 :) <span class="hljs-keyword">select</span> id , sku_id,<span class="hljs-built_in">sum</span>(total_amount) <span class="hljs-keyword">from</span> t_order_mt <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> id,sku_id <span class="hljs-keyword">with</span> <span class="hljs-keyword">rollup</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz1rqitalcj30hg0tamz1.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222258542.png" srcset="/img/loading.gif" lazyload alt="image-20230228222258542"></p>
 <p>（3）with cube : 从右至左去掉维度进行小计，再从左至右去掉维度进行小计</p>
 <p>可以看出分别根据  【id,sku_id】【id】【sku_id】【(空)】 进行了分组</p>
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz1rt0556dj30hu0x0di6.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222316833.png" srcset="/img/loading.gif" lazyload alt="image-20230228222316833"></p>
 <p>（4）with totals: 只计算合计</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">bfdf602492c9 :)  <span class="hljs-keyword">select</span> id , sku_id,<span class="hljs-built_in">sum</span>(total_amount) <span class="hljs-keyword">from</span> t_order_mt <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span><br>                id,sku_id <span class="hljs-keyword">with</span> totals;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gz1rutq1qaj30j20im75i.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222331141.png" srcset="/img/loading.gif" lazyload alt="image-20230228222331141"></p>
 <h2 id="alter操作"><a href="#alter操作" class="headerlink" title="alter操作"></a>alter操作</h2><p>同 MySQL 的修改字段基本一致</p>
 <p>1）新增字段</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> tableName <span class="hljs-keyword">add</span> <span class="hljs-keyword">column</span> newcolname String after col1; <br></code></pre></td></tr></table></figure>

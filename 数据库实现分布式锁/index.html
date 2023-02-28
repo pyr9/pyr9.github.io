@@ -16,23 +16,30 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="title: zookeeper特性与节点介绍date: 2021-09-22 22:43:51tags:  分布式框架 categories:  zookeeper 1 产生背景 单体向分布式服务转变，会产生多个节点间协同问题，如：   假设有3个节点，1个job，该job该由哪个节点执行？  若该job由节点1执行，要是1挂了，现在该2还是3执行？     上游和下游服务的发现，如：   上">
+    <meta name="description" content="1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁   2 基于数据库实现分布式锁基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="楼上有只喵">
-<meta property="og:url" content="http://example.com/zookeeper%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="数据库实现分布式锁">
+<meta property="og:url" content="http://example.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="title: zookeeper特性与节点介绍date: 2021-09-22 22:43:51tags:  分布式框架 categories:  zookeeper 1 产生背景 单体向分布式服务转变，会产生多个节点间协同问题，如：   假设有3个节点，1个job，该job该由哪个节点执行？  若该job由节点1执行，要是1挂了，现在该2还是3执行？     上游和下游服务的发现，如：   上">
+<meta property="og:description" content="1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁   2 基于数据库实现分布式锁基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-26T14:49:55.756Z">
-<meta property="article:modified_time" content="2022-09-20T08:10:08.356Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222626149.png">
+<meta property="article:published_time" content="2021-12-29T15:45:20.000Z">
+<meta property="article:modified_time" content="2023-02-28T14:27:17.736Z">
 <meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="分布式框架">
+<meta property="article:tag" content="zookeeper">
+<meta property="article:tag" content="redis">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>楼上有只喵</title>
+  <title>数据库实现分布式锁 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +191,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="数据库实现分布式锁"></span>
           
         </div>
 
@@ -195,8 +202,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-01-26 22:49" pubdate>
-          2022年1月26日 晚上
+        <time datetime="2021-12-29 23:45" pubdate>
+          2021年12月29日 晚上
         </time>
       </span>
     
@@ -208,7 +215,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3k 字
+          1.4k 字
         
       </span>
     
@@ -220,7 +227,7 @@
         
         
           <!-- compatible with older versions-->
-          10 分钟
+          5 分钟
         
       </span>
     
@@ -268,105 +275,38 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">数据库实现分布式锁</h1>
             
             <div class="markdown-body">
               
-              <hr>
-<p>title: zookeeper特性与节点介绍<br>date: 2021-09-22 22:43:51<br>tags:  分布式框架</p>
-<p>categories:  zookeeper</p>
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="1-产生背景"><a href="#1-产生背景" class="headerlink" title="1 产生背景"></a>1 产生背景</h2><ol>
-<li><p>单体向分布式服务转变，会产生多个节点间协同问题，如：</p>
-<blockquote>
-<ul>
-<li><p>假设有3个节点，1个job，该job该由哪个节点执行？</p>
-</li>
-<li><p>若该job由节点1执行，要是1挂了，现在该2还是3执行？</p>
-</li>
+              <h1 id="1-什么是分布式锁"><a href="#1-什么是分布式锁" class="headerlink" title="1 什么是分布式锁"></a>1 什么是分布式锁</h1><ul>
+<li>在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。</li>
+<li>在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁</li>
 </ul>
-</blockquote>
-</li>
-<li><p>上游和下游服务的发现，如：</p>
-<blockquote>
-<ul>
-<li>上游挂了，下游怎么知道？</li>
-<li>下游服务新增，上游怎么知道？</li>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png" srcset="/img/loading.gif" lazyload alt="image-20230228222616394"></p>
+<h1 id="2-基于数据库实现分布式锁"><a href="#2-基于数据库实现分布式锁" class="headerlink" title="2 基于数据库实现分布式锁"></a>2 基于数据库实现分布式锁</h1><p>基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，这刚好符合我们对锁的要求</p>
+<h2 id="2-1-设计原理"><a href="#2-1-设计原理" class="headerlink" title="2.1 设计原理"></a>2.1 设计原理</h2><ul>
+<li>同一时刻只能允许一个竞争者获取锁。加锁时我们在数据库中插入一条记录，利用唯一键进行防重。</li>
+<li>当竞争者A加锁成功后，第竞争者B再来加锁就会抛出唯一索引冲突，如果抛出这个异常，我们就判定竞争者B加锁失败</li>
+<li>竞争者B加锁失败后，会阻塞等待，一直到竞争者A释放锁（也就是删除记录后），再去获取锁</li>
 </ul>
-</blockquote>
-</li>
-<li><p>多节点的协调问题，如：并发产生了请求，该怎么保证请求的幂等性？</p>
-</li>
-</ol>
-<blockquote>
-<p><strong>由于节点自身协调不可靠，性能不高，故需要一个独立服务来做协调，他必须可靠且保证性能。</strong></p>
-</blockquote>
-<h2 id="2-概要"><a href="#2-概要" class="headerlink" title="2 概要"></a>2 概要</h2><ol>
-<li>zookeeper是用于分布式服务的协调服务。</li>
-<li>它对外公布了一组简单的API，分布式应用程序可以基于这些API，用于同步节点状态，节点配置，服务注册等信息</li>
-<li>它支持java和c两种语言。</li>
-</ol>
-<h2 id="3-工作机制"><a href="#3-工作机制" class="headerlink" title="3 工作机制"></a>3 工作机制</h2><p>从设计模式的角度理解，zookeeper基于观察者模式。他负责存储和管路大家都关心的数据，然后接受观察，一旦数据状态发生变化，zookeeper就通知注册者。</p>
-<h2 id="4-特点"><a href="#4-特点" class="headerlink" title="4 特点"></a>4 特点</h2><ol>
-<li>zookeeper是由一个leader和多个follower组成的集群</li>
-<li>半数以上节点存活，zookeeper 即可以正常服务</li>
-<li>每个server的数据一致</li>
-<li>来自同一个client的请求依次执行</li>
-<li>原子性，数据更新要么成功，要么失败</li>
-<li>zookeeper数据量少，故同步快，一定时间内，client可以读到最新数据</li>
-</ol>
-<h2 id="5-zookeeper-启动"><a href="#5-zookeeper-启动" class="headerlink" title="5 zookeeper 启动"></a>5 zookeeper 启动</h2><ul>
-<li>官网下载最新版本 <a target="_blank" rel="noopener" href="https://www.apache.org/dyn/closer.lua/zookeeper/zookeeper-3.7.0/apache-zookeeper-3.7.0-bin.tar.gz">Apache Downloads</a>，并解压</li>
-<li>进入conf目录，拷贝默认配置  <code>cp zoo_sample.cfg   zoo.cfg</code></li>
-<li>进入bin目录，启动服务端<code>./zkServer.sh start</code></li>
-<li>进入bin目录，进入客户端<code>./zkCli.sh</code></li>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222626149.png" srcset="/img/loading.gif" lazyload alt="image-20230228222626149"></p>
+<h2 id="2-2-实现注意事项"><a href="#2-2-实现注意事项" class="headerlink" title="2.2 实现注意事项"></a>2.2 实现注意事项</h2><ul>
+<li>没有锁超时机制。如果程序发生了异常，将无法删除数据，也就是锁无法被释放掉，需要自己写一套锁超时机制，比如：在表中新增一列，用于记录失效时间，并且需要有定时任务清除这些失效的数据；</li>
+<li>基于数据库实现的，数据库的可用性和性能将直接影响分布式锁的可用性及性能，可以考虑实现数据库的高可用方案</li>
+<li>自旋实现阻塞效果。当获取锁失败时自旋转</li>
 </ul>
-<h2 id="6-常规配置文件说明"><a href="#6-常规配置文件说明" class="headerlink" title="6 常规配置文件说明"></a>6 常规配置文件说明</h2><blockquote>
-<p>tickTime&#x3D;2000   #zookeeper时间配置中的基本单位 (毫秒) </p>
-</blockquote>
 <blockquote>
-<p>initLimit&#x3D;10     #允许follower初始化连接到leader最大时长，它表示tickTime时间倍数 即:initLimit*tickTime</p>
+<p>db操作性能较差，并且有锁表的风险，一般不考虑。</p>
 </blockquote>
-<blockquote>
-<p>syncLimit&#x3D;5 	#允许follower与leader数据同步最大时长,它表示tickTime时间倍数</p>
-</blockquote>
-<blockquote>
-<p>dataDir&#x3D;&#x2F;tmp&#x2F;zookeeper  #zookeper 数据存储目录</p>
-</blockquote>
-<blockquote>
-<p>clientPort&#x3D;2181  #对客户端提供的端口号</p>
-</blockquote>
-<blockquote>
-<p>maxClientCnxns&#x3D;60  #单个客户端与zookeeper最大并发连接数</p>
-</blockquote>
-<blockquote>
-<p>autopurge.snapRetainCount&#x3D;3. #保存的数据快照数量，之外的将会被清除</p>
-</blockquote>
-<blockquote>
-<p>autopurge.purgeInterval&#x3D;1  #自动触发清除任务时间间隔，小时为单位。默认为0，表示不自动清除。</p>
-</blockquote>
-<h2 id="7-客户端命令"><a href="#7-客户端命令" class="headerlink" title="7 客户端命令"></a>7 客户端命令</h2><ul>
-<li><p>close     关闭当前会话</p>
-</li>
-<li><p>connect host:port        重新连接指定Zookeeper服务</p>
-</li>
-<li><p>create [-s] [-e] [-c] [-t ttl] path [data] [acl]          创建节点</p>
-</li>
-<li><p>delete [-v version] path             删除节点，(不能存在子节点） </p>
-</li>
-<li><p>deleteall path [-b batch size]      删除路径及所有子节点</p>
-</li>
-<li><p>get [-s] [-w] path.        查看节点数据 -s 包含节点状态 -w 添加监听 </p>
-</li>
-<li><p>getAcl [-s] path.      列出子节点 -s状态 -R 递归查看所有子节点 -w 添加监听</p>
-</li>
-<li><p>history     查看执行的历史记录</p>
-</li>
-<li><p>redo cmdno  重复 执行命令，history 中命令编号确定</p>
-</li>
-<li><p>quit  退出客户端</p>
-</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs sql">[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">1</span>] ls <span class="hljs-operator">/</span><br>[zookeeper]<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">2</span>] <span class="hljs-keyword">create</span> <span class="hljs-operator">/</span>node1<br>Created <span class="hljs-operator">/</span>node1<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">3</span>] <span class="hljs-keyword">get</span> <span class="hljs-operator">/</span>node1<br><span class="hljs-keyword">null</span><br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">4</span>] <span class="hljs-keyword">set</span> <span class="hljs-operator">/</span>node1 &quot;node1 value&quot;<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">5</span>] <span class="hljs-keyword">get</span> <span class="hljs-operator">/</span>node1<br>node1 <span class="hljs-keyword">value</span><br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">6</span>] <span class="hljs-keyword">create</span> <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1<br>Created <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">7</span>] <span class="hljs-keyword">set</span>  <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1 &quot;child1&quot;<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">8</span>] <span class="hljs-keyword">get</span> <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1 &quot;child1&quot;<br><span class="hljs-string">&#x27;get path [watch]&#x27;</span> has been deprecated. Please use <span class="hljs-string">&#x27;get [-s] [-w] path&#x27;</span> instead.<br>child1<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">9</span>] <span class="hljs-keyword">get</span> <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1<br>child1<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">10</span>] <span class="hljs-keyword">delete</span> <span class="hljs-operator">/</span>node1<br>Node <span class="hljs-keyword">not</span> <span class="hljs-keyword">empty</span>: <span class="hljs-operator">/</span>node1<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">11</span>] deleteall <span class="hljs-operator">/</span>node1<br>WATCHER::<br>WatchedEvent state:SyncConnected type:NodeDeleted path:<span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">12</span>] ls <span class="hljs-operator">/</span><br>[zookeeper]<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">13</span>] history<br><span class="hljs-number">3</span> <span class="hljs-operator">-</span> <span class="hljs-keyword">get</span> <span class="hljs-operator">/</span>node1<br><span class="hljs-number">4</span> <span class="hljs-operator">-</span> <span class="hljs-keyword">set</span> <span class="hljs-operator">/</span>node1 &quot;node1 value&quot;<br><span class="hljs-number">5</span> <span class="hljs-operator">-</span> <span class="hljs-keyword">get</span> <span class="hljs-operator">/</span>node1<br><span class="hljs-number">6</span> <span class="hljs-operator">-</span> <span class="hljs-keyword">create</span> <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1<br><span class="hljs-number">7</span> <span class="hljs-operator">-</span> <span class="hljs-keyword">set</span>  <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1 &quot;child1&quot;<br><span class="hljs-number">8</span> <span class="hljs-operator">-</span> <span class="hljs-keyword">get</span> <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1 &quot;child1&quot;<br><span class="hljs-number">9</span> <span class="hljs-operator">-</span> <span class="hljs-keyword">get</span> <span class="hljs-operator">/</span>node1<span class="hljs-operator">/</span>child1<br><span class="hljs-number">10</span> <span class="hljs-operator">-</span> <span class="hljs-keyword">delete</span> <span class="hljs-operator">/</span>node1<br><span class="hljs-number">11</span> <span class="hljs-operator">-</span> deleteall <span class="hljs-operator">/</span>node1<br><span class="hljs-number">12</span> <span class="hljs-operator">-</span> ls <span class="hljs-operator">/</span><br><span class="hljs-number">13</span> <span class="hljs-operator">-</span> history<br><br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">16</span>] redo <span class="hljs-number">2</span><br>Created <span class="hljs-operator">/</span>node1<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">17</span>] ls <span class="hljs-operator">/</span><br>[node1, zookeeper]<br>[zk: localhost:<span class="hljs-number">2181</span>(CONNECTED) <span class="hljs-number">18</span>] <span class="hljs-keyword">get</span> <span class="hljs-operator">-</span>s <span class="hljs-operator">/</span>node1<br><span class="hljs-keyword">null</span><br>cZxid <span class="hljs-operator">=</span> <span class="hljs-number">0x8</span><br>ctime <span class="hljs-operator">=</span> Thu Jan <span class="hljs-number">13</span> <span class="hljs-number">22</span>:<span class="hljs-number">49</span>:<span class="hljs-number">37</span> CST <span class="hljs-number">2022</span><br>mZxid <span class="hljs-operator">=</span> <span class="hljs-number">0x8</span><br>mtime <span class="hljs-operator">=</span> Thu Jan <span class="hljs-number">13</span> <span class="hljs-number">22</span>:<span class="hljs-number">49</span>:<span class="hljs-number">37</span> CST <span class="hljs-number">2022</span><br>pZxid <span class="hljs-operator">=</span> <span class="hljs-number">0x8</span><br>cversion <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>dataVersion <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>aclVersion <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>ephemeralOwner <span class="hljs-operator">=</span> <span class="hljs-number">0x0</span><br>dataLength <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>numChildren <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<h2 id="2-3-代码示例"><a href="#2-3-代码示例" class="headerlink" title="2.3 代码示例"></a>2.3 代码示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"> */<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractLock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Lock</span></span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 加锁，增加重试逻辑</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//尝试获取锁</span><br>        <span class="hljs-keyword">if</span>(tryLock())&#123;<br>            System.out.println(<span class="hljs-string">&quot;---------获取锁---------&quot;</span>);<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//等待锁 阻塞</span><br>            waitLock();<br>            <span class="hljs-comment">//重试</span><br>            lock();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MysqlDistributedLock</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractLock</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> MethodlockMapper baseMapper;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//插入一条数据   insert into</span><br>            baseMapper.insert(<span class="hljs-keyword">new</span> Methodlock(<span class="hljs-string">&quot;lock&quot;</span>));<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            <span class="hljs-comment">//插入失败</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">waitLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            Thread.sleep(<span class="hljs-number">10</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//删除数据   delete</span><br>        baseMapper.deleteByMethodlock(<span class="hljs-string">&quot;lock&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;-------释放锁------&quot;</span>);<br>    &#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
 
               
             </div>
@@ -374,6 +314,40 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
+      
+        <a href="/tags/zookeeper/">#zookeeper</a>
+      
+        <a href="/tags/redis/">#redis</a>
+      
+        <a href="/tags/mysql/">#mysql</a>
+      
+    </div>
   
 </div>
 
@@ -383,8 +357,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/zookeeper入门/</div>
+      <div>数据库实现分布式锁</div>
+      <div>http://example.com/数据库实现分布式锁/</div>
     </div>
     <div class="license-meta">
       
@@ -396,7 +370,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年1月26日</div>
+          <div>2021年12月29日</div>
         </div>
       
       
@@ -426,9 +400,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/clickhouse%E5%85%A5%E9%97%A8/" title="clickhouse入门">
+                      <a href="/zookeeper%E5%85%A5%E9%97%A8/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">clickhouse入门</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -436,8 +410,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="数据库实现分布式锁">
-                        <span class="hidden-mobile">数据库实现分布式锁</span>
+                      <a href="/Redis%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" title="Redis缓存问题">
+                        <span class="hidden-mobile">Redis缓存问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

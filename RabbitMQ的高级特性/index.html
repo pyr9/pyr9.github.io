@@ -23,13 +23,13 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="RabbitMQ的高级特性如何保证消息的顺序？消息的顺序是指的是，一个组内消息的顺序，而不是整个mq里的消息顺序。比如一个下单过程需要完成扣款，减库存，通知快递发货，这一组消息的顺序不能乱。  发送端：一组有序消息，只发到一个队列中，利用队列的FIFO特性保证消息在发送时顺序不会乱。 如果发送端配置了重试机制，就可能出现发送方发送时是1，2，3，但1发送失败，重试发送1，这样收到的消息就是2，3，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwld73gtjaj31ga0o440f.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233554129.png">
 <meta property="article:published_time" content="2022-09-10T14:17:03.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:41:18.821Z">
+<meta property="article:modified_time" content="2023-02-28T15:35:57.819Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="消息中间件">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gwld73gtjaj31ga0o440f.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233554129.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -360,10 +360,7 @@
 <li>用户下单，把消息发送到Queue1中，不设置Consumer1，设置Queue1队列里的消息存活时间为30分钟，等待30分钟后，消息成为死信。</li>
 <li>死信的消息发送到Queue2，添加Consumer2监听Queue2</li>
 </ul>
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gwld73gtjaj31ga0o440f.jpg" srcset="/img/loading.gif" lazyload style="zoom:43%;" />
-
-
-
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233554129.png" srcset="/img/loading.gif" lazyload alt="image-20230228233554129"></p>
 <h4 id="死信队列和延时队列的区别"><a href="#死信队列和延时队列的区别" class="headerlink" title="死信队列和延时队列的区别"></a>死信队列和延时队列的区别</h4><ul>
 <li>死信队列，监听的是Queue1,成为死信的消息会被丢到DLX中，或者不处理自己清理掉</li>
 <li>延迟队列，监听的是死信队列</li>

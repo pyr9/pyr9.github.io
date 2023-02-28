@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="Consul Consul 是一套开源的分布式服务发现和配置管理系统，由HashCorp公司用Go语言开发  它提供了几个关键功能：  服务发现：Consul client 可以提供服务，例如api或mysql，也可以使用Consul client来发现指定服务的提供者。 使用DNS或HTTP，应用程序可以轻松找到他们所依赖的服务。 健康检查：Consul client 可以提供任何数量的健康检查">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjegc3rcj21xz0u0ad8.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fk8xt9m6j22190u0dj3.jpg">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232955363.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233006492.png">
 <meta property="article:published_time" content="2022-07-22T16:11:59.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:18:57.426Z">
+<meta property="article:modified_time" content="2023-02-28T15:30:11.095Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="分布式">
 <meta property="article:tag" content="注册中心">
 <meta property="article:tag" content="consul">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjegc3rcj21xz0u0ad8.jpg">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232955363.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -306,7 +306,7 @@
 <figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs q">➜  ~ consul agent -<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure>
 
 <p>访问<a target="_blank" rel="noopener" href="http://localhost:8500/">http://localhost:8500/</a></p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjegc3rcj21xz0u0ad8.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232955363.png" srcset="/img/loading.gif" lazyload alt="image-20230228232955363"></p>
 <h2 id="2-引入依赖"><a href="#2-引入依赖" class="headerlink" title="2. 引入依赖"></a>2. 引入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs xml">plugins&#123;<br>	id &#x27;org.springframework.boot&#x27; version &#x27;2.6.1&#x27;<br>	id &#x27;io.spring.dependency-management&#x27; version &#x27;1.0.8.RELEASE&#x27;<br>	id &#x27;java&#x27;<br>&#125;<br><br>ext &#123;<br>	set(&#x27;springCloudVersion&#x27;, &quot;2021.0.0&quot;)<br>	name = &#x27;Eureka Server&#x27;<br>	description = &#x27;Eureka Server demo project&#x27;<br>	version=&#x27;0.0.1-SNAPSHOT&#x27;<br>	sourceEncoding=&#x27;UTF-8&#x27;<br>&#125;<br><br>repositories &#123;<br>	mavenCentral()<br>	maven &#123; url &#x27;https://repo.spring.io/release/&#x27; &#125;<br>	maven &#123; url &quot;https://repo.spring.io/libs-snapshot-local&quot; &#125;<br>	maven &#123; url &quot;https://repo.spring.io/libs-milestone-local&quot; &#125;<br>	maven &#123; url &quot;https://repo.spring.io/libs-release-local&quot; &#125;<br>	maven &#123; url &quot;https://repo.springsource.org/plugins-release&quot; &#125;<br>&#125;<br><br>dependencyManagement &#123;<br>	imports &#123;<br>		mavenBom &quot;org.springframework.cloud:spring-cloud-dependencies:$&#123;springCloudVersion&#125;&quot;<br>	&#125;<br>&#125;<br><br>dependencies &#123;<br>//	consul 依赖<br>	implementation &#x27;org.springframework.cloud:spring-cloud-starter-consul-discovery&#x27;<br>	implementation &#x27;org.springframework.boot:spring-boot-starter-web&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
@@ -320,7 +320,7 @@
 
 
 <h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h2><p>再次访问<a target="_blank" rel="noopener" href="http://localhost:8500/%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0micro-weather-consul%E6%9C%8D%E5%8A%A1%E5%B7%B2%E7%BB%8F%E6%B3%A8%E5%86%8C%E6%88%90%E5%8A%9F">http://localhost:8500/，可以看到micro-weather-consul服务已经注册成功</a></p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fk8xt9m6j22190u0dj3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233006492.png" srcset="/img/loading.gif" lazyload alt="image-20230228233006492"></p>
 
               
             </div>
