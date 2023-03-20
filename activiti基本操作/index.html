@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230128231354324.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230209233245014.png">
 <meta property="article:published_time" content="2023-01-28T15:21:44.000Z">
-<meta property="article:modified_time" content="2023-02-14T14:47:58.586Z">
+<meta property="article:modified_time" content="2023-03-20T03:08:33.530Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230128164658.png">
@@ -222,7 +222,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          5.1k 字
+          5.8k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
           <!-- compatible with older versions-->
-          16 分钟
+          19 分钟
         
       </span>
     
@@ -355,6 +355,45 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">findHistoryInfo</span><span class="hljs-params">()</span></span>&#123;<br><span class="hljs-comment">//      获取引擎</span><br>        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();<br><span class="hljs-comment">//        获取HistoryService</span><br>        HistoryService historyService = processEngine.getHistoryService();<br><span class="hljs-comment">//        获取 actinst表的查询对象</span><br>        HistoricActivityInstanceQuery instanceQuery = historyService.createHistoricActivityInstanceQuery();<br><span class="hljs-comment">//        查询 actinst表，条件：根据 InstanceId 查询</span><br><span class="hljs-comment">//        instanceQuery.processInstanceId(&quot;2501&quot;);</span><br><span class="hljs-comment">//        查询 actinst表，条件：根据 DefinitionId 查询</span><br>        instanceQuery.processDefinitionId(<span class="hljs-string">&quot;process-variable:3:c8b43296-a886-11ed-90d9-9ec8af959357&quot;</span>);<br><span class="hljs-comment">//        增加排序操作,orderByHistoricActivityInstanceStartTime 根据开始时间排序 asc 升序</span><br>        instanceQuery.orderByHistoricActivityInstanceStartTime().asc();<br><span class="hljs-comment">//        查询所有内容</span><br>        List&lt;HistoricActivityInstance&gt; activityInstanceList = instanceQuery.list();<br><span class="hljs-comment">//        输出</span><br>        <span class="hljs-keyword">for</span> (HistoricActivityInstance hi : activityInstanceList) &#123;<br>            System.out.println(hi.getActivityId());<br>            System.out.println(hi.getActivityName());<br>            System.out.println(hi.getProcessDefinitionId());<br>            System.out.println(hi.getProcessInstanceId());<br>            System.out.println(<span class="hljs-string">&quot;&lt;==========================&gt;&quot;</span>);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230209233245014.png" srcset="/img/loading.gif" lazyload alt="image-20230209233245014"></p>
+<h1 id="8-实战使用"><a href="#8-实战使用" class="headerlink" title="8 实战使用"></a>8 实战使用</h1><p><strong>准备工作：</strong></p>
+<ol>
+<li><p>定义BPMN文件</p>
+</li>
+<li><p>myActProcessDefinitionRegister注册entity对应的工作流信息：entityName, definitionKey，name</p>
+</li>
+<li><p>EmActProcessStatus: entity上存储的taskDefinitionKey，可在这张表查询到对应的中文翻译</p>
+<ul>
+<li><p>processRegisterId</p>
+</li>
+<li><p>taskDefinitionKey</p>
+</li>
+<li><p>name</p>
+</li>
+</ul>
+</li>
+<li><p>entity上冗余了工作流字段：</p>
+<ul>
+<li><p>task1Assignee，taskAssignee2:   任务受理人，根据bpmn文件定义的task数量定义，每个task对应一个受理人</p>
+</li>
+<li><p>currentTaskDefinitionKey:  当前记录的流程状态，即task的标识</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>流程：</strong></p>
+<ol>
+<li>新增entity，afterSaveTrigger发送mq启动流程实例 <ul>
+<li>definitionKey: 根据entityName查询emActProcessDefinitionRegister</li>
+<li>businessKey: entityId</li>
+<li>variables： entity复写自己的</li>
+</ul>
+</li>
+<li>查看认领任务：根据前端传过来的loginName, processDefinitionKeyList查看任务列表</li>
+<li>候选人认领任务（如果有callBack,调用callback）: taskService.claim(task.getId(), claimTaskForm.getUserLoginName());</li>
+<li>查看待办任务：根据前端传过来的loginName, processDefinitionKeyList查看任务列表</li>
+<li>完成任务：completeTask</li>
+<li>执行完成任务回调completeFeedback， 比如：当前流程的填充审批完成时间</li>
+</ol>
 
               
             </div>
