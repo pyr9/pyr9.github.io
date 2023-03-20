@@ -19,7 +19,7 @@ Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME/tool
 
 ![image-20230315155909887](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155909887.png)
 
-
+注：这里也需要配置git
 
 # 2 新建一个任务
 
@@ -49,3 +49,31 @@ Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME/tool
 
 
 至此，可以点击立即构建了
+
+
+
+# 6 遇到的问题
+
+记录下在windows搭建时遇到的问题
+
+1.  Cannot run program "sh" (in directory "C:\ProgramData\Jenkins\.jenkins\workspace\sith-front"): CreateProcess error=2, 系统找不到指定的文件。
+
+解决：Manage Jenkins-> Configure System-> Shell-> Shell execute 
+
+```xml
+C:\Windows\system32\cmd.exe
+```
+
+2. ssh:///git@gitee.com:SIEMENS_MMF/MMF.git +refs/heads/*:refs/remotes/origin/*" returned status code 128:
+   stdout: 
+   stderr: ssh: connect to host  port 22: Connection refused
+   fatal: Could not read from remote repository.
+
+   Please make sure you have the correct access rights
+   and the repository exists.
+
+原因：Jenkins网页登录时，ssh连接使用的是Jenkins自身的账户，并不是我们登录电脑所使用的的账户，该账户下并没有ssh连接所需要的rsa文件，
+
+解决：
+
+成功执行git pull等命令的账户，在C:\Users\xxxxxx\.ssh目录下（xxxxxx是登录电脑的用户名，不是git的用户名），会有id_rsa，id_rsa.pub，known_hosts文件，把这3个文件拷贝到C:\Windows\System32\config\systemprofile\.ssh目录下，再执行jenkins就OK了

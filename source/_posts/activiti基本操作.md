@@ -233,3 +233,38 @@ act_ru_task：当前代办的任务信息 -> 删除旧数据，插入新数据
 ```
 
 ![image-20230209233245014](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230209233245014.png)
+
+
+
+# 8 实战使用
+
+**准备工作：**
+
+1. 定义BPMN文件
+
+2. myActProcessDefinitionRegister注册entity对应的工作流信息：entityName, definitionKey，name
+
+3. EmActProcessStatus: entity上存储的taskDefinitionKey，可在这张表查询到对应的中文翻译
+
+   - processRegisterId
+
+   - taskDefinitionKey
+   - name
+
+4. entity上冗余了工作流字段：
+
+   - task1Assignee，taskAssignee2:   任务受理人，根据bpmn文件定义的task数量定义，每个task对应一个受理人
+
+   - currentTaskDefinitionKey:  当前记录的流程状态，即task的标识
+
+**流程：**
+
+1. 新增entity，afterSaveTrigger发送mq启动流程实例 
+   - definitionKey: 根据entityName查询emActProcessDefinitionRegister
+   -  businessKey: entityId
+   -  variables： entity复写自己的
+2. 查看认领任务：根据前端传过来的loginName, processDefinitionKeyList查看任务列表
+3. 候选人认领任务（如果有callBack,调用callback）: taskService.claim(task.getId(), claimTaskForm.getUserLoginName());
+4. 查看待办任务：根据前端传过来的loginName, processDefinitionKeyList查看任务列表
+5. 完成任务：completeTask
+6. 执行完成任务回调completeFeedback， 比如：当前流程的填充审批完成时间
