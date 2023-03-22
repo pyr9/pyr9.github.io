@@ -16,28 +16,25 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 Vue是什么？ vue是一套JavaScript框架 Vue可以简化Dom操作 响应式数据驱动  2 hello world 导入Vue  1&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue@2&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;   创建Vue实例对象，设置el属性和data属性 使用简洁的模板语">
+    <meta name="description" content="1 跨域认证的问题互联网服务离不开用户认证。一般流程是下面这样。 1、用户向服务器发送用户名和密码。 2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。 3、服务器向用户返回一个 session_id，写入用户的 Cookie。 4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。 5、服务器收到 session_i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue入门">
-<meta property="og:url" content="http://example.com/Vue%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="单点登录">
+<meta property="og:url" content="http://example.com/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 Vue是什么？ vue是一套JavaScript框架 Vue可以简化Dom操作 响应式数据驱动  2 hello world 导入Vue  1&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue@2&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;   创建Vue实例对象，设置el属性和data属性 使用简洁的模板语">
+<meta property="og:description" content="1 跨域认证的问题互联网服务离不开用户认证。一般流程是下面这样。 1、用户向服务器发送用户名和密码。 2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。 3、服务器向用户返回一个 session_id，写入用户的 Cookie。 4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。 5、服务器收到 session_i">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/Users/panyurou/Library/Application%20Support/typora-user-images/image-20221023232100807.png">
-<meta property="og:image" content="http://example.com/Users/panyurou/Library/Application%20Support/typora-user-images/image-20221023231840513.png">
-<meta property="og:image" content="http://example.com/Users/panyurou/Library/Application%20Support/typora-user-images/image-20221108210854373.png">
-<meta property="article:published_time" content="2022-09-26T07:25:04.000Z">
-<meta property="article:modified_time" content="2022-11-08T13:09:02.803Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230320140654212.png">
+<meta property="article:published_time" content="2023-03-20T06:00:24.000Z">
+<meta property="article:modified_time" content="2023-03-20T06:11:37.355Z">
 <meta property="article:author" content="Panyurou">
-<meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/Users/panyurou/Library/Application%20Support/typora-user-images/image-20221023232100807.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230320140654212.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Vue入门 - 楼上有只喵</title>
+  <title>单点登录 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -189,7 +186,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Vue入门"></span>
+            <span id="subtitle" data-typed-text="单点登录"></span>
           
         </div>
 
@@ -200,8 +197,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-26 15:25" pubdate>
-          2022年9月26日 下午
+        <time datetime="2023-03-20 14:00" pubdate>
+          2023年3月20日 下午
         </time>
       </span>
     
@@ -213,7 +210,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3k 字
+          2.1k 字
         
       </span>
     
@@ -225,7 +222,7 @@
         
         
           <!-- compatible with older versions-->
-          10 分钟
+          7 分钟
         
       </span>
     
@@ -273,94 +270,50 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vue入门</h1>
+            <h1 style="display: none">单点登录</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-Vue是什么？"><a href="#1-Vue是什么？" class="headerlink" title="1 Vue是什么？"></a>1 Vue是什么？</h1><ul>
-<li>vue是一套JavaScript框架</li>
-<li>Vue可以简化Dom操作</li>
-<li>响应式数据驱动</li>
-</ul>
-<h1 id="2-hello-world"><a href="#2-hello-world" class="headerlink" title="2 hello world"></a>2 hello world</h1><ol>
-<li>导入Vue</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js&quot;&gt;&lt;/script&gt;<br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>创建Vue实例对象，设置el属性和data属性</li>
-<li>使用简洁的模板语法把数据渲染到页面上</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;body&gt;<br>  &lt;div id=&quot;app&quot;&gt;<br>    &#123;&#123;message&#125;&#125;<br>  &lt;/div&gt;<br>  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js&quot;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>   var app = new Vue(&#123;<br>     el:&quot;#app&quot;,<br>     data:&#123;<br>       message: &quot;hello world!&quot;<br>     &#125;<br>   &#125;)<br>  &lt;/script&gt;<br>&lt;/body&gt;<br></code></pre></td></tr></table></figure>
-
-<h1 id="3-el挂载点"><a href="#3-el挂载点" class="headerlink" title="3 el挂载点"></a>3 el挂载点</h1><ul>
-<li><p>el是用来设置<strong>vue实例挂载</strong>的元素</p>
-</li>
-<li><p>Vue会管理el选项<strong>命中的元素</strong>以及其内部的<strong>后代元素</strong></p>
-</li>
-<li><p>可以使用其他的选择器，但是<strong>建议使用id选择器</strong></p>
-</li>
-<li><p>可以使用其他的双标签，不能使用HTML或者body</p>
-</li>
-</ul>
-<h1 id="4-data数据对象"><a href="#4-data数据对象" class="headerlink" title="4 data数据对象"></a>4 data数据对象</h1><ul>
-<li>vue中用到的对象定义在data中</li>
-<li>Data中可以写复杂类型的数据，比如对象，数组</li>
-<li>渲染复杂类型的数据，遵循js的语法即可</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;body&gt;<br>  &lt;div id=&quot;app&quot;&gt;<br>    &#123;&#123;message&#125;&#125;<br>    &#123;&#123;school.name&#125;&#125;<br>    &#123;&#123;school.age&#125;&#125;<br>    &lt;ul&gt;<br>      &lt;li&gt;&#123;&#123;hoobies[0]&#125;&#125;&lt;/li&gt;<br>      &lt;li&gt;&#123;&#123;hoobies[2]&#125;&#125;&lt;/li&gt;<br>    &lt;/ul&gt;<br>  &lt;/div&gt;<br>  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js&quot;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    var app = new Vue(&#123;<br>      el: &quot;#app&quot;,<br>      data: &#123;<br>        message: &quot;hello world!&quot;,<br>        school: &#123;<br>          name: &quot;张三&quot;,<br>          age: 14<br>        &#125;,<br>        hoobies: [&quot;唱歌&quot;, &quot;跳舞&quot;, &quot;弹琴&quot;]<br>      &#125;<br>    &#125;)<br>  &lt;/script&gt;<br>&lt;/body&gt;<br></code></pre></td></tr></table></figure>
-
-<h2 id="5-模版语法"><a href="#5-模版语法" class="headerlink" title="5 模版语法"></a>5 模版语法</h2><ul>
-<li><code> &#123;&#123; message &#125;&#125;</code> 展示字符串文本</li>
-<li><code>v-bind:class=&quot;&#39;btnb tn-sm&#39;&quot;</code> 绑定属性</li>
-</ul>
-<img src="/Users/panyurou/Library/Application Support/typora-user-images/image-20221023232100807.png" srcset="/img/loading.gif" lazyload alt="image-20221023232100807" style="zoom:50%;" />
-
+              <h1 id="1-跨域认证的问题"><a href="#1-跨域认证的问题" class="headerlink" title="1 跨域认证的问题"></a>1 跨域认证的问题</h1><p>互联网服务离不开用户认证。一般流程是下面这样。</p>
+<p>1、用户向服务器发送用户名和密码。</p>
+<p>2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。</p>
+<p>3、服务器向用户返回一个 session_id，写入用户的 Cookie。</p>
+<p>4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。</p>
+<p>5、服务器收到 session_id，找到前期保存的数据，由此得知用户的身份。</p>
+<p>这种模式的问题在于，扩展性（scaling）不好。单机当然没有问题，如果是服务器集群，或者是跨域的服务导向架构，就要求 session 数据共享，每台服务器都能够读取 session。</p>
+<p>举例来说，A 网站和 B 网站是同一家公司的关联服务。现在要求，用户只要在其中一个网站登录，再访问另一个网站就会自动登录，请问怎么实现？</p>
 <ul>
-<li><p><code>v-html</code>: 翻译成html标签</p>
-</li>
-<li><p><code>&#123;&#123; ok ? 'YES':'No' &#125;&#125;</code> 三元运算</p>
-</li>
-<li><p><code>&#123;&#123; message.spilt('').join(',') &#125;&#125;</code>:  vue支持js表达式</p>
-</li>
-<li><p>V-if 控制元素是否切换</p>
-</li>
+<li>一种解决方案是 session 数据持久化，写入数据库或别的持久层。各种服务收到请求后，都向持久层请求数据。这种方案的优点是架构清晰，缺点是工程量比较大。另外，持久层万一挂了，就会单点失败。</li>
+<li>另一种方案是服务器索性不保存 session 数据了，所有数据都保存在客户端，每次请求都发回服务器。JWT 就是这种方案的一个代表。</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;div id=&quot;app-3&quot;&gt;<br>  &lt;p v-if=&quot;seen&quot;&gt;现在你看到我了&lt;/p&gt;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="2-JWT概述"><a href="#2-JWT概述" class="headerlink" title="2 JWT概述"></a>2 JWT概述</h1><p>JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案，JWT 的原理是，服务器认证以后，生成一个 JSON 对象，发回给用户，就像下面这样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">&#123;<br>  <span class="hljs-string">&quot;姓名&quot;</span>: <span class="hljs-string">&quot;张三&quot;</span>,<br>  <span class="hljs-string">&quot;角色&quot;</span>: <span class="hljs-string">&quot;管理员&quot;</span>,<br>  <span class="hljs-string">&quot;到期时间&quot;</span>: <span class="hljs-string">&quot;2018年7月1日0点0分&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> app3 = <span class="hljs-keyword">new</span> Vue(&#123;<br>  <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#app-3&#x27;</span>,<br>  <span class="hljs-attr">data</span>: &#123;<br>    <span class="hljs-attr">seen</span>: <span class="hljs-literal">true</span><br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
-
+<p>以后，用户与服务端通信的时候，都要发回这个 JSON 对象。服务器完全只靠这个对象认定用户身份。为了防止用户篡改数据，服务器在生成这个对象的时候，会加上签名（详见后文）。</p>
+<p>服务器就不保存任何 session 数据了，也就是说，服务器变成无状态了，从而比较容易实现扩展</p>
+<h1 id="3-JWT-的数据结构"><a href="#3-JWT-的数据结构" class="headerlink" title="3 JWT 的数据结构"></a>3 JWT 的数据结构</h1><p>实际的 JWT 大概就像下面这样。<a target="_blank" rel="noopener" href="https://jwt.io/">https://jwt.io/</a></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230320140654212.png" srcset="/img/loading.gif" lazyload alt="image-20230320140654212"></p>
+<p>它是一个很长的字符串，中间用点（<code>.</code>）分隔成三个部分。依次是：</p>
 <ul>
-<li>@click 绑定事件</li>
+<li>Header（头部）：Header 部分是一个 JSON 对象，描述 JWT 的元数据。上图中，<code>alg</code>属性表示签名的算法（algorithm），默认是 HMAC SHA256（写成 HS256）；<code>typ</code>属性表示这个令牌（token）的类型（type），JWT 令牌统一写为<code>JWT</code>。</li>
+<li>Payload（负载）：Payload 部分也是一个 JSON 对象，用来存放实际需要传递的数据。除了官方字段，你还可以在这个部分定义私有字段</li>
+<li>Signature（签名）：Signature 部分是对前两部分的签名，防止数据篡改。首先，需要指定一个密钥（secret）。这个密钥只有服务器才知道，不能泄露给用户。然后，使用 Header 里面指定的签名算法（默认是 HMAC SHA256），按照下面的公式产生签名。</li>
 </ul>
-<img src="/Users/panyurou/Library/Application Support/typora-user-images/image-20221023231840513.png" srcset="/img/loading.gif" lazyload alt="image-20221023231840513" style="zoom:50%;" />
+<p>算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用”点”（<code>.</code>）分隔，就可以返回给用户。</p>
+<p><strong>Base64URL</strong></p>
+<p>Header 和 Payload 串型化的算法是 Base64URL。这个算法跟 Base64 算法基本类似，但有一些小的不同。</p>
+<p>JWT 作为一个令牌（token），有些场合可能会放到 URL（比如 api.example.com&#x2F;?token&#x3D;xxx）。Base64 有三个字符<code>+</code>、<code>/</code>和<code>=</code>，在 URL 里面有特殊含义，所以要被替换掉：<code>=</code>被省略、<code>+</code>替换成<code>-</code>，<code>/</code>替换成<code>_</code> 。这就是 Base64URL 算法。</p>
+<h1 id="4-JWT-的使用方式"><a href="#4-JWT-的使用方式" class="headerlink" title="4 JWT 的使用方式"></a>4 JWT 的使用方式</h1><p>客户端收到服务器返回的 JWT，可以储存在 Cookie 里面，也可以储存在 localStorage。</p>
+<p>此后，客户端每次与服务器通信，都要带上这个 JWT。你可以把它放在 Cookie 里面自动发送，但是这样不能跨域，所以更好的做法是放在 HTTP 请求的头信息<code>Authorization</code>字段里面。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">Authorization:</span> Bearer <span class="hljs-params">&lt;token&gt;</span><br></code></pre></td></tr></table></figure>
 
- 
-
-<p>![image-20221023232442286](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20221023232442286.png)</p>
-<ul>
-<li>可以定义请求返回的数据的格式</li>
-</ul>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">data</span>: function () &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>        isEdit: <span class="hljs-literal">false</span>,<br>        businessDataFromApi: <span class="hljs-literal">null</span><br>    &#125;<br>&#125;<br><br> getBusinessDataByQueryApi() &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.queryApi !== undefined) &#123;<br>                let url = `$&#123;<span class="hljs-keyword">this</span>.$store.state[<span class="hljs-keyword">this</span>.entity].baseModuleUrl&#125;/$&#123;<span class="hljs-keyword">this</span>.entity&#125;/` + <span class="hljs-keyword">this</span>.queryApi;<br>                <span class="hljs-keyword">this</span>.$store.dispatch(<span class="hljs-string">&#x27;api/post&#x27;</span>, &#123;<br>                    url: url,<br>                    <span class="hljs-keyword">data</span>: &#123;<br>                        idFilter: <span class="hljs-keyword">this</span>.businessData.id === undefined ? <span class="hljs-keyword">this</span>.$route.query.id : <span class="hljs-keyword">this</span>.businessData.id<br>                    &#125;<br>                &#125;).then(response =&gt; &#123;<br>                    <span class="hljs-keyword">if</span> (response.<span class="hljs-keyword">data</span>.list.length === <span class="hljs-number">1</span>) &#123;<br>                        <span class="hljs-keyword">this</span>.businessDataFromApi = response.<span class="hljs-keyword">data</span>.list[<span class="hljs-number">0</span>];<br>                    &#125;<br>                &#125;)<br>            &#125;<br>        &#125;<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>![image-20221024231200647](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20221024231200647.png)</li>
-</ul>
-<p>![image-20221024231215526](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20221024231215526.png)</p>
-<p>- </p>
-<ul>
-<li><pre><code class="hljs">handleClick(col, $event) 
-</code></pre>
-</li>
-<li><p>@click&#x3D;”handleClick()” 和@click&#x3D;”handleClick”的区别在于：第一个拿不到event事件，如果要拿到事件，需要写成@click&#x3D;”handleClick($event)”</p>
-</li>
-<li><p>阻止默认行为@click.prevent</p>
-</li>
-<li><p>@click.once 只执行一次事件触发</p>
-</li>
-<li><p>@click.self 只有e.target &#x3D; e.currentTarget的时候才会执行</p>
-<img src="/Users/panyurou/Library/Application Support/typora-user-images/image-20221108210854373.png" srcset="/img/loading.gif" lazyload alt="image-20221108210854373" style="zoom: 33%;" /></li>
-</ul>
+<p>另一种做法是，跨域的时候，JWT 就放在 POST 请求的数据体里面。</p>
+<h1 id="5-JWT特点"><a href="#5-JWT特点" class="headerlink" title="5 JWT特点"></a>5 JWT特点</h1><p>（1）JWT 默认是不加密，但也是可以加密的。生成原始 Token 以后，可以用密钥再加密一次。</p>
+<p>（2）JWT 不加密的情况下，不能将秘密数据写入 JWT。</p>
+<p>（3）JWT 不仅可以用于认证，也可以用于交换信息。有效使用 JWT，可以降低服务器查询数据库的次数。</p>
+<p>（4）JWT 的最大缺点是，由于服务器不保存 session 状态，因此无法在使用过程中废止某个 token，或者更改 token 的权限。也就是说，一旦 JWT 签发了，在到期之前就会始终有效，除非服务器部署额外的逻辑。</p>
+<p>（5）JWT 本身包含了认证信息，一旦泄露，任何人都可以获得该令牌的所有权限。为了减少盗用，JWT 的有效期应该设置得比较短。对于一些比较重要的权限，使用时应该再次对用户进行认证。</p>
+<p>（6）为了减少盗用，JWT 不应该使用 HTTP 协议明码传输，要使用 HTTPS 协议传输。</p>
 
               
             </div>
@@ -368,34 +321,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-      
-    </div>
   
 </div>
 
@@ -405,8 +330,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Vue入门</div>
-      <div>http://example.com/Vue入门/</div>
+      <div>单点登录</div>
+      <div>http://example.com/单点登录/</div>
     </div>
     <div class="license-meta">
       
@@ -418,7 +343,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月26日</div>
+          <div>2023年3月20日</div>
         </div>
       
       
@@ -448,18 +373,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/JPA%E5%92%8Chibernate%E5%92%8CSpringDataJpa/" title="JPA和hibernate和SpringDataJpa">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JPA和hibernate和SpringDataJpa</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Mongodb%E9%9B%86%E7%BE%A4/" title="Mongodb集群">
-                        <span class="hidden-mobile">Mongodb集群</span>
+                      <a href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="分布式锁">
+                        <span class="hidden-mobile">分布式锁</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
