@@ -1,53 +1,46 @@
 ---
-title: spring data JPA 的基本介绍
+title: JPA和hibernate和SpringDataJpa
 date: 2022-10-16 16:03:46
 tags: JPA
 categories: JPA
 ---
 
-# 1.Java访问持久层的两种方式
+Java访问持久层的两种方式
 
 - 以Sql为核心，封装一定程度的JDBC操作，比如mybatis
 - 以Java实体类为核心，将实体类和数据表之间建立连接，也就是我们说的ORM框架，比如：Hibernate,SpringData jpa
 
-# 2. 什么是JPA
+# 1. JPA
 
--  JPA统一了Java应用程序访问ORM框架的规范
+JPA顾名思义就是Java Persistence API的意思
 
-**JPA为我们提供了以下规范：**
+- 使用注解或XML描述对象－关系表的映射关系
+- 将运行期的实体对象持久化到数据库中
+- 定义了一些接口。
 
-1. ORM映射元数据：JPA支持XML和注解两种元数据的形式，元数据描述对象和表之间的映射关系，框架据此将实体对象持久化到数据库表中
-2.  JPA 的API：用来操作实体对象，执行CRUD操作，框架在后台替我们完成所有的事情，**开发人员不用再写SQL**了
-3.  JPQL查询语言：通过**面向对象而非面向数据库的查询语言查询数据**，避免程序的SQL语句紧密耦合。
+# 2. hibernate
 
-# 3  JPA和Hibernate的关系
+Hibernate就是实现了JPA接口的ORM框架。
 
-• JPA是一个规范，而不是框架
+# 3 **Spring Data JPA**
 
-• Hibernate是JPA的一种实现，是一个框架
+## 3.1 定义
 
-# 4 **Spring Data**是什么？
+- Spring Data JPA是spring提供的一套 **JPA 应用框架**。
 
-Spring Data是Spring 社区的一个子项目，主要用于简化数据（关系型&非关系型）访问，其主要目标是使得数据库的访问变得方便快捷。•它提供很多模板操作
+- SpringDataJpa可以理解为JPA规范的再次封装抽象，底层还是使用了Hibernate的Jpa技术实现。
 
--  Spring Data Elasticsearch
-
--  Spring Data MongoDB
-
-- Spring Data Redis
-
-- Spring Data Solr
-
-# 5 **Spring Data JPA**是什么？
-
-- Spring Data JPA是spring提供的，在实现了JPA规范的基础上封装的一套 **JPA 应用框架**。
 - Spring Data JPA旨在通过将统一ORM框架的访问持久层的操作，来提高开发人的效率。
-- 虽然ORM框架都实现了JPA规范，但是在不同的ORM框架之间切换仍然需要编写不同的代码，而使用**Spring Data JPA能够方便大家在不同的ORM框架之间进行切换而不需要更改代码**。
-- 按照约定好的规则进行【方法命名】去写dao层接口，就可以在不写接口实现的情况下，实现对数据库的访问和操作。同时提供了很多除了CRUD之外的功能，如分页、排序、复杂查询等等
-- Spring Data JPA 让我们解脱了DAO层的操作，基本上所有CRUD都可以依赖于它来实现,
-- 在实际的工作工程中，**推荐使用Spring Data JPA + ORM（如：hibernate）**完成操作，这样在切换不同的ORM框架时提供了极大的方便，同时也使数据库层操作更加简单，方便解耦
 
-## 5.1 **Spring Data JPA给我们提供的主要的类和接口**
+- 虽然ORM框架都实现了JPA规范，但是在不同的ORM框架之间切换仍然需要编写不同的代码，而使用**Spring Data JPA能够方便大家在不同的ORM框架之间进行切换而不需要更改代码**。
+
+- 按照约定好的规则进行【方法命名】去写dao层接口，就可以在不写接口实现的情况下，实现对数据库的访问和操作。同时提供了很多除了CRUD之外的功能，如分页、排序、复杂查询等等
+
+- Spring Data JPA 让我们解脱了DAO层的操作，基本上所有CRUD都可以依赖于它来实现,
+
+  
+
+## 3.2  **Spring Data JPA给我们提供的主要的类和接口**
 
 - Repository 接口：
 
@@ -67,13 +60,22 @@ Spring Data是Spring 社区的一个子项目，主要用于简化数据（关�
 
   - QueryDslJpaRepository
 
-# 6 **Spring Data JPA和Hibernate的关系**
+# 4 JPA、hibernate、Spring Data Jpa关系
+
+- JPA是一个规范，也就是说它仅仅定义了一些接口
+- Hibernate就是实现了JPA接口的ORM框架
+
+- SpringDataJpa是Spring提供的一套简化JPA开发的框架。可以理解为JPA规范的再次封装抽象，底层还是使用了Hibernate的Jpa技术实现。
+
+![image-20230320175230013](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230320175230013.png)
+
+# 5 **Spring Data JPA和Hibernate的关系**
 
 - Hibernate其实是JPA的一种实现，而Spring Data JPA是一个JPA数据访问抽象。
 - pring Data JPA不是一个实现或JPA提供的程序，它只是一个抽象层，主要用于减少为各种持久层存储实现数据访问层所需的样板代码量。但是它还是需要JPA提供实现程序。
 - Spring Data JPA是一种JPA的抽象层，底层依赖Hibernate
 
-# 7 mybatis 和hibernate的对比？
+# 6 mybatis 和hibernate的对比？
 
 （1）hibernate是全自动，而mybatis是半自动。
 

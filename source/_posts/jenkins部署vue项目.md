@@ -33,7 +33,7 @@ Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME/tool
 
 # 4 配置构建环境
 
-##### 构建环境勾选 Provide Node & npm bin/folder to PATH
+构建环境勾选 Provide Node & npm bin/folder to PATH
 
 - 每次build，都会首先执行环境构建，环境构建无误后，才会开始真正的构建过程
 - 会下载nodejs并安装配置，并把node添加到当前PATH环境变量中，这样就支持node和npm命令了
@@ -42,9 +42,11 @@ Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME/tool
 
 #  5 配置shell
 
-构建中打印$PATH并查看node，npm版本
+执行：
 
-![image-20230315161043379](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315161043379.png)
+`npm install && npm run build && npm run domain && npm run aliyun`
+
+![image-20230322152124371](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322152124371.png)
 
 
 
@@ -52,7 +54,19 @@ Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME/tool
 
 
 
-# 6 遇到的问题
+# 6 配置远端服务器
+
+注意：如果使用了echo,需要勾选Verbose output in console才可以在控制台，看到打印的日志
+
+![image-20230324163338300](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230324163338300.png)
+
+# 7 使用打好的包替换服务器上的包
+
+![image-20230322154215106](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322154215106.png)
+
+
+
+# 8 遇到的问题
 
 记录下在windows搭建时遇到的问题
 
