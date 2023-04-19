@@ -1,0 +1,882 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 docker解决了什么问题？比如我们现在开发了一个应用程序比如淘宝App，程序员从头到尾搭建了一套环境开始写代码，比如安装JDK等，代码写完后需要交给测试同事去运行，这事测试同学也需要从头到尾搭建一套环境，但比如JDK版本和你安装的不同，导致无法在测试同学的机器上运行起来，找开发去看问题，此时开发也很无辜，“明明在我的机器上是可以跑起来的”。 在没有容器技术之前，我们可以采用搭建虚拟机，然后测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dcoker">
+<meta property="og:url" content="http://example.com/dcoker/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="1 docker解决了什么问题？比如我们现在开发了一个应用程序比如淘宝App，程序员从头到尾搭建了一套环境开始写代码，比如安装JDK等，代码写完后需要交给测试同事去运行，这事测试同学也需要从头到尾搭建一套环境，但比如JDK版本和你安装的不同，导致无法在测试同学的机器上运行起来，找开发去看问题，此时开发也很无辜，“明明在我的机器上是可以跑起来的”。 在没有容器技术之前，我们可以采用搭建虚拟机，然后测">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418145138450.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418150102287.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418151220544.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418170422909.png">
+<meta property="article:published_time" content="2023-04-18T06:20:45.000Z">
+<meta property="article:modified_time" content="2023-04-19T14:39:28.024Z">
+<meta property="article:author" content="Panyurou">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418145138450.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>dcoker - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+
+      
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+    <a target="_blank" rel="noopener" href="https://github.com/panyuro" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="dcoker"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-18 14:20" pubdate>
+          2023年4月18日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+  </header>
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">dcoker</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="1-docker解决了什么问题？"><a href="#1-docker解决了什么问题？" class="headerlink" title="1 docker解决了什么问题？"></a>1 docker解决了什么问题？</h1><p>比如我们现在开发了一个应用程序比如淘宝App，程序员从头到尾搭建了一套环境开始写代码，比如安装JDK等，代码写完后需要交给测试同事去运行，这事测试同学也需要从头到尾搭建一套环境，但比如JDK版本和你安装的不同，导致无法在测试同学的机器上运行起来，找开发去看问题，此时开发也很无辜，“明明在我的机器上是可以跑起来的”。</p>
+<p>在没有容器技术之前，我们可以采用搭建虚拟机，然后测试人员克隆一个同样的虚拟机。</p>
+<p>但是虚拟机里面是有一套完整的操作系统的。单单运行起来都需要耗费很多资源。比如我们新装的系统，还没有装任何的软件，磁盘已经被占用了好几个G，导致我们无法部署更多的应用程序，此外，操作系统的启动也很缓慢。</p>
+<p>因此出现了容器技术。容器和集装箱在概念上是很相似的。需要实现隔离，也就是多个应用程序在运行时互相不干扰。</p>
+<p>容器技术只隔离应用程序运行时环境，但是共享同一个操作系统。这里的运行时环境指的是程序运行依赖的各种库以及配置。</p>
+<p>因此，相比较虚拟机，容器更加的轻量且占用的资源更少。我们可以部署更多的应用程序，同时启动的速度也很快。</p>
+<p>docker就是容器技术的一种实现。</p>
+<h1 id="2-docker是什么"><a href="#2-docker是什么" class="headerlink" title="2 docker是什么"></a>2 docker是什么</h1><p>docker是一个用Go语言实现的开源项目，可以让我们方便的创建和使用容器，docker将程序以及程序所有的依赖都打包到docker container，这样你的程序可以在任何环境都会有一致的表现。</p>
+<p>这里程序运行的依赖也就是容器就好比集装箱，容器所处的操作系统环境就好比货船或港口，<strong>程序的表现只和集装箱有关系(容器)，和集装箱放在哪个货船或者哪个港口(操作系统)没有关系</strong>。</p>
+<p><strong>docker的底层实现</strong></p>
+<p>docker基于<strong>Linux内核</strong>提供这样几项功能实现的：</p>
+<ul>
+<li><strong>NameSpace</strong>： 我们知道Linux中的PID、IPC、网络等资源是全局的，而NameSpace机制是一种资源隔离方案，在该机制下这些资源就不再是全局的了，而是属于某个特定的NameSpace，各个NameSpace下的资源互不干扰，这就使得每个NameSpace看上去就像一个独立的操作系统一样，但是只有NameSpace是不够。</li>
+<li><strong>Control groups</strong>：虽然有了NameSpace技术可以实现资源隔离，但进程还是可以不受控的访问系统资源，比如CPU、内存、磁盘、网络等，为了控制容器中进程对资源的访问，Docker采用control groups技术(也就是cgroup)，有了cgroup就可以控制容器中进程对系统资源的消耗了，比如你可以限制某个容器使用内存的上限、可以在哪些CPU上运行等等。</li>
+</ul>
+<h1 id="3-安装下载"><a href="#3-安装下载" class="headerlink" title="3 安装下载"></a>3 安装下载</h1><h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">brew cask install docker<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-修改镜像源"><a href="#2-修改镜像源" class="headerlink" title="2. 修改镜像源"></a>2. 修改镜像源</h2><p>这里是网易的镜像源</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs prolog"><span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<br>   <span class="hljs-string">&quot;http://hub-mirror.c.163.com&quot;</span><br> ]<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418145138450.png" srcset="/img/loading.gif" lazyload alt="image-20230418145138450"></p>
+<h1 id="4-docker容器生命周期管理"><a href="#4-docker容器生命周期管理" class="headerlink" title="4 docker容器生命周期管理"></a>4 docker容器生命周期管理</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418150102287.png" srcset="/img/loading.gif" lazyload alt="image-20230418150102287"></p>
+<ul>
+<li><p>从镜像仓库中拉取或者更新指定镜像</p>
+<p><code>docker pull nginx</code></p>
+</li>
+<li><p>创建一个新的容器但不启动它</p>
+<p><code>docker create nginx</code></p>
+</li>
+<li><p>列出所有在运行的容器信息。</p>
+<p><code>docker ps</code></p>
+</li>
+<li><p>显示所有的容器，包括未运行的</p>
+<p><code>docker ps -a</code><br><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418151220544.png" srcset="/img/loading.gif" lazyload alt="image-20230418151220544"></p>
+</li>
+<li><p>启动一个停止的容器</p>
+</li>
+</ul>
+<p>  <code>docker start d7e105501d1f</code></p>
+<ul>
+<li><p>登录容器，在运行的容器中执行命令</p>
+<p><code> docker exec -it d7e105501d1f /bin/bash</code></p>
+</li>
+<li><p>暂停容器中所有的进程</p>
+<p><code>docker pause d7e105501d1f</code></p>
+</li>
+<li><p>恢复容器中所有的进程。</p>
+<p><code>docker unpause d7e105501d1f</code></p>
+</li>
+<li><p>停止一个运行中的容器</p>
+<p><code>docker stop d7e105501d1f</code></p>
+</li>
+<li><p>杀掉一个运行中的容器。</p>
+<p><code>docker kill d7e105501d1f</code></p>
+</li>
+<li><p>删除一个或多个容器</p>
+<p><code>docker rm -f d7e105501d1f</code></p>
+</li>
+<li><p>在后台启动一个容器</p>
+<p><code>docker run -d redis</code></p>
+</li>
+<li><p>启动一个映射端口的容器</p>
+<p><code>docker run -p 80:80 -d nginx </code></p>
+</li>
+</ul>
+<h1 id="5-docker镜像构建"><a href="#5-docker镜像构建" class="headerlink" title="5 docker镜像构建"></a>5 docker镜像构建</h1><ol>
+<li><p>创建并编辑Dockerfile</p>
+<p><code> vim Dockerfile</code></p>
+</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#Owner by Pan Yu Rou</span><br><span class="hljs-keyword">FROM</span> redis<br><span class="hljs-keyword">MAINTAINER</span> pyr<br><span class="hljs-keyword">RUN</span><span class="bash"> mkdir test01</span><br><span class="hljs-keyword">RUN</span><span class="bash"> touch test02</span><br><span class="hljs-keyword">COPY</span><span class="bash"> test3 .</span><br><span class="hljs-keyword">ADD</span><span class="bash"> test4.tar.gz .</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="bash"> [<span class="hljs-string">&quot;/bin/sh&quot;</span>]</span><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;-c&quot;</span>,<span class="hljs-string">&quot;ls -l&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>运行<code>docker build</code></li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs ruby">➜  docker_dir docker build -t mysh .<br>[+] Building <span class="hljs-number">0</span>.5s (<span class="hljs-number">10</span>/<span class="hljs-number">10</span>) FINISHED<br> =&gt; [internal] load build definition from Dockerfile                                                                                                                                                                                                                                              <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; transferring <span class="hljs-symbol">dockerfile:</span> 199B                                                                                                                                                                                                                                                              <span class="hljs-number">0</span>.0s<br> =&gt; [internal] load .dockerignore                                                                                                                                                                                                                                                                 <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; transferring <span class="hljs-symbol">context:</span> 2B                                                                                                                                                                                                                                                                   <span class="hljs-number">0</span>.0s<br> =&gt; [internal] load metadata for docker.io/library/<span class="hljs-symbol">redis:</span>latest                                                                                                                                                                                                                                   <span class="hljs-number">0</span>.0s<br> =&gt; [internal] load build context                                                                                                                                                                                                                                                                 <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; transferring <span class="hljs-symbol">context:</span> 176B                                                                                                                                                                                                                                                                 <span class="hljs-number">0</span>.0s<br> =&gt; [<span class="hljs-number">1</span>/<span class="hljs-number">5</span>] FROM docker.io/library/redis                                                                                                                                                                                                                                                            <span class="hljs-number">0</span>.0s<br> =&gt; [<span class="hljs-number">2</span>/<span class="hljs-number">5</span>] RUN mkdir test01                                                                                                                                                                                                                                                                        <span class="hljs-number">0</span>.2s<br> =&gt; [<span class="hljs-number">3</span>/<span class="hljs-number">5</span>] RUN touch test02                                                                                                                                                                                                                                                                        <span class="hljs-number">0</span>.1s<br> =&gt; [<span class="hljs-number">4</span>/<span class="hljs-number">5</span>] COPY test3 .                                                                                                                                                                                                                                                                            <span class="hljs-number">0</span>.0s<br> =&gt; [<span class="hljs-number">5</span>/<span class="hljs-number">5</span>] ADD test4.tar.gz .                                                                                                                                                                                                                                                                      <span class="hljs-number">0</span>.0s<br> =&gt; exporting to image                                                                                                                                                                                                                                                                            <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; exporting layers                                                                                                                                                                                                                                                                           <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; writing image <span class="hljs-symbol">sha256:</span>679e723aa319cdb9d1aeb923534c200b6ddb60eb9a87c8e7a3814145f716b3ff                                                                                                                                                                                                      <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; naming to docker.io/library/mysh<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>通过<code>docker run mysh</code>运行容器</li>
+</ol>
+<p>可以看到test01，test02， test4 都已经出现在了容器目录中，当不指定参数命令运行时，默认运行CMD里配置的命令，否则执行参数中的命令</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tap">➜  docker_dir docker run mysh<br>total 8<br>drwxr-xr-x<span class="hljs-number"> 2 </span>root root   <span class="hljs-number"> 4096 </span>Apr<span class="hljs-number"> 18 </span>08:14 test01<br>-rw-r--r--<span class="hljs-number"> 1 </span>root root      <span class="hljs-number"> 0 </span>Apr<span class="hljs-number"> 18 </span>08:14 test02<br>drwxr-xr-x<span class="hljs-number"> 2 </span><span class="hljs-number"> 501 </span>dialout<span class="hljs-number"> 4096 </span>Apr<span class="hljs-number"> 18 </span>08:11 test4<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript">➜  docker_dir docker <span class="hljs-built_in">run</span> mysh -c <span class="hljs-built_in">date</span><br>Tue Apr <span class="hljs-number">18</span> <span class="hljs-number">08</span>:<span class="hljs-number">16</span>:<span class="hljs-number">51</span> UTC <span class="hljs-number">2023</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="4-Dockerfile常用指令"><a href="#4-Dockerfile常用指令" class="headerlink" title="4 Dockerfile常用指令"></a>4 Dockerfile常用指令</h1><ul>
+<li><p><strong>FROM</strong>：定制的镜像都是基于 某个 基础镜像，这里的FROM就是指定基础镜像。因此在Dockerfile中，FORM是必备指令，并且必须是第一条指令。</p>
+</li>
+<li><p><strong>RUN</strong>：用于执行后面跟着的命令行命令。</p>
+</li>
+<li><p><strong>COPY</strong>: 复制指令，从上下文目录中复制文件或者目录到容器里指定路径。</p>
+</li>
+<li><p><strong>ADD</strong>: ADD 指令和 COPY 的使用格类似（同样需求下，官方推荐使用 COPY）。功能也类似，不同之处如下：</p>
+<ul>
+<li><p>ADD 的优点：在执行 &lt;源文件&gt; 为 tar 压缩文件的话，压缩格式为 gzip, bzip2 以及 xz 的情况下，会自动复制并解压到 &lt;目标路径&gt;。</p>
+</li>
+<li><p>ADD 的缺点：在不解压的前提下，无法复制 tar 压缩文件。会令镜像构建缓存失效，从而可能会令镜像构建变得比较缓慢。具体是否使用，可以根据是否需要自动解压来决定。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>CMD</strong>: </p>
+<ul>
+<li>类似于 RUN 指令，用于运行程序，但二者运行的时间点不同: CMD 在docker run 时运行，RUN 是在 docker build。</li>
+<li>CMD 指令指定的程序可被 docker run 命令行参数中指定要运行的程序所覆盖。</li>
+<li>如果 Dockerfile 中如果存在多个 CMD 指令，仅最后一个生效。</li>
+</ul>
+</li>
+<li><p><strong>ENTRYPOINT</strong></p>
+<ul>
+<li>类似于 CMD 指令，但其不会被 docker run 的命令行参数指定的指令所覆盖，而且这些命令行参数会被当作参数送给 ENTRYPOINT 指令指定的程序。</li>
+<li>如果运行 docker run 时使用了 –entrypoint 选项，将覆盖 ENTRYPOINT 指令指定的程序。</li>
+<li>如果 Dockerfile 中如果存在多个 ENTRYPOINT 指令，仅最后一个生效。</li>
+</ul>
+</li>
+<li><p><strong>ENV</strong></p>
+<ul>
+<li><p>设置环境变量，定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。</p>
+</li>
+<li><p>格式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml">ENV <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span><br>ENV <span class="hljs-tag">&lt;<span class="hljs-name">key1</span>&gt;</span>=<span class="hljs-tag">&lt;<span class="hljs-name">value1</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">key2</span>&gt;</span>=<span class="hljs-tag">&lt;<span class="hljs-name">value2</span>&gt;</span>...<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>ARG</strong></p>
+<ul>
+<li>构建参数，与 ENV 作用一致。不过作用域不一样。ARG 设置的环境变量仅对 Dockerfile 内有效，也就是说只有 docker build 的过程中有效，构建好的镜像内不存在此环境变量。</li>
+<li>构建命令 docker build 中可以用 –build-arg &lt;参数名&gt;&#x3D;&lt;值&gt; 来覆盖。</li>
+<li>格式：<code>ARG &lt;参数名&gt;[=&lt;默认值&gt;]</code></li>
+</ul>
+</li>
+<li><p><strong>EXPOSE</strong></p>
+<ul>
+<li>仅仅只是声明端口。</li>
+</ul>
+</li>
+</ul>
+<h1 id="6-docker数据持久化"><a href="#6-docker数据持久化" class="headerlink" title="6 docker数据持久化"></a>6 docker数据持久化</h1><p>摆放数据的持久化卷有两种常见的使用方法：Bing mounts 和 Volume</p>
+<h2 id="1-Bind-Mounts（狩猎模式）"><a href="#1-Bind-Mounts（狩猎模式）" class="headerlink" title="1. Bind Mounts（狩猎模式）"></a>1. Bind Mounts（狩猎模式）</h2><p>Bind mounts 是由用户在主机上进行选择目录进行存储，方便指定特定文件或者目录</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">docker run -v <span class="hljs-tag">&lt;<span class="hljs-name">host_path:</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">container_path</span>&gt;</span> -d <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs awk">➜  docker docker run -v <span class="hljs-variable">$PWD</span><span class="hljs-regexp">/data:/</span>data -d redis:<span class="hljs-number">3.2</span> redis-server<br>d7a6e3dccf100ea42bb1a8168dbf9ea27ed71b0b2837d19239f3eff8497fedd5<br>➜  docker docker ps<br>CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS      NAMES<br>d7a6e3dccf10   redis:<span class="hljs-number">3.2</span>   <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   <span class="hljs-number">5</span> seconds ago   Up <span class="hljs-number">4</span> seconds   <span class="hljs-number">6379</span>/tcp   quizzical_swartz<br><span class="hljs-number">2</span>e3ce4212a25   redis       <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   <span class="hljs-number">2</span> hours ago     Up <span class="hljs-number">2</span> hours     <span class="hljs-number">6379</span>/tcp   charming_ritchie<br>➜  docker docker exec -it d7a6e3dccf10 <span class="hljs-regexp">/bin/</span>bash<br>root@d7a6e3dccf10:/data<span class="hljs-comment"># touch redis-logs</span><br>root@d7a6e3dccf10:/data<span class="hljs-comment"># exit</span><br><span class="hljs-keyword">exit</span><br>➜  docker ls<br>data         dockerfile01 dockerfile02<br>➜  docker cd data<br>➜  data ls<br>redis-logs<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-Volumes（靶场模式）"><a href="#2-Volumes（靶场模式）" class="headerlink" title="2. Volumes（靶场模式）"></a>2. Volumes（靶场模式）</h2><p>而Volume则统一将数据放到主机的、var&#x2F;lib&#x2F;docker&#x2F;volumes下，只能对应特定目录下的子目录，不支持文件，但是不容易乱，适合小白进行使用。两种主流volumn的创建方式：</p>
+<ul>
+<li><p>隐式创建卷：<code>docker run -v &lt;container_path&gt; -d </code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk">➜  docker docker run -v data2 -d redis:<span class="hljs-number">3.2</span> redis-server<br><span class="hljs-number">829</span>ea54fbaeef20c7ea1f3f1e3a82d5dd7f7a73d099c74b758926a14b2c4f5ca<br>➜  docker docker ps<br>CONTAINER ID   IMAGE       COMMAND                  CREATED              STATUS              PORTS      NAMES<br><span class="hljs-number">829</span>ea54fbaee   redis:<span class="hljs-number">3.2</span>   <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   <span class="hljs-number">4</span> seconds ago        Up <span class="hljs-number">3</span> seconds        <span class="hljs-number">6379</span>/tcp   awesome_euclid<br>d7a6e3dccf10   redis:<span class="hljs-number">3.2</span>   <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   About a minute ago   Up About a minute   <span class="hljs-number">6379</span>/tcp   quizzical_swartz<br><span class="hljs-number">2</span>e3ce4212a25   redis       <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   <span class="hljs-number">2</span> hours ago          Up <span class="hljs-number">2</span> hours          <span class="hljs-number">6379</span>/tcp   charming_ritchie<br>➜  docker docker exec -it <span class="hljs-number">829</span>ea54fbaee <span class="hljs-regexp">/bin/</span>bash<br>root@<span class="hljs-number">829</span>ea54fbaee:/data<span class="hljs-comment"># touch redis-log2</span><br>root@<span class="hljs-number">829</span>ea54fbaee:/data<span class="hljs-comment"># exit</span><br><span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">➜  docker docker run -it --privileged --pid=host justincormack/nsenter1<br><br><span class="hljs-regexp">/ # cd var/</span>lib<span class="hljs-regexp">/docker/</span>volumes<span class="hljs-regexp">/b4778654451afef91ac2dbf8e6ce7881c065404ebc749d1bc7ea50fa93122e3d/</span>_data<br><span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/docker/</span>volumes<span class="hljs-regexp">/b4778654451afef91ac2dbf8e6ce7881c065404ebc749d1bc7ea50fa93122e3d/</span>_data <span class="hljs-comment"># ls</span><br>redis-log2<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>显式创建卷：(先创建卷，再创建容器绑定卷)        <code>docker volume create data3</code></p>
+</li>
+</ul>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm"> ➜  docker docker volume create data<span class="hljs-number">3</span><br> ➜  docker docker run -v data<span class="hljs-number">3</span>:/data<span class="hljs-number">3</span> -d redis:<span class="hljs-number">3.2</span> redis-server<br>da<span class="hljs-number">981</span>af<span class="hljs-number">699805</span>bf<span class="hljs-number">18e87</span>ed<span class="hljs-number">7</span>d<span class="hljs-number">986e2</span>e<span class="hljs-number">9</span><span class="hljs-keyword">c</span><span class="hljs-number">6</span><span class="hljs-keyword">c</span><span class="hljs-number">08220</span><span class="hljs-keyword">c</span><span class="hljs-number">67</span>f<span class="hljs-number">111</span><span class="hljs-keyword">c</span><span class="hljs-number">136597</span><span class="hljs-keyword">c</span><span class="hljs-number">62</span>d<span class="hljs-number">15</span>f<span class="hljs-number">144</span><span class="hljs-keyword">c</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">➜  docker docker run -it --privileged --pid=host justincormack/nsenter1<br><span class="hljs-regexp">/ #  ls -ld /</span>var<span class="hljs-regexp">/lib/</span>docker<span class="hljs-regexp">/volumes/</span>data3<br>drwx-----x    <span class="hljs-number">3</span> root     root          <span class="hljs-number">4096</span> Apr <span class="hljs-number">18</span> <span class="hljs-number">09</span>:<span class="hljs-number">31</span> <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/docker/</span>volumes/data3<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418170422909.png" srcset="/img/loading.gif" lazyload alt="image-20230418170422909"></p>
+<h1 id="7-Docker仓库"><a href="#7-Docker仓库" class="headerlink" title="7 Docker仓库"></a>7 Docker仓库</h1>
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>dcoker</div>
+      <div>http://example.com/dcoker/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月18日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" title="单点登录">
+                        <span class="hidden-mobile">单点登录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
