@@ -212,6 +212,317 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/Zookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+          Zookeeper实现分布式锁
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Zookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+        <div>
+          
+          1基于ZooKeeper的分布式锁。适用于高可靠（高可用），而并发量不是太高的场景 优点：不存在锁失效的问题，不需要续命。 缺点：因为需要频繁的创建和删除节点，性能上不如Redis。  在高性能、高并发的应用场景下，不建议使用ZooKeeper的分布式锁。而由于ZooKeeper 的高可用性，因此在并发量不是太高的应用场景中，还是推荐使用ZooKeeper的分布式锁 Zookeeper第三方客户端
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-20 15:05" pubdate>
+              2022-09-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">#分布式锁</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+          Redis实现分布式锁
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+        <div>
+          
+          1 基于Redis实现分布式锁效率最高，加锁速度最快，因为Redis几乎都是纯内存操作 适用于并发量很大、性能要求很高而可靠性问题可以通过其 他方案去弥补的场景。  1.1 设计原理 利用利用Redis的SETNX key value这个命令获取锁，并设置过期时间，保存线程标示  释放锁时先判断线程标示是否与自己一致，一致则删除锁 (Lua 脚本保证原子性)     SETNX key value
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-20 15:03" pubdate>
+              2022-09-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">#分布式锁</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" target="_self">
+          注册中心
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" target="_self">
+        <div>
+          
+          1 什么是注册中心在微服务架构中，注册中心是核心的基础服务之一。 注册中心可以说是微服务架构中的”通讯录“，它记录了服务和服务地址的映射关系。在分布式架构中，服务会注册到这里，当服务需要调用其它服务时，就到这里找到服务的地址，进行调用。 2 为什么要有注册中心通常，在微服务系统中，如果我们现在的会员服务要调订单服务，就只能把ip写死，一旦Ip变更，或者扩容（再增加机器），会员服务就感受不到  所以
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-19 18:10" pubdate>
+              2022-09-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#注册中心</a>
+            
+              <a href="/tags/mysql%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#mysql实现注册中心</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/JVM%E8%B0%83%E4%BC%98/" target="_self">
+          JVM调优
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/JVM%E8%B0%83%E4%BC%98/" target="_self">
+        <div>
+          
+          1 调优原则 多数导致GC问题的Java应⽤，都不是因为我们参数设置错误，⽽是代码问题；  实际使用中，分析GC优化代码，比优化JVM参数效果要好，JVM 参数的默认（推荐）值都是经过 JVM 团队的反复测试和前人的充分验证得出的比较合理的值，因此通常来说是比较靠谱和通用的，一般不会出大问题。  如果满足下面的指标，则一般不需要进行GC：  Minor GC执行时间不到50ms，不低于10秒一次；
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-17 16:57" pubdate>
+              2022-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+              <a href="/tags/JVM/">#JVM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
+          垃圾收集器之ZGC收集器
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
+        <div>
+          
+          ZGC收集器(-XX:+UseZGC)ZGC是一款JDK 11中新加入的具有实验性质的低延迟垃圾收集器。JDK 11只支持linux系统，JDK 14才支持了macOs和Windows系统  一 特点1. 支持TB量级的堆。这应该可以满足未来十年内，所有JAVA应用的需求了 吧。 2. 最大GC停顿时间不超10ms。 目前一般线上环境运行良好的JAVA应用Minor GC停顿时间在10ms左右，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 13:58" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
           垃圾收集器之G1收集器
         </a>
@@ -510,317 +821,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" target="_self">
-          JVM内存模型
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" target="_self">
-        <div>
-          
-          JVM内存模型JVM内存模型总体来说分为五大块。分别是：程序计数器，虚拟机栈，本地方法栈，方法区以及java堆。  栈   虚拟机栈（Java Virtual Machine Stacks）描述的是java方法（也就是字节码）执行的内存模型：每个方法在执行的时候都有一个栈帧,用于存储局部变量表，操作数栈，动态链接，方法出口等信息。每一个方法从调用到执行就对应了一个栈帧在虚拟机栈中入栈到出栈的过程。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 14:22" pubdate>
-              2022-09-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/java%E5%91%BD%E4%BB%A4--jmap%E5%B7%A5%E5%85%B7/" target="_self">
-          java命令--jmap工具
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/java%E5%91%BD%E4%BB%A4--jmap%E5%B7%A5%E5%85%B7/" target="_self">
-        <div>
-          
-          Jmap命令jmap是一个多功能的命令。它可以生成 java 程序的 dump 文件， 也可以查看堆内对象示例的统计信息、查看 ClassLoader 的信息以及 finalizer 队列。 系统中内存飙升了，怎么办？ 使用jmap看看是否有大量类生成  - histo查看堆内存信息，实例个数以及占用内存大小   命令：  ~ jmap -histo 91656 &gt; .&#x2F;log.txt 结果
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-13 18:29" pubdate>
-              2022-09-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-            
-              <a href="/tags/java%E5%91%BD%E4%BB%A4/">#java命令</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/" target="_self">
-          kafka的消息零丢失方案
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/" target="_self">
-        <div>
-          
-          Kafka如何保证消息的可靠性？哪些环节会有丢消息的可能？RabbitMQ的消息零丢失方案 - 楼上有只喵 (pyr9.github.io) Kafka怎么保证消息可靠性?1. 生产者保证消息正确发送到Kafka?Kafka通过配置request.required.acks属性来确认消息的生产：  0 生产者将数据发送出去就不管了，不去等待任何返回。这种情况下数据传输效率最高，但是数据可靠性确是最
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-13 10:05" pubdate>
-              2022-09-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Kafka/" class="category-chain-item">Kafka</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MQ/">#MQ</a>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/">#消息可靠性</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
-          RabbitMQ的消息零丢失方案
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
-        <div>
-          
-          RabbitMQ如何保证消息的可靠性？哪些环节会有丢消息的可能？ 普通消息处理流程 消息生成者发送消息 MQ收到消息，将消息进行存储（持久化到硬盘）。 返回ACK给生产者 MQ push 消息给对应的消费者，然后等待消费者返回ACK 如果消息消费者在指定时间内成功返回ack，那么MQ认为消息消费成功，在存储中删除消息，即执行第6步；如果MQ在指定时间内没有收到ACK，则认为消息消费失败，会尝试重新
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-12 12:37" pubdate>
-              2022-09-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MQ/">#MQ</a>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/">#消息可靠性</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" target="_self">
-          RabbitMQ的高级特性
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" target="_self">
-        <div>
-          
-          RabbitMQ的高级特性如何保证消息的顺序？消息的顺序是指的是，一个组内消息的顺序，而不是整个mq里的消息顺序。比如一个下单过程需要完成扣款，减库存，通知快递发货，这一组消息的顺序不能乱。  发送端：一组有序消息，只发到一个队列中，利用队列的FIFO特性保证消息在发送时顺序不会乱。 如果发送端配置了重试机制，就可能出现发送方发送时是1，2，3，但1发送失败，重试发送1，这样收到的消息就是2，3，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-10 22:17" pubdate>
-              2022-09-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">#消息中间件</a>
             
           </div>
         
