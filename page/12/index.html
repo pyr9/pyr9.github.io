@@ -212,15 +212,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/java%E5%91%BD%E4%BB%A4-jinfo&amp;jstat%E5%B7%A5%E5%85%B7/" target="_self">
-          java命令--jinfo&amp;jstat
+        <a href="/springCloud%E4%B9%8BConfig-Bus/" target="_self">
+          springCloud之Config+Bus
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/java%E5%91%BD%E4%BB%A4-jinfo&amp;jstat%E5%B7%A5%E5%85%B7/" target="_self">
+      <a class="index-excerpt" href="/springCloud%E4%B9%8BConfig-Bus/" target="_self">
         <div>
           
-          Jstatjstat命令可以查看堆内存各部分的使用量，以及加载类的数量。  垃圾回收统计jstat -gc pid 最常用，可以评估程序内存使用及GC压力整体情况    S0C：第一个幸存区的大小，单位KB  S1C：第二个幸存区的大小  S0U：第一个幸存区的使用大小  S1U：第二个幸存区的使用大小  EC：伊甸园区的大小  EU：伊甸园区的使用大小  OC：老年代大小  OU：老年代使用大小
+          消息总线 在微服务架构的系统中，通常会使用轻量级的消息代理来构建一个公用的消息主题，并让系统中的所有实例都连接上来。由于该主题的消息会被所有实例监听和消费，所以称之为消息总线。  在总线上的各个实例，都可以方便的广播一些让其他连接在给主题实例上都知道的消息。   Spring Cloud Bus Spring Cloud Bus 又被称为消息总线，它能够通过轻量级的消息代理（例如 RabbitMQ
         </div>
       </a>
 
@@ -228,8 +228,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-19 21:36" pubdate>
-              2022-06-19
+            <time datetime="2022-07-23 23:11" pubdate>
+              2022-07-23
             </time>
           </div>
         
@@ -244,7 +244,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -256,13 +256,6 @@
           </div>
         
         
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java%E5%91%BD%E4%BB%A4/">#java命令</a>
-            
-          </div>
-        
       </div>
     </article>
   </div>
@@ -273,15 +266,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" target="_self">
-          mysql事务隔离级别
+        <a href="/SpringCloud%E9%9B%86%E6%88%90consul/" target="_self">
+          SpringCloud集成consul
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" target="_self">
+      <a class="index-excerpt" href="/SpringCloud%E9%9B%86%E6%88%90consul/" target="_self">
         <div>
           
-          mysql 事务1.事务定义事务是一个操作集合，这些操作要么都执行，要么都不执行，他是一个不可分割的工作单位。 2.事务的四大特性 原子性：事务是一个原子操作单元，它对数据的修改，要么都执行，要么都不执行。 一致性：一个事务执行前和执行后，数据必须保持一致，如：转账前用户AB的钱加在一起时500，转账后也应该是500 隔离型：事务外的实体不可以知道事务过程中的中间状态 持久性：对数据库的操作是永久
+          Consul Consul 是一套开源的分布式服务发现和配置管理系统，由HashCorp公司用Go语言开发  它提供了几个关键功能：  服务发现：Consul client 可以提供服务，例如api或mysql，也可以使用Consul client来发现指定服务的提供者。 使用DNS或HTTP，应用程序可以轻松找到他们所依赖的服务。 健康检查：Consul client 可以提供任何数量的健康检查
         </div>
       </a>
 
@@ -289,8 +282,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-14 22:28" pubdate>
-              2022-06-14
+            <time datetime="2022-07-23 00:11" pubdate>
+              2022-07-23
             </time>
           </div>
         
@@ -305,7 +298,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -320,7 +313,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/mysql%E4%BA%8B%E5%8A%A1/">#mysql事务</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#注册中心</a>
+            
+              <a href="/tags/consul/">#consul</a>
             
           </div>
         
@@ -334,15 +331,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/mvcc%E4%BB%8B%E7%BB%8D/" target="_self">
-          mysql事务隔离性的实现
+        <a href="/springCloud%E4%B9%8BEureka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" target="_self">
+          springCloud之Eureka集群搭建
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/mvcc%E4%BB%8B%E7%BB%8D/" target="_self">
+      <a class="index-excerpt" href="/springCloud%E4%B9%8BEureka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" target="_self">
         <div>
           
-          mysql事务隔离性的实现MVCC机制（多版本并发控制） Mysql在读已提交和可重复读隔离级别下都实现了MVCC机制。  主要是保存数据在某个时间点的快照实现的。 mysql在每行记录后面，保存了两个隐藏列，分别为：创建事务id和删除事务id MVCC机制的实现就是通过read-view机制与undo版本链比对机制，使得不同的事务会根据数据版本链对比规则读取同一条数据在版本链上的不同版本数据。
+          springCloud之Eureka集群搭建1. 搭建3个Eureka server 参考：springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)  三个eureka-server的application.yml文件如下：  eureka-server 123456789server.port: 8761eureka.instance.hostname: loc
         </div>
       </a>
 
@@ -350,8 +347,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-13 21:43" pubdate>
-              2022-06-13
+            <time datetime="2022-07-22 22:35" pubdate>
+              2022-07-22
             </time>
           </div>
         
@@ -366,7 +363,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -381,7 +378,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/mysql%E4%BA%8B%E5%8A%A1/">#mysql事务</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/eureka/">#eureka</a>
+            
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
             
           </div>
         
@@ -395,15 +396,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/postgresql%E5%9F%BA%E7%A1%80/" target="_self">
-          postgresql索引基础
+        <a href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90zookeeper/" target="_self">
+          springCloud之集成zookeeper
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/postgresql%E5%9F%BA%E7%A1%80/" target="_self">
+      <a class="index-excerpt" href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90zookeeper/" target="_self">
         <div>
           
-          PostgreSQL索引类型 PostgreSQL提供了多种索引类型： B-tree、Hash、GiST、SP-GiST 、GIN 和 BRIN。 每一种索引类型使用了 一种不同的算法来适应不同类型的查询。 默认情况下，CREATE INDEX命令创建适合于大部分情况的B-tree 索引。  数据类型
+          zookeeper zookeeper基本概念：zookeeper特性与节点介绍 - 楼上有只喵 (pyr9.github.io) zookeeper 是一个分布式协调服务，可以用来实现注册中心功能，类似eureka 服务节点是临时结点  springCloud之集成zookeeper准备工作启动zookeeper 1.引入依赖12345678910111213141516171819202122
         </div>
       </a>
 
@@ -411,41 +412,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-01 22:11" pubdate>
-              2022-06-01
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/flex-%E5%B8%83%E5%B1%80/" target="_self">
-          flex 布局
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/flex-%E5%B8%83%E5%B1%80/" target="_self">
-        <div>
-          
-          1 开启flex 布局 开启flex布局，只需要在最外层容器设置 display: flex即可 采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。 容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。 主轴的开始位置（与边
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-29 18:28" pubdate>
-              2022-05-29
+            <time datetime="2022-07-22 20:45" pubdate>
+              2022-07-22
             </time>
           </div>
         
@@ -460,7 +428,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -475,7 +443,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/css-flex/">#css flex</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#注册中心</a>
+            
+              <a href="/tags/zookeeper/">#zookeeper</a>
             
           </div>
         
@@ -489,15 +461,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/" target="_self">
-          数据库三大范式
+        <a href="/SpringCloud%E9%9B%86%E6%88%90Ribbon/" target="_self">
+          SpringCloud集成Ribbon
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/" target="_self">
+      <a class="index-excerpt" href="/SpringCloud%E9%9B%86%E6%88%90Ribbon/" target="_self">
         <div>
           
-          第一范式(确保每列保持原子性)数据库表中的所有字段值都是不可分解的原子值。  比如某些数据库系统中需要用到“地址”这个属性，本来直接将“地址”属性设计成一个数据库表的字段就行。 但是如果系统经常会访问“地址”属性中的“城市”部分，那么就非要将“地址”这个属性重新拆分为省份、城市、详细地址等多个部分进行存储，这样在对地址中某一部分操作的时候将非常方便。  第二范式(确保表中的每列都和主键相关)第二范
+          负载均衡（load balance） 简单来说负载均衡就是将客户的请求平摊到多个服务上，从而达到系统的高可用，常用的负载均衡方式有Nginx，F5 常见的负载均衡方式有两种： 服务端负载均衡 客户端负载均衡    服务端负载均衡工作原理服务端负载均衡是最常见的负载均衡方式，其工作原理如下图。   在客户端和服务端之间建立一个独立的负载均衡服务器，该服务器既可以是硬件设备（例如 F5），也可以是软件
         </div>
       </a>
 
@@ -505,8 +477,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-24 22:13" pubdate>
-              2022-05-24
+            <time datetime="2022-07-22 15:12" pubdate>
+              2022-07-22
             </time>
           </div>
         
@@ -521,7 +493,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -536,7 +508,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">#负载均衡</a>
+            
+              <a href="/tags/Ribbon/">#Ribbon</a>
             
           </div>
         
@@ -550,15 +526,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/hooks%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_self">
-          hooks的使用
+        <a href="/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/" target="_self">
+          CAP原则以及eureka和zookeeper的对比
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/hooks%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_self">
+      <a class="index-excerpt" href="/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/" target="_self">
         <div>
           
-          useRef案例效果：  点击按钮，文本title修改 点击按钮，input聚焦123456789101112131415161718192021222324252627282930import React, &amp;#123; useRef, PureComponent &amp;#125; from &amp;#x27;react&amp;#x27;class TestChild extends PureComponent
+          1 CAP理论是什么？CAP即：  Consistency（一致性）：对于客户端的每次读操作，要么读到的是最新的数据，要么读取失败，返回一个错误或超时，其强调的是数据正确。 Availability（可用性）：任何客户端的请求都能得到响应数据，不会出现响应错误，但不保证数据最新，强调的是不出错。比如我们购买商品时，他的点赞数就与购买商品无关，我们可以允许他不是最新的。 Partition tole
         </div>
       </a>
 
@@ -566,8 +542,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-12 23:23" pubdate>
-              2022-05-12
+            <time datetime="2022-07-21 22:23" pubdate>
+              2022-07-21
             </time>
           </div>
         
@@ -582,7 +558,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/React/" class="category-chain-item">React</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -597,7 +573,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/hook/">#hook</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/CAP%E5%8E%9F%E5%88%99/">#CAP原则</a>
+            
+              <a href="/tags/eureka/">#eureka</a>
             
           </div>
         
@@ -611,15 +591,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/git%E4%BF%AE%E6%94%B9%E6%8C%87%E5%AE%9A%E7%9A%84%E6%8F%90%E4%BA%A4/" target="_self">
-          git修改指定的提交
+        <a href="/springCloud%E4%B9%8B%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/" target="_self">
+          springCloud之自动扩展
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/git%E4%BF%AE%E6%94%B9%E6%8C%87%E5%AE%9A%E7%9A%84%E6%8F%90%E4%BA%A4/" target="_self">
+      <a class="index-excerpt" href="/springCloud%E4%B9%8B%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/" target="_self">
         <div>
           
-          1.  git修改指定的提交 git rebase --interactive &#39;cffa46f19811496d9165cf2c32250943f94f0099^&#39; 修改 git add . git commit --amend git rebase --continue  2. 更新gitignore文件后，git删除仓库中的缓存git rm -r --cached targe
+          什么是自动扩展？自动扩展分为水平扩展和垂直扩展  水平扩展就是一台机子不够了，就再搞几台 垂直扩展是硬件层面的，比如双核不够了，就4核  自动扩展的意义 提高了高可用性和容错能力。比如某个服务不可用了，自动扩展可以再增加一个新服务来替换他。 增加了可伸缩性。允许访问流量可以自动选择水平扩展的规模。 具有最佳使用率，并节约成本。按需使用，需要几台就部署几台 优先考虑某些服务或服务组。低优先级服务中实
         </div>
       </a>
 
@@ -627,8 +607,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-10 21:57" pubdate>
-              2022-05-10
+            <time datetime="2022-07-20 21:52" pubdate>
+              2022-07-20
             </time>
           </div>
         
@@ -643,7 +623,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Git/" class="category-chain-item">Git</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -658,7 +638,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Git/">#Git</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/">#自动扩展</a>
             
           </div>
         
@@ -672,15 +654,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/react%E5%88%9D%E4%BD%93%E9%AA%8C/" target="_self">
-          react初体验
+        <a href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90Hystrix/" target="_self">
+          springCloud之集成Hystrix
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/react%E5%88%9D%E4%BD%93%E9%AA%8C/" target="_self">
+      <a class="index-excerpt" href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90Hystrix/" target="_self">
         <div>
           
-          React是什么？React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScript 库。  使用最原生的HTML、CSS、JavaScript可以构建完整的用户界面吗？当然可以，但是会存在很多问题  操作DOM兼容性的问题； 过多兼容性代码的冗余问题； 代码组织和规范的问题；   React的特点声明式编程 声明式编程是目前整个大前端开发的模式：Vue、React、Flutter、S
+          服务熔断什么是服务熔断？ 服务熔断就是对服务的调用执行熔断，对于后续的请求，不再调用目标服务，而是直接返回一个合理的信息，比如说请求量太大，返回一个”此时服务过载”，从而可以快速释放资源  保护系统   为什么会有这种熔断机制的出现?在微服务相互调用的时候可能会出现服务调用发生异常或调用超时,多此请求造成服务积压导致服务无法使用后接着级联导致调用此服务的消费者也出现异常或调用超时,最后导致整个系统
         </div>
       </a>
 
@@ -688,8 +670,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-27 22:52" pubdate>
-              2022-04-27
+            <time datetime="2022-07-20 14:34" pubdate>
+              2022-07-20
             </time>
           </div>
         
@@ -704,7 +686,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/React/" class="category-chain-item">React</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -719,7 +701,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%A6%82%E5%BF%B5/">#概念</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">#服务熔断</a>
             
           </div>
         
@@ -733,15 +717,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E4%BB%A3%E7%A0%81%E5%B7%B2%E6%9C%89%E7%9A%84%E8%AE%BE%E8%AE%A1/" target="_self">
-          重构-改善代码已有的设计
+        <a href="/springCloud%E7%BD%91%E5%85%B3/" target="_self">
+          springCloud网关
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E4%BB%A3%E7%A0%81%E5%B7%B2%E6%9C%89%E7%9A%84%E8%AE%BE%E8%AE%A1/" target="_self">
+      <a class="index-excerpt" href="/springCloud%E7%BD%91%E5%85%B3/" target="_self">
         <div>
           
-          如果没有单元测试和重构，我没办法写代码  1 重构的意义 保持代码易读、易修改 避免代码太复杂，无法理解，无法调试。（或许一个修改只需要10分钟，但是你得花费1个小时去理解这段代码 如果没有良好设计，或许某一段时间内你的进展迅速，但恶劣的设计很快就让你的速度慢下来。你会把时间花在 调试上面，无法添加新功能。修改时间越来越长，因为你必须花越来越多的时间去理解系统。  2 重构的定义在不改变代码外在
+          1.网关是什么1.1 网关产生的原因？ 在微服务架构中，一个系统往往由多个微服务组成，而这些服务可能部署在不同机房、不同地区、不同域名下。这种情况下，客户端想要直接请求这些服务，就需要知道它们具体的地址信息，例如 IP 地址、端口号等。这种客户端直接请求服务的方式存在以下问题：  当服务数量众多时，客户端需要维护大量的服务地址，这对于客户端来说，是非常繁琐复杂的。  在某些场景下可能会存在跨域请求
         </div>
       </a>
 
@@ -749,8 +733,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-14 22:36" pubdate>
-              2022-04-14
+            <time datetime="2022-07-18 22:06" pubdate>
+              2022-07-18
             </time>
           </div>
         
@@ -765,7 +749,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E4%BB%A3%E7%A0%81%E4%B9%8B%E4%B8%91/" class="category-chain-item">代码之丑</a>
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
   
   
 
@@ -780,7 +764,68 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%87%8D%E6%9E%84/">#重构</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/springCloud%E4%B9%8BFeign%E6%90%AD%E5%BB%BA/" target="_self">
+          springCloud之集成Feign
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/springCloud%E4%B9%8BFeign%E6%90%AD%E5%BB%BA/" target="_self">
+        <div>
+          
+          Feign是什么？ Feign是Netflix开发的一款声明式服务调用组件 Feign可以帮助我们更快捷、优雅地调用HTTP API。 Feign 是 Spring Cloud Netflix 模块的子模块，它是 Spring Cloud 对 Netflix Feign 的二次封装，主要负责 Spring Cloud 的服务调用功能。  SpringCloud 集成Feign 搭建Eureka C
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-18 19:13" pubdate>
+              2022-07-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
             
           </div>
         
@@ -792,7 +837,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/11/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/13/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/11/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/13/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

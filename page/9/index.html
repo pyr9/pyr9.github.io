@@ -212,15 +212,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-          kafka知识点整理
+        <a href="/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" target="_self">
+          注册中心
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
+      <a class="index-excerpt" href="/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" target="_self">
         <div>
           
-          kafka和RabbitMq的对比 存储上：  kafka支持了分布式存储，也就是分区。相当于把原来rabbitMq 的queue拆分成了很多个小队列，分布式存储在不同的服务上，提高了消息的发送的效率（一次可以发到多个分区），提高了消费效率，不同分区，使用不同的消费者，提高了并发处理能力。   应用场景上：  RabbitMQ,遵循AMQP协议，用在实时的对可靠性要求比较高的消息传递上。 kafk
+          1 什么是注册中心在微服务架构中，注册中心是核心的基础服务之一。 注册中心可以说是微服务架构中的”通讯录“，它记录了服务和服务地址的映射关系。在分布式架构中，服务会注册到这里，当服务需要调用其它服务时，就到这里找到服务的地址，进行调用。 2 为什么要有注册中心通常，在微服务系统中，如果我们现在的会员服务要调订单服务，就只能把ip写死，一旦Ip变更，或者扩容（再增加机器），会员服务就感受不到  所以
         </div>
       </a>
 
@@ -228,8 +228,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-16 14:48" pubdate>
-              2022-08-16
+            <time datetime="2022-09-19 18:10" pubdate>
+              2022-09-19
             </time>
           </div>
         
@@ -244,7 +244,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Kafka/" class="category-chain-item">Kafka</a>
+  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
   
   
 
@@ -259,7 +259,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B4%E7%90%86/">#整理</a>
+              <a href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#注册中心</a>
+            
+              <a href="/tags/mysql%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#mysql实现注册中心</a>
             
           </div>
         
@@ -273,15 +275,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/java-%E4%BB%A3%E7%90%86/" target="_self">
-          java 代理
+        <a href="/JVM%E8%B0%83%E4%BC%98/" target="_self">
+          JVM调优
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/java-%E4%BB%A3%E7%90%86/" target="_self">
+      <a class="index-excerpt" href="/JVM%E8%B0%83%E4%BC%98/" target="_self">
         <div>
           
-          代理 代理是一种设计模式  定义：通过代理对象访问目标对象。 好处：可以在不修改目标对象的基础上，扩展目标对象的功能   代理类可以分为静态代理和动态代理。 1.静态代理和动态代理静态代理 定义： 通过声明一个明确的代理类来访问源对象。需要和目标对象一起实现相同的接口或者继承相同的父类。  特点：在编译器确定代理对象，在程序运行前，代理类的.class文件就已经存在了。  优点：可以做到不修改目标
+          1 调优原则 多数导致GC问题的Java应⽤，都不是因为我们参数设置错误，⽽是代码问题；  实际使用中，分析GC优化代码，比优化JVM参数效果要好，JVM 参数的默认（推荐）值都是经过 JVM 团队的反复测试和前人的充分验证得出的比较合理的值，因此通常来说是比较靠谱和通用的，一般不会出大问题。  如果满足下面的指标，则一般不需要进行GC：  Minor GC执行时间不到50ms，不低于10秒一次；
         </div>
       </a>
 
@@ -289,8 +291,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-16 11:11" pubdate>
-              2022-08-16
+            <time datetime="2022-09-17 16:57" pubdate>
+              2022-09-17
             </time>
           </div>
         
@@ -305,7 +307,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
   
   
 
@@ -320,7 +322,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">#面试题</a>
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+              <a href="/tags/JVM/">#JVM</a>
             
           </div>
         
@@ -334,15 +338,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-          Spring知识点整理
+        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
+          垃圾收集器之ZGC收集器
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
+      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
         <div>
           
-          Spring是什么？有什么优点 Spring是一个轻量级的java框架，Spring的核心是IOC和AOP。主要的优点包括： 方便解耦，简化开发。通过Spring提供的IOC容器，我们可以将对象的依赖关系交给Spring进行控制，避免硬编码造成的耦合性高。简单来说，之前，如果我们controller 需要一个service，则需要new service，现在是Spring发现你的controlle
+          ZGC收集器(-XX:+UseZGC)ZGC是一款JDK 11中新加入的具有实验性质的低延迟垃圾收集器。JDK 11只支持linux系统，JDK 14才支持了macOs和Windows系统  一 特点1. 支持TB量级的堆。这应该可以满足未来十年内，所有JAVA应用的需求了 吧。 2. 最大GC停顿时间不超10ms。 目前一般线上环境运行良好的JAVA应用Minor GC停顿时间在10ms左右，
         </div>
       </a>
 
@@ -350,8 +354,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-16 09:51" pubdate>
-              2022-08-16
+            <time datetime="2022-09-16 13:58" pubdate>
+              2022-09-16
             </time>
           </div>
         
@@ -366,7 +370,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
   
   
 
@@ -381,7 +385,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B4%E7%90%86/">#整理</a>
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
             
           </div>
         
@@ -395,15 +401,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-          java知识点整理
+        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
+          垃圾收集器之G1收集器
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
+      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
         <div>
           
-          死锁 定义：死锁是两个或两个以上的线程互相都持有对方所需要的资源，导致这些线程都处于等待状态。  死锁产生的条件：  互斥条件：一个资源只能被一个进程占用。 请求和保持条件：一个进程因请求被占用资源而发生阻塞时，对已获得的资源保持不变。 不剥夺条件：任何一个资源在没被该进程释放之前，其他线程都无法对他剥夺占用。 循环等待：当发生死锁时，所等待的线程会进入一个类似死循环，造成阻塞。   如何避免
+          G1收集器(-XX:+UseG1GC)G1 (Garbage-First)是一款面向服务器的垃圾收集器,主要针对配备多核处理器及大容量内存的机器. 满足可预测的停顿时间停顿时间的同时,还具备高吞吐量性能特征.   一 特点1. 分代收集 虽然G1可以不需要其他收集器配合就能独立管理整个GC堆，但是还是保留了分代的概念  G1将Java堆划分为多个大小相等的独立区域（Region），一般Region
         </div>
       </a>
 
@@ -411,8 +417,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-16 09:28" pubdate>
-              2022-08-16
+            <time datetime="2022-09-15 16:57" pubdate>
+              2022-09-15
             </time>
           </div>
         
@@ -427,7 +433,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
   
   
 
@@ -442,7 +448,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B4%E7%90%86/">#整理</a>
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
             
           </div>
         
@@ -456,15 +464,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/NIO-BIO-AIO/" target="_self">
-          NIO,BIO,AIO
+        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
+          垃圾收集器
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/NIO-BIO-AIO/" target="_self">
+      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
         <div>
           
-          1.BIO、NIO、AIO定义Java共支持3种网络编程模型IO模式  BIO：(blocking io）同步并阻塞（传统阻塞型），服务器实现模式为一个连接一个线程，即客户端有连接请求时，服务器就要启动一个线程进行处理，如果这个链接不做任何事，就容易造成不必要的线程开销。当一个线程调用 read() 或 write() 时，该线程被阻塞，直到有一些数据被读取，或数据完全写入。该线程在此期间不能再干
+          1 垃圾收集算法1.1 分代收集算法当前虚拟机的垃圾收集都采用分代收集算法，只是根据对象存活周期的不同将内存分为几块。一般将java堆分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。  新生代使用：复制算法 新生代中，每次收集都会有大量对象(近99%)死去，所以可以选择复制算法，只需要付出少量对象的复制成本就可以完成每次垃圾收集。  老年代使用：标记 - 清除 或者 标
         </div>
       </a>
 
@@ -472,8 +480,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-15 18:03" pubdate>
-              2022-08-15
+            <time datetime="2022-09-14 17:33" pubdate>
+              2022-09-14
             </time>
           </div>
         
@@ -488,61 +496,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-          计算机网络知识点整理
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-        <div>
-          
-          1. get和post的区别 表现形式 get 请求的数据会附在url之后，以？形式分割URL和传输的数据，参数之间以&amp;连接。 post请求的数据是提交在HTTP的包体中。   对数据长度的限制 get是通过URl提交数据，所以他的长度受浏览器的限制 post是没有数据长度的限制的，起限制作用的是：服务器的处理能力。   安全性 与post相比，Get安全性较差。get提交数据的时候，用户
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-15 15:21" pubdate>
-              2022-08-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
   
   
 
@@ -557,7 +511,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B4%E7%90%86/">#整理</a>
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">#垃圾收集算法</a>
+            
+              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
             
           </div>
         
@@ -571,15 +529,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/" target="_self">
-          三次握手
+        <a href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/" target="_self">
+          JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/" target="_self">
+      <a class="index-excerpt" href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/" target="_self">
         <div>
           
-          三次握手 定义：三次握手，顾名思义，就是客户端与服务端的三次通信  流程：    第一次握手：建立连接。客户端发送请求连接报文段，然后客户端进入SYN_SEND（连接请求）状态，等待服务端的确认。 第二次握手：服务端收到客户端的SYN报文段，对这个报文段进行确认，同时，自己还要发送请求建立连接信息，服务端要将所有的信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务端进入SY
+          场景分析有一个订单系统，需要支持每秒支持下300个订单。假定每个订单对象是1kb，那么每秒将会有300kb对象生成。 下单可能还涉及创建其他对象创建，比如库存，优惠卷，积分，以及这个系统可能还支持订单的查询，我们放大20倍，那么就是300 * 20  &#x3D; 6000kb，约60MB，也就是这个系统每秒会产生60M的垃圾。  假设机器是4核8G，那么一般可能会给我们虚拟机分配个四五G的内存，
         </div>
       </a>
 
@@ -587,8 +545,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-15 11:28" pubdate>
-              2022-08-15
+            <time datetime="2022-09-14 17:29" pubdate>
+              2022-09-14
             </time>
           </div>
         
@@ -603,7 +561,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
   
   
 
@@ -618,7 +576,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/TCP/">#TCP</a>
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
             
           </div>
         
@@ -632,15 +590,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/" target="_self">
-          四次挥手
+        <a href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
+          对象内存分配
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/" target="_self">
+      <a class="index-excerpt" href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
         <div>
           
-          四次挥手 定义：四次挥手就是客户端和服务端释放连接时的四个步骤。  产生原因：TCP连接是全双工的，因此每个方向都需要单独关闭，一方发送FIN只表示自己发完了要发送的数据。  流程：    第一次挥手：当客户端不再向服务端发送数据了。客户端先向TCP发出连接释放请求，TCP通知服务端需要释放从客户端到服务端的这个连接，客户端进入FIN_WAIT-1 （终止等待状态）。  第二次挥手：服务端收到客户
+          对象内存分配策略 JVM通过逃逸分析确定该对象不会被外部访问。如果不会逃逸可以将该对象在栈上分配内存 大多数情况下，对象在新生代中 Eden 区分配。 大对象直接进入老年代 长期存活的对象将进入老年代  对象动态年龄判断 老年代空间分配担保机制  对象栈上分配概念 我们通过JVM内存分配可以知道JAVA中的对象都是在堆上进行分配，当对象没有被引用的时候，需要依靠GC进行回收内存，如果对象数量较多的
         </div>
       </a>
 
@@ -648,8 +606,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-15 10:08" pubdate>
-              2022-08-15
+            <time datetime="2022-09-14 16:04" pubdate>
+              2022-09-14
             </time>
           </div>
         
@@ -664,7 +622,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
   
   
 
@@ -679,7 +637,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/TCP/">#TCP</a>
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
             
           </div>
         
@@ -693,15 +651,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" target="_self">
-          动态代理的实现方式
+        <a href="/JVM%E5%86%85%E5%AD%98%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" target="_self">
+          JVM内存参数设置
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" target="_self">
+      <a class="index-excerpt" href="/JVM%E5%86%85%E5%AD%98%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" target="_self">
         <div>
           
-          User_setting 的表结构(last_visted_project_id)+ 切面(el-&gt; app -&gt;)  动态代理： c g li b+ jdk 1InvocationHandler ： 该类必须有接口   c g li b：Enhancer ：是基于父子类的，被代理类（UserService）是父类，代  理类是子类，代理对象就是代理类的实例对象 1invoke
+          JVM内存参数设置 JVM参数设置格式Spring Boot程序的JVM参数设置格式(Tomcat启动直接加在bin目录下catalina.sh文件里)： 1java ‐Xms2048M ‐Xmx2048M ‐Xmn1024M ‐Xss512K ‐XX:MetaspaceSize&#x3D;256M ‐XX:MaxMetaspaceSize&#x3D;256M ‐jar microservice‐eureka‐ser
         </div>
       </a>
 
@@ -709,41 +667,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-14 15:50" pubdate>
-              2022-08-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Kafka%20%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
-          Kafka 持久化
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Kafka%20%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
-        <div>
-          
-          1 Kafka 持久化 每个 Topic 将消息分成多 Partition，每个 Partition 在存储层面是 append log 文件。 任何发布到此 Partition 的消息都会被直接追加到 log 文件的尾部，每条消息在文件中的位置称为 Offest（偏移量） Partition 是以文件的形式存储在文件系统中 log 文件根据 Broker 中的配置保留一定时间后删除来释放磁盘空间
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-13 17:26" pubdate>
-              2022-08-13
+            <time datetime="2022-09-14 16:02" pubdate>
+              2022-09-14
             </time>
           </div>
         
@@ -758,7 +683,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Kafka/" class="category-chain-item">Kafka</a>
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
   
   
 
@@ -773,7 +698,131 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">#消息队列</a>
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" target="_self">
+          JVM内存模型
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" target="_self">
+        <div>
+          
+          JVM内存模型JVM内存模型总体来说分为五大块。分别是：程序计数器，虚拟机栈，本地方法栈，方法区以及java堆。  栈   虚拟机栈（Java Virtual Machine Stacks）描述的是java方法（也就是字节码）执行的内存模型：每个方法在执行的时候都有一个栈帧,用于存储局部变量表，操作数栈，动态链接，方法出口等信息。每一个方法从调用到执行就对应了一个栈帧在虚拟机栈中入栈到出栈的过程。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-14 14:22" pubdate>
+              2022-09-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/java%E5%91%BD%E4%BB%A4--jmap%E5%B7%A5%E5%85%B7/" target="_self">
+          java命令--jmap工具
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/java%E5%91%BD%E4%BB%A4--jmap%E5%B7%A5%E5%85%B7/" target="_self">
+        <div>
+          
+          Jmap命令jmap是一个多功能的命令。它可以生成 java 程序的 dump 文件， 也可以查看堆内对象示例的统计信息、查看 ClassLoader 的信息以及 finalizer 队列。 系统中内存飙升了，怎么办？ 使用jmap看看是否有大量类生成  - histo查看堆内存信息，实例个数以及占用内存大小   命令：  ~ jmap -histo 91656 &gt; .&#x2F;log.txt 结果
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-13 18:29" pubdate>
+              2022-09-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+              <a href="/tags/java%E5%91%BD%E4%BB%A4/">#java命令</a>
             
           </div>
         
@@ -785,7 +834,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -212,15 +212,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" target="_self">
-          JVM内存模型
+        <a href="/Mongodb%E9%9B%86%E7%BE%A4/" target="_self">
+          Mongodb集群
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" target="_self">
+      <a class="index-excerpt" href="/Mongodb%E9%9B%86%E7%BE%A4/" target="_self">
         <div>
           
-          JVM内存模型JVM内存模型总体来说分为五大块。分别是：程序计数器，虚拟机栈，本地方法栈，方法区以及java堆。  栈   虚拟机栈（Java Virtual Machine Stacks）描述的是java方法（也就是字节码）执行的内存模型：每个方法在执行的时候都有一个栈帧,用于存储局部变量表，操作数栈，动态链接，方法出口等信息。每一个方法从调用到执行就对应了一个栈帧在虚拟机栈中入栈到出栈的过程。
+          1. 主从模式主从最大的问题就是无法自动故障转移，对于简单的主从复制无法自动故障转移的缺陷，各个数据库都在改进，MySQL推出的Fabric ，Redis的哨兵，Mongodb的复制集。 2. 复制集模式 Mongodb复制集（Replication Set）由一组Mongod实例（进程）组成，包含一个 Primary节点和多个Secondary节点 Mongodb Driver（客户端）的所有数
         </div>
       </a>
 
@@ -228,8 +228,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 14:22" pubdate>
-              2022-09-14
+            <time datetime="2022-09-22 23:01" pubdate>
+              2022-09-22
             </time>
           </div>
         
@@ -244,7 +244,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/MongoDB/" class="category-chain-item">MongoDB</a>
   
   
 
@@ -259,7 +259,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
             
           </div>
         
@@ -273,15 +273,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/java%E5%91%BD%E4%BB%A4--jmap%E5%B7%A5%E5%85%B7/" target="_self">
-          java命令--jmap工具
+        <a href="/ElasticSearch%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/" target="_self">
+          ElasticSearch集群架构
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/java%E5%91%BD%E4%BB%A4--jmap%E5%B7%A5%E5%85%B7/" target="_self">
+      <a class="index-excerpt" href="/ElasticSearch%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/" target="_self">
         <div>
           
-          Jmap命令jmap是一个多功能的命令。它可以生成 java 程序的 dump 文件， 也可以查看堆内对象示例的统计信息、查看 ClassLoader 的信息以及 finalizer 队列。 系统中内存飙升了，怎么办？ 使用jmap看看是否有大量类生成  - histo查看堆内存信息，实例个数以及占用内存大小   命令：  ~ jmap -histo 91656 &gt; .&#x2F;log.txt 结果
+          1 ES集群架构 一个集群可以有一个或者多个节点   不同的集群通过不同的名字来区分，默认名字“elasticsearch“   通过配置文件修改，或者在命令行中 -E cluster.name&#x3D;es-cluster进行设定    2  集群节点类型  Master Node：主节点   处理创建，删除索引等请求，负责索引的创建与删除  决定分片被分配到哪个节点  管理集群节点状态
         </div>
       </a>
 
@@ -289,8 +289,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-13 18:29" pubdate>
-              2022-09-13
+            <time datetime="2022-09-22 21:26" pubdate>
+              2022-09-22
             </time>
           </div>
         
@@ -305,7 +305,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/ElasticSearch/" class="category-chain-item">ElasticSearch</a>
   
   
 
@@ -320,9 +320,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-            
-              <a href="/tags/java%E5%91%BD%E4%BB%A4/">#java命令</a>
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
             
           </div>
         
@@ -336,15 +334,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/" target="_self">
-          kafka的消息零丢失方案
+        <a href="/ElasticSearch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" target="_self">
+          ElasticSearch知识点总结
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/" target="_self">
+      <a class="index-excerpt" href="/ElasticSearch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" target="_self">
         <div>
           
-          Kafka如何保证消息的可靠性？哪些环节会有丢消息的可能？RabbitMQ的消息零丢失方案 - 楼上有只喵 (pyr9.github.io) Kafka怎么保证消息可靠性?1. 生产者保证消息正确发送到Kafka?Kafka通过配置request.required.acks属性来确认消息的生产：  0 生产者将数据发送出去就不管了，不去等待任何返回。这种情况下数据传输效率最高，但是数据可靠性确是最
+          1 Es是什么？ Elasticsearch是用Java开发并且是当前最流行的开源的企业级搜索引擎。 能够达到实时搜索，稳定，可靠，快速，安装使用方便。 客户端支持Java、.NET（C#）、PHP、Python、Ruby等多种语言。  2 为什么要使用ES? 数据量在几万或者几十万时候，所以采用以往的模糊查询，实时与数据库交互，会导致效率特别低下 不能将搜索词拆分开来，如果采用以往的模糊查询，比
         </div>
       </a>
 
@@ -352,8 +350,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-13 10:05" pubdate>
-              2022-09-13
+            <time datetime="2022-09-22 17:27" pubdate>
+              2022-09-22
             </time>
           </div>
         
@@ -368,7 +366,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Kafka/" class="category-chain-item">Kafka</a>
+  <a href="/categories/ElasticSearch/" class="category-chain-item">ElasticSearch</a>
   
   
 
@@ -383,9 +381,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/MQ/">#MQ</a>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/">#消息可靠性</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
             
           </div>
         
@@ -399,15 +395,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
-          RabbitMQ的消息零丢失方案
+        <a href="/mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" target="_self">
+          mysql分库分表
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
+      <a class="index-excerpt" href="/mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" target="_self">
         <div>
           
-          RabbitMQ如何保证消息的可靠性？哪些环节会有丢消息的可能？ 普通消息处理流程 消息生成者发送消息 MQ收到消息，将消息进行存储（持久化到硬盘）。 返回ACK给生产者 MQ push 消息给对应的消费者，然后等待消费者返回ACK 如果消息消费者在指定时间内成功返回ack，那么MQ认为消息消费成功，在存储中删除消息，即执行第6步；如果MQ在指定时间内没有收到ACK，则认为消息消费失败，会尝试重新
+          1 分库分表是什么 分库：从单个数据库拆分成多个数据库的过程，将数据散落在多个数据库中。 分表：从单张表拆分成多张表的过程，将数据散落在多张表内。  2 分库分表有什么用分库分表就是为了解决由于数据量过大而导致数据库性能降低的问题 3 分库分表的方式 分库分表包含分库和分表 两个部分，而这两个部分可以统称为数据分片，其目的都是将数据拆分成不同的存储单元。 从分拆的角度上，可以分为垂直分片和水平分片
         </div>
       </a>
 
@@ -415,8 +411,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-12 12:37" pubdate>
-              2022-09-12
+            <time datetime="2022-09-22 14:43" pubdate>
+              2022-09-22
             </time>
           </div>
         
@@ -431,7 +427,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
   
   
 
@@ -446,9 +442,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/MQ/">#MQ</a>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/">#消息可靠性</a>
+              <a href="/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">#分库分表</a>
             
           </div>
         
@@ -462,15 +456,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" target="_self">
-          RabbitMQ的高级特性
+        <a href="/rabbitMq%E9%9B%86%E7%BE%A4/" target="_self">
+          rabbitMq集群
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" target="_self">
+      <a class="index-excerpt" href="/rabbitMq%E9%9B%86%E7%BE%A4/" target="_self">
         <div>
           
-          RabbitMQ的高级特性如何保证消息的顺序？消息的顺序是指的是，一个组内消息的顺序，而不是整个mq里的消息顺序。比如一个下单过程需要完成扣款，减库存，通知快递发货，这一组消息的顺序不能乱。  发送端：一组有序消息，只发到一个队列中，利用队列的FIFO特性保证消息在发送时顺序不会乱。 如果发送端配置了重试机制，就可能出现发送方发送时是1，2，3，但1发送失败，重试发送1，这样收到的消息就是2，3，
+          普通集群模式 queue的消息，只会放在一个rabbtimq实例上。每个实例都同步queue的结构和queue消息的真正位置。  消费的时候，实际上如果连接到了另外一个实例，那么那个实例会从queue所在实例上拉取数据过来。   这种集群模式的消息可靠性不是很高。因为如果其中有个节点服务宕机了，那这个节点上的数据就无法消费了，需要等到这个节点服务恢复后才能消费。 镜像集群模式 这种模式是在普通集群
         </div>
       </a>
 
@@ -478,69 +472,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-10 22:17" pubdate>
-              2022-09-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">#消息中间件</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/rabbitMQ%E5%85%A5%E9%97%A8/" target="_self">
-          rabbitMQ入门
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/rabbitMQ%E5%85%A5%E9%97%A8/" target="_self">
-        <div>
-          
-          MQ介绍什么是MQ？ MQ：MessageQueue，消息队列。 队列，是一种FIFO 先进先出的数据结构。 消息由生产者发送到MQ进行排队，然后按原来的顺序交由消息的消费者进行处理。 QQ和微信就是典型的MQ。  MQ的的优点： 异步：相比于传统的串行、并行执行，可以提高吞吐量。 比如：发快递的时候，我们不需要等待用户接收到快递，而是把快递放进菜鸟驿站，发消息后，离开，用户闲暇时去取快递。  解
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-09 11:16" pubdate>
-              2022-09-09
+            <time datetime="2022-09-21 23:38" pubdate>
+              2022-09-21
             </time>
           </div>
         
@@ -570,7 +503,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">#消息中间件</a>
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
             
           </div>
         
@@ -584,15 +517,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" target="_self">
-          类加载机制的深度解析
+        <a href="/Mysql%E9%9B%86%E7%BE%A4/" target="_self">
+          Mysql集群
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" target="_self">
+      <a class="index-excerpt" href="/Mysql%E9%9B%86%E7%BE%A4/" target="_self">
         <div>
           
-          类加载运行全过程当我们用java命令运行某个类的main函数启动程序时，首先需要通过类加载器把主类加载到 JVM。 有如下几步： 加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt; 使用 &gt;&gt; 卸载   加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等，在加
+          1 主从模式 一个master可以拥有多个slave，一个slave只对应一个master 一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。 所有的读请求全部走从节点。这样也可以很轻松实现水平扩容，支撑读高并发。 一主多从的结构，主要目的是实现数据的多点备份（没有故障自动转移和负载均衡）  缺点：  从库要从binlog获取数据并重放，这肯定与主库写入数据存在时间延迟，
         </div>
       </a>
 
@@ -600,8 +533,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-24 00:20" pubdate>
-              2022-08-24
+            <time datetime="2022-09-21 16:46" pubdate>
+              2022-09-21
             </time>
           </div>
         
@@ -616,7 +549,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
   
   
 
@@ -631,7 +564,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">#类加载机制</a>
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
             
           </div>
         
@@ -645,15 +578,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/springCloud%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/" target="_self">
-          springCloud知识点整理
+        <a href="/zookeeper%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
+          zookeeper的使用场景
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/springCloud%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/" target="_self">
+      <a class="index-excerpt" href="/zookeeper%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
         <div>
           
-          1. 为什么会出现SpringCloud?单体架构的优缺点 优点：  部署简单：只有一个包 技术单一：同一个架构来说，基本上是一个一种技术，类似springboot + java 用人成本低：因为只需要一种技术  缺点：  代码结构混乱：业务复杂，导致代码量很大，管理会越来越困难。 经常需要解决冲突，开发效率低：开发人员同时维护同一套代码，很难避免代码冲突。开发过程中会伴随解决冲突，严重影响开发效
+          1 ZooKeeper 实现分布式 ID1.1 为什么需要分布式ID在单体结构的应用中，我们可以使用 MySQL 数据库的主键自增来为我们的数据设置唯一标识 ID，但是在分布式环境中，单个数据库的吞吐量成为整个应用的性能瓶颈，我们就可以搭建数据库集群来提升数据库的性能，此时如果还使用 MySQL 的主键自增来设置数据 ID 的话，就会出现重复的 ID，这样就会出现主键冲突的情况。 如果使用分布式的
         </div>
       </a>
 
@@ -661,8 +594,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-23 09:39" pubdate>
-              2022-08-23
+            <time datetime="2022-09-20 16:28" pubdate>
+              2022-09-20
             </time>
           </div>
         
@@ -677,7 +610,61 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/zookeeper%E8%8A%82%E7%82%B9%E4%BB%8B%E7%BB%8D/" target="_self">
+          zookeeper节点介绍
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/zookeeper%E8%8A%82%E7%82%B9%E4%BB%8B%E7%BB%8D/" target="_self">
+        <div>
+          
+          1 Zookeeper 数据模型 Zookeeper 数据模型的结构是基于节点的，我们把这种节点叫做 Znode 。 节点之下可以包含子节点，这种结构和数据结构中的树类似，也和文件系统的目录类似。   每个节点拥有唯一的路径path.    2 节点的结构 path:唯一路径  childNode：子节点 stat:状态属性:即path对应的值 type:节点类型  3 节点类型   类型 描述
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-20 15:46" pubdate>
+              2022-09-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
   
   
 
@@ -692,9 +679,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E6%95%B4%E7%90%86/">#整理</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
             
           </div>
         
@@ -708,15 +693,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" target="_self">
-          单体架构的优缺点
+        <a href="/Zookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+          Zookeeper实现分布式锁
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" target="_self">
+      <a class="index-excerpt" href="/Zookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
         <div>
           
-          单体架构的优缺点优点：  部署简单：只有一个包  技术单一：同一个架构来说，基本上是一个一种技术，类似springboot + java  用人成本低：因为只需要一种技术   缺点：  代码结构混乱：业务复杂，导致代码量很大，管理会越来越困难。  开发效率低：开发人员同时维护同一套代码，很难避免代码冲突。开发过程中会伴随解决冲突，严重影响开发效率。  排查解决问题成本高：线上发现了bug，可能bu
+          1基于ZooKeeper的分布式锁。适用于高可靠（高可用），而并发量不是太高的场景 优点：不存在锁失效的问题，不需要续命。 缺点：因为需要频繁的创建和删除节点，性能上不如Redis。  在高性能、高并发的应用场景下，不建议使用ZooKeeper的分布式锁。而由于ZooKeeper 的高可用性，因此在并发量不是太高的应用场景中，还是推荐使用ZooKeeper的分布式锁 Zookeeper第三方客户端
         </div>
       </a>
 
@@ -724,60 +709,99 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-17 09:21" pubdate>
-              2022-08-17
+            <time datetime="2022-09-20 15:05" pubdate>
+              2022-09-20
             </time>
           </div>
         
         
-        
-      </div>
-    </article>
-  </div>
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
 
-  <div class="row mx-auto index-card">
+<span class="category-chains">
+  
+  
     
+      <span class="category-chain">
+        
+  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  
+  
+
+      </span>
     
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94/" target="_self">
-          postgreSQL、mysql、Mongoldb、redis的对比
-        </a>
-      </h1>
+  
+</span>
 
-      <a class="index-excerpt" href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94/" target="_self">
-        <div>
-          
-          1 postgreSQL 和 mysql的对比 PostgreSQL是进程模式，MySQL是线程模式。进程模式对多CPU利用率比较高。  事务的支持：PostgreSQL支持事务的强一致性，事务保证性好，完全支持ACID特性。MySQL只有innodb引擎支持事务，mysiam不支持事务。  分区的实现：MySQL分区表的实现要优于PG的基于继承表的分区实现，主要体现在分区个数达到上千上万后的处理
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-16 16:59" pubdate>
-              2022-08-16
-            </time>
           </div>
-        
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">#面试题</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">#分布式锁</a>
             
-              <a href="/tags/redis/">#redis</a>
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+          Redis实现分布式锁
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+        <div>
+          
+          1 基于Redis实现分布式锁效率最高，加锁速度最快，因为Redis几乎都是纯内存操作 适用于并发量很大、性能要求很高而可靠性问题可以通过其 他方案去弥补的场景。  1.1 设计原理 利用利用Redis的SETNX key value这个命令获取锁，并设置过期时间，保存线程标示  释放锁时先判断线程标示是否与自己一致，一致则删除锁 (Lua 脚本保证原子性)     SETNX key value
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-20 15:03" pubdate>
+              2022-09-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
             
-              <a href="/tags/mysql/">#mysql</a>
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/postgreSQL/">#postgreSQL</a>
-            
-              <a href="/tags/mongo/">#mongo</a>
-            
-              <a href="/tags/es/">#es</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">#分布式锁</a>
             
           </div>
         
@@ -789,7 +813,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

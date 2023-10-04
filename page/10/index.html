@@ -212,15 +212,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/kafka%E5%85%A5%E9%97%A8/" target="_self">
-          kafka入门
+        <a href="/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/" target="_self">
+          kafka的消息零丢失方案
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/kafka%E5%85%A5%E9%97%A8/" target="_self">
+      <a class="index-excerpt" href="/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/" target="_self">
         <div>
           
-          1 kafka 是什么？Kafka 是一个分布式，支持分区（partition）, 多副本（replication）,基于zookeeper 的分布式消息系统。它最大的特性就是可以实时的处理大数据量。 Kafka的使用场景：  日志的收集：记录各种服务的log。，通过kafka以统一接口服务的方式开放给各种 consumer，例如hadoop、Hbase、Solr等。 消息系统：解耦和生产者和消费
+          Kafka如何保证消息的可靠性？哪些环节会有丢消息的可能？RabbitMQ的消息零丢失方案 - 楼上有只喵 (pyr9.github.io) Kafka怎么保证消息可靠性?1. 生产者保证消息正确发送到Kafka?Kafka通过配置request.required.acks属性来确认消息的生产：  0 生产者将数据发送出去就不管了，不去等待任何返回。这种情况下数据传输效率最高，但是数据可靠性确是最
         </div>
       </a>
 
@@ -228,8 +228,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-13 09:33" pubdate>
-              2022-08-13
+            <time datetime="2022-09-13 10:05" pubdate>
+              2022-09-13
             </time>
           </div>
         
@@ -259,9 +259,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
+              <a href="/tags/MQ/">#MQ</a>
             
-              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">#消息队列</a>
+              <a href="/tags/%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/">#消息可靠性</a>
             
           </div>
         
@@ -275,15 +275,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/kafka%E9%9B%86%E7%BE%A4/" target="_self">
-          kafka集群
+        <a href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
+          RabbitMQ的消息零丢失方案
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/kafka%E9%9B%86%E7%BE%A4/" target="_self">
+      <a class="index-excerpt" href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
         <div>
           
-          kafka 集群1 概念 Kafka集群依赖于Zookeeper进行协调，Kafka节点只要注册到同一个Zookeeper上就代表它们是同一个集群的  Kafka通过brokerId来区分集群中的不同节点    2 Kafka集群中的几个角色： Broker：一般指Kafka的部署节点 Leader：用于处理消息的接收和消费等请求，也就是说producer是将消息push到leader，而cons
+          RabbitMQ如何保证消息的可靠性？哪些环节会有丢消息的可能？ 普通消息处理流程 消息生成者发送消息 MQ收到消息，将消息进行存储（持久化到硬盘）。 返回ACK给生产者 MQ push 消息给对应的消费者，然后等待消费者返回ACK 如果消息消费者在指定时间内成功返回ack，那么MQ认为消息消费成功，在存储中删除消息，即执行第6步；如果MQ在指定时间内没有收到ACK，则认为消息消费失败，会尝试重新
         </div>
       </a>
 
@@ -291,8 +291,400 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-11 20:52" pubdate>
-              2022-08-11
+            <time datetime="2022-09-12 12:37" pubdate>
+              2022-09-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MQ/">#MQ</a>
+            
+              <a href="/tags/%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/">#消息可靠性</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" target="_self">
+          RabbitMQ的高级特性
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" target="_self">
+        <div>
+          
+          RabbitMQ的高级特性如何保证消息的顺序？消息的顺序是指的是，一个组内消息的顺序，而不是整个mq里的消息顺序。比如一个下单过程需要完成扣款，减库存，通知快递发货，这一组消息的顺序不能乱。  发送端：一组有序消息，只发到一个队列中，利用队列的FIFO特性保证消息在发送时顺序不会乱。 如果发送端配置了重试机制，就可能出现发送方发送时是1，2，3，但1发送失败，重试发送1，这样收到的消息就是2，3，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-10 22:17" pubdate>
+              2022-09-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">#消息中间件</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/rabbitMQ%E5%85%A5%E9%97%A8/" target="_self">
+          rabbitMQ入门
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/rabbitMQ%E5%85%A5%E9%97%A8/" target="_self">
+        <div>
+          
+          MQ介绍什么是MQ？ MQ：MessageQueue，消息队列。 队列，是一种FIFO 先进先出的数据结构。 消息由生产者发送到MQ进行排队，然后按原来的顺序交由消息的消费者进行处理。 QQ和微信就是典型的MQ。  MQ的的优点： 异步：相比于传统的串行、并行执行，可以提高吞吐量。 比如：发快递的时候，我们不需要等待用户接收到快递，而是把快递放进菜鸟驿站，发消息后，离开，用户闲暇时去取快递。  解
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-09 11:16" pubdate>
+              2022-09-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">#消息中间件</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" target="_self">
+          类加载机制的深度解析
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" target="_self">
+        <div>
+          
+          类加载运行全过程当我们用java命令运行某个类的main函数启动程序时，首先需要通过类加载器把主类加载到 JVM。 有如下几步： 加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt; 使用 &gt;&gt; 卸载   加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等，在加
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-24 00:20" pubdate>
+              2022-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">#类加载机制</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/springCloud%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/" target="_self">
+          springCloud知识点整理
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/springCloud%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/" target="_self">
+        <div>
+          
+          1. 为什么会出现SpringCloud?单体架构的优缺点 优点：  部署简单：只有一个包 技术单一：同一个架构来说，基本上是一个一种技术，类似springboot + java 用人成本低：因为只需要一种技术  缺点：  代码结构混乱：业务复杂，导致代码量很大，管理会越来越困难。 经常需要解决冲突，开发效率低：开发人员同时维护同一套代码，很难避免代码冲突。开发过程中会伴随解决冲突，严重影响开发效
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-23 09:39" pubdate>
+              2022-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E6%95%B4%E7%90%86/">#整理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" target="_self">
+          单体架构的优缺点
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" target="_self">
+        <div>
+          
+          单体架构的优缺点优点：  部署简单：只有一个包  技术单一：同一个架构来说，基本上是一个一种技术，类似springboot + java  用人成本低：因为只需要一种技术   缺点：  代码结构混乱：业务复杂，导致代码量很大，管理会越来越困难。  开发效率低：开发人员同时维护同一套代码，很难避免代码冲突。开发过程中会伴随解决冲突，严重影响开发效率。  排查解决问题成本高：线上发现了bug，可能bu
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-17 09:21" pubdate>
+              2022-08-17
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94/" target="_self">
+          postgreSQL、mysql、Mongoldb、redis的对比
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94/" target="_self">
+        <div>
+          
+          1 postgreSQL 和 mysql的对比 PostgreSQL是进程模式，MySQL是线程模式。进程模式对多CPU利用率比较高。  事务的支持：PostgreSQL支持事务的强一致性，事务保证性好，完全支持ACID特性。MySQL只有innodb引擎支持事务，mysiam不支持事务。  分区的实现：MySQL分区表的实现要优于PG的基于继承表的分区实现，主要体现在分区个数达到上千上万后的处理
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-16 16:59" pubdate>
+              2022-08-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">#面试题</a>
+            
+              <a href="/tags/redis/">#redis</a>
+            
+              <a href="/tags/mysql/">#mysql</a>
+            
+              <a href="/tags/postgreSQL/">#postgreSQL</a>
+            
+              <a href="/tags/mongo/">#mongo</a>
+            
+              <a href="/tags/es/">#es</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
+          kafka知识点整理
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
+        <div>
+          
+          kafka和RabbitMq的对比 存储上：  kafka支持了分布式存储，也就是分区。相当于把原来rabbitMq 的queue拆分成了很多个小队列，分布式存储在不同的服务上，提高了消息的发送的效率（一次可以发到多个分区），提高了消费效率，不同分区，使用不同的消费者，提高了并发处理能力。   应用场景上：  RabbitMQ,遵循AMQP协议，用在实时的对可靠性要求比较高的消息传递上。 kafk
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-16 14:48" pubdate>
+              2022-08-16
             </time>
           </div>
         
@@ -322,11 +714,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
-            
-              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">#消息队列</a>
+              <a href="/tags/%E6%95%B4%E7%90%86/">#整理</a>
             
           </div>
         
@@ -340,15 +728,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/springCloud%E4%B9%8BConfig-Bus/" target="_self">
-          springCloud之Config+Bus
+        <a href="/java-%E4%BB%A3%E7%90%86/" target="_self">
+          java 代理
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/springCloud%E4%B9%8BConfig-Bus/" target="_self">
+      <a class="index-excerpt" href="/java-%E4%BB%A3%E7%90%86/" target="_self">
         <div>
           
-          消息总线 在微服务架构的系统中，通常会使用轻量级的消息代理来构建一个公用的消息主题，并让系统中的所有实例都连接上来。由于该主题的消息会被所有实例监听和消费，所以称之为消息总线。  在总线上的各个实例，都可以方便的广播一些让其他连接在给主题实例上都知道的消息。   Spring Cloud Bus Spring Cloud Bus 又被称为消息总线，它能够通过轻量级的消息代理（例如 RabbitMQ
+          代理 代理是一种设计模式  定义：通过代理对象访问目标对象。 好处：可以在不修改目标对象的基础上，扩展目标对象的功能   代理类可以分为静态代理和动态代理。 1.静态代理和动态代理静态代理 定义： 通过声明一个明确的代理类来访问源对象。需要和目标对象一起实现相同的接口或者继承相同的父类。  特点：在编译器确定代理对象，在程序运行前，代理类的.class文件就已经存在了。  优点：可以做到不修改目标
         </div>
       </a>
 
@@ -356,8 +744,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-23 23:11" pubdate>
-              2022-07-23
+            <time datetime="2022-08-16 11:11" pubdate>
+              2022-08-16
             </time>
           </div>
         
@@ -372,61 +760,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/SpringCloud%E9%9B%86%E6%88%90consul/" target="_self">
-          SpringCloud集成consul
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/SpringCloud%E9%9B%86%E6%88%90consul/" target="_self">
-        <div>
-          
-          Consul Consul 是一套开源的分布式服务发现和配置管理系统，由HashCorp公司用Go语言开发  它提供了几个关键功能：  服务发现：Consul client 可以提供服务，例如api或mysql，也可以使用Consul client来发现指定服务的提供者。 使用DNS或HTTP，应用程序可以轻松找到他们所依赖的服务。 健康检查：Consul client 可以提供任何数量的健康检查
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-23 00:11" pubdate>
-              2022-07-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
   
   
 
@@ -441,397 +775,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#注册中心</a>
-            
-              <a href="/tags/consul/">#consul</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/springCloud%E4%B9%8BEureka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" target="_self">
-          springCloud之Eureka集群搭建
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/springCloud%E4%B9%8BEureka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" target="_self">
-        <div>
-          
-          springCloud之Eureka集群搭建1. 搭建3个Eureka server 参考：springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)  三个eureka-server的application.yml文件如下：  eureka-server 123456789server.port: 8761eureka.instance.hostname: loc
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-22 22:35" pubdate>
-              2022-07-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/eureka/">#eureka</a>
-            
-              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90zookeeper/" target="_self">
-          springCloud之集成zookeeper
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90zookeeper/" target="_self">
-        <div>
-          
-          zookeeper zookeeper基本概念：zookeeper特性与节点介绍 - 楼上有只喵 (pyr9.github.io) zookeeper 是一个分布式协调服务，可以用来实现注册中心功能，类似eureka 服务节点是临时结点  springCloud之集成zookeeper准备工作启动zookeeper 1.引入依赖12345678910111213141516171819202122
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-22 20:45" pubdate>
-              2022-07-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#注册中心</a>
-            
-              <a href="/tags/zookeeper/">#zookeeper</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/SpringCloud%E9%9B%86%E6%88%90Ribbon/" target="_self">
-          SpringCloud集成Ribbon
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/SpringCloud%E9%9B%86%E6%88%90Ribbon/" target="_self">
-        <div>
-          
-          负载均衡（load balance） 简单来说负载均衡就是将客户的请求平摊到多个服务上，从而达到系统的高可用，常用的负载均衡方式有Nginx，F5 常见的负载均衡方式有两种： 服务端负载均衡 客户端负载均衡    服务端负载均衡工作原理服务端负载均衡是最常见的负载均衡方式，其工作原理如下图。   在客户端和服务端之间建立一个独立的负载均衡服务器，该服务器既可以是硬件设备（例如 F5），也可以是软件
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-22 15:12" pubdate>
-              2022-07-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">#负载均衡</a>
-            
-              <a href="/tags/Ribbon/">#Ribbon</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/" target="_self">
-          CAP原则以及eureka和zookeeper的对比
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/" target="_self">
-        <div>
-          
-          1 CAP理论是什么？CAP即：  Consistency（一致性）：对于客户端的每次读操作，要么读到的是最新的数据，要么读取失败，返回一个错误或超时，其强调的是数据正确。 Availability（可用性）：任何客户端的请求都能得到响应数据，不会出现响应错误，但不保证数据最新，强调的是不出错。比如我们购买商品时，他的点赞数就与购买商品无关，我们可以允许他不是最新的。 Partition tole
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-21 22:23" pubdate>
-              2022-07-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/CAP%E5%8E%9F%E5%88%99/">#CAP原则</a>
-            
-              <a href="/tags/eureka/">#eureka</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/springCloud%E4%B9%8B%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/" target="_self">
-          springCloud之自动扩展
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/springCloud%E4%B9%8B%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/" target="_self">
-        <div>
-          
-          什么是自动扩展？自动扩展分为水平扩展和垂直扩展  水平扩展就是一台机子不够了，就再搞几台 垂直扩展是硬件层面的，比如双核不够了，就4核  自动扩展的意义 提高了高可用性和容错能力。比如某个服务不可用了，自动扩展可以再增加一个新服务来替换他。 增加了可伸缩性。允许访问流量可以自动选择水平扩展的规模。 具有最佳使用率，并节约成本。按需使用，需要几台就部署几台 优先考虑某些服务或服务组。低优先级服务中实
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-20 21:52" pubdate>
-              2022-07-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/">#自动扩展</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90Hystrix/" target="_self">
-          springCloud之集成Hystrix
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90Hystrix/" target="_self">
-        <div>
-          
-          服务熔断什么是服务熔断？ 服务熔断就是对服务的调用执行熔断，对于后续的请求，不再调用目标服务，而是直接返回一个合理的信息，比如说请求量太大，返回一个”此时服务过载”，从而可以快速释放资源  保护系统   为什么会有这种熔断机制的出现?在微服务相互调用的时候可能会出现服务调用发生异常或调用超时,多此请求造成服务积压导致服务无法使用后接着级联导致调用此服务的消费者也出现异常或调用超时,最后导致整个系统
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-20 14:34" pubdate>
-              2022-07-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">#服务熔断</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">#面试题</a>
             
           </div>
         
@@ -843,7 +787,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

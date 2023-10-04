@@ -212,15 +212,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%B8%B8%E7%94%A823%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
-          常用23种设计模式
+        <a href="/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_self">
+          状态模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%B8%B8%E7%94%A823%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt" href="/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1 创建型模式（五种）单例模式  工厂方法模式 抽象工厂模式 建造者模式 原型模式 2. 结构型模式（七种）适配器模式 装饰器模式 代理模式 外观模式 桥接模式 组合模式 享元模式 3 行为型模式（十一种）策略模式 模板方法模式 观察者模式 迭代子模式 责任链模式 命令模式 备忘录模式 状态模式 访问者模式 中介者模式 解释器模式
+          1 概念1 定义当一个对象内在状态改变时允许改变其行为。 类型：行为型 2 应用场景一个对象存在多个状态（不同状态下行为不同），且状态可以转换 3 优缺点优点：  将不同状态隔离 将各种状态的转换逻辑，分布到state的子类中，减少互相依赖 增加新的状态简单  缺点：  状态多的场景下，导致类数目增加，系统变复杂  2 代码实现场景：网站的课程视频有暂停，快进，停止，播放状态 1234567891
         </div>
       </a>
 
@@ -228,8 +228,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-10-03 17:34" pubdate>
-              2023-10-03
+            <time datetime="2023-10-04 22:32" pubdate>
+              2023-10-04
             </time>
           </div>
         
@@ -266,15 +266,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" target="_self">
-          原型模式
+        <a href="/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+          访问者模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt" href="/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1 概念1 定义原型模式（Prototype）是一种创建型设计模式，它通过克隆现有的对象来创建新的对象。部分场景下，性能要优于new来创建对象 2 应用场景 类初始化消耗比较多的资源 new一个对象需要很繁琐的过程（数据准备，访问权限等） 构造函数比较复杂 循环体中产生大量对象。（避免重复执行构造函数的操作，从而提高性能和效率）  3 优缺点优点：  不需要调用构造函数，比直接new一个对象性能高
+          1 概念1 定义 它允许在不改变已有对象结构的情况下，定义对这些对象的新操作。  有两个核心角色：  访问者（Visitor）：定义了可以对各种对象结构中元素进行的操作。它抽象出了可以对不同对象执行的操作，并通过不同的具体访问者来实现具体的操作逻辑。 元素（Element）：定义了一个接受访问者的方法，使得访问者可以访问它的内部状态。元素可以是单个对象，也可以是对象的集合。   类型 : 行为型
         </div>
       </a>
 
@@ -282,8 +282,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-10-03 17:33" pubdate>
-              2023-10-03
+            <time datetime="2023-10-04 22:12" pubdate>
+              2023-10-04
             </time>
           </div>
         
@@ -320,15 +320,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" target="_self">
-          单例模式
+        <a href="/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" target="_self">
+          责任链模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt" href="/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1. 概念1. 定义 单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。  这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。  这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。它分为懒汉式和饿汉式。注意：  构造器必须私有化  对外必须获得一个公有的访问方式来获得实例。     2 优缺点优点：  在内
+          1 概念1 定义责任链模式为请求创建了一个接收者对象的链。在这种模式中，通常每个接收者都包含对另一个接收者的引用。如果一个对象不能处理该请求，那么它会把相同的请求传给下一个接收者，依此类推。 类型：行为型 2 应用场景 一个请求需要多个对象中的一个或者多个进行处理  3 优缺点优点：  责任链可以动态组合  缺点：  责任链太长或者处理时间太长，影响性能  2 代码实现场景：发布一篇文章后，内容审
         </div>
       </a>
 
@@ -336,8 +336,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-26 22:01" pubdate>
-              2023-09-26
+            <time datetime="2023-10-04 21:46" pubdate>
+              2023-10-04
             </time>
           </div>
         
@@ -374,15 +374,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
-          建造者模式
+        <a href="/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+          中介者模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt" href="/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          建造者模式1. 概念 定义 将一个复杂对象的构建与他的表示分离，使得同样的构建过程可以创建不同的表示。  使用场景  当对象有复杂的内部结构（很多属性） 当创造一个对象 需要很多步骤时 , 适合使用建造者模式 ;  当创造一个对象 只需要一个简单的方法就可以完成 , 适合使用工厂模式   优缺点  优点：  创建和使用分离 建造类之间 相互独立 , 在 一定程度上解耦 ;   缺点 :  增加类数
+          1 概念1 定义定义一个封装一组对象如何交互的对象 类型：行为型 2 应用场景 对象之间有复杂的通信关系：当对象之间的通信关系变得复杂时，使用中介者模式可以简化对象之间的交互，将复杂的通信逻辑转移到中介者中进行管理。 对象之间的耦合度较高：当对象之间的耦合度较高，彼此之间的依赖关系较为复杂时，可以使用中介者模式来解耦对象之间的关系，减少对象之间的直接依赖。 一对多的关系：中介者模式适用于一对多的关
         </div>
       </a>
 
@@ -390,8 +390,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-26 21:26" pubdate>
-              2023-09-26
+            <time datetime="2023-10-04 21:37" pubdate>
+              2023-10-04
             </time>
           </div>
         
@@ -428,15 +428,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" target="_self">
-          简单工厂模式
+        <a href="/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" target="_self">
+          命令模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt" href="/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          简单工厂模式1. 概念 定义：由一个工厂对象决定创建出哪一种对象的实例 优缺点： 优点：只需要传入一个参数，就可以获取你所需要的对象，而无需知道细节 缺点：工厂的职责过重，增加新的产品，需要修改工厂的判断逻辑，违反开闭原则    2. 代码需求： 需要根据电影类型创建电影 2.1 版本1：常规写法123456public class JavaVideo extends Video &amp;#123;
+          1 概念1 定义将请求或操作封装成一个对象，从而使不同的请求可以被异步、延迟、排队，或者记录下来以备撤销或重做等操作。 类型：行为型 2 应用场景 撤销&#x2F;重做操作：当需要支持撤销和重做功能时，可以使用命令模式。命令对象可以记录操作的状态和参数，以便在需要时执行撤销操作 事务性操作：命令模式可以用于实现事务性操作，即一系列相关操作的执行要么全部成功，要么全部失败。通过将每个操作封装为一个命
         </div>
       </a>
 
@@ -444,8 +444,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-11 20:25" pubdate>
-              2023-09-11
+            <time datetime="2023-10-04 21:19" pubdate>
+              2023-10-04
             </time>
           </div>
         
@@ -482,15 +482,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/" target="_self">
-          技术选型
+        <a href="/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" target="_self">
+          备忘录模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/" target="_self">
+      <a class="index-excerpt" href="/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1. 技术选型所要考虑的 切合业务：在当前的场景以及后续的一些模块的设计，都可以满足我们的业务 社区活跃度：活跃多，使用的人多，优点缺点都可以呈现出来，包括会遇到的问题 团队技术水平：针对开发周期的长短，需要考虑我们是采用老技术还是新技术。如果是新技术，团队没有几个人接触过的话，那么就需要整体的一个培训，来提高团队的技术水平。 版本更新迭代周期：如果版本更新迭代的比较快，可以优先考虑，因为如果你遇
+          1 概念1 定义保存一个对象的某种状态，以便在适当的时候来恢复对象 类型：行为型 2 应用场景保存及恢复数据相关业务场景 3 优缺点优点：  为用户提供一种可恢复的机制 存档信息的封装  缺点：  资源占用  2 代码实现场景：网站上发布博客，支持暂存 123456789101112131415@Data@AllArgsConstructorpublic class Article &amp;#123;
         </div>
       </a>
 
@@ -498,11 +498,32 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-24 16:06" pubdate>
-              2023-04-24
+            <time datetime="2023-10-04 20:40" pubdate>
+              2023-10-04
             </time>
           </div>
         
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
         
         
       </div>
@@ -515,15 +536,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%B9%82%E7%AD%89%E6%80%A7/" target="_self">
-          幂等性
+        <a href="/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+          观察者模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%B9%82%E7%AD%89%E6%80%A7/" target="_self">
+      <a class="index-excerpt" href="/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1. 幂等性是什么？在一个系统中，一个接口，运行多次和运行一次的结果是一致的。 什么情况下需要幂等性？ 重复提交、接口重试、前端窗口抖动等 业务场景：  用户多次点击提交订单，后台应该只生成一个订单。 支付时，由于发生网络问题重试，应该只扣一次钱。  保证幂等性的核心思想：通过唯一的业务单号保证幂等。 实现：  非并发的情况下，查询业务单号有没有操作过，没有则执行操作 并发的情况下，整个过程加锁
+          1 概念1 定义定义了对象之间的一对多依赖。让多个观察者同时监听一个主题对象，当主题对象发生变化时，它的观察者都会收到通知并更新。 类型：行为型 2 应用场景关联行为场景。建立一套触发机制 3 优缺点优点：  支持广播通信  缺点：  观察者之间有过多依赖的话，会提高程序复杂度 使用需要注意，避免观察者和被观察者循环调用  2 代码实现场景：同学在网站上提出问题，老师收到通知 1234567891
         </div>
       </a>
 
@@ -531,11 +552,32 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-23 10:49" pubdate>
-              2023-04-23
+            <time datetime="2023-10-04 18:05" pubdate>
+              2023-10-04
             </time>
           </div>
         
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
         
         
       </div>
@@ -548,15 +590,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/dcoker/" target="_self">
-          dcoker
+        <a href="/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
+          解释器模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/dcoker/" target="_self">
+      <a class="index-excerpt" href="/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1 docker解决了什么问题？比如我们现在开发了一个应用程序比如淘宝App，程序员从头到尾搭建了一套环境开始写代码，比如安装JDK等，代码写完后需要交给测试同事去运行，这事测试同学也需要从头到尾搭建一套环境，但比如JDK版本和你安装的不同，导致无法在测试同学的机器上运行起来，找开发去看问题，此时开发也很无辜，“明明在我的机器上是可以跑起来的”。 在没有容器技术之前，我们可以采用搭建虚拟机，然后测
+          1 概念1 定义给定一个语言，定义它文法的一种表示。并定义一个解释器，使用这个解释器来解释语言中的句子 类型：行为型 2 应用场景 可以将一个需要解释执行的语言中的句子表示为一个抽象语法树。  一些重复出现的问题可以用一种简单的语言来进行表 一个简单语法需要解释的场景。  3 优缺点优点：  语法由很多类组成，便于扩展  缺点：  语法 规则太多时，增加了系统复杂度  2 代码实现场景：定义表达式
         </div>
       </a>
 
@@ -564,11 +606,32 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-18 14:20" pubdate>
-              2023-04-18
+            <time datetime="2023-10-04 17:51" pubdate>
+              2023-10-04
             </time>
           </div>
         
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
         
         
       </div>
@@ -581,15 +644,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" target="_self">
-          单点登录
+        <a href="/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_self">
+          策略模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" target="_self">
+      <a class="index-excerpt" href="/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1 跨域认证的问题互联网服务离不开用户认证。一般流程是下面这样。 1、用户向服务器发送用户名和密码。 2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。 3、服务器向用户返回一个 session_id，写入用户的 Cookie。 4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。 5、服务器收到 session_i
+          1 概念1 定义在策略模式定义了一系列算法或策略，并将每个算法封装在独立的类中，使得它们可以互相替换。通过使用策略模式，可以在运行时根据需要选择不同的算法，而不需要修改客户端代码。 类型：行为型 2 应用场景 一个系统需要动态在几种策略中选择一种 系统很多类，区别仅仅是行为不同  3 优缺点优点：  符合开闭原则 避免大量使用if…else, switch..case 提高算法的保密性和安全性
         </div>
       </a>
 
@@ -597,11 +660,32 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 14:00" pubdate>
-              2023-03-20
+            <time datetime="2023-10-04 16:56" pubdate>
+              2023-10-04
             </time>
           </div>
         
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
         
         
       </div>
@@ -614,15 +698,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
-          分布式锁
+        <a href="/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
+          迭代器模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+      <a class="index-excerpt" href="/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁  2 分布式锁的实现分布式锁的核心是实现多进程之间互斥，而满足这一点的方式有很多，常见的有三种：   基于 数
+          1 概念1 定义提供一种方法，顺序访问一个集合对象中的各个元素，而又不暴露该对象的内部展示 类型：行为型 2 应用场景 访问一个集合的内容，而不暴露该对象的内部展示 为遍历不同的集合结构提供一个统一的接口   平时我们不太会自己写，因为已经有很多工具类写好了	  3 优缺点优点：  分离了集合对象的存储和遍历行为，由迭代器进行遍历  缺点：  类的个数成对增加，需要新增迭代器类  2 代码实现场景
         </div>
       </a>
 
@@ -630,11 +714,32 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 10:20" pubdate>
-              2023-03-17
+            <time datetime="2023-10-04 16:34" pubdate>
+              2023-10-04
             </time>
           </div>
         
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
         
         
       </div>
@@ -645,7 +750,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -212,15 +212,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%85%A8%E5%B1%80%E5%94%AF%E4%B8%80ID/" target="_self">
-          全局唯一ID
+        <a href="/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" target="_self">
+          模版方法模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%85%A8%E5%B1%80%E5%94%AF%E4%B8%80ID/" target="_self">
+      <a class="index-excerpt" href="/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1 全局 ID 生成器全局ID生成器，是一种在分布式系统下用来生成全局唯一ID的工具，一般要满足下列特性：  唯一性 高可用，可以由主从、集群等模式保证可用性 高性能，比如基于内存 递增性 安全性：id如果是顺序递增，则容易暴露业务信息  2 全局唯一ID生成策略 UUID Redis自增（需要额外拼接） snowflake算法 数据库自增
+          1 概念1 定义定义一个算法的骨架，允许子类为一个或者多个步骤提供实现。 使子类在不改变算法结构的情况下，重新定义算法的某些步骤 类型：行为型 2 应用场景 一次性实现一个算法不变的部分，并将可变的行为留给子类实现  将各类中公共的行为抽取出来到一个公共的父类中，避免代码重复   3 优缺点优点：  提高复用性 提高扩展性 符合开闭原则  缺点：  类数目增加 增加系统复杂度 继承自身缺点，如果父
         </div>
       </a>
 
@@ -228,8 +228,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 10:11" pubdate>
-              2023-03-17
+            <time datetime="2023-10-04 16:14" pubdate>
+              2023-10-04
             </time>
           </div>
         
@@ -244,7 +244,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" class="category-chain-item">分布式</a>
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
   
   
 
@@ -266,15 +266,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/jenkins%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/" target="_self">
-          jenkins部署vue项目
+        <a href="/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" target="_self">
+          桥接模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/jenkins%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/" target="_self">
+      <a class="index-excerpt" href="/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          1 配置nodeJs因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。官方文档  系统管理—&gt;管理插件—&gt;下载NodeJS插件    系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本  Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&amp;#x2F
+          1 概念1 定义桥接模式是将抽象部分与它的实现部分分离，使它们都可以独立地变化。它是用组合关系代替继承关系来实现，从而降低了抽象和实现这两个可变维度的耦合度。 类型：结构型  桥我们大家都熟悉，顾名思义就是用来将河的两岸联系起来的。而此处的桥是用来将两个独立的结构联系起来，而这两个被联系起来的结构可以独立的变化。  2 应用场景 一个类存在两个独立变化的维度，且这两个维度都需要进行扩展。（如中国工
         </div>
       </a>
 
@@ -282,8 +282,332 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 14:44" pubdate>
-              2023-03-15
+            <time datetime="2023-10-04 14:50" pubdate>
+              2023-10-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" target="_self">
+          组合模式
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          
+          1 概念1 定义将对象组合成树形结构以表示“部分——整体”的层次结构 组合模式使客户端对单个对象和组合对象保持一致的处理方式 类型：结构型 2 适用场景 希望客户端可以忽略组合对象和单个对象之前的差异 处理树形结构时  3 优缺点优点  让客户端忽略了层次的差异，方便对整个层次进行控制。简化客户端代码 符合开闭原则  缺点  使设计变得抽象  2 代码实现场景：打印课程目录和课程的层次关系。课程的
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-04 14:01" pubdate>
+              2023-10-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" target="_self">
+          享元模式
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          
+          1 概念1. 定义“享”就表示共享，“元”表示对象。如果在一个系统中存在多个相同的对象，那么只需要共享一份对象的拷贝,而不必为每一次使用都创建新的对象。目的是减少对象创建，减少内存占用，提高系统性能。 类型：结构型  比如：去图书馆借书，如果书架上有这本书直接拿走，到借阅机上借阅就好了，如果没有，可以到图书管理处去拿一本新书。对于整个图书馆来说，书其实就是共享的。对于我们借书的流程和图书共享的方式
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-04 11:12" pubdate>
+              2023-10-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
+          适配器模式
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          
+          1 概念1 定义将一个类的接口转换成客户期望的另一个接口。使得原本不兼容的类，可以一起工作 类型：结构型 分类： 对象适配器：使用组合 类适配器：使用类继承 2 适用场景 已经存在的类，他的方法和需求不匹配时（方法的结果相同或相似） 不是软件设计阶段考虑的设计模式，是随着软件的维护，由于不同产品，不同厂家造成功能类似而接口不相同情况下的解决方案  3 优缺点优点：  提高类的透明性和复用，现有的类
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-03 21:57" pubdate>
+              2023-10-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+          装饰者模式
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          
+          1. 概念1. 定义在不改变原有对象的基础上，将功能附加到对象上 提供了比继承，更有弹性的替代方案（扩展原有对象功能） 类型：结构型 2 适用场景 扩展一个类的功能，或者给一个类添加附加职责  动态的给一个对象添加功能，这些功能可以再动态撤销   3 优缺点优点：  继承的有力补充，比继承灵活，不改变原有对象的情况下，给一个对象添加功能  通过使用不同的装饰类以及这些装饰类的排列组合，可以实现不同
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-03 21:23" pubdate>
+              2023-10-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" target="_self">
+          外观模式
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          
+          1 概念1 定义外观模式（Facade Pattern）：又叫门面模式，引入一个外观角色来简化调用者与各个子系统之间的交互，向客户端提供了一个统一的接口，用来访问子系统中的一群接口。 类型： 结构型 2 适用场景 当调用者需要调用多个子系统来完成自己的逻辑  3 优缺点优点：  给各个子系统提供统一的入口，无需深入了解子系统，调用者使用起来很简单 把各个子系统和调用者解耦，扩展性会更好 更好的划分
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-03 20:46" pubdate>
+              2023-10-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/docker%E9%83%A8%E7%BD%B2jenkins%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" target="_self">
+          docker部署jenkins常见问题
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/docker%E9%83%A8%E7%BD%B2jenkins%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" target="_self">
+        <div>
+          
+          1 需要迁移的文件夹将老服务器jenkins主目录下的config.xml文件以及jobs、users、workspace、plugins四个目录拷贝到新机器的jenkins主目录下。 docker cp &#x2F;Users&#x2F;panyurou&#x2F;.jenkins&#x2F;jobs  6257c7abfa11:&#x2F;var&#x2F;jenkins_home&#x2F;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-03 18:41" pubdate>
+              2023-10-03
             </time>
           </div>
         
@@ -320,15 +644,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E6%9D%83%E9%99%90/" target="_self">
-          权限
+        <a href="/%E5%B8%B8%E7%94%A823%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
+          常用23种设计模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E6%9D%83%E9%99%90/" target="_self">
+      <a class="index-excerpt" href="/%E5%B8%B8%E7%94%A823%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          ![image-20230227215016860](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230227215016860.png) ![image-20230227215417463](&#x2F;Users&#x2F;panyuro
+          1 分类1 创建型模式（五种）单例模式  工厂方法模式 抽象工厂模式 建造者模式 原型模式 2. 结构型模式（七种）适配器模式 装饰器模式 代理模式 外观模式 桥接模式 组合模式 享元模式 3 行为型模式（十一种）策略模式 模板方法模式 观察者模式 迭代子模式 责任链模式 命令模式 备忘录模式 状态模式 访问者模式 中介者模式 解释器模式 2 对比1 享元模式与单例模式的区别 享元设计模式是一个类
         </div>
       </a>
 
@@ -336,41 +660,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-27 21:50" pubdate>
-              2023-02-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Shiro%E5%85%A5%E9%97%A8/" target="_self">
-          Shiro入门
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Shiro%E5%85%A5%E9%97%A8/" target="_self">
-        <div>
-          
-          1. shiro 概念 Apache Shiro™是一个强大且易用的Java安全框架,能够用于身份验证、授权、加密和会话管理 Shiro拥有易于理解的API,您可以快速、轻松地获得任何应用程序——从最小的移动应用程序到最大的网络和企业应用程序。  2. shiro优缺点优点：   提供了一套框架，易于使用 更灵活，应对需求能力强，web能力强 可与很多框架进行集成  缺点：  操作的界面需要自己实
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-26 21:09" pubdate>
-              2023-02-26
+            <time datetime="2023-10-03 17:34" pubdate>
+              2023-10-03
             </time>
           </div>
         
@@ -385,129 +676,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="category-chain-item">权限管理</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Shiro/">#Shiro</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/springSecurity/" target="_self">
-          SpringSecurity
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/springSecurity/" target="_self">
-        <div>
-          
-          1. 权限管理1.1. 为什么需要权限管理 安全性：误操作、认为破坏、数据泄漏等 数据隔离：不同的权限可以看到不同的数据 明确职责：销售、开发等不同角色，leader和dev不同级别，不同职责可以看到不同的数据  1.2. 理想的权限管理 能实现角色级权限 能实现功能级、数据级权限 简单、易操作、能够应对各种需求  2. SpringSecurity2.1.  概念 Spring Security
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-18 23:01" pubdate>
-              2023-02-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="category-chain-item">权限管理</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/SpringSecurity/">#SpringSecurity</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E7%BD%91%E5%85%B3/" target="_self">
-          Activiti——网关
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E7%BD%91%E5%85%B3/" target="_self">
-        <div>
-          
-          网关用来控制流程的流向  1. 排他网关ExclusiveGateway1.1 概念排他网关，用来在流程中实现决策。 当流程执行到这个网关，所有分支都会判断条件是否为true，如果为true则执行该分支，排他网关只会选择一个为true的分支执行。如果有两个分支条件都为true，排他网关会选择id值较小的一条分支去执行。 为什么要用排他网关？ 不用排他网关也可以实现分支，如：在连线的condit
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-12 21:51" pubdate>
-              2023-02-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
   
   
 
@@ -529,15 +698,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E7%BB%84%E4%BB%BB%E5%8A%A1/" target="_self">
-          Activiti——组任务
+        <a href="/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" target="_self">
+          原型模式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E7%BB%84%E4%BB%BB%E5%8A%A1/" target="_self">
+      <a class="index-excerpt" href="/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
           
-          在流程定义中在任务结点的 assignee 固定设置任务负责人，在流程定义时将参与者固定设置在.bpmn 文件中，如果临时任务负责人变更则需要修改流程定义，系统可扩展性差。 针对这种情况可以给任务设置多个候选人，可以从候选人中选择参与者来完成任务。  1. 设置任务候选人在流程图中任务节点的配置中设置 candidate-users(候选人)，多个候选人之间用逗号分开。
+          1 概念1 定义原型模式（Prototype）是一种创建型设计模式，它通过克隆现有的对象来创建新的对象。部分场景下，性能要优于new来创建对象 2 应用场景 类初始化消耗比较多的资源 new一个对象需要很繁琐的过程（数据准备，访问权限等） 构造函数比较复杂 循环体中产生大量对象。（避免重复执行构造函数的操作，从而提高性能和效率）  3 优缺点优点：  不需要调用构造函数，比直接new一个对象性能高
         </div>
       </a>
 
@@ -545,8 +714,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-12 20:53" pubdate>
-              2023-02-12
+            <time datetime="2023-10-03 17:33" pubdate>
+              2023-10-03
             </time>
           </div>
         
@@ -561,169 +730,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Activiti%E2%80%94%E2%80%94%E5%88%86%E9%85%8D%E4%BB%BB%E5%8A%A1%E8%B4%9F%E8%B4%A3%E4%BA%BA/" target="_self">
-          Activiti——分配任务负责人
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Activiti%E2%80%94%E2%80%94%E5%88%86%E9%85%8D%E4%BB%BB%E5%8A%A1%E8%B4%9F%E8%B4%A3%E4%BA%BA/" target="_self">
-        <div>
-          
-          1 固定分配在进行业务流程建模时指定固定的任务负责人， 如图：  2 表达式分配Activiti 使用 UEL 表达式， UEL 是 java EE6 规范的一部分， UEL（Unified Expression Language）即 统一表达式语言， activiti 支持两个 UEL 表达式： UEL-value 和 UEL-method。  2.1  UEL-value assignee 这
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-09 23:33" pubdate>
-              2023-02-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E6%B5%81%E7%A8%8B%E5%AE%9A%E4%B9%89%E6%93%8D%E4%BD%9C/" target="_self">
-          Activiti——流程定义操作
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E6%B5%81%E7%A8%8B%E5%AE%9A%E4%B9%89%E6%93%8D%E4%BD%9C/" target="_self">
-        <div>
-          
-          1 流程定义信息查询查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF 1234567891011121314151617@Test   public void queryProcessDefinition()&amp;#123;       ProcessEngine processEngine &#x3D; ProcessEngines.getDefaultP
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-09 23:18" pubdate>
-              2023-02-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/" target="_self">
-          Activiti——流程实例
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/" target="_self">
-        <div>
-          
-          1. 概念流程实例（ProcessInstance）代表流程定义的执行实例。例如：用户或程序按照流程定义内容发起一个流程，这就是一个流程实例。 流程定义和流程实例的图解：  2. 启动流程实例 并添加Businesskey Businesskey：业务标识，通常为业务表的主键，业务标识和流程实例一一对应。业务标识来源于业务系统。存储业务标识就是根据业务标识来关联查询业务系统的数据。 启动流程实例时
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-09 11:17" pubdate>
-              2023-02-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
   
   
 
@@ -743,7 +750,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

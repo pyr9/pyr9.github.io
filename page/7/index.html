@@ -212,15 +212,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/Zookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
-          Zookeeper实现分布式锁
+        <a href="/Java%E6%B3%9B%E5%9E%8B/" target="_self">
+          Java泛型
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/Zookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+      <a class="index-excerpt" href="/Java%E6%B3%9B%E5%9E%8B/" target="_self">
         <div>
           
-          1基于ZooKeeper的分布式锁。适用于高可靠（高可用），而并发量不是太高的场景 优点：不存在锁失效的问题，不需要续命。 缺点：因为需要频繁的创建和删除节点，性能上不如Redis。  在高性能、高并发的应用场景下，不建议使用ZooKeeper的分布式锁。而由于ZooKeeper 的高可用性，因此在并发量不是太高的应用场景中，还是推荐使用ZooKeeper的分布式锁 Zookeeper第三方客户端
+          1.泛型概念1.1 定义泛型是JDK5中引入的特性，可以在编译阶段约束操作的数据类型，并进行检查  java范型在生成字节码的时候会进行擦除 范型格式：&lt;数据类型&gt; 注意：泛型只能支持引用数据类型，因为定义的范型，其实在存入的时候还是会变成Object类型，而基本数据类型，不可以变成Object类型 指定范型类型后，可以传入该类类型及其子类类型  1.2 好处 统一数据类型 运行时期的
         </div>
       </a>
 
@@ -228,8 +228,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-20 15:05" pubdate>
-              2022-09-20
+            <time datetime="2022-11-09 22:31" pubdate>
+              2022-11-09
             </time>
           </div>
         
@@ -244,7 +244,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
   
   
 
@@ -259,7 +259,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">#分布式锁</a>
+              <a href="/tags/%E6%B3%9B%E5%9E%8B/">#泛型</a>
             
           </div>
         
@@ -273,15 +273,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
-          Redis实现分布式锁
+        <a href="/ES6%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+          ES6语法学习笔记
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+      <a class="index-excerpt" href="/ES6%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
         <div>
           
-          1 基于Redis实现分布式锁效率最高，加锁速度最快，因为Redis几乎都是纯内存操作 适用于并发量很大、性能要求很高而可靠性问题可以通过其 他方案去弥补的场景。  1.1 设计原理 利用利用Redis的SETNX key value这个命令获取锁，并设置过期时间，保存线程标示  释放锁时先判断线程标示是否与自己一致，一致则删除锁 (Lua 脚本保证原子性)     SETNX key value
+          1 Let和const Let:  所声明的变量，只在let命令所在的代码块内有效。 const声明一个只读的常量。一旦声明，常量的值就不能改变。const一旦声明变量，就必须立即初始化，不能留到以后赋值。类似final  2 解构赋值 ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。 本质上，这种写法属于“模式匹配”，只要等号两边的模式
         </div>
       </a>
 
@@ -289,8 +289,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-20 15:03" pubdate>
-              2022-09-20
+            <time datetime="2022-11-04 15:53" pubdate>
+              2022-11-04
             </time>
           </div>
         
@@ -305,7 +305,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
   
   
 
@@ -320,7 +320,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">#分布式锁</a>
+              <a href="/tags/es6/">#es6</a>
             
           </div>
         
@@ -334,15 +334,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" target="_self">
-          注册中心
+        <a href="/bootstrap%E5%9F%BA%E6%9C%AC%E6%A0%B7%E5%BC%8F/" target="_self">
+          bootstrap基本样式
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" target="_self">
+      <a class="index-excerpt" href="/bootstrap%E5%9F%BA%E6%9C%AC%E6%A0%B7%E5%BC%8F/" target="_self">
         <div>
           
-          1 什么是注册中心在微服务架构中，注册中心是核心的基础服务之一。 注册中心可以说是微服务架构中的”通讯录“，它记录了服务和服务地址的映射关系。在分布式架构中，服务会注册到这里，当服务需要调用其它服务时，就到这里找到服务的地址，进行调用。 2 为什么要有注册中心通常，在微服务系统中，如果我们现在的会员服务要调订单服务，就只能把ip写死，一旦Ip变更，或者扩容（再增加机器），会员服务就感受不到  所以
+          边框 class&#x3D;”border”  添加边框属性， class&#x3D;”border-top” 显示指定边框。 class&#x3D;””border-0”：边框-删除 class&#x3D;”border-top-0“： 删除或显示特定边框 .rounded元素可以轻松的定义四个圆角的孤度及显示效果  文本颜色 .text-danger .text-secondary .text
         </div>
       </a>
 
@@ -350,8 +350,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-19 18:10" pubdate>
-              2022-09-19
+            <time datetime="2022-10-28 09:43" pubdate>
+              2022-10-28
             </time>
           </div>
         
@@ -366,7 +366,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
   
   
 
@@ -381,9 +381,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#注册中心</a>
-            
-              <a href="/tags/mysql%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#mysql实现注册中心</a>
+              <a href="/tags/CSS/">#CSS</a>
             
           </div>
         
@@ -397,15 +395,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/JVM%E8%B0%83%E4%BC%98/" target="_self">
-          JVM调优
+        <a href="/Spring-Data-JPA-%E4%BD%BF%E7%94%A8JPQL%E5%92%8CSQL/" target="_self">
+          Spring Data JPA 使用JPQL和SQL
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/JVM%E8%B0%83%E4%BC%98/" target="_self">
+      <a class="index-excerpt" href="/Spring-Data-JPA-%E4%BD%BF%E7%94%A8JPQL%E5%92%8CSQL/" target="_self">
         <div>
           
-          1 调优原则 多数导致GC问题的Java应⽤，都不是因为我们参数设置错误，⽽是代码问题；  实际使用中，分析GC优化代码，比优化JVM参数效果要好，JVM 参数的默认（推荐）值都是经过 JVM 团队的反复测试和前人的充分验证得出的比较合理的值，因此通常来说是比较靠谱和通用的，一般不会出大问题。  如果满足下面的指标，则一般不需要进行GC：  Minor GC执行时间不到50ms，不低于10秒一次；
+          2 spring Data JPA 使用JPQLJPQL（Java Presistence Query Language ）是EJB3.0中的JPA造出来的对象查询语言。JPQL是完全面向对象的，具备继承、多态和关联等特性，和hibernate HQL很相似。  Repository 方法  123456789101112131415161718192021222324252627282930pa
         </div>
       </a>
 
@@ -413,8 +411,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-17 16:57" pubdate>
-              2022-09-17
+            <time datetime="2022-10-20 21:58" pubdate>
+              2022-10-20
             </time>
           </div>
         
@@ -429,7 +427,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/JPA/" class="category-chain-item">JPA</a>
   
   
 
@@ -444,9 +442,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
             
-              <a href="/tags/JVM/">#JVM</a>
+              <a href="/tags/springData-JPA/">#springData JPA</a>
             
           </div>
         
@@ -460,15 +458,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
-          垃圾收集器之ZGC收集器
+        <a href="/Spring-Data-JPA-%E4%BD%BF%E7%94%A8QueryDSL/" target="_self">
+          Spring Data JPA 使用QueryDSL
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
+      <a class="index-excerpt" href="/Spring-Data-JPA-%E4%BD%BF%E7%94%A8QueryDSL/" target="_self">
         <div>
           
-          ZGC收集器(-XX:+UseZGC)ZGC是一款JDK 11中新加入的具有实验性质的低延迟垃圾收集器。JDK 11只支持linux系统，JDK 14才支持了macOs和Windows系统  一 特点1. 支持TB量级的堆。这应该可以满足未来十年内，所有JAVA应用的需求了 吧。 2. 最大GC停顿时间不超10ms。 目前一般线上环境运行良好的JAVA应用Minor GC停顿时间在10ms左右，
+          1 QueryDSL 是什么？ QueryDSL是基于ORM框架或SQL平台上的一个通用查询框架。借助QueryDSL可以在任何支持的ORM框架或SQL平台 上以通用API方式构建查询。  JPA是QueryDSL的主要集成技术，是JPQL和Criteria查询的代替方法。目前QueryDSL支持的平台包括 JPA,JDO,SQL,Mongodb 等等  Querydsl扩展能让我们以链式方式代码
         </div>
       </a>
 
@@ -476,8 +474,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-16 13:58" pubdate>
-              2022-09-16
+            <time datetime="2022-10-20 21:52" pubdate>
+              2022-10-20
             </time>
           </div>
         
@@ -492,7 +490,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/JPA/" class="category-chain-item">JPA</a>
   
   
 
@@ -507,9 +505,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+              <a href="/tags/springdata-jpa/">#springdata jpa</a>
             
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
+              <a href="/tags/queryDSL/">#queryDSL</a>
             
           </div>
         
@@ -523,15 +521,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
-          垃圾收集器之G1收集器
+        <a href="/Spring%20data%20JPA%E7%9A%84CRUD/" target="_self">
+          Spring data JPA的CRUD
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
+      <a class="index-excerpt" href="/Spring%20data%20JPA%E7%9A%84CRUD/" target="_self">
         <div>
           
-          G1收集器(-XX:+UseG1GC)G1 (Garbage-First)是一款面向服务器的垃圾收集器,主要针对配备多核处理器及大容量内存的机器. 满足可预测的停顿时间停顿时间的同时,还具备高吞吐量性能特征.   一 特点1. 分代收集 虽然G1可以不需要其他收集器配合就能独立管理整个GC堆，但是还是保留了分代的概念  G1将Java堆划分为多个大小相等的独立区域（Region），一般Region
+          1 Spring data JPA的CRUD1.1 引入依赖123456789101112131415161718192021222324252627282930dependencies&gt;        &lt;dependency&gt;            &lt;groupId&gt;org.springframework.data&lt;&#x2F;groupId&gt;
         </div>
       </a>
 
@@ -539,8 +537,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-15 16:57" pubdate>
-              2022-09-15
+            <time datetime="2022-10-19 22:49" pubdate>
+              2022-10-19
             </time>
           </div>
         
@@ -555,7 +553,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/JPA/" class="category-chain-item">JPA</a>
   
   
 
@@ -570,9 +568,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
             
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
+              <a href="/tags/springData-JPA/">#springData JPA</a>
             
           </div>
         
@@ -586,15 +584,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
-          垃圾收集器
+        <a href="/%E5%9F%BA%E4%BA%8EJPA%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
+          基于JPA的数据库操作
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
+      <a class="index-excerpt" href="/%E5%9F%BA%E4%BA%8EJPA%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
         <div>
           
-          1 垃圾收集算法1.1 分代收集算法当前虚拟机的垃圾收集都采用分代收集算法，只是根据对象存活周期的不同将内存分为几块。一般将java堆分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。  新生代使用：复制算法 新生代中，每次收集都会有大量对象(近99%)死去，所以可以选择复制算法，只需要付出少量对象的复制成本就可以完成每次垃圾收集。  老年代使用：标记 - 清除 或者 标
+          产生原因：如果单独使用hibernate的API来进行持久化操作，则不能随意切换其他ORM框架 1 操作步骤1.1 导入依赖1234567891011121314151617&lt;dependency&gt;  &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&amp;g
         </div>
       </a>
 
@@ -602,8 +600,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 17:33" pubdate>
-              2022-09-14
+            <time datetime="2022-10-19 21:55" pubdate>
+              2022-10-19
             </time>
           </div>
         
@@ -618,7 +616,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/JPA/" class="category-chain-item">JPA</a>
   
   
 
@@ -633,11 +631,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-            
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">#垃圾收集算法</a>
-            
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
             
           </div>
         
@@ -651,15 +645,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/" target="_self">
-          JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数
+        <a href="/%E5%9F%BA%E4%BA%8EHibernate%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
+          基于Hibernate数据库操作
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/" target="_self">
+      <a class="index-excerpt" href="/%E5%9F%BA%E4%BA%8EHibernate%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
         <div>
           
-          场景分析有一个订单系统，需要支持每秒支持下300个订单。假定每个订单对象是1kb，那么每秒将会有300kb对象生成。 下单可能还涉及创建其他对象创建，比如库存，优惠卷，积分，以及这个系统可能还支持订单的查询，我们放大20倍，那么就是300 * 20  &#x3D; 6000kb，约60MB，也就是这个系统每秒会产生60M的垃圾。  假设机器是4核8G，那么一般可能会给我们虚拟机分配个四五G的内存，
+          1 基于Hibernate数据库操作1.1 操作步骤1.1.1 导入依赖1234567891011&lt;dependency&gt;    &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;    &lt;version&gt;8.0.29&lt;&#x2F;ve
         </div>
       </a>
 
@@ -667,8 +661,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 17:29" pubdate>
-              2022-09-14
+            <time datetime="2022-10-16 22:44" pubdate>
+              2022-10-16
             </time>
           </div>
         
@@ -683,7 +677,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/JPA/" class="category-chain-item">JPA</a>
   
   
 
@@ -698,7 +692,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+            
+              <a href="/tags/Hibernate/">#Hibernate</a>
             
           </div>
         
@@ -712,15 +708,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
-          对象内存分配
+        <a href="/JPA%E5%92%8Chibernate%E5%92%8CSpringDataJpa/" target="_self">
+          JPA和hibernate和SpringDataJpa
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
+      <a class="index-excerpt" href="/JPA%E5%92%8Chibernate%E5%92%8CSpringDataJpa/" target="_self">
         <div>
           
-          对象内存分配策略 JVM通过逃逸分析确定该对象不会被外部访问。如果不会逃逸可以将该对象在栈上分配内存 大多数情况下，对象在新生代中 Eden 区分配。 大对象直接进入老年代 长期存活的对象将进入老年代  对象动态年龄判断 老年代空间分配担保机制  对象栈上分配概念 我们通过JVM内存分配可以知道JAVA中的对象都是在堆上进行分配，当对象没有被引用的时候，需要依靠GC进行回收内存，如果对象数量较多的
+          Java访问持久层的两种方式  以Sql为核心，封装一定程度的JDBC操作，比如mybatis 以Java实体类为核心，将实体类和数据表之间建立连接，也就是我们说的ORM框架，比如：Hibernate,SpringData jpa  1. JPAJPA顾名思义就是Java Persistence API的意思  使用注解或XML描述对象－关系表的映射关系 将运行期的实体对象持久化到数据库中 定义了
         </div>
       </a>
 
@@ -728,8 +724,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 16:04" pubdate>
-              2022-09-14
+            <time datetime="2022-10-16 16:03" pubdate>
+              2022-10-16
             </time>
           </div>
         
@@ -744,7 +740,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/JPA/" class="category-chain-item">JPA</a>
   
   
 
@@ -759,7 +755,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+              <a href="/tags/JPA/">#JPA</a>
             
           </div>
         
@@ -773,15 +769,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/JVM%E5%86%85%E5%AD%98%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" target="_self">
-          JVM内存参数设置
+        <a href="/Vue%E5%85%A5%E9%97%A8/" target="_self">
+          Vue入门
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/JVM%E5%86%85%E5%AD%98%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" target="_self">
+      <a class="index-excerpt" href="/Vue%E5%85%A5%E9%97%A8/" target="_self">
         <div>
           
-          JVM内存参数设置 JVM参数设置格式Spring Boot程序的JVM参数设置格式(Tomcat启动直接加在bin目录下catalina.sh文件里)： 1java ‐Xms2048M ‐Xmx2048M ‐Xmn1024M ‐Xss512K ‐XX:MetaspaceSize&#x3D;256M ‐XX:MaxMetaspaceSize&#x3D;256M ‐jar microservice‐eureka‐ser
+          1 Vue是什么？ vue是一套JavaScript框架 Vue可以简化Dom操作 响应式数据驱动  2 hello world 导入Vue  1&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue@2&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;   创建Vue实例对象，设置el属性和data属性 使用简洁的模板语
         </div>
       </a>
 
@@ -789,8 +785,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 16:02" pubdate>
-              2022-09-14
+            <time datetime="2022-09-26 15:25" pubdate>
+              2022-09-26
             </time>
           </div>
         
@@ -805,7 +801,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
   
   
 
@@ -820,7 +816,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
             
           </div>
         
@@ -832,7 +828,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
