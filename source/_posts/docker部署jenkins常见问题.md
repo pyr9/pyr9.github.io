@@ -3,6 +3,7 @@ title: docker部署jenkins常见问题
 date: 2023-10-03 18:41:50
 tags:
 categories: jenkins
+password: hello
 ---
 
 # 1 需要迁移的文件夹
