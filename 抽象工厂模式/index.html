@@ -16,30 +16,23 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁   2 基于数据库实现分布式锁基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，">
+    <meta name="description" content="1 概念1 定义在工厂父类定义一个创建对象的接口，而工厂子类则负责生成一组相关的对象。这些对象之间通常有某种关联或依赖关系。 抽象工厂模式适用于需要创建多个相关对象并确保它们之间的一致性的情况。 2 应用场景 客户端不依赖某个产品实例具体如何创建 强调一系列相关的产品对象一起创建使用  3 优缺点优点：  用户只需要关心产品所需工厂，无需关心创建细节  将一个系列的产品族统一到一起创建：抽象工厂模">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库实现分布式锁">
-<meta property="og:url" content="http://example.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
+<meta property="og:title" content="抽象工厂模式">
+<meta property="og:url" content="http://example.com/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁   2 基于数据库实现分布式锁基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，">
+<meta property="og:description" content="1 概念1 定义在工厂父类定义一个创建对象的接口，而工厂子类则负责生成一组相关的对象。这些对象之间通常有某种关联或依赖关系。 抽象工厂模式适用于需要创建多个相关对象并确保它们之间的一致性的情况。 2 应用场景 客户端不依赖某个产品实例具体如何创建 强调一系列相关的产品对象一起创建使用  3 优缺点优点：  用户只需要关心产品所需工厂，无需关心创建细节  将一个系列的产品族统一到一起创建：抽象工厂模">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222626149.png">
-<meta property="article:published_time" content="2021-12-29T15:45:20.000Z">
-<meta property="article:modified_time" content="2023-03-17T02:10:37.350Z">
+<meta property="article:published_time" content="2023-10-05T07:32:29.000Z">
+<meta property="article:modified_time" content="2023-10-05T08:01:02.239Z">
 <meta property="article:author" content="Panyurou">
-<meta property="article:tag" content="分布式框架">
-<meta property="article:tag" content="zookeeper">
-<meta property="article:tag" content="mysql">
-<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>数据库实现分布式锁 - 楼上有只喵</title>
+  <title>抽象工厂模式 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -191,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="数据库实现分布式锁"></span>
+            <span id="subtitle" data-typed-text="抽象工厂模式"></span>
           
         </div>
 
@@ -202,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-12-29 23:45" pubdate>
-          2021年12月29日 晚上
+        <time datetime="2023-10-05 15:32" pubdate>
+          2023年10月5日 下午
         </time>
       </span>
     
@@ -215,7 +208,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.6k 字
+          2k 字
         
       </span>
     
@@ -227,7 +220,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          7 分钟
         
       </span>
     
@@ -275,40 +268,55 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">数据库实现分布式锁</h1>
+            <h1 style="display: none">抽象工厂模式</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-什么是分布式锁"><a href="#1-什么是分布式锁" class="headerlink" title="1 什么是分布式锁"></a>1 什么是分布式锁</h1><ul>
-<li>在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。</li>
-<li>在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁</li>
+              <h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a><strong>1 概念</strong></h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1 定义"></a><strong>1 定义</strong></h2><p>在工厂父类定义一个创建对象的接口，而工厂子类则负责生成<strong>一组相关的对象</strong>。这些对象之间通常有某种关联或依赖关系。</p>
+<p>抽象工厂模式适用于需要创建多个相关对象并确保它们之间的一致性的情况。</p>
+<h2 id="2-应用场景"><a href="#2-应用场景" class="headerlink" title="2 应用场景"></a><strong>2 应用场景</strong></h2><ul>
+<li>客户端不依赖某个产品实例具体如何创建</li>
+<li>强调一系列相关的产品对象一起创建使用</li>
 </ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png" srcset="/img/loading.gif" lazyload alt="image-20230228222616394"></p>
-<h1 id="2-基于数据库实现分布式锁"><a href="#2-基于数据库实现分布式锁" class="headerlink" title="2 基于数据库实现分布式锁"></a>2 基于数据库实现分布式锁</h1><p>基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，这刚好符合我们对锁的要求</p>
-<h2 id="2-1-设计原理"><a href="#2-1-设计原理" class="headerlink" title="2.1 设计原理"></a>2.1 设计原理</h2><ul>
-<li>同一时刻只能允许一个竞争者获取锁。加锁时我们在数据库中插入一条记录，利用唯一键进行防重。</li>
-<li>当竞争者A加锁成功后，第竞争者B再来加锁就会抛出唯一索引冲突，如果抛出这个异常，我们就判定竞争者B加锁失败</li>
-<li>竞争者B加锁失败后，会阻塞等待，一直到竞争者A释放锁（也就是删除记录后），再去获取锁</li>
+<h2 id="3-优缺点"><a href="#3-优缺点" class="headerlink" title="3 优缺点"></a><strong>3 优缺点</strong></h2><p>优点：</p>
+<ul>
+<li><p>用户只需要关心产品所需工厂，无需关心创建细节</p>
+</li>
+<li><p>将一个系列的产品族统一到一起创建：抽象工厂模式通过一组相关的工厂类来创建一系列相关或依赖的对象，确保了这些对象之间的一致性。这意味着创建的对象是相互配合、一起使用的，能够满足特定的需求或目标。</p>
+</li>
 </ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222626149.png" srcset="/img/loading.gif" lazyload alt="image-20230228222626149"></p>
-<h2 id="2-2-实现注意事项"><a href="#2-2-实现注意事项" class="headerlink" title="2.2 实现注意事项"></a>2.2 实现注意事项</h2><ul>
-<li>没有锁超时机制。如果程序发生了异常，将无法删除数据，也就是锁无法被释放掉，需要自己写一套锁超时机制，比如：在表中新增一列，用于记录失效时间，并且需要有定时任务清除这些失效的数据；</li>
-<li>基于数据库实现的，数据库的可用性和性能将直接影响分布式锁的可用性及性能，可以考虑实现数据库的高可用方案</li>
-<li>自旋实现阻塞效果。当获取锁失败时自旋转</li>
-<li>如果使用数据库自增 id ,<strong>规律太明显</strong></li>
-<li><strong>受单表数据量的限制</strong> 在高并发场景下，我们都知道 MySQL 的单张表根本不可能容纳大量数据（性能等原因的限制）；如果是将单表拆成多表，还是用数据库自增 id 的话，就存在了 id 重复的情况了，很显然这是业务不允许的。</li>
+<p>缺点：</p>
+<ul>
+<li>产品族中扩展新的产品困难</li>
+<li>增加了系统的抽象性和理解难度</li>
 </ul>
 <blockquote>
-<p>db操作性能较差，并且有锁表的风险，一般不考虑。</p>
+<p>产品族是指一组相关联或依赖的产品，它们在功能、特性或目标上具有一定的相似性或关联性。产品族通常由多个具体产品组成，每个具体产品属于同一个产品族。</p>
+<p>举例来说，假设有一个汽车制造系统，其中包含了多个产品族：轿车产品族、SUV产品族和卡车产品族。每个产品族包含了各自的具体产品，如轿车产品族可能包含了轿车的具体型号（如小型轿车、中型轿车、豪华轿车等），SUV产品族可能包含了SUV的具体型号（如紧凑型SUV、中型SUV、全尺寸SUV等）</p>
 </blockquote>
-<h2 id="2-3-代码示例"><a href="#2-3-代码示例" class="headerlink" title="2.3 代码示例"></a>2.3 代码示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"> */<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractLock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Lock</span></span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 加锁，增加重试逻辑</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//尝试获取锁</span><br>        <span class="hljs-keyword">if</span>(tryLock())&#123;<br>            System.out.println(<span class="hljs-string">&quot;---------获取锁---------&quot;</span>);<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//等待锁 阻塞</span><br>            waitLock();<br>            <span class="hljs-comment">//重试</span><br>            lock();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a><strong>2 代码实现</strong></h1><p>场景： 不同的课程，配置的博客和视频都是不一样的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 博客</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Article</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">produce</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaArticle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Article</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">produce</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;编写Java课程博客&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PythonArticle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Article</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">produce</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;编写Python课程博客&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MysqlDistributedLock</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractLock</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> MethodlockMapper baseMapper;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//插入一条数据   insert into</span><br>            baseMapper.insert(<span class="hljs-keyword">new</span> Methodlock(<span class="hljs-string">&quot;lock&quot;</span>));<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            <span class="hljs-comment">//插入失败</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">waitLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            Thread.sleep(<span class="hljs-number">10</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//删除数据   delete</span><br>        baseMapper.deleteByMethodlock(<span class="hljs-string">&quot;lock&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;-------释放锁------&quot;</span>);<br>    &#125;<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 视频</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Video</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">produce</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaVideo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Video</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">produce</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;录制Java课程视频&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PythonVideo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Video</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">produce</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;录制Python课程视频&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 课程工厂接口，创建不同课程的视频和博客</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CourseFactory</span> </span>&#123;<br>    <span class="hljs-function">Video <span class="hljs-title">getVideo</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function">Article <span class="hljs-title">getArticle</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaCourseFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">CourseFactory</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Video <span class="hljs-title">getVideo</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JavaVideo();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Article <span class="hljs-title">getArticle</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JavaArticle();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PythonCourseFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">CourseFactory</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Video <span class="hljs-title">getVideo</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PythonVideo();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Article <span class="hljs-title">getArticle</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PythonArticle();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        CourseFactory courseFactory = <span class="hljs-keyword">new</span> JavaCourseFactory();<br>        Video video = courseFactory.getVideo();<br>        Article article = courseFactory.getArticle();<br>        video.produce();<br>        article.produce();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<p>录制Java课程视频<br>编写Java课程博客</p>
 
               
             </div>
@@ -326,7 +334,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
   
   
 
@@ -338,19 +346,6 @@
     </div>
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
-      
-        <a href="/tags/zookeeper/">#zookeeper</a>
-      
-        <a href="/tags/mysql/">#mysql</a>
-      
-        <a href="/tags/redis/">#redis</a>
-      
-    </div>
-  
 </div>
 
 
@@ -359,8 +354,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>数据库实现分布式锁</div>
-      <div>http://example.com/数据库实现分布式锁/</div>
+      <div>抽象工厂模式</div>
+      <div>http://example.com/抽象工厂模式/</div>
     </div>
     <div class="license-meta">
       
@@ -372,7 +367,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年12月29日</div>
+          <div>2023年10月5日</div>
         </div>
       
       
@@ -402,18 +397,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/zookeeper%E5%85%A5%E9%97%A8/" title="">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Redis%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" title="Redis缓存问题">
-                        <span class="hidden-mobile">Redis缓存问题</span>
+                      <a href="/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="工厂模式">
+                        <span class="hidden-mobile">工厂模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

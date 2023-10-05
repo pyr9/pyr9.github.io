@@ -16,15 +16,15 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 概念1 定义当一个对象内在状态改变时允许改变其行为。 类型：行为型 2 应用场景一个对象存在多个状态（不同状态下行为不同），且状态可以转换 3 优缺点优点：  将不同状态隔离 将各种状态的转换逻辑，分布到state的子类中，减少互相依赖 增加新的状态简单  缺点：  状态多的场景下，导致类数目增加，系统变复杂  2 代码实现场景：网站的课程视频有暂停，快进，停止，播放状态 1234567891">
+    <meta name="description" content="1 概念1 定义当一个对象内在状态改变时允许改变其行为。比如：停止状态下，不允许快进视频这个行为 类型：行为型 核心角色  环境类（Context）：环境类是拥有状态的对象。它维护一个指向当前状态对象的引用，并将与状态相关的请求委托给状态对象进行处理。 抽象状态类（State）：抽象状态类定义了一个接口，用于封装与环境对象相关的行为。它可以根据具体的状态进行具体的行为实现。 具体状态类（Concr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="状态模式">
 <meta property="og:url" content="http://example.com/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 概念1 定义当一个对象内在状态改变时允许改变其行为。 类型：行为型 2 应用场景一个对象存在多个状态（不同状态下行为不同），且状态可以转换 3 优缺点优点：  将不同状态隔离 将各种状态的转换逻辑，分布到state的子类中，减少互相依赖 增加新的状态简单  缺点：  状态多的场景下，导致类数目增加，系统变复杂  2 代码实现场景：网站的课程视频有暂停，快进，停止，播放状态 1234567891">
+<meta property="og:description" content="1 概念1 定义当一个对象内在状态改变时允许改变其行为。比如：停止状态下，不允许快进视频这个行为 类型：行为型 核心角色  环境类（Context）：环境类是拥有状态的对象。它维护一个指向当前状态对象的引用，并将与状态相关的请求委托给状态对象进行处理。 抽象状态类（State）：抽象状态类定义了一个接口，用于封装与环境对象相关的行为。它可以根据具体的状态进行具体的行为实现。 具体状态类（Concr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-04T14:32:37.000Z">
-<meta property="article:modified_time" content="2023-10-04T14:49:19.547Z">
+<meta property="article:modified_time" content="2023-10-04T15:00:15.647Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -208,7 +208,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          4.2k 字
+          4.4k 字
         
       </span>
     
@@ -272,8 +272,14 @@
             
             <div class="markdown-body">
               
-              <h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a><strong>1 概念</strong></h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1 定义"></a><strong>1 定义</strong></h2><p>当一个对象内在状态改变时允许改变其行为。</p>
+              <h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a><strong>1 概念</strong></h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1 定义"></a><strong>1 定义</strong></h2><p>当一个对象内在状态改变时允许改变其行为。比如：停止状态下，不允许快进视频这个行为</p>
 <p>类型：行为型</p>
+<p><strong>核心角色</strong></p>
+<ol>
+<li>环境类（Context）：环境类是拥有状态的对象。它维护一个指向当前状态对象的引用，并将与状态相关的请求委托给状态对象进行处理。</li>
+<li>抽象状态类（State）：抽象状态类定义了一个接口，用于封装与环境对象相关的行为。它可以根据具体的状态进行具体的行为实现。</li>
+<li>具体状态类（Concrete State）：具体状态类实现了抽象状态类中定义的接口，提供了与具体状态相关的行为实现。</li>
+</ol>
 <h2 id="2-应用场景"><a href="#2-应用场景" class="headerlink" title="2 应用场景"></a><strong>2 应用场景</strong></h2><p>一个对象存在多个状态（不同状态下行为不同），且状态可以转换</p>
 <h2 id="3-优缺点"><a href="#3-优缺点" class="headerlink" title="3 优缺点"></a><strong>3 优缺点</strong></h2><p>优点：</p>
 <ul>
@@ -381,6 +387,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" title="代理模式">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">代理模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
