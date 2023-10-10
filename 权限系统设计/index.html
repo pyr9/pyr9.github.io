@@ -16,23 +16,28 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
+    <meta name="description" content="1. 为什么需要权限管理权限管理是公司数据安全的重要保证，针对不同的岗位，不同的级别看到的数据是不一样的，操作数据的限制也是不一样的。 2. 权限设计的结构业务分类上来讲权限可以分为数据查看权限，数据修改权限等。 对应到系统设计中有页面权限、菜单权限、按钮权限等。菜单也分一级菜单、二级菜单甚至三级菜单，菜单对应的页面里又有很多按钮。 我们在设计的时候最好把权限设计成树形结构，这样在申请权限的时候就">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker部署jenkins常见问题">
-<meta property="og:url" content="http://example.com/docker%E9%83%A8%E7%BD%B2jenkins%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="权限系统设计">
+<meta property="og:url" content="http://example.com/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:description" content="1. 为什么需要权限管理权限管理是公司数据安全的重要保证，针对不同的岗位，不同的级别看到的数据是不一样的，操作数据的限制也是不一样的。 2. 权限设计的结构业务分类上来讲权限可以分为数据查看权限，数据修改权限等。 对应到系统设计中有页面权限、菜单权限、按钮权限等。菜单也分一级菜单、二级菜单甚至三级菜单，菜单对应的页面里又有很多按钮。 我们在设计的时候最好把权限设计成树形结构，这样在申请权限的时候就">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-03T10:41:50.000Z">
-<meta property="article:modified_time" content="2023-10-05T09:41:44.668Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005205506829.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005210158217.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005211449511.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005211848749.png">
+<meta property="article:published_time" content="2023-10-05T12:42:17.000Z">
+<meta property="article:modified_time" content="2023-10-05T13:23:09.976Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005205506829.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>docker部署jenkins常见问题 - 楼上有只喵</title>
+  <title>权限系统设计 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +188,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="docker部署jenkins常见问题"></span>
+            <span id="subtitle" data-typed-text="权限系统设计"></span>
           
         </div>
 
@@ -194,8 +199,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-03 18:41" pubdate>
-          2023年10月3日 晚上
+        <time datetime="2023-10-05 20:42" pubdate>
+          2023年10月5日 晚上
         </time>
       </span>
     
@@ -207,7 +212,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          999 字
+          638 字
         
       </span>
     
@@ -219,7 +224,7 @@
         
         
           <!-- compatible with older versions-->
-          4 分钟
+          2 分钟
         
       </span>
     
@@ -267,48 +272,34 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">docker部署jenkins常见问题</h1>
+            <h1 style="display: none">权限系统设计</h1>
             
             <div class="markdown-body">
               
-              <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="6e825ced8d28c058b87add01cfe613d6a4b30cdfe5105b551a6db2dfbcda2d41">10d79030e8222445804370796b90fca1b3149e2c2a0f36d6b4ea04e548758c21a1c5e7f8d0d60727c67efe940d5cbe73530de57df69e6c7f430408a5cc39152e5f34847d5e8f1f5c8dc26e98d47022b2444556cbaf531be9e284ad53cdecc34993df05fbeeb735fbca97a3ded1da0b28ec969ca04ea683a3eae5cb0976355c379be94aa24e851ba75961208a5dda32d1be2b8197fa6ccc629cc572294d7bcf2748297220f7f81e885308b7a23bee089a62a1703fac127ca6db51553b0e2f482416d6ce703b1388640337818dd9461d2f18ce6aea670ae5bcbf6a5f4cf302b1d13db80be9b92f39da3ec1a6afeca9dd9ffb2df66b282b0b8b6e54edd1a26b655bb52014ff1f860265f106df95387d06fbfefbc288e86eb40b621463bf37baa536cf6d99b306796e59a46cd2543b041d696f4f65d20469e9b557d762b3baf2dd060a914ba525b01f304e642033c1ef47f9f9113196ae1067ac2c66537743e8d53007024f0e8a2a5458671f64958e9c1634bea36fcfc42855e490ef5f6727c721e9dcca6a5e1f64076518044331ccd38487a9046e60be97b304cdc57dcbe03d0de6ee6d59a01200c67c7916fcc35dd588559a5fd9527408f0a3d6b431bcac08143f585ff77d1c9039aa11fb28efb4444ec07636b144ac1f91b78c3b6240b54c73bad0b05e1992bd30f10512ba1766c9cb618808376d5cf86db9b38178efdac948c05aff22b3c23fd4e2c4cbe79a0b1b6c9201953ee8ae03370ab4ede0e692bdf6702ed9d3be9de46b2edd229289ea08924ac1a5078936fd5e8012be4560f97f50bb464147ae362aafee184c5c4b45b86da648fde86f2fb37d703dc7bd35363f191814b3f377f131e401fdf953be5173db9c6b73c7c7a015b85a7857f8dce57822956e7c8c0cde3e726fd0781cc3eec41c831938578d4f9a7496eadd891aaebe9782c3b01092351595d4db9cc071cbdba3d3010be3d3b6c14b4adcd426224af44bf33af6bc6a96315fc7cff2251db58521edc6dc9f07b157e180ee7dd9e9b7d3c318b6329b9a85872ff4d3ef685db7f9411ca2758e22b9dc1be31bcd3080e9f1e638a47e17f942158c5260998f1f4b8789af01980dff5bfba182151eff1a8c0de2447b52842ccf7e593e6ae8c5e0eeaacc4c796afa8017c3c26cda631cd8121e2a7f90bdd795243c38e830a03be292fd853273adb2d2aae1592667be23ff8e08ff0e0465cdf58f8e99e75f1825c8bc7022056d4869ceb7d43a0a4421ba39bf262e2b8e3e7d181387bd8dc02f5d8d5cdb936f8675127ff3c1eee7257b6d19b09e06ceb77d70bd0f7727d3470f1791bc2e1e5c15fd4f8c1c51d80858aea1a6ad1435beb825c95a0f07a761f8da953cdc1f66f4e76909ceb4dfb9b291066c4713923e24adf1f5e704472b09c39c14fccbb82e40e5e44b649d1a5cd055714efac8ee514ca1837e90776b15a862e11331d315a47bacbc1fa2c6472006c0761f808a726da9f1de0e1f5077569d792a88b4a982ed0b0e8ce2d7147e93839604009baf5001867e09d7b257a12e953b7eaf62e07ae11c3bcc8356017f800ad7da0b6abe9809efc04e662ec7ad7ecd0bf99f882821d527745c17082efcf1b22e19b97218ab17602ad04c06475b5852fb5a11be2c155ee599fdbaff305a745b017474f26a8777cfabe1d7e626b1de6c5ab03181ee39f2811bdbe30c93910faa3b2528edab5f6749c82e0c8928a7bc8de8bb6ff7ad56a4bb8ee38fc1a9eb68cf3bde3ecc2b5df5587902b745e8570bcd6338f3449c618025c6aba25ab471a19cc09d6841b38f0979b32c1b909a001fe49046f1c064d4f7203e0e5f5ed8bbb896a42b0a3d44dad0b635cb3deca7b8573ad4fd990f623d3954665c29010a7c39e15acfbce584b78d01b648909e9f09e32e0bc3bf0908c1fe5d4f9417bb57630c7c6968b2d473f9835da70cf742e857344e031ea34e48fa41346f09d88e05fdb4244431ea88923279112d9020f50d776714bc72c089ff961303a8c574b40028014d61b8192c7d3b45293a2f7a594880b94ede8d06a1cd6b050c1795d469fa4bec4081af6fc186728a49c5a62af419eebf6b1eeadb43ac2346dfd388019bbcf37a89312c2c7f6394d830c9811313ca72224ab0cebdb54f7009b425e9b36c23ba8b3ff321cae4de780f8bbad99e2dbab86d099b32327b320b3c427a5b8f43d9ed08a1c7f841ab494522e845d7db431780116648e6a81a9df4029904f3bff8c480265836e5bbe8479a6a3675badfa07dcde1c13eaa664ab5f3077f5683a8f10d567064d285f7c7472df418e6c7575c8c479cb9874227b1c146e98b5eab42b99ada5a7019aae37e31a08552f264389bcbd6e33e8c117505652bf9e1c75c4617b78012b678202f01572a5935f243a8e6d02891db7d4d590c6271a703265d36b583c8cd71e006167e8aeb39506522d1d51c844f449aecadc68370c4833daa907877f375a514bb3dbaae9a7990affad57205a5edab735acf67706538a513757b46c0cd059e01e88aa7f7bbb43ce26b7fb861fc24e437f777ea6082ca53ee5f5f436c938ec35bb22d1f2aad67d8474da454b8bd57f0076cec495a2e6c1e4e1a14bb62fb98ae4f87c0d0bde1d36be28cfd2b86d1aa99a1dba9859a0717ce0b94dce003543ab9771765b083b9aa78c064ef92f6edce41bcff61b896d84c30aeefe293cbead937483395e73deb1be14828d33f495aa023e8b940ebf65f4a294d44b7f1eda03cd53e4ee471c5838e2d2179efa0b2f26243c19bce4741403f8ced4feb2ee93e537a4dddf59adc9db0e60a06c0293a052a110c3f670946ee94f965fda562bacf917a465c9c07927b640ee4f61342bdec341a7c8b93a0ee529f85074b9838e4859a32ac50b949b9e42b8cf02a88c454f68c56ddb6e49b7c7389f3ba87db92346a6ba6004d221914186fd79ba15e129144a2580b3e0731201e5c198b3e6ebcc1527e84cc8064338a7df2c21ff4d6168805489d3b617355926c6fef4ed49d4d6719af56008f2698877a49076c54f87ced2608295964ce8ae82794f8dd302ea066bb169b7b75dddb2670983976fce711ef4166b7cd42bfb29ca018f4fb792f999c84dec63f37eed6ff2a8df170d5897837b5b5f13903787c1e6398def46427f8bd96dd91dbb9f31d2eeeba98ae4c7988a442201ebb9ac2bab03ef2b8c101d5de7e8b5f5a3ed80214e85ae91a9887b2f56145adb49d833ee9d41708c3db064845f2f2a0d9ef64104396420aa5976397229d68334530396e935609089a3d0d23dda7ef3c9ed3ff8e5325da05987bfdfdc063c35cdf800618a219c95426b545ab4d7d524501fdc734a845fb7b2e26d62cd44191d577604419781c3bbf4f0bcf9dfb87458efa8dc74d1ea3f78313139b1479d8dde36d7d2b2582144e7f3cb72fbed64856c641338828922ca3f4609d3d631457bd499b2aaae541b8efa3ee1f3a0ee3a3eedce6445ced4e0a8ed0fe272daf21f0e6111cc4878c69ad9118a159eb4528893fa466d503bebc8eafde8814c63581da0711e5a66823e7b3ef8a457d00dbebebd1d76f2dd1ba4fff32ed0c039075c24f1edd3660fb34730e490be7ea711cb9e976cd4ff1ea07bbf1898fb6c7990c89c456e5e110f41b0f269ef1943d199c8f2f03e6a48fa58723243b2535a2bc1ed9dccb59fa21e804bcfded90e4e9289bace1b361c72e1b76f13276508d646f25ad867edc17cd263864604ac9b6c169f085a0c93acb47676b24468713679d6c50e9311deb016c93327b1ad3cbd4382dc276042ec25c37962dd110c0bc4b87020caf637e2ac0e6358fed73a369c266ec2f57302e06a6c0c46a8949b64b242e9de5afc36d906d589d05e74aaeb6ed68967660e8bbac119e36f639e4fc1dda85e3b5ea756b3ef47fa0acbc97de98b2846f2ddb89301300befb0107875a04b79d370be2f58bab9c1d03b711d019737faf51155f0a59fd46cebb3a225eeaf82a4c63c7bd55682bc4aa6aa221f75f13dd8b7a615c5c9eaa5f52ff0a36361d165fdd94adb8c103401c9d4311f2c690c3ccfc2b29bd49fab699520c0127bf37708b44b22c0f10a10431cae682d332429dee319f14c52321ef59810b86ae747ce47280a809be6af8a2992d2ba67f5ead10b0f0a696051bd134b5637efc009023850e6df29e5efa879d1842ab38b406c7cc13a98a6b6ed050a8484cab06dbff722466ff0fc46c75cee73baa9170723262f2d05472a5d5c15b8e287bfc988cf6f8198426d9e42819f4999dddad08d5cc89c1a52c2035cb4eb464bb05c1d294ed9d55fc28d66b82a63dd3e2bceaf6997c6aad226e02288ee6290454f848a754a5fe16cab539441348c918052b115a699f0c47bc747962f53ce10676c57d4b7c19f5b4f79dbfc78566f3846d0db935aa0e6a75766bf1d039e2085ca09921dfd324089d4f2a714685e5ed3e87c239e46576091369d97c3a94af0876a1128e2ea647963f4d905cd0f51e1978f3c542590911d0bc51b589f9fbdca2ed101a9eaeb9ec22dcf059ce351c2ba14dbbf3f251c5a0a7c0cc069c7443a6a416457b4bbe9ab2790aaa3dc86de82e01f696bb9f47ed378b24fb3d6416d54c7ae41b0bc43bda18c6b78522bc0b1cb6808a6d7d25ce922cb131fb45961e0088af5cf279c0b280f9728212b53a8854f5b433723b151ae9c2fb205c72e29b5caa962aa4a5167803d0b21538eb292dd6ca0e6aaa976df0a54297e0a45fb92a9694893b612724eadc8ad4dff245dfc09ee77610bdc2190ca4bdf38715eaae2a99e12fed946d93a481d93425469590a8825c5cc6ced04fd5d951e00390cd63f572c0fca1d3d4e41d848a6bdd1dbed29f4ccc1ced8ebf63c42867e2d34ec5daf3871a0ca15d5c2a8f3a0c2ac3a6ad37fb86c76d04419ea375970b7931e3154200a219b17954d5a41a656b2dc17005049d30e69752968ded1f8a50394ae7cbbf3586d16fe849cb463a9fb04c57232ec6f932cb815da642214254671bf7160f3f6047bd2b21136d0612bd913e5a951e91e714df08a14ce77fe1afc430d950412d49303caafcd56d0f50e05a4eb440</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+              <h1 id="1-为什么需要权限管理"><a href="#1-为什么需要权限管理" class="headerlink" title="1. 为什么需要权限管理"></a>1. 为什么需要权限管理</h1><p><strong>权限管理是公司数据安全的重要保证，针对不同的岗位，不同的级别看到的数据是不一样的，操作数据的限制也是不一样的。</strong></p>
+<h1 id="2-权限设计的结构"><a href="#2-权限设计的结构" class="headerlink" title="2. 权限设计的结构"></a>2. 权限设计的结构</h1><p>业务分类上来讲权限可以分为数据查看权限，数据修改权限等。</p>
+<p>对应到系统设计中有页面权限、菜单权限、按钮权限等。菜单也分一级菜单、二级菜单甚至三级菜单，菜单对应的页面里又有很多按钮。</p>
+<p>我们在设计的时候最好把权限设计成树形结构，这样在申请权限的时候就可以一目了然的看到菜单的结构，需要哪些权限就非常的明了了。</p>
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005205506829.png" srcset="/img/loading.gif" lazyload alt="image-20231005205506829" style="zoom:50%;" />
+
+<h1 id="3-RBAC模型"><a href="#3-RBAC模型" class="headerlink" title="3. RBAC模型"></a>3. <strong>RBAC模型</strong></h1><p>RBAC模型（Role-Based Access Control：基于角色的访问控制）是比较早期提出的权限实现模型。在RBAC模型里面，有3个基础组成部分，分别是：用户、角色和权限</p>
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005210158217.png" srcset="/img/loading.gif" lazyload alt="image-20231005210158217" style="zoom:50%;" />
+
+<blockquote>
+<p>为什么需要角色？</p>
+<p>​       一个用户可以有多个权限，统一一个权限可以被多个用户拥有。这种模型能够满足权限的基本分配能力，但是随着用户数量的增长。每一个用户都需要去分配权限，非常的浪费管理员的时间和精力。</p>
+<p>​      其实很多用户负责同一个业务模块所需要的权限是一样的，也就是他们在这个业务中扮演的角色，因此只需要增加一个角色，给每一个用户都赋予上这个角色就好。</p>
+</blockquote>
+<h1 id="4-标准RBAC模型表设计"><a href="#4-标准RBAC模型表设计" class="headerlink" title="4. 标准RBAC模型表设计"></a>4. 标准RBAC模型表设计</h1><p>标准RBAC模型的表是比较简单了，要表示<code>用户-角色-权限</code>三者之前的关系，首先要创建用户表、角色表、权限表，用户和角色是多对多的关系，角色和权限是多对多的关系，需要再创建两章关系表，分别是用户-角色关系表和角色-权限关系表。</p>
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005211449511.png" srcset="/img/loading.gif" lazyload alt="image-20231005211449511" style="zoom:50%;" />
+
+<h1 id="5-项目权限设计实战"><a href="#5-项目权限设计实战" class="headerlink" title="5 项目权限设计实战"></a>5 项目权限设计实战</h1><h2 id="1-后端权限控制"><a href="#1-后端权限控制" class="headerlink" title="1. 后端权限控制"></a>1. 后端权限控制</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005211848749.png" srcset="/img/loading.gif" lazyload alt="image-20231005211848749"></p>
+<h2 id="2-前端权限控制"><a href="#2-前端权限控制" class="headerlink" title="2. 前端权限控制"></a>2. 前端权限控制</h2>
               
             </div>
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/jenkins/" class="category-chain-item">jenkins</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -319,8 +310,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker部署jenkins常见问题</div>
-      <div>http://example.com/docker部署jenkins常见问题/</div>
+      <div>权限系统设计</div>
+      <div>http://example.com/权限系统设计/</div>
     </div>
     <div class="license-meta">
       
@@ -332,7 +323,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月3日</div>
+          <div>2023年10月5日</div>
         </div>
       
       
@@ -362,18 +353,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" title="外观模式">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">外观模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E5%B8%B8%E7%94%A823%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="常用23种设计模式">
-                        <span class="hidden-mobile">常用23种设计模式</span>
+                      <a href="/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="抽象工厂模式">
+                        <span class="hidden-mobile">抽象工厂模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
