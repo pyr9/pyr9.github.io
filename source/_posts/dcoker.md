@@ -131,7 +131,7 @@ ENTRYPOINT ["/bin/sh"]
 CMD ["-c","ls -l"]
 ```
 
-2. 运行`docker build`
+2. 在Dockerfile所在路径下，运行`docker build -t your-image-name .`
 
 ```
 ➜  docker_dir docker build -t mysh .
@@ -154,7 +154,7 @@ CMD ["-c","ls -l"]
  => => naming to docker.io/library/mysh
 ```
 
-3. 通过` docker run mysh `运行容器
+3. 通过` docker run your-image-name `运行容器
 
 可以看到test01，test02， test4 都已经出现在了容器目录中，当不指定参数命令运行时，默认运行CMD里配置的命令，否则执行参数中的命令
 
