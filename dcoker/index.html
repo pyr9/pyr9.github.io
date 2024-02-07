@@ -18,7 +18,7 @@
   
     <meta name="description" content="1 docker解决了什么问题？比如我们现在开发了一个应用程序比如淘宝App，程序员从头到尾搭建了一套环境开始写代码，比如安装JDK等，代码写完后需要交给测试同事去运行，这事测试同学也需要从头到尾搭建一套环境，但比如JDK版本和你安装的不同，导致无法在测试同学的机器上运行起来，找开发去看问题，此时开发也很无辜，“明明在我的机器上是可以跑起来的”。 在没有容器技术之前，我们可以采用搭建虚拟机，然后测">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dcoker">
+<meta property="og:title" content="docker">
 <meta property="og:url" content="http://example.com/dcoker/index.html">
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1 docker解决了什么问题？比如我们现在开发了一个应用程序比如淘宝App，程序员从头到尾搭建了一套环境开始写代码，比如安装JDK等，代码写完后需要交给测试同事去运行，这事测试同学也需要从头到尾搭建一套环境，但比如JDK版本和你安装的不同，导致无法在测试同学的机器上运行起来，找开发去看问题，此时开发也很无辜，“明明在我的机器上是可以跑起来的”。 在没有容器技术之前，我们可以采用搭建虚拟机，然后测">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418151220544.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418170422909.png">
 <meta property="article:published_time" content="2023-04-18T06:20:45.000Z">
-<meta property="article:modified_time" content="2023-04-23T02:49:57.628Z">
+<meta property="article:modified_time" content="2024-01-30T08:44:31.482Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418145138450.png">
@@ -37,7 +37,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>dcoker - 楼上有只喵</title>
+  <title>docker - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -188,7 +188,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="dcoker"></span>
+            <span id="subtitle" data-typed-text="docker"></span>
           
         </div>
 
@@ -212,7 +212,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          6.4k 字
+          6.7k 字
         
       </span>
     
@@ -224,7 +224,7 @@
         
         
           <!-- compatible with older versions-->
-          20 分钟
+          21 分钟
         
       </span>
     
@@ -272,7 +272,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">dcoker</h1>
+            <h1 style="display: none">docker</h1>
             
             <div class="markdown-body">
               
@@ -349,12 +349,12 @@
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#Owner by Pan Yu Rou</span><br><span class="hljs-keyword">FROM</span> redis<br><span class="hljs-keyword">MAINTAINER</span> pyr<br><span class="hljs-keyword">RUN</span><span class="bash"> mkdir test01</span><br><span class="hljs-keyword">RUN</span><span class="bash"> touch test02</span><br><span class="hljs-keyword">COPY</span><span class="bash"> test3 .</span><br><span class="hljs-keyword">ADD</span><span class="bash"> test4.tar.gz .</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="bash"> [<span class="hljs-string">&quot;/bin/sh&quot;</span>]</span><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;-c&quot;</span>,<span class="hljs-string">&quot;ls -l&quot;</span>]</span><br></code></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>运行<code>docker build</code></li>
+<li>在Dockerfile所在路径下，运行<code>docker build -t your-image-name .</code></li>
 </ol>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs ruby">➜  docker_dir docker build -t mysh .<br>[+] Building <span class="hljs-number">0</span>.5s (<span class="hljs-number">10</span>/<span class="hljs-number">10</span>) FINISHED<br> =&gt; [internal] load build definition from Dockerfile                                                                                                                                                                                                                                              <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; transferring <span class="hljs-symbol">dockerfile:</span> 199B                                                                                                                                                                                                                                                              <span class="hljs-number">0</span>.0s<br> =&gt; [internal] load .dockerignore                                                                                                                                                                                                                                                                 <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; transferring <span class="hljs-symbol">context:</span> 2B                                                                                                                                                                                                                                                                   <span class="hljs-number">0</span>.0s<br> =&gt; [internal] load metadata for docker.io/library/<span class="hljs-symbol">redis:</span>latest                                                                                                                                                                                                                                   <span class="hljs-number">0</span>.0s<br> =&gt; [internal] load build context                                                                                                                                                                                                                                                                 <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; transferring <span class="hljs-symbol">context:</span> 176B                                                                                                                                                                                                                                                                 <span class="hljs-number">0</span>.0s<br> =&gt; [<span class="hljs-number">1</span>/<span class="hljs-number">5</span>] FROM docker.io/library/redis                                                                                                                                                                                                                                                            <span class="hljs-number">0</span>.0s<br> =&gt; [<span class="hljs-number">2</span>/<span class="hljs-number">5</span>] RUN mkdir test01                                                                                                                                                                                                                                                                        <span class="hljs-number">0</span>.2s<br> =&gt; [<span class="hljs-number">3</span>/<span class="hljs-number">5</span>] RUN touch test02                                                                                                                                                                                                                                                                        <span class="hljs-number">0</span>.1s<br> =&gt; [<span class="hljs-number">4</span>/<span class="hljs-number">5</span>] COPY test3 .                                                                                                                                                                                                                                                                            <span class="hljs-number">0</span>.0s<br> =&gt; [<span class="hljs-number">5</span>/<span class="hljs-number">5</span>] ADD test4.tar.gz .                                                                                                                                                                                                                                                                      <span class="hljs-number">0</span>.0s<br> =&gt; exporting to image                                                                                                                                                                                                                                                                            <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; exporting layers                                                                                                                                                                                                                                                                           <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; writing image <span class="hljs-symbol">sha256:</span>679e723aa319cdb9d1aeb923534c200b6ddb60eb9a87c8e7a3814145f716b3ff                                                                                                                                                                                                      <span class="hljs-number">0</span>.0s<br> =&gt; =&gt; naming to docker.io/library/mysh<br></code></pre></td></tr></table></figure>
 
 <ol start="3">
-<li>通过<code>docker run mysh</code>运行容器</li>
+<li>通过<code>docker run your-image-name</code>运行容器</li>
 </ol>
 <p>可以看到test01，test02， test4 都已经出现在了容器目录中，当不指定参数命令运行时，默认运行CMD里配置的命令，否则执行参数中的命令</p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tap">➜  docker_dir docker run mysh<br>total 8<br>drwxr-xr-x<span class="hljs-number"> 2 </span>root root   <span class="hljs-number"> 4096 </span>Apr<span class="hljs-number"> 18 </span>08:14 test01<br>-rw-r--r--<span class="hljs-number"> 1 </span>root root      <span class="hljs-number"> 0 </span>Apr<span class="hljs-number"> 18 </span>08:14 test02<br>drwxr-xr-x<span class="hljs-number"> 2 </span><span class="hljs-number"> 501 </span>dialout<span class="hljs-number"> 4096 </span>Apr<span class="hljs-number"> 18 </span>08:11 test4<br></code></pre></td></tr></table></figure>
@@ -447,6 +447,17 @@
 </ul>
 </li>
 </ul>
+<h1 id="8-修改Docker默认镜像和容器存储位置"><a href="#8-修改Docker默认镜像和容器存储位置" class="headerlink" title="8 修改Docker默认镜像和容器存储位置"></a>8 修改Docker默认镜像和容器存储位置</h1><p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Docker&spm=1001.2101.3001.7020">Docker</a> 默认安装的情况下，会使用 <code>/var/lib/docker/</code> 目录作为存储目录，用以存放拉取的镜像和创建的容器等。不过由于此目录一般都位于系统盘，遇到系统盘比较小，而镜像和容器多了后就容易磁盘空间不足</p>
+<ul>
+<li><p>查看当前<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=docker&spm=1001.2101.3001.7020">docker</a>的默认存储目录 <code>docker info</code> ,默认为<code>/var/lib/docker/</code> </p>
+</li>
+<li><p>编辑 <code>/etc/docker/daemon.json</code> 文件</p>
+<p><code>sudo vim /etc/docker/daemon.json </code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;data-root&quot;</span>: <span class="hljs-string">&quot;/home/docker&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重启docker, 并查看 <code>docker info</code></p>
+</li>
+</ul>
 
               
             </div>
@@ -463,7 +474,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>dcoker</div>
+      <div>docker</div>
       <div>http://example.com/dcoker/</div>
     </div>
     <div class="license-meta">
