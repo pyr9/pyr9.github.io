@@ -202,3 +202,56 @@ systemctl enable docker
 docker update --restart=always jenkins
 ```
 
+
+
+⚠️如果构建的是pipeline, 可参考以下脚本：
+
+```groovy
+pipeline {
+  agent any
+  stages {
+    stage('Git Pull') {
+        steps {
+            // 从 Git 仓库拉取代码
+            deleteDir()
+            echo "start fetch code from git"
+            git branch: 'sith_mom/master', credentialsId: 'sshkey-cre', url: 'git@codeup.aliyun.com:61794b74d39c439da2ee88ff/SIEMENS_MMF/MMF.git'
+        }
+    }
+    
+    stage('Build') {
+        steps {
+            // 打印当前 Java 版本
+            sh 'java -version'
+            // 设置 JAVA_HOME 环境变量为 JDK 1.8 的路径
+            script {
+                env.JAVA_HOME = '/home/jdk1.8.0_381'
+            }
+
+            // 执行 Maven 编译
+             sh '/home/apache-maven-3.6.3/bin/mvn -f mmf-backend/pom.xml -s /home/apache-maven-3.6.3/conf/my-settings.xml -gs /home/apache-maven-3.6.3/conf/my-settings.xml clean package -T 1C -Dmaven.test.skip=true -Dmaven.compile.fork=true'
+        }
+    }
+}
+
+post {
+    always {
+        script {
+            sh '''
+                cd /home
+                bash feishu.sh
+             '''
+        }
+    }
+    success {
+        // 构建成功后的操作
+        echo 'Build successful!'
+    }
+    failure {
+        // 构建失败后的操作
+        echo 'Build failed!'
+    }
+}
+}
+```
+

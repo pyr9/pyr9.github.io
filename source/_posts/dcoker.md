@@ -1,5 +1,5 @@
 ---
-title: dcoker
+title: docker
 date: 2023-04-18 14:20:45
 tags:
 categories: 
@@ -301,3 +301,22 @@ drwx-----x    3 root     root          4096 Apr 18 09:31 /var/lib/docker/volumes
 - 私有仓库：私有仓库是互联网企业的生产中心的实际操作中的主流选择。不采用公共仓库通常出于以下两个原因：
   - 公共仓库通常建于海外，下载速度受限，对于大量节点频繁更新的互联网应用场景不太友好。
   - 公共仓库位于外网，直接将生产中心的应用和外网相连，存在明显安全隐患。黑客等容易通过网络漏洞渗透到企业内网；并且公共仓库内的容器镜像未通过企业内部的静态文件扫描，无法保证镜像中所采用的运行时和依赖库的安全性。
+
+# 8 修改Docker默认镜像和容器存储位置
+
+[Docker](https://so.csdn.net/so/search?q=Docker&spm=1001.2101.3001.7020) 默认安装的情况下，会使用 `/var/lib/docker/` 目录作为存储目录，用以存放拉取的镜像和创建的容器等。不过由于此目录一般都位于系统盘，遇到系统盘比较小，而镜像和容器多了后就容易磁盘空间不足
+
+- 查看当前[docker](https://so.csdn.net/so/search?q=docker&spm=1001.2101.3001.7020)的默认存储目录 `docker info` ,默认为`/var/lib/docker/` 
+
+- 编辑 `/etc/docker/daemon.json` 文件
+
+  `sudo vim /etc/docker/daemon.json `
+
+  ```
+  {
+    "data-root": "/home/docker"
+  }
+  ```
+
+- 重启docker, 并查看 `docker info`
+

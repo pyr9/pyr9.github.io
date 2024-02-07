@@ -122,8 +122,8 @@ docker run -it \
 ### 8. 设置用户密码
 
 - 进入容器 `docker exec -it elk /bin/bash`
-- 进入bin目录 `cd /opt/elasticsearch/bin`
-- 给elastic，kibana_system 设置密码为“sith-mes” ,执行`./elasticsearch-setup-passwords interactive`
+- 进入bin目录 `cd bin`
+- 给elastic，kibana_system 设置密码为“sith-mes” ,执行`./elasticsearch-setup-passwords interactive `或`elasticsearch-reset-password -u elastic -i`
 - 重启容器
 
 ## 2.3 安装Kibana
@@ -400,5 +400,5 @@ docker run -it \
   filebeat -e  -c /usr/share/filebeat/filebeat.yml
 ```
 
-
+⚠️： ES映射的data和log比较大，建议放在磁盘空间比较足的目录。
 
