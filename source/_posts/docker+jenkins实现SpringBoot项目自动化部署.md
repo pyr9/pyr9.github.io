@@ -3,7 +3,6 @@ title: docker+jenkins实现SpringBoot项目自动化部署
 date: 2023-10-03 18:41:50
 tags:
 categories: jenkins
-password: 19980617pyr
 ---
 
 # 1 背景
