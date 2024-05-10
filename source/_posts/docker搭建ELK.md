@@ -219,7 +219,7 @@ docker run -it \
 
 1. 配置策略 Index Lifecycle Policies
 
-   
+   ![img_v3_02ao_623ea326-f24e-4ebb-9b9c-d41cc894e9ag](https://panyuro.oss-cn-beijing.aliyuncs.com/img_v3_02ao_623ea326-f24e-4ebb-9b9c-d41cc894e9ag.jpg)
 
 2. 创建索引模板
 
@@ -249,6 +249,8 @@ docker run -it \
 ```
 
 3. 给索引策略上加索引模板
+
+   ![img_v3_02ao_a2e5305a-307f-4d19-a05a-17abb32f599g](https://panyuro.oss-cn-beijing.aliyuncs.com/img_v3_02ao_a2e5305a-307f-4d19-a05a-17abb32f599g.jpg)
 
 ## 2.4 安装logstash
 
