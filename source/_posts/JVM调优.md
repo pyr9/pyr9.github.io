@@ -23,7 +23,7 @@ categories: JVM调优
 
 - 方式： 检查是否有OutOfMemory 等内存异常， 检查哪些对象在系统中数量最大，避免频繁生成新对象，类似天气预报系统里有一个分页展示，每次批量去操作5000个对象，会频繁触发Minor GC 和 Full GC，后面调成500个，基本上就没有Full GC了。
 - 工具：jmap ‐dump，生成Java虚拟机的堆转储快照dump文件，用jvisualvm命令工具导入该dump文件分析，最多的类是哪些
-- 参考地址：[java命令--jmap工具 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/java命令--jmap工具/)
+- 参考地址：[java命令--jmap工具 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/java命令--jmap工具/)
 
 ## 2.2 死锁检查
 
@@ -36,7 +36,7 @@ categories: JVM调优
 
    代码运行起来后，启动jvisualvm，在线程页面会直接有一个红色的显示：监测到死锁
 
-- 参考地址：[java命令--jstack的使用 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/java命令-jstack-工具/)
+- 参考地址：[java命令--jstack的使用 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/java命令-jstack-工具/)
 
 ## 2.3 CPU分析，哪些方法占用的大量CPU时间
 
@@ -114,11 +114,11 @@ categories: JVM调优
 
 - step1 : 运行` jps`看下, 查看当前java进程PID
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h68t6kw94aj20bs05m0sx.jpg" style="zoom:100%;" />
+  ![image-20230228222821739](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png)
 
 - step2: 运行 `jstat -gc 2593 3000 10000`，每隔3秒，打印下GC压力整体情况。观察可发现，程序突然开始频繁Young Gc 和Full GC。
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6avlmvphuj21pc0lmdql.jpg)
+![image-20230228222903395](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222903395.png)
 
 ## 3.2 思考频繁Full Gc 触发条件
 
@@ -145,9 +145,11 @@ categories: JVM调优
 
 我们发现young gc和full gc依然很频繁了，而且看到有大量的对象频繁的被挪动到老年代
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6avmoyunkj21nf0u0tnc.jpg)这种情况我们可以借助jmap或者jvisualvm命令大概看下是什么对象
+![image-20230228222923471](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222923471.png)
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6avoot12aj21k80u0q9y.jpg)
+这种情况我们可以借助jmap或者jvisualvm命令大概看下是什么对象
+
+![image-20230228222946533](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222946533.png)
 
 查到了有大量User对象产生，这个可能是问题所在，但不确定，还必须找到对应的代码确认，如何去找对应的代码了？ 
 
@@ -155,7 +157,7 @@ categories: JVM调优
 
 2、如果生成User对象的地方太多，无法定位具体代码，我们可以同时分析下占用cpu较高的线程，一般有大量对象不断产生，对应的方法 代码肯定会被频繁调用，占用的cpu必然较高 
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6avprtd0tj21h20u012w.jpg)
+![image-20230228222956571](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222956571.png)
 
 可以用上面讲过的jstack或jvisualvm来定位cpu使用较高的代码，最终定位到的代码如下： 
 
@@ -194,7 +196,7 @@ public class City {
 
 改成批量查询500后，Full GC 基本不再发生
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6avzmzupaj21ru0mqgwc.jpg)
+![image-20230228223006680](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223006680.png)
 
 
 

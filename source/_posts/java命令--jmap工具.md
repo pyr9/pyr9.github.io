@@ -15,7 +15,7 @@ categories: JVM调优
 
 使用jmap看看是否有大量类生成
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h66k7zge2nj21480pidjb.jpg" style="zoom:50%;" />
+![image-20230228231003015](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231003015.png)
 
 ### - histo
 
@@ -28,7 +28,7 @@ categories: JVM调优
   - bytes：占用空间大小 
   - class name：类名称   [C is a char[]，[S is a short[]，[I is a int[]，[B is a byte[]，[[I is a int[][] 
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h655rj8ifjj213w0og7ce.jpg" style="zoom:50%;" />
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231003015.png)
 
 ### ‐dump
 
@@ -68,12 +68,12 @@ categories: JVM调优
 
   运行配置：
 
-  ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h670vlh4llj21ri0auabq.jpg)
+  ![image-20230228231024765](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231024765.png)
 
   运行结果：
 
-  ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6710dnqpaj21iy0ssn56.jpg)
+  ![image-20230228231032270](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231032270.png)
 
 - 用jvisualvm命令工具导入该dump文件分析
 
-  ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h67168634gj223i0lq0yb.jpg)
+  ![image-20230228231039259](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231039259.png)

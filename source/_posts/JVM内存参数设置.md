@@ -8,7 +8,7 @@ categories: JVM调优
 
 # **JVM内存参数设置**
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h664sj34uvj20tc0igq4p.jpg" style="zoom:50%;" />
+![image-20230228224116710](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224116710.png)
 
 ## JVM参数设置格式
 
@@ -59,12 +59,12 @@ public class StackOverflowTest {
 
 运行代码：
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6661qdwhlj20y00don0m.jpg" style="zoom:50%;" />
+![image-20230228224131501](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224131501.png)
 
 调整-Xss参数：
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h666103f0cj214c0kmdhs.jpg" style="zoom:50%;" />
+![image-20230228224141154](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224141154.png)
 
 打印结果：
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h665zbm64qj21160e4q6p.jpg" style="zoom:50%;" />
+![image-20230228224149027](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224149027.png)

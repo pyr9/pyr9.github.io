@@ -26,7 +26,7 @@ categories: Zookeeper
 - 当竞争者A加锁成功后，第竞争者B再来加锁就会抛出节点名称不能重复错误，如果抛出这个异常，我们就判定竞争者B加锁失败
 - 竞争者B加锁失败后，会阻塞等待，监听节点状态，当节点数据删除后，也就是竞争者A释放锁，再去获取锁
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6bzunpe6uj20u0119tap.jpg" style="zoom:50%;" />
+![image-20230228221910782](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221910782.png)
 
 ## 1.1.1 代码示例
 
@@ -105,7 +105,7 @@ public class ZkDistributedLock extends AbstractLock implements IZkDataListener{
 
 - 其他节点就会监听序号比自己小的节点，一旦序号比自己小的节点被删除了，其他节点就会得到相应的事件，然后查看自己是否为序号最小的节点，如果是，则获取锁
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6c1pzbcvaj20pi0xqmzf.jpg" style="zoom:50%;" />
+![image-20230228221920388](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221920388.png)
 
 ## 2.1 代码示例
 

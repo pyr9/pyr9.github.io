@@ -92,8 +92,8 @@ Zookeeper 实现配置中心的方式：服务把自己的配置信息存储到 
 
 # 4 Zookeeper 实现分布式锁
 
-[Zookeeper实现分布式锁 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/Zookeeper实现分布式锁/)
+[Zookeeper实现分布式锁 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/Zookeeper实现分布式锁/)
 
 # 5 Zookeeper 实现注册中心
 
-[注册中心 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/注册中心/)
+[注册中心 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/注册中心/)

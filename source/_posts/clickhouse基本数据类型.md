@@ -127,7 +127,7 @@ Query id: 82a9fb29-9ac3-41a1-918d-a37ec7bff333
   46bb792f7762 :) INSERT INTO t_enum VALUES ('hello'), ('world'), ('hello');
   ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyye8yqx9pj30u00u9mz9.jpg)
+![image-20230228225239055](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225239055.png)
 
 - **如果需要看到对应行的数值，则必须将** **Enum** **值转换为整数类型**
 
@@ -135,7 +135,7 @@ Query id: 82a9fb29-9ac3-41a1-918d-a37ec7bff333
 46bb792f7762 :)  SELECT CAST(x, 'Int8') FROM t_enum;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyye7wjb2nj30qw0g83zh.jpg)
+![image-20230228225247973](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225247973.png)
 
 >使用场景：对一些状态、类型的字段算是一种空间优化，也算是一种数据约束。但是实
 >
@@ -165,7 +165,7 @@ T 可以是任意类型，包含数组类型。 但不推荐使用多维数组�
  SELECT array(1, 2) AS x, toTypeName(x) ;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyye721a9uj30ry0hkgn4.jpg)
+![image-20230228225259859](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225259859.png)
 
 - 创建数组方式 2：使用方括号
 
@@ -173,7 +173,7 @@ T 可以是任意类型，包含数组类型。 但不推荐使用多维数组�
 SELECT [1, 2] AS x, toTypeName(x);
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gyye7bn8x2j30oo0ecwfg.jpg)
+![image-20230228225307055](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225307055.png)
 
 还有很多数据结构，可以参考官方文档：[简介 | ClickHouse文档](https://clickhouse.com/docs/zh/sql-reference/data-types/)
 

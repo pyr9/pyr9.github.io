@@ -13,7 +13,7 @@ categories: 微服务
 
 # SpringCloud 集成Feign
 
-1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/08/17/springCloud之Eureka搭建/)
+1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/08/17/springCloud之Eureka搭建/)
 
 2. 引入依赖
 
@@ -90,6 +90,4 @@ categories: 微服务
 
 7. 查看euraka服务端，可以看到该客户端注册成功，访问[localhost:8085/cities，可以获取到指定服务接口的返回
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5ap6lysrwj21ek0u00xb.jpg)
-
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5ap87sv66j228m0k4zw9.jpg)
+   ![image-20230228232728757](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232728757.png)

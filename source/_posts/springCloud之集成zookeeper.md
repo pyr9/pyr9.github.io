@@ -10,7 +10,7 @@ categories: 微服务
 
 # zookeeper
 
-- zookeeper基本概念：[zookeeper特性与节点介绍 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2021/09/22/zookeeper特性与节点介绍/)
+- zookeeper基本概念：[zookeeper特性与节点介绍 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2021/09/22/zookeeper特性与节点介绍/)
 - zookeeper 是一个分布式协调服务，可以用来实现注册中心功能，类似eureka
 - 服务节点是临时结点
 
@@ -102,4 +102,4 @@ public class Application {
 
 可以看到 micro-weather-zookeeper服务已经存在，SpringCloud以[Zookeeper]为注册中心整合成功
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fhw2g43sj21ew0dk0wm.jpg)
+![image-20230228233716687](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233716687.png)

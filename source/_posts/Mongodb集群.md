@@ -19,7 +19,7 @@ categories: MongoDB
   - 读写分离: 不同类型的压力分别在不同的节点上执行 
   - 异地容灾: 在数据中心故障时候快速切换到异地 
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fsdovm2kj20yu0reabs.jpg" style="zoom:33%;" />
+![image-20230228224723229](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224723229.png)
 
 ## 2.1 **三节点复制集模式**
 
@@ -32,7 +32,7 @@ categories: MongoDB
 - 此模式始终提供数据集的两个完整副本，如果主节点不可用，则复制集选择备节点作为主节 点并继续正常操作。
 - 旧的主节点在可用时重新加入复制集。 
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fslw8k0lj217e0hotak.jpg" style="zoom:33%;" />
+![image-20230228224732217](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224732217.png)
 
 ### 2.1.2 ****PSA**模式（官方推荐模式）**
 
@@ -40,7 +40,7 @@ categories: MongoDB
 - 此模式仅提供数据的一个完整副本，如果主节点不可用，则复制 集将选择备节点作为主节点。
 - Arbiter节点不存储数据副本，也不提供业务的读写操作。Arbiter节点发生故障不影 响业务，仅影响选举投票。因为需要半数选举，但机器成本不够再申请一台
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fslnd5tsj21a60h4405.jpg" style="zoom:33%;" />
+![image-20230228224740040](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224740040.png)
 
 # 3 **分片集群架构** 
 

@@ -38,7 +38,7 @@ CAP即：
 
 # 3 作为服务中心，eureka和zookeeper的对比
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjrq1o9mj20y00b2q49.jpg" style="zoom:50%;" />
+![image-20230228233310740](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233310740.png)
 
 
 

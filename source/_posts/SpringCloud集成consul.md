@@ -45,7 +45,7 @@ categories: 微服务
 
 访问http://localhost:8500/
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fjegc3rcj21xz0u0ad8.jpg)
+![image-20230228232955363](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232955363.png)
 
 
 
@@ -130,5 +130,5 @@ public class Application {
 
 再次访问http://localhost:8500/，可以看到micro-weather-consul服务已经注册成功
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fk8xt9m6j22190u0dj3.jpg)
+![image-20230228233006492](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233006492.png)
 

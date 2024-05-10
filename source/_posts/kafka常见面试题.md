@@ -196,7 +196,7 @@ Kafka 遵循了一种大部分消息系统共同的传统的设计：producer �
 
   注：**其实零拷贝，并不是说拷贝的次数为零，只是说没有cup拷贝的过程，这里的零拷贝指的是cpu拷贝次数为零**，
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h645mwunu9j214i0msn0o.jpg" style="zoom:50%;" />
+  ![image-20230228234101159](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228234101159.png)
 
 >  什么是用户态、内核态?
 
@@ -214,7 +214,7 @@ Kafka 遵循了一种大部分消息系统共同的传统的设计：producer �
 - 可伸缩性：需要的时候快速扩容，就可以增加吞吐量和容量。参照一下 kafka 的设计理念， broker -> topic -> partition，每个 partition 放一个机器，就存一部分数据。 如果现在资源不够了，给 topic 增加 partition。
 - 持久化：mq 的数据要落地磁盘，参考kafka顺序写，顺序读。这样就没有磁盘随机读写的寻址开销，磁盘顺序读写的性能是很高的
 - 高可用性：多副本 -> leader & follower，broker 挂了重新选举 leader
-- 数据 0 丢失：参考：[RabbitMQ的消息零丢失方案 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/RabbitMQ的消息零丢失方案/)， [kafka的消息零丢失方案 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/kafka的消息零丢失方案/)
+- 数据 0 丢失：参考：[RabbitMQ的消息零丢失方案 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/RabbitMQ的消息零丢失方案/)， [kafka的消息零丢失方案 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/kafka的消息零丢失方案/)
 
 
 

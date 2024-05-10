@@ -154,7 +154,7 @@ rabbitmq现在不支持延迟队列，延迟队列的实现需要借助TTL和死
 * 用户下单，把消息发送到Queue1中，不设置Consumer1，设置Queue1队列里的消息存活时间为30分钟，等待30分钟后，消息成为死信。
 * 死信的消息发送到Queue2，添加Consumer2监听Queue2
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gwld73gtjaj31ga0o440f.jpg" style="zoom:43%;" />
+![image-20230228233554129](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233554129.png)
 
 
 

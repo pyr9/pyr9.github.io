@@ -11,7 +11,7 @@ categories: Kafka
 
 ## 哪些环节会有丢消息的可能？
 
-[RabbitMQ的消息零丢失方案 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/RabbitMQ的消息零丢失方案/#哪些环节会有丢消息的可能？)
+[RabbitMQ的消息零丢失方案 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/RabbitMQ的消息零丢失方案/#哪些环节会有丢消息的可能？)
 
 ## Kafka怎么保证消息可靠性?
 

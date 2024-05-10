@@ -39,7 +39,7 @@ categories: 数据库
 > - 转发到Redis实现缓存一致
 > - ClickHouse也支持将自己模拟成一个MySQL的从节点，接收MySQL的Binlog日志，实时同步MySQL的数据。这个功能目前还在实验阶段。
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6ebqmc9chj20ua0kmq4t.jpg" style="zoom: 50%;" />
+![image-20230228224830814](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224830814.png)
 
 ## 1.2 主从复制的策略
 
@@ -53,7 +53,7 @@ categories: 数据库
 - GTID (Global Transaction ID全局事务ID)就是类似于pos的一个作用,全局通用并且日志文件里事件的GTID值是一致的。不用以前那样在需要找log_file和log_Pos。
 - 从架构设计的角度，GTID是一种很好的分布式ID实践方式
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h6fgijvehcj217408cmzv.jpg)
+![image-20230228224842796](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224842796.png)
 
 # 2 MySQL Fabric 模式
 
@@ -77,7 +77,7 @@ categories: 数据库
 - 他需要两个Master，同一时间只有一个Master对外提供服务，可以说是主备模式。
 - 他是通过一个VIP(虚拟IP)的机制来保证集群的高可用。整个集群中，在主节点上会通过一个VIP地址来提供数据读写服务，而当出现故障时，VIP就会从原来的主节点漂移到其他节点，由其他节点提供服务。
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fg0g0yagj20o20p2ta5.jpg" style="zoom:33%;" />
+![image-20230228224851424](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224851424.png)
 
 ### 4.1.1优点：
 

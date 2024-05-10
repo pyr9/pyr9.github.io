@@ -9,18 +9,41 @@ categories: 微服务
 
 # 集中化配置
 
+## 什么场景会用到配置
+
+- 想到某一个地方去读取文件
+- Application.yml/ bootstrap.yml
+- 环境变量： 比如启动参数
+- 数据库存储（系统变量）
+
 ## 为什么要集中化配置？
 
 - 微服务数量多，配置多
+- 没有版本控制（尤其数据库的系统变量）
+- 分布零散：有的配置在代码里，有的在yml配置文件，有的在数据库
+- 基于静态的配置：每次修改都需要重新发布
 - 手工管理配置繁琐
 
 ## 配置分类
 
-- 按照来源，分为：源代码，文件，数据库连接，服务调用等
-- 按照配置环境，分为开发环境，测试环境，生产环境
-- 集成阶段，编译，打包，运行
+按照动态静态区分
+
+- 静态：
+  - 环境配置：数据库连接串，eureka注册中心，kāfka连接，应用名称
+  - 安全配置：连接密码，公钥私钥，http连接的证书
+- 动态：
+  - 应用参数：白名单，缓存过期时间，日志级别
+  - 业务相关：隐私协议内容，动态文案
+  - 功能开关：灰度发布，功能开关
+
 
 ## 配置中心的要求
+
+- 版本管理：可以看到修改记录
+- 权限控制：某些人可改某些配置
+- 配置业务分离：对配置单独进行管理
+- 业务需求：动态推送变更，内容加密
+- 高可用
 
 - 面向可配置的编码：避免硬编码，设置常量，运行时可读取
 - 个理性：生产环境的配置和测试环境配置不一样
@@ -41,15 +64,15 @@ categories: 微服务
 
 ## 搭建 Config 服务端
 
-1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/08/17/springCloud之Eureka搭建/)
+1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/08/17/springCloud之Eureka搭建/)
 
 2. github或者码云上创建一个仓库存储配置信息，github国内不是很稳定，我用了码云
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7fi607gj21ja0u0q8a.jpg)
+   ![image-20230228232125832](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232125832.png)
 
 3. 在config-repo路径下，编写配置文件config-dev.yml
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7h5hk5oj21h10u0n1z.jpg)
+   ![image-20230228232134545](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232134545.png)
 
    
 
@@ -88,17 +111,17 @@ categories: 微服务
 
 5. 启动项目，访问[localhost:8888/config-dev.yml](http://localhost:8888/config-dev.yml)，我们可以看到8888微服务可以成功的读取到远端的配置文件。如下图：
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7ik0y9ij20qy0ag74v.jpg" style="zoom:50%;" />
+   ![image-20230228232147874](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232147874.png)
 
 访问[localhost:8888/config/dev/master](http://localhost:8888/config/dev/master)
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7jb4rhyj225k09m0vc.jpg)
+![image-20230228232155081](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232155081.png)
 
 
 
 ## 搭建 Config客户端
 
-1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/08/17/springCloud之Eureka搭建/)
+1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/08/17/springCloud之Eureka搭建/)
 
 2. 引入依赖
 
@@ -145,7 +168,7 @@ categories: 微服务
 
 5. 测试，访问[localhost:9091/config](http://localhost:9091/config)，可以查询到正确的配置
 
-   <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5d7p3re81j20na08sgm3.jpg" style="zoom:50%;" />
+   ![image-20230228232205076](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232205076.png)
 
    
 

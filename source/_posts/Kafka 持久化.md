@@ -12,4 +12,4 @@ categories: Kafka
 - Partition 是以文件的形式存储在文件系统中
 - log 文件根据 Broker 中的配置保留一定时间后删除来释放磁盘空间。
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6eje149tgj20ss0hgdgq.jpg" style="zoom:50%;" />
+![image-20230228234231530](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228234231530.png)

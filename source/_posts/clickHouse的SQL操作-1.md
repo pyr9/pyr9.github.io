@@ -92,13 +92,13 @@ bfdf602492c9 :) insert into t_order_mt values
 bfdf602492c9 :) select id , sku_id,sum(total_amount) from t_order_mt group by id,sku_id with rollup;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz1rqitalcj30hg0tamz1.jpg)
+![image-20230228222258542](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222258542.png)
 
 （3）with cube : 从右至左去掉维度进行小计，再从左至右去掉维度进行小计
 
 可以看出分别根据  【id,sku_id】【id】【sku_id】【(空)】 进行了分组
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz1rt0556dj30hu0x0di6.jpg)
+![image-20230228222316833](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222316833.png)
 
 （4）with totals: 只计算合计
 
@@ -107,7 +107,7 @@ bfdf602492c9 :)  select id , sku_id,sum(total_amount) from t_order_mt group by
                 id,sku_id with totals;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz1rutq1qaj30j20im75i.jpg)
+![image-20230228222331141](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222331141.png)
 
 ## alter操作
 

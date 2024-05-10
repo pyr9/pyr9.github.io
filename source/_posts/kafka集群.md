@@ -16,9 +16,7 @@ categories: Kafka
 
 - Kafka通过brokerId来区分集群中的不同节点
 
-  <img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fdishipej211g0jstbf.jpg" style="zoom:50%;" />
-
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6fdhfzd18j215u0gsach.jpg" style="zoom:50%;" />
+  ![image-20230228231625775](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231625775.png)
 
 # 2 **Kafka集群中的几个角色：**
 
@@ -137,7 +135,7 @@ Kafka有一种无奈的情况，就是ISR中副本全部宕机。对于这种情
    ➜  kafka_2.12-3.2.1 bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic test6
    ```
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h55ml5a5aej21hg060myn.jpg)
+   ![image-20230228231644650](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231644650.png)
 
 3. 向新建的 test6 中发送一些message，kafka集群可以加上所有kafka节点
 
@@ -168,13 +166,13 @@ Kafka有一种无奈的情况，就是ISR中副本全部宕机。对于这种情
    ➜  kafka_2.12-3.2.1 bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic test6
    ```
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h56bu8415bj21h405sabk.jpg)
+   ![image-20230228231658763](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231658763.png)
 
    可以看到，此时分区0的leader变成了broker1，在isr中也已经没有了2号节点。
 
   此时，依旧可以消费消息：
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h56bycarv6j21gq09cjtm.jpg)
+![image-20230228231708348](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228231708348.png)
 
 
 

@@ -9,7 +9,7 @@ categories: ElasticSearch
 
 1.下载es.  Es 下载链接： [Download Elasticsearch | Elastic](https://www.elastic.co/cn/downloads/elasticsearch)
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gzb4g30d6ij30u00vn0vf.jpg)
+![image-20230228230445183](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230445183.png)
 
 2.解压后在bin路径下，运行
 
@@ -19,13 +19,13 @@ categories: ElasticSearch
 
 3.访问[localhost:9200](http://localhost:9200/),看到下面的页面即启动成功
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gzb4gkb3paj313k0u078b.jpg)
+![image-20230228230454065](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230454065.png)
 
 # Kibana安装
 
 1. Kibana 下载链接：[Download Kibana Free | Get Started Now | Elastic](https://www.elastic.co/cn/downloads/kibana)
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gz32m89db4j30u00yigof.jpg" style="zoom:50%;" />
+![image-20230228230502701](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230502701.png)
 
 2. 修改 kibana.yml 
 
@@ -37,7 +37,7 @@ elasticsearch.hosts: ["http://localhost:9200"]
 
 3.访问http://localhost:5601/app/kibana, 看到下面的页面即启动成功
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gz32vfqn6kj31be0u00vp.jpg" style="zoom:50%;" />
+![image-20230228230512243](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230512243.png)
 
 # 安装IK分词器
 
@@ -64,9 +64,9 @@ elasticsearch.hosts: ["http://localhost:9200"]
    }
    ```
 
-   <img src="https://tva1.sinaimg.cn/large/008i3skNly1gzb43jrro7j30l60xgwhh.jpg" style="zoom:50%;" />
+   ![image-20230228230530722](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230530722.png)
 
-   <img src="https://tva1.sinaimg.cn/large/008i3skNly1gzb4579turj30l60csgm9.jpg" style="zoom:50%;" />
+   
 
    - ik_smart:会做最粗粒度的拆分
 
@@ -78,7 +78,7 @@ elasticsearch.hosts: ["http://localhost:9200"]
    }
    ```
 
-   <img src="https://tva1.sinaimg.cn/large/008i3skNly1gzb40eub0hj30qk0mmmyq.jpg" style="zoom:50%;" />
+   ![image-20230228230546771](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230546771.png)
 
    - k_max_word:会将文本做最细粒度的拆分
 
@@ -90,7 +90,7 @@ elasticsearch.hosts: ["http://localhost:9200"]
    }
    ```
 
-   <img src="https://tva1.sinaimg.cn/large/008i3skNly1gzb419wozoj30r40sutb1.jpg" style="zoom:50%;" />
+   ![image-20230228230556755](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230556755.png)
 
    
 
@@ -111,4 +111,4 @@ PUT /school_index
 }
 ```
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gz8s9sdy4tj30im07g0t6.jpg" style="zoom:50%;" />
+![image-20230228230604782](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230604782.png)

@@ -21,7 +21,7 @@ categories: 微服务
 
 服务端负载均衡是最常见的负载均衡方式，其工作原理如下图。
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5gfl3w6dij21c80esgmc.jpg)
+![image-20230228225113562](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225113562.png)
 
 - 在客户端和服务端之间建立一个独立的负载均衡服务器，该服务器既可以是硬件设备（例如 F5），也可以是软件（例如 Nginx）
 - 这个负载均衡服务器维护了一份可用服务端清单，然后通过心跳机制来删除故障的服务端节点，以保证清单中的所有服务节点都是可以正常访问的。
@@ -47,7 +47,7 @@ categories: 微服务
 
 客户端负载均衡的工作原理如下图。
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5gfnxge7ij21cu0iy0ub.jpg)
+![image-20230228225122260](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225122260.png)
 
 - 客户端通过服务注册中心（例如 Eureka Server）获取到一份服务端提供的可用服务清单。
 - 有了服务清单后，负载均衡器会在客户端发送请求前通过负载均衡算法（如简单轮训，随机连接等）选择一个服务端实例再进行访问
@@ -82,7 +82,7 @@ categories: 微服务
 
 # Ribbon 实现服务调用
 
-1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/2022/08/17/springCloud之Eureka搭建/)
+1. 搭建Eureka Client : [springCloud之Eureka搭建 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/08/17/springCloud之Eureka搭建/)
 
 2. 引入依赖
 
@@ -170,7 +170,7 @@ categories: 微服务
 
 6. 访问[localhost:8085/cities，可以获取到指定服务接口的返回
 
-   ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fwyit95lj21pw0rq19k.jpg)
+   ![image-20230228225138488](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225138488.png)
 
 
 
@@ -182,6 +182,6 @@ java -jar msa-weather-city-eureka-0.0.1-SNAPSHOT.jar --server.port=8083
 
 java -jar msa-weather-city-eureka-0.0.1-SNAPSHOT.jar --server.port=8086
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5fx0ogvwhj21we0u0wl7.jpg)
+![image-20230228233156385](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233156385.png)
 
 再次访问[localhost:8085/cities](http://localhost:8085/cities)

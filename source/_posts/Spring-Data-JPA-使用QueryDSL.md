@@ -93,7 +93,7 @@ categories: JPA
 
 ## 2 . 添加实体类和Jpa的配置
 
-参考：[Spring data JPA的CRUD - 楼上有只喵 (panyurou.github.io)](https://panyurou.github.io/Spring data JPA的CRUD/)
+参考：[Spring data JPA的CRUD - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/Spring data JPA的CRUD/)
 
 ## 3. 编写Repository
 

@@ -36,7 +36,7 @@ categories: Redis
 
 
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv2a0o0mqj30oi0lsgmm.jpg" style="zoom:30%;" />
+![image-20230228224935732](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224935732.png)
 
 ### **Redis主从复制工作原理**
 
@@ -44,7 +44,7 @@ categories: Redis
 
 Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Master上的所有数据都复制一份，具体步骤如下：
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv2yicirhj30tq0lggnx.jpg" style="zoom:50%;" />
+![image-20230228224944541](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224944541.png)
 
 1. 如果你为master配置了一个slave，不管这个slave是否是第一次连接上Master，它都会发送一个**SYNC**命令(redis2.8版本之前的命令)master请求复制数据。
 2. master收到SYNC命令后，会在后台进行数据持久化通过bgsave生成最新的rdb快照文件。
@@ -66,7 +66,7 @@ Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Maste
 
 #### 2. 部分复制流程
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv2xkkaizj318w0ro78b.jpg" style="zoom: 33%;" />
+![image-20230228224955344](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224955344.png)
 
 1. 从2.8版本开始，slave与master能够在网络连接断开**重连后只进行部分数据复制。** 
 2. master会在其内存中创建一个复制数据用的缓存队列，缓存最近一段时间的数据。master和它所有的slave都维护了复制的数据下标offset和master的进程id。
@@ -101,7 +101,7 @@ Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Maste
 - 哨兵也是一台redis服务器，只是不提供数据服务
 - 为了高可用一般都推荐至少部署三个哨兵节点
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gxv33qmtvpj319e0pktbv.jpg" style="zoom:33%;" />
+![image-20230228225006830](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225006830.png)
 
 ### **哨兵leader选举流程** 
 
@@ -127,7 +127,7 @@ Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Maste
 
 
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h6501y1ohvj21fo0sadjh.jpg" style="zoom:33%;" />
+![image-20230228225016550](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225016550.png)
 
 ### **槽位定位算法** 
 

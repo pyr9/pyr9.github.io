@@ -77,7 +77,7 @@ MergeTree 是以列文件+索引文件+表定义文件组成的，但是如果�
 
 件就会保存到不同的分区目录中。
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0c4bfsguj30rw0iqjtg.jpg)
+![image-20230228225811773](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225811773.png)
 
 ##### 4.**并行**
 
@@ -109,9 +109,11 @@ MergeTree 是以列文件+索引文件+表定义文件组成的，但是如果�
 
   - 查看数据并没有纳入任何分区
 
-  ![](https://tva1.sinaimg.cn/large/008i3skNly1gz0c7984cnj30ui0s8wi5.jpg)
+  ![image-20230228225822725](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225822725.png)
 
-- 手动 optimize 之后，再次查询  ![](https://tva1.sinaimg.cn/large/008i3skNly1gz0c8dbd1bj30og0y6tce.jpg)
+- 手动 optimize 之后，再次查询
+
+  ![image-20230228225836780](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225836780.png)
 
  #### **primary key** **主键**
 
@@ -127,7 +129,7 @@ MergeTree 是以列文件+索引文件+表定义文件组成的，但是如果�
 
   **稀疏索引：**
 
-  ![](https://tva1.sinaimg.cn/large/008i3skNly1gz0cf9ividj31460nigq3.jpg)
+  ![image-20230228225859455](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225859455.png)
 
   稀疏索引的好处就是可以用很少的索引数据，定位更多的数据，代价就是只能定位到索	引粒度的第一行，然后再进行进行一点扫描。
 
@@ -249,7 +251,7 @@ insert into t_order_mt7 values
 (110,'sku_003',600.00,'2022-02-04 19:20:30');
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0ik5e2dtj30ns0fe0u6.jpg)
+![image-20230228225917132](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225917132.png)
 
 - 手动合并，查看效果 到期后，指定的字段数据归 0
 
@@ -257,7 +259,7 @@ insert into t_order_mt7 values
    optimize table t_order_mt7 final;
   ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0ilgoy7mj30tc120wi1.jpg)
+![image-20230228225930135](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225930135.png)
 
 #### 2.表 TTL
 
@@ -271,7 +273,7 @@ insert into t_order_mt7 values
 
 ##### 案例演示
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0iqo7gd7j30ze0m476i.jpg)
+![image-20230228225939573](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225939573.png)
 
 ## ReplacingMergeTree
 
@@ -331,7 +333,7 @@ insert into t_order_rmt values
 select * from t_order_rmt;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0of9u8h5j30ps0j00ui.jpg)
+![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225956910.png)
 
 （4）再次插入数据
 
@@ -347,7 +349,7 @@ insert into t_order_rmt values
 
 (5) 再次查询，可以看到这次依旧只插入了4条数据，但是和第一次插入的数据没有进行去重，依旧存在重复数据。
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0olyjbfej30oo0qgjuc.jpg)
+![image-20230228230010636](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230010636.png)
 
 （6）手动合并
 
@@ -357,7 +359,7 @@ OPTIMIZE TABLE t_order_rmt FINAL;
 
   (7) 再执行一次查询，此时数据已经根据分区进行了最终去重。
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0ovmauddj30ow0imjt6.jpg)
+![image-20230228230022485](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230022485.png)
 
 ### 案例结论
 
@@ -412,7 +414,7 @@ insert into t_order_smt values
 select * from t_order_smt;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0p639ls5j30py0igabu.jpg)
+![image-20230228230039985](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230039985.png)
 
 （4）再次插入一条重复数据，并查询。
 
@@ -421,7 +423,7 @@ insert into t_order_smt values
 (101,'sku_001',2000.00,'2020-06-01 13:00:00')
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0p8yhgnfj30pq0liq5h.jpg)
+![image-20230228230047812](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230047812.png)
 
 （5）手动合并,并再次执行查询，可以看到数据已经全部聚合
 
@@ -429,7 +431,7 @@ insert into t_order_smt values
 OPTIMIZE TABLE t_order_smt FINAL;
 ```
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz0pau5gw1j30oq0qm0ve.jpg)
+![image-20230228230057295](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230057295.png)
 
 ### 案例结论
 

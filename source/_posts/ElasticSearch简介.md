@@ -17,7 +17,7 @@ categories: ElasticSearch
 
 关键词搜索。
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz2w2u8asuj30vt0u044p.jpg)
+![image-20230228224603261](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224603261.png)
 
 > 从上面的搜索结果，可以看出不是根据模糊匹配去进行搜索的
 
@@ -37,7 +37,7 @@ categories: ElasticSearch
 
 ## 哪些公司在使用Elasticsearch
 
-<img src="https://tva1.sinaimg.cn/large/008i3skNly1gz2vhwoyi1j309q0isq3h.jpg" style="zoom:50%;" />
+![image-20230228224612979](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224612979.png)
 
 
 
@@ -54,7 +54,7 @@ categories: ElasticSearch
 
 ## ESvs关系型数据库
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz2vkt8j0jj30zu0fsgn8.jpg)
+![image-20230228224621969](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224621969.png)
 
 ## Lucene全文检索框架
 
@@ -69,7 +69,7 @@ categories: ElasticSearch
 
 那么**倒排序索引**的结构是怎样的呢？简单来讲**就是“以内容的关键词”建立索引，**映射关系为**“内容的关键词->ID”。**这样的话，我们只需要在“关键词”中进行检索
 
-![](https://tva1.sinaimg.cn/large/008i3skNly1gz2vpv36j1j30z40em40a.jpg)
+![image-20230228224640464](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224640464.png)
 
 > 对于上面的场景，输入为hello，会根据hello定位到此时数据的id为1和2，进而查出对应的数据。
 

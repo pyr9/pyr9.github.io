@@ -44,7 +44,7 @@ Eureka 采用 CS（Client/Server，客户端/服务器） 架构，它包括以�
 
 [Home · Netflix/eureka Wiki (github.com)](https://github.com/Netflix/eureka/wiki)
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h5fdi19u9dj215a0u0q7v.jpg" style="zoom:100%;" />
+![image-20230228232003650](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232003650.png)
 
 
 
@@ -130,7 +130,7 @@ Eureka 采用 CS（Client/Server，客户端/服务器） 架构，它包括以�
 
 - 启动成功后，访问[Eureka](http://localhost:8761/)可以看到如下页面，可以看出此时还没有实例注册到该服务上。
 
-  ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5ap4xbr46j21ex0u0jvx.jpg)
+  ![image-20230228232017385](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232017385.png)
 
 # Eureka Client搭建
 
@@ -204,4 +204,4 @@ Eureka 采用 CS（Client/Server，客户端/服务器） 架构，它包括以�
 
 - 刷新
 
-  ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5aordxc7lj21dz0u0434.jpg)
+  ![image-20230228232035911](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232035911.png)

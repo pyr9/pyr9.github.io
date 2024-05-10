@@ -11,7 +11,7 @@ categories: RabbitMQ
 
 ## 哪些环节会有丢消息的可能？
 
-<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h63pq7alokj219l0u0gpa.jpg" style="zoom:50%;" />
+![image-20230228233457541](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233457541.png)
 
 ### 普通消息处理流程
 
