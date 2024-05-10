@@ -254,3 +254,11 @@ post {
 }
 ```
 
+或许需要执行的操作：
+
+```
+chmod -R 777 apache-maven-3.6.3
+chmod 755 /home/jdk1.8.0_381/bin
+chmod -R 777 /home/node-v14.17.1-linux-x64/bin
+```
+
