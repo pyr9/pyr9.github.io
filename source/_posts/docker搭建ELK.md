@@ -125,6 +125,12 @@ docker run -it \
 - 给elastic，kibana_system 设置密码为“sith-mes” ,执行`./elasticsearch-setup-passwords interactive `或`elasticsearch-reset-password -u elastic -i`
 - 重启容器
 
+### 9. 配置Monitoring监控日志
+
+避免实例的大部分空间被监控索引占用，可通过以下两种方式进行优化（实际使用中，可以将以上两种方案结合使用）
+
+[如何配置Monitoring监控日志_检索分析服务 Elasticsearch版(ES)-阿里云帮助中心 (aliyun.com)](https://help.aliyun.com/zh/es/user-guide/configure-monitoring-indexes)
+
 ## 2.3 安装Kibana
 
 ### 1. 拉取镜像
@@ -208,6 +214,41 @@ docker run -it \
   kibana:8.4.3
 
 ```
+
+### 8. 配置索引生命周期
+
+1. 配置策略 Index Lifecycle Policies
+
+   
+
+2. 创建索引模板
+
+```
+{
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "自定义的policy"
+        },
+        "routing": {
+          "allocation": {
+            "include": {
+              "_tier_preference": "data_content"
+            }
+          }
+        },
+        "number_of_shards": "3",
+        "number_of_replicas": "0"
+      }
+    },
+    "aliases": {},
+    "mappings": {}
+  }
+}
+```
+
+3. 给索引策略上加索引模板
 
 ## 2.4 安装logstash
 
