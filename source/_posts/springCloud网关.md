@@ -54,7 +54,19 @@ API 网关是一个**搭建在客户端和微服务之间的服务**。
 
 # 2 Zuul
 
-Zuul 是Netflix开发的一款API网关组件
+Zuul 是Netflix开发的一款API网关组件。
+
+优点：
+
+1. 成熟稳定：Zuul 是 Netflix 开源的项目，已经在大规模生产环境中被验证过。
+2. 社区支持：拥有成熟的社区，有大量的文档和案例可供参考。
+3. 易于上手：相对较简单，易于配置和使用。
+
+缺点：
+
+1. 阻塞式 I/O：Zuul 使用阻塞式 I/O，每个请求都会占用一个线程，可能会导致线程资源耗尽。
+2. 动态路由困难：Zuul 在运行时动态更新路由规则比较困难，需要重启服务。
+3. 不支持响应式编程：Zuul 1.x 不支持响应式编程模型，无法充分利用异步和非阻塞的特性。
 
 ## 2.1 SpringCloud 集成Zuul
 
@@ -129,7 +141,9 @@ public class Application {
 
 在Zulu2 中，zuul的技术方案一直在跳票，spring cloud 自己开发了一个网关Spring Cloud Gateway，用来取代Zuul网关。
 
-Spring Cloud Gateway 是基于 WebFlux 框架实现的，而 WebFlux 框架底层则使用了高性能的 Reactor 模式通信框架 Netty。高并发和非阻塞通信就非常有优势
+- **响应式编程支持**：Spring Cloud Gateway 是基于 WebFlux 框架实现的，而 WebFlux 框架底层则使用了通信框架 Netty。这意味着它能够更高效地处理大量并发请求，而不会出现线程阻塞和资源浪费的问题。（Netty 使用了 Java NIO 提供的非阻塞 I/O 模型，能够处理大量并发的连接和请求，并且不会阻塞线程，提高了系统的并发处理能力和性能。）
+
+- **Spring Cloud 生态集成**：作为 Spring Cloud 生态系统的一部分，Spring Cloud Gateway 与其他 Spring Cloud 组件（如 Eureka、Consul、Ribbon 等）有着良好的集成，可以方便地构建和管理微服务架构。
 
 ## 3.1 Spring Cloud Gateway 核心概念
 
