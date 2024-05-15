@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="G1收集器(-XX:+UseG1GC)G1 (Garbage-First)是一款面向服务器的垃圾收集器,主要针对配备多核处理器及大容量内存的机器. 满足可预测的停顿时间停顿时间的同时,还具备高吞吐量性能特征.   一 特点1. 分代收集 虽然G1可以不需要其他收集器配合就能独立管理整个GC堆，但是还是保留了分代的概念  G1将Java堆划分为多个大小相等的独立区域（Region），一般Region">
+<meta property="og:type" content="article">
+<meta property="og:title" content="垃圾收集器之G1收集器">
+<meta property="og:url" content="http://example.com/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="G1收集器(-XX:+UseG1GC)G1 (Garbage-First)是一款面向服务器的垃圾收集器,主要针对配备多核处理器及大容量内存的机器. 满足可预测的停顿时间停顿时间的同时,还具备高吞吐量性能特征.   一 特点1. 分代收集 虽然G1可以不需要其他收集器配合就能独立管理整个GC堆，但是还是保留了分代的概念  G1将Java堆划分为多个大小相等的独立区域（Region），一般Region">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232909465.png">
+<meta property="article:published_time" content="2022-09-15T08:57:45.000Z">
+<meta property="article:modified_time" content="2023-02-28T15:29:18.571Z">
+<meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="性能调优">
+<meta property="article:tag" content="垃圾收集器">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232909465.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>垃圾收集器之G1收集器 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="垃圾收集器之G1收集器"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-15 16:57" pubdate>
+          2022年9月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">垃圾收集器之G1收集器</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="G1收集器-XX-UseG1GC"><a href="#G1收集器-XX-UseG1GC" class="headerlink" title="G1收集器(-XX:+UseG1GC)"></a><strong>G1收集器</strong>(<strong>-XX:+UseG1GC</strong>)</h1><p><strong>G1 (Garbage-First)是一款面向服务器的垃圾收集器,主要针对配备多核处理器及大容量内存的机器</strong>. 满足<strong>可预测的停顿时间停顿时间的同时,还具备高吞吐量性能特征.</strong> </p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232909465.png" srcset="/img/loading.gif" lazyload alt="image-20230228232909465"></p>
+<h2 id="一-特点"><a href="#一-特点" class="headerlink" title="一 特点"></a>一 特点</h2><h3 id="1-分代收集"><a href="#1-分代收集" class="headerlink" title="1. 分代收集"></a>1. 分代收集</h3><ul>
+<li><p>虽然G1可以不需要其他收集器配合就能独立管理整个GC堆，但是还是保留了分代的概念</p>
+</li>
+<li><p>G1将Java堆划分为多个大小相等的独立区域（<strong>Region</strong>），一般Region大小等于堆大小除以2048，JVM最多可以有2048个Region。 </p>
+</li>
+<li><p>这些Region中包含了逻辑上的年轻代和老年代，但不再是物理隔阂了，它们都是（可以不连续）Region的集合。</p>
+</li>
+<li><p>默认年轻代对堆内存的占比是5%，可以通过“-XX:G1NewSizePercent”设置年轻代初始占比。</p>
+</li>
+<li><p>在系统运行中，JVM会不停的给年轻代增加更多的Region，但最多新生代的占比不会超过60%，可以通过“</p>
+<p>-XX:G1MaxNewSizePercent”调整。</p>
+</li>
+<li><p>年轻代中的Eden和 Survivor对应的region也跟之前一样，默认8:1:1，假设年轻代现在有1000个region，eden区对应800个，s0对应100 个，s1对应100个</p>
+</li>
+<li><p>一个Region可能之前是年轻代，如果Region进行了垃圾回收，之后可能又会变成老年代，也就是说Region的区域功能可能会动态变化。</p>
+</li>
+</ul>
+<h3 id="2-并行与并发"><a href="#2-并行与并发" class="headerlink" title="2. 并行与并发"></a>2. <strong>并行与并发</strong></h3><ul>
+<li>并行性: G1能充分利用CPU、多核环境下的硬件优势，通过多个GC线程同时工作，来缩短Stop-The-World停顿时间。</li>
+<li>并发性: G1拥有与应用程序交替执行的能力,部分工作可以和应用程序同时执行,因此,一般来说,不会在整个回收阶段发生完全阻塞应用程序的情况</li>
+</ul>
+<blockquote>
+<p><strong>并发和并行的区别</strong></p>
+<p>并行，指的是多个事情，在<strong>同一时间点上</strong>同时发生了。并行的多个任务之间是不互相抢占资源的，系统要有多个CPU才会出现并行</p>
+<p>并发，指的是多个事情，在<strong>同一时间段内</strong>同时发生了。  并发的多个任务之间是互相抢占资源的，整个过程中看似是多个任务同时完成的的，但其实是CPU在多次切换。</p>
+</blockquote>
+<h3 id="3-空间整合"><a href="#3-空间整合" class="headerlink" title="3. 空间整合"></a>3. 空间整合</h3><ul>
+<li>G1将内存划分为一个个的region。 内存的回收是<strong>以region作为基本单位的</strong>。</li>
+<li>Region之间是复制算法,但整体上实际可看作是<strong>标记- 整理算法</strong>,两种算法都可以避免内存碎片。</li>
+</ul>
+<h3 id="4-可预测的停顿"><a href="#4-可预测的停顿" class="headerlink" title="4. 可预测的停顿"></a>4. 可预测的停顿</h3><ul>
+<li>降低停顿时间是G1 和 CMS 共同的关注点，但G1 除了追求低停顿外，还能建立<strong>可预测的停顿时间模型</strong>，能让使用者明确指定在一个长度为M毫秒的时间片段(通过参数”<strong>-</strong> <strong>XX:MaxGCPauseMillis</strong>“指定)内完成垃圾收集。</li>
+<li>这里设置的“期望值”必须是符合实际的， 它默认的停顿目标为两百毫秒， 一般来说， 回收阶段占到几十到一百甚至接近两百毫秒都很正常， 但如果我们把停顿时间调得非常低， 譬如设置为二十毫秒， 很可能出现的结果就是由于停顿目标时间太短， 导致每次选出来的回收集只占堆内存很小的一部分， 收集器收集的速度逐渐跟不上分配器分配的速度， 导致垃圾慢慢堆积。 最终占满堆引发 Full GC反而降低性能。</li>
+</ul>
+<h2 id="二-GC的运作过程"><a href="#二-GC的运作过程" class="headerlink" title="二 GC的运作过程"></a>二 GC的运作过程</h2><h3 id="1-初始标记（initial-mark，STW）"><a href="#1-初始标记（initial-mark，STW）" class="headerlink" title="1.初始标记（initial mark，STW）"></a>1.<strong>初始标记</strong>（initial mark，STW）</h3><p>暂停所有的其他线程，并记录下gc roots直接能引用的对象，<strong>速度很快</strong> </p>
+<h3 id="2-并发标记（Concurrent-Marking）"><a href="#2-并发标记（Concurrent-Marking）" class="headerlink" title="2. 并发标记（Concurrent Marking）"></a>2. 并发标记（Concurrent Marking）</h3><p>同CMS的并发标记 </p>
+<h3 id="3-最终标记（Remark，STW）"><a href="#3-最终标记（Remark，STW）" class="headerlink" title="3. 最终标记（Remark，STW）"></a>3. <strong>最终标记</strong>（Remark，STW）</h3><p>同CMS的重新标记 </p>
+<h3 id="4-筛选回收（Cleanup，STW）"><a href="#4-筛选回收（Cleanup，STW）" class="headerlink" title="4. 筛选回收（Cleanup，STW）"></a>4. <strong>筛选回收</strong>（Cleanup，STW）</h3><p>筛选回收阶段首先对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间(可以用JVM参数 -XX:MaxGCPauseMillis指定)来制定回收计划。</p>
+<ul>
+<li><strong>G1收集器在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的Region</strong>，比如一个Region花200ms能回收10M垃圾，另外一个Region花50ms能回收20M垃圾，在回收时间有限情况下，G1当然会优先选择后面这个Region回收。这种使用Region划分内存空间以及有优先级的区域回收方式，保证了G1收集器在有限时间内可以尽可能高的收集效率。</li>
+<li>比如说老年代此时有1000个 Region都满了，但是因为根据预期停顿时间，本次垃圾回收可能只能停顿200毫秒，那么通过之前回收成本计算得知，可能回收其中800个Region刚好需要200ms，那么就只会回收800个Region(<strong>Collection Set</strong>，要回收的集 合)，尽量把GC导致的停顿时间控制在我们指定的范围内。这个阶段其实也可以做到与用户程序一起并发执行，但是因为只回收一部分Region，时间是用户可控制的，而且停顿用户线程将大幅提高收集效率。</li>
+<li>CMS回收阶段是跟用户线程一起并发执行的，G1因为内部实现太复杂暂时没实现并发回收，不过到了Shenandoah就实现了并发收集，Shenandoah可以看成是G1的升级版本</li>
+</ul>
+<h2 id="三-G1垃圾收集分类"><a href="#三-G1垃圾收集分类" class="headerlink" title="三 G1垃圾收集分类"></a>三 <strong>G1垃圾收集分类</strong></h2><h3 id="1-YoungGC"><a href="#1-YoungGC" class="headerlink" title="1. YoungGC"></a>1. <strong>YoungGC</strong></h3><ul>
+<li>YoungGC并不是说现有的Eden区放满了就会马上触发，</li>
+<li>G1会计算下现在Eden区回收大概要多久时间，如果回收时 间远远小于参数 -XX:MaxGCPauseMills 设定的值，那么增加年轻代的region，继续给新对象存放，不会马上做Young GC，直到下一次Eden区放满，G1计算回收时间接近参数 -XX:MaxGCPauseMills 设定的值，那么就会触发Young GC</li>
+</ul>
+<h3 id="2-MixedGC"><a href="#2-MixedGC" class="headerlink" title="2. MixedGC"></a>2. <strong>MixedGC</strong></h3><ul>
+<li>不是FullGC，老年代的占用空间达到整堆的阈值(<strong>-XX:InitiatingHeapOccupancyPercent</strong>设定的值，默认45%)则触发，回收所有的 Young和部分Old(根据期望的GC停顿时间确定old区垃圾收集的优先顺序)以及大对象区，</li>
+<li>正常情况G1的垃圾收集是先做 MixedGC，主要使用复制算法，需要把各个region中存活的对象拷贝到别的region里去，拷贝过程中如果发现<strong>没有足够</strong> <strong>的空region</strong>能够承载拷贝对象就会触发一次Full GC</li>
+</ul>
+<h3 id="3-Full-GC"><a href="#3-Full-GC" class="headerlink" title="3. Full GC"></a><strong>3. Full GC</strong></h3><ul>
+<li><p>停止系统程序，然后采用单线程进行标记、清理和压缩整理，好空闲出来一批Region来供下一次MixedGC使用</p>
+</li>
+<li><p>这个过程是非常耗时的。(Shenandoah优化成多线程收集了) 。Full GC的时候除了收集年轻代和老年代之外，也会将Humongous区一并回收。</p>
+</li>
+</ul>
+<h2 id="四-G1-大对象的处理"><a href="#四-G1-大对象的处理" class="headerlink" title="四 G1 大对象的处理"></a>四 G1 大对象的处理</h2><ul>
+<li>G1有专门分配 大对象的Region叫<strong>Humongous区</strong>，而不是让大对象直接进入老年代的Region中。</li>
+<li>在G1中，大对象的判定规则就是一个大对象超过了一个Region大小的50%，比如按照上面算的，每个Region是2M，只要一个大对象超过了1M，就会被放 入Humongous中，而且一个大对象如果太大，可能会横跨多个Region来存放。</li>
+<li>Humongous区专门存放短期巨型对象，不用直接进老年代，可以节约老年代的空间，避免因为老年代空间不够的GC开 销。</li>
+</ul>
+<h2 id="五-G1收集器参数设置"><a href="#五-G1收集器参数设置" class="headerlink" title="五 G1收集器参数设置"></a>五 <strong>G1收集器参数设置</strong></h2><ul>
+<li><p>-XX:+UseG1GC:使用G1收集器</p>
+</li>
+<li><p>-XX:ParallelGCThreads:指定GC工作的线程数量</p>
+</li>
+<li><p>-XX:G1HeapRegionSize:指定分区大小(1MB~32MB，且必须是2的N次幂)，默认将整堆划分为2048个分区</p>
+</li>
+<li><p><strong>-XX:MaxGCPauseMillis</strong>:目标暂停时间(默认200ms)</p>
+</li>
+<li><p>-XX:G1NewSizePercent:新生代内存初始空间(默认整堆5%，值配置整数，默认就是百分比)</p>
+</li>
+<li><p>-XX:G1MaxNewSizePercent:新生代内存最大空间</p>
+</li>
+<li><p>-XX:TargetSurvivorRatio:Survivor区的填充容量(默认50%)，Survivor区域里的一批对象(年龄1+年龄2+年龄n的多个年龄对象)总和超过了Survivor区域的50%，此时就会把年龄n(含)以上的对象都放入老年代</p>
+</li>
+<li><p>-XX:MaxTenuringThreshold:最大年龄阈值(默认15)</p>
+</li>
+<li><p>**-XX:InitiatingHeapOccupancyPercent:**老年代占用空间达到整堆内存阈值(默认45%)，则执行新生代和老年代的混合收集(<strong>MixedGC</strong>)，比如我们之前说的堆默认有2048个region，如果有接近1000个region都是老年代的region，则可能就要触发MixedGC了</p>
+</li>
+<li><p><strong>-XX:G1MixedGCLiveThresholdPercent(默认85%)</strong>  region中的存活对象低于这个值时才会回收该region，如果超过这个值，存活对象过多，回收的的意义不大。</p>
+</li>
+<li><p><strong>-XX:G1MixedGCCountTarget</strong>:在一次回收过程中指定做几次筛选回收(默认8次)，在最后一个筛选回收阶段可以回收一会，然后暂停回收，恢复系统运行，一会再开始回收，这样可以让系统不至于单次停顿时间过长。</p>
+</li>
+<li><p>-XX:G1HeapWastePercent(默认5%): gc过程中空出来的region是否充足阈值，在混合回收的时候，对Region回收都是基于复制算法进行的，都是把要回收的Region里的存活对象放入其他Region，然后这个Region中的垃圾对象全部清理掉，这样的话在回收过程就会不断空出来新的Region，一旦空闲出来的Region数量达到了堆内存的5%，此时就会立即停止混合回收，意味着本次混合回收就结束了。</p>
+</li>
+</ul>
+<blockquote>
+<p>-XX 后面带的X越多，说明这个参数越不稳定，后面可能会被废弃掉，比如java –version，这种事最稳定的</p>
+</blockquote>
+<h2 id="六-G1垃圾收集器优化建议"><a href="#六-G1垃圾收集器优化建议" class="headerlink" title="六 G1垃圾收集器优化建议"></a>六 <strong>G1垃圾收集器优化建议</strong></h2><p>调节 -XX:MaxGCPauseMills 这个参数的值，避免 -XX:MaxGCPauseMills过大用户体验不好，-XX:MaxGCPauseMills过小，垃圾堆积至占满整个堆，触发full GC。</p>
+<ul>
+<li><p>假设参数 -XX:MaxGCPauseMills 设置的值很小， 譬如设置为二十毫秒， 很可能出现的结果就是由于停顿目标时间太短， 导致每次选出来的回收集只占堆内存很小的一部分， 收集器收集的速度逐渐跟不上分配器分配的速度， 导致垃圾慢慢堆积。 最终占满堆引发 Full GC反而降低性能</p>
+</li>
+<li><p>假设参数 -XX:MaxGCPauseMills 设置的值很大，导致系统停顿很久，用户体验不好。</p>
+</li>
+</ul>
+<h2 id="七-G1的使用场景"><a href="#七-G1的使用场景" class="headerlink" title="七 G1的使用场景"></a>七 <strong>G1的使用场景</strong></h2><h3 id="1-希望消除长时间的GC停顿（超过0-5-1秒）"><a href="#1-希望消除长时间的GC停顿（超过0-5-1秒）" class="headerlink" title="1. 希望消除长时间的GC停顿（超过0.5-1秒）"></a>1. 希望消除长时间的GC停顿（超过0.5-1秒）</h3><p>对于类似Kafka的系统，因为他需要支持每秒处理百万级的消息，所以一般需要大内存机器来部署，比如三四十G，对于这么大的内存，minor GC 即使使用复制算法，也就不再快了，很可能会出现系统每运行一两分钟就会因为minor gc卡顿几秒钟没法处理新消息，这显然是不可以的。使用G1收集器就可以消除长时间的GC停顿，比如设置停顿时间是50ms，后50ms的卡顿其实完全能够接受，用户几乎无感知，那么整个系统就可以在卡顿几乎无感知的情况下一边处理业务一边收集垃圾。</p>
+<h3 id="2-想要更可控、可预期的GC停顿周期"><a href="#2-想要更可控、可预期的GC停顿周期" class="headerlink" title="2. 想要更可控、可预期的GC停顿周期"></a>2. 想要更可控、可预期的GC停顿周期</h3><h3 id="3-多核CPU，大内存"><a href="#3-多核CPU，大内存" class="headerlink" title="3. 多核CPU，大内存"></a>3. 多核CPU，大内存</h3><p>8GB以上的堆内存(建议值)，因为g1算法很复杂，内存不够大，就不要用了</p>
+<h3 id="4-？？"><a href="#4-？？" class="headerlink" title="4. ？？"></a>4. ？？</h3><ul>
+<li><p>对象分配或者晋升的速度变化大  ？？</p>
+</li>
+<li><p>实时数据占用超过一半的堆空间  ？？</p>
+</li>
+</ul>
+<h2 id="八-CMS收集器和G1收集器的区别"><a href="#八-CMS收集器和G1收集器的区别" class="headerlink" title="八 CMS收集器和G1收集器的区别"></a>八 CMS收集器和G1收集器的区别</h2><h3 id="1-使用范围不一样"><a href="#1-使用范围不一样" class="headerlink" title="1. 使用范围不一样"></a>1. 使用范围不一样</h3><ul>
+<li>CMS收集器是老年代的收集器，可以配合新生代的Serial和ParNew收集器一起使用</li>
+<li>G1收集器收集范围是老年代和新生代。不需要结合其他收集器使用</li>
+</ul>
+<h3 id="2-STW的时间"><a href="#2-STW的时间" class="headerlink" title="2. STW的时间"></a>2. STW的时间</h3><ul>
+<li>CMS收集器以最小的停顿时间为目标的收集器。只有初始标记和重新标记需要STW</li>
+<li>G1收集器可预测垃圾回收的停顿时间（建立可预测的停顿时间模型）。除了初始标记和重新标记需要STW，筛选回收时也需要STW，不过停顿时间可预测</li>
+</ul>
+<h3 id="3-垃圾碎片"><a href="#3-垃圾碎片" class="headerlink" title="3. 垃圾碎片"></a>3. 垃圾碎片</h3><ul>
+<li>CMS收集器是使用“标记-清除”算法进行的垃圾回收，容易产生内存碎片</li>
+<li>G1收集器使用的是“标记-整理”算法，进行了空间整合，降低了内存空间碎片。</li>
+</ul>
+<h3 id="4-垃圾回收的过程不一样"><a href="#4-垃圾回收的过程不一样" class="headerlink" title="4. 垃圾回收的过程不一样"></a>4. 垃圾回收的过程不一样</h3><ul>
+<li>CMS: 初始标记 + 并发标记 + 重新标记 + 并发清除</li>
+<li>G1: 初始标记 + 并发标记 + 最终标记 + 筛选回收</li>
+</ul>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+      
+        <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>垃圾收集器之G1收集器</div>
+      <div>http://example.com/垃圾收集器之G1收集器/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月15日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/" title="垃圾收集器之ZGC收集器">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">垃圾收集器之ZGC收集器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" title="垃圾收集器">
+                        <span class="hidden-mobile">垃圾收集器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,914 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="如果没有单元测试和重构，我没办法写代码  1 重构的意义 保持代码易读、易修改 避免代码太复杂，无法理解，无法调试。（或许一个修改只需要10分钟，但是你得花费1个小时去理解这段代码 如果没有良好设计，或许某一段时间内你的进展迅速，但恶劣的设计很快就让你的速度慢下来。你会把时间花在 调试上面，无法添加新功能。修改时间越来越长，因为你必须花越来越多的时间去理解系统。  2 重构的定义在不改变代码外在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重构-改善代码已有的设计">
+<meta property="og:url" content="http://example.com/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E4%BB%A3%E7%A0%81%E5%B7%B2%E6%9C%89%E7%9A%84%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="如果没有单元测试和重构，我没办法写代码  1 重构的意义 保持代码易读、易修改 避免代码太复杂，无法理解，无法调试。（或许一个修改只需要10分钟，但是你得花费1个小时去理解这段代码 如果没有良好设计，或许某一段时间内你的进展迅速，但恶劣的设计很快就让你的速度慢下来。你会把时间花在 调试上面，无法添加新功能。修改时间越来越长，因为你必须花越来越多的时间去理解系统。  2 重构的定义在不改变代码外在">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-14T14:36:02.000Z">
+<meta property="article:modified_time" content="2022-11-20T15:15:13.834Z">
+<meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="重构">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>重构-改善代码已有的设计 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="重构-改善代码已有的设计"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-04-14 22:36" pubdate>
+          2022年4月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">重构-改善代码已有的设计</h1>
+            
+            <div class="markdown-body">
+              
+              <blockquote>
+<p>如果没有单元测试和重构，我没办法写代码</p>
+</blockquote>
+<h1 id="1-重构的意义"><a href="#1-重构的意义" class="headerlink" title="1 重构的意义"></a>1 重构的意义</h1><ul>
+<li>保持代码易读、易修改</li>
+<li>避免代码太复杂，无法理解，无法调试。（或许一个修改只需要10分钟，但是你得花费1个小时去理解这段代码</li>
+<li>如果没有良好设计，或许某一段时间内你的进展迅速，但恶劣的设计很快就让你的速度慢下来。你会把时间花在 调试上面，无法添加新功能。修改时间越来越长，因为你必须花越来越多的时间去理解系统。</li>
+</ul>
+<h1 id="2-重构的定义"><a href="#2-重构的定义" class="headerlink" title="2 重构的定义"></a>2 重构的定义</h1><p>在不改变代码外在行为的前提下，对代码做出修改，以改进程序的内部结构。</p>
+<h1 id="3-重构的前提"><a href="#3-重构的前提" class="headerlink" title="3 重构的前提"></a>3 重构的前提</h1><p><strong>为即将修改的代码建立一组可靠的测试环境。</strong></p>
+<ul>
+<li>因为尽管遵循重构手法可以使我避免绝大多数引入bug的情形，但我毕竟是人，毕竟有可能犯错。所以我需要可靠的测试。</li>
+</ul>
+<blockquote>
+<p>好的测试是重构的根本。</p>
+</blockquote>
+<h1 id="4-何时重构"><a href="#4-何时重构" class="headerlink" title="4 何时重构"></a>4 何时重构</h1><h2 id="4-1-添加新功能时重构"><a href="#4-1-添加新功能时重构" class="headerlink" title="4.1 添加新功能时重构"></a>4.1 添加新功能时重构</h2><ul>
+<li><p>此时，重构的直接原因往往是为了帮助我理解 需要修改的代码——这些代码可能是别人写的，也可能是我自己写的。</p>
+</li>
+<li><p>无论何时，只要我想理解代码所做的事，我就会问自己：是否能对这段代码进行重构，使我能更快地理解它。然后我就会重构。</p>
+</li>
+<li><p>之所以这么做，部分原因是为了让我下次再看这段代码时容易理解，但最主要的原因是：如果在前进过程中把代码结构理清，我就可以从中理解更多东西</p>
+</li>
+</ul>
+<h2 id="4-2-复审代码时重构"><a href="#4-2-复审代码时重构" class="headerlink" title="4.2 复审代码时重构"></a>4.2 复审代码时重构</h2><p>这种活动有助于在开发团队中传 播知识，也有助于让较有经验的开发者把知识传递给比较欠缺经验的人，并帮助更多人理解大型软件系统中的更多部分。</p>
+<h2 id="4-3-修补错误时重构"><a href="#4-3-修补错误时重构" class="headerlink" title="4.3 修补错误时重构"></a>4.3 修补错误时重构</h2><p>代码还够清晰——没有清晰到让你能一眼看出bug。</p>
+<h1 id="5-代码坏味道"><a href="#5-代码坏味道" class="headerlink" title="5 代码坏味道"></a>5 代码坏味道</h1><h2 id="5-1-命名规范"><a href="#5-1-命名规范" class="headerlink" title="5.1 命名规范"></a>5.1 命名规范</h2><h3 id="错误方式"><a href="#错误方式" class="headerlink" title="错误方式"></a>错误方式</h3><ul>
+<li><p>单词拼写错误</p>
+</li>
+<li><p>自己创造缩写   </p>
+</li>
+<li><p>使用技术术语命名</p>
+<ul>
+<li><p>如：userList , idList</p>
+</li>
+<li><p>编程的一个重要原则是面向接口编程。即接口是稳定的，实现是易变的。</p>
+</li>
+<li><p>假设这里我现在需要的是一个不重复的作品集合，也就是说这里需要把List改成Set，变量类型一定会改，但是你不一定会记得改变量名，一旦遗忘，就会出现一个bookList变量，它的类型是set,就会产生混淆。</p>
+</li>
+</ul>
+</li>
+<li><p>命名中的不一致。</p>
+</li>
+</ul>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul>
+<li>命名要有业务含义</li>
+<li>建立团队的词汇表，让团队成员有信息可以参考。</li>
+<li>制定代码规范，比如，类名要用名词，函数名要用动词或动宾短语；</li>
+<li>符合英语语法规则</li>
+<li>类似含义的代码应该有一致的名字，一旦出现了不一致的名字，通常都表示不同的含义</li>
+</ul>
+<h2 id="5-2-Duplicated-Code（重复代码）"><a href="#5-2-Duplicated-Code（重复代码）" class="headerlink" title="5.2 Duplicated Code（重复代码）"></a>5.2 Duplicated Code（重复代码）</h2><ul>
+<li>复制粘贴的代码</li>
+<li>部分重复</li>
+<li>if 和 else 代码块中的语句高度类似。</li>
+</ul>
+<h3 id="优化-1"><a href="#优化-1" class="headerlink" title="优化"></a>优化</h3><ul>
+<li><p>抽方法</p>
+</li>
+<li><p>Template Method（模版方法）： 在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">createOrder</span><span class="hljs-params">()</span> </span>&#123;<br>    check();<br>    calculate();<br>    pay();<br>    log();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>让 if 语句做真正的选择</li>
+</ul>
+<h2 id="5-3-Long-Method（过长函数）"><a href="#5-3-Long-Method（过长函数）" class="headerlink" title="5.3 Long Method（过长函数）"></a>5.3 <strong>Long Method</strong>（过长函数）</h2><h3 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h3><ul>
+<li><p>把代码平铺直叙地摊在那里</p>
+</li>
+<li><p>一次加一点</p>
+</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li><p>程序愈长愈难理解</p>
+</li>
+<li><p>把多个业务处理流程放在一个函数里实现；</p>
+</li>
+<li><p>把不同层面的细节放到一个函数里实现。</p>
+</li>
+</ul>
+<h3 id="优化-2"><a href="#优化-2" class="headerlink" title="优化"></a>优化</h3><ul>
+<li>如果代码前方有一行注释，就是在提醒你：可以将这段代码替换成一个函数，而且可以在注释的基础上给这个函数命名。就算只有一行代码，如果它需要以注释来说明，那也值得将它提炼到独立函数去。</li>
+<li>循环常常也是提炼的信号。你应该将循环和其内的代码提炼到一个独立函数中。</li>
+<li>建议30 行，idea屏可以看得完</li>
+</ul>
+<h2 id="5-4-Large-Class（过大的类）"><a href="#5-4-Large-Class（过大的类）" class="headerlink" title="5.4 Large Class（过大的类）"></a>5.4 Large Class（过大的类）</h2><h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>类内如果有太多代码，也是代码重复、混乱并最终走向死亡的源头</p>
+<h3 id="优化-3"><a href="#优化-3" class="headerlink" title="优化"></a>优化</h3><ul>
+<li>类的职责保证单一</li>
+<li>字段未分组。比如，userId、name、nickname 几项，算是用户的基本信息，而 email、phoneNumber 这些则属于用户的联系方式</li>
+</ul>
+<h2 id="5-5-Long-Parameter-List（过长参数列）"><a href="#5-5-Long-Parameter-List（过长参数列）" class="headerlink" title="5.5 Long Parameter List（过长参数列）"></a>5.5 Long Parameter List（过长参数列）</h2><h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>太长的参数列难以理解，太多参数会造成前后不一致、不易使用</li>
+<li>如果有多个重载方法，参数很多的话，有时候你都不知道调哪个</li>
+</ul>
+<h3 id="优化-4"><a href="#优化-4" class="headerlink" title="优化"></a>优化</h3><ul>
+<li>将参数封装成结构或者类</li>
+</ul>
+<h2 id="5-6-Shotgun-Surgery（霰弹式修改）"><a href="#5-6-Shotgun-Surgery（霰弹式修改）" class="headerlink" title="5.6 Shotgun Surgery（霰弹式修改）"></a>5.6 Shotgun Surgery（霰弹式修改）</h2><h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>每遇到某种变化，你都必须在许多不同的类内做出许多小修改，你不但很难找到它们，也很容易忘记某个重要的修改。</li>
+</ul>
+<h3 id="优化-5"><a href="#优化-5" class="headerlink" title="优化"></a>优化</h3><ul>
+<li>把所有需要修改的代码放进同一个类</li>
+</ul>
+<h3 id="5-7-Data-Clumps（数据泥团）"><a href="#5-7-Data-Clumps（数据泥团）" class="headerlink" title="5.7 Data Clumps（数据泥团）"></a>5.7 Data Clumps（数据泥团）</h3><p>数据泥团指的是经常一起出现的数据， 比如：</p>
+<ul>
+<li>两个类中相同的字段</li>
+<li>多个函数签名中相同的参数</li>
+</ul>
+<h3 id="优化-6"><a href="#优化-6" class="headerlink" title="优化"></a>优化</h3><ul>
+<li>提炼到一个独立对象</li>
+</ul>
+<h2 id="5-8-Switch-Statements（switch惊悚现身）"><a href="#5-8-Switch-Statements（switch惊悚现身）" class="headerlink" title="5.8  Switch Statements（switch惊悚现身）"></a>5.8  Switch Statements（switch惊悚现身）</h2><ul>
+<li>少用switch（或case）语句</li>
+</ul>
+<h3 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>switch语句的问题在于重复。你常会发现同样的switch语句散布于不同地点。</li>
+<li>如果要为它添加一个新的case子句，就必须找到所有switch语句并修改它们</li>
+</ul>
+<h3 id="优化-7"><a href="#优化-7" class="headerlink" title="优化"></a>优化</h3><ul>
+<li><p>构建map</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">getDeliverResult</span><span class="hljs-params">(status)</span> </span>&#123;<br>  <span class="hljs-keyword">switch</span> (status) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;待发货&#x27;</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;已发货&#x27;</span>;<br>    <span class="hljs-keyword">default</span>:<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">const</span> orderStatus = <span class="hljs-keyword">new</span> Map()<br>    .set(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;待发货&#x27;</span>)<br>    .set(<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;已发货&#x27;</span>)<br>    .set(<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;已完成&#x27;</span>);<br> <br><span class="hljs-function">function <span class="hljs-title">getOrderStatus</span><span class="hljs-params">(statusCode)</span> </span>&#123;<br>  <span class="hljs-keyword">return</span> orderStatus.get(statusCode) || [];<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>多态</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">double</span> result = <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ChargeFor</span><span class="hljs-params">()</span></span>&#123;<br>		<span class="hljs-keyword">switch</span>(PriceCode)&#123;<br>		<span class="hljs-keyword">case</span> Movie.REGULAR:<br>			result = (<span class="hljs-keyword">new</span> RegularPrice()).ChargeFor(daysRented)<br>			<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> Movie.REGULAR:<br>			result += daysRented * <span class="hljs-number">3</span>;<br>			<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> Movie.CHILDRENS:<br>			result += <span class="hljs-number">1.5</span>;<br>			<span class="hljs-keyword">if</span> (daysRented &gt; <span class="hljs-number">3</span>)<br>				result += (daysRented - <span class="hljs-number">3</span>) * <span class="hljs-number">1.5</span>;<br>			<span class="hljs-keyword">break</span>;<br>		&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MovieBase</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ChargeFor</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RegularMovie</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MovieBase</span></span>&#123;<br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ChargeFor</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> RegularPrice()).ChargeFor(daysRented);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="5-9-过深的if-else嵌套"><a href="#5-9-过深的if-else嵌套" class="headerlink" title="5.9 过深的if else嵌套"></a>5.9 过深的if else嵌套</h2><p>圈复杂度不能超过6，3个if else</p>
+<h3 id="缺点-5"><a href="#缺点-5" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>看起来很复杂</li>
+</ul>
+<h3 id="优化-8"><a href="#优化-8" class="headerlink" title="优化"></a>优化</h3><ul>
+<li>抽方法</li>
+<li>使用多态</li>
+</ul>
+<h2 id="5-10-过多的注释"><a href="#5-10-过多的注释" class="headerlink" title="5.10 过多的注释"></a>5.10 过多的注释</h2><h3 id="缺点-6"><a href="#缺点-6" class="headerlink" title="缺点"></a>缺点</h3><p>很多注释的存在是因为代码很糟糕</p>
+<h3 id="优化-9"><a href="#优化-9" class="headerlink" title="优化"></a>优化</h3><ul>
+<li><p>方法函数、变量的<strong>命名要规范、浅显易懂</strong>、避免用注释解释代码。</p>
+</li>
+<li><p><strong>关键、复杂的业务</strong>，使用<strong>清晰、简明</strong>的注释</p>
+</li>
+</ul>
+<h2 id="5-11-magic变量"><a href="#5-11-magic变量" class="headerlink" title="5.11 magic变量"></a>5.11 magic变量</h2><h3 id="缺点-7"><a href="#缺点-7" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>看了令人迷惑</li>
+</ul>
+<p>如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;3&quot;</span>.equals(emndVo.getStatus())) &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (allId.size() &lt;= <span class="hljs-number">500</span>) <br></code></pre></td></tr></table></figure>
+
+<h3 id="优化-10"><a href="#优化-10" class="headerlink" title="优化"></a>优化</h3><ul>
+<li><strong>新建个常量</strong></li>
+<li><strong>建一个枚举类</strong>，把相关的魔法数字放到一起管理。</li>
+</ul>
+<h1 id="6-其他提升代码可读性的方式"><a href="#6-其他提升代码可读性的方式" class="headerlink" title="6 其他提升代码可读性的方式"></a>6 其他提升代码可读性的方式</h1><h3 id="6-1-Introduce-Explaining-Variable（引入解释性变量）"><a href="#6-1-Introduce-Explaining-Variable（引入解释性变量）" class="headerlink" title="6.1 Introduce Explaining Variable（引入解释性变量）"></a>6.1 Introduce Explaining Variable（引入解释性变量）</h3><ul>
+<li>将该复杂表达式（或其中一部分）的结果放进一个临时变量，以此变量名称来解释表达式用途。</li>
+<li>表达式有可能非常复杂而难以阅读。这种情况下，临时变量可以帮助你将表达式分解为比较容易管理的形式。</li>
+</ul>
+<h3 id="6-2-使用pair"><a href="#6-2-使用pair" class="headerlink" title="6.2 使用pair"></a>6.2 使用pair</h3><h1 id="7-构建单元测试"><a href="#7-构建单元测试" class="headerlink" title="7 构建单元测试"></a>7 构建单元测试</h1>
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BB%A3%E7%A0%81%E4%B9%8B%E4%B8%91/" class="category-chain-item">代码之丑</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%87%8D%E6%9E%84/">#重构</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>重构-改善代码已有的设计</div>
+      <div>http://example.com/重构-改善代码已有的设计/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年4月14日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/react%E5%88%9D%E4%BD%93%E9%AA%8C/" title="react初体验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">react初体验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/react%E5%9F%BA%E7%A1%80/" title="react基础">
+                        <span class="hidden-mobile">react基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

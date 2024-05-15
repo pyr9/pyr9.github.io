@@ -1,0 +1,906 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 调优原则 多数导致GC问题的Java应⽤，都不是因为我们参数设置错误，⽽是代码问题；  实际使用中，分析GC优化代码，比优化JVM参数效果要好，JVM 参数的默认（推荐）值都是经过 JVM 团队的反复测试和前人的充分验证得出的比较合理的值，因此通常来说是比较靠谱和通用的，一般不会出大问题。  如果满足下面的指标，则一般不需要进行GC：  Minor GC执行时间不到50ms，不低于10秒一次；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM调优">
+<meta property="og:url" content="http://example.com/JVM%E8%B0%83%E4%BC%98/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="1 调优原则 多数导致GC问题的Java应⽤，都不是因为我们参数设置错误，⽽是代码问题；  实际使用中，分析GC优化代码，比优化JVM参数效果要好，JVM 参数的默认（推荐）值都是经过 JVM 团队的反复测试和前人的充分验证得出的比较合理的值，因此通常来说是比较靠谱和通用的，一般不会出大问题。  如果满足下面的指标，则一般不需要进行GC：  Minor GC执行时间不到50ms，不低于10秒一次；">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222903395.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222923471.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222946533.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222956571.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223006680.png">
+<meta property="article:published_time" content="2022-09-17T08:57:45.000Z">
+<meta property="article:modified_time" content="2023-02-28T14:30:11.672Z">
+<meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="性能调优">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>JVM调优 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JVM调优"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-17 16:57" pubdate>
+          2022年9月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JVM调优</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="1-调优原则"><a href="#1-调优原则" class="headerlink" title="1 调优原则"></a>1 调优原则</h1><ul>
+<li><p><strong>多数导致GC问题的Java应⽤，都不是因为我们参数设置错误，⽽是代码问题</strong>；</p>
+</li>
+<li><p>实际使用中，分析GC优化代码，比优化JVM参数效果要好，JVM 参数的默认（推荐）值都是经过 JVM 团队的反复测试和前人的充分验证得出的比较合理的值，因此通常来说是比较靠谱和通用的，一般不会出大问题。</p>
+</li>
+<li><p>如果满足下面的指标，则一般不需要进行GC：</p>
+<ul>
+<li>Minor GC执行时间不到50ms，不低于10秒一次；</li>
+<li>Full GC执行时间不到1s，不低于一小时1次；</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-调优步骤"><a href="#2-调优步骤" class="headerlink" title="2 调优步骤"></a>2 调优步骤</h1><h2 id="2-1-内存分析"><a href="#2-1-内存分析" class="headerlink" title="2.1 内存分析"></a>2.1 内存分析</h2><ul>
+<li>方式： 检查是否有OutOfMemory 等内存异常， 检查哪些对象在系统中数量最大，避免频繁生成新对象，类似天气预报系统里有一个分页展示，每次批量去操作5000个对象，会频繁触发Minor GC 和 Full GC，后面调成500个，基本上就没有Full GC了。</li>
+<li>工具：jmap ‐dump，生成Java虚拟机的堆转储快照dump文件，用jvisualvm命令工具导入该dump文件分析，最多的类是哪些</li>
+<li>参考地址：<a target="_blank" rel="noopener" href="https://pyr9.github.io/java%E5%91%BD%E4%BB%A4--jmap%E5%B7%A5%E5%85%B7/">java命令–jmap工具 - 楼上有只喵 (pyr9.github.io)</a></li>
+</ul>
+<h2 id="2-2-死锁检查"><a href="#2-2-死锁检查" class="headerlink" title="2.2 死锁检查"></a>2.2 死锁检查</h2><ul>
+<li><p>方式一：jps+jstack</p>
+<ul>
+<li>运行<code>jps</code>，查看当前所有java进程的pid</li>
+<li><code>jstack pid</code> 查看当前进程的堆栈状态，如果有死锁会打印出来found 1 deadLock</li>
+</ul>
+</li>
+<li><p>方式二：jvisualvm</p>
+<p> 代码运行起来后，启动jvisualvm，在线程页面会直接有一个红色的显示：监测到死锁</p>
+</li>
+<li><p>参考地址：<a target="_blank" rel="noopener" href="https://pyr9.github.io/java%E5%91%BD%E4%BB%A4-jstack-%E5%B7%A5%E5%85%B7/">java命令–jstack的使用 - 楼上有只喵 (pyr9.github.io)</a></p>
+</li>
+</ul>
+<h2 id="2-3-CPU分析，哪些方法占用的大量CPU时间"><a href="#2-3-CPU分析，哪些方法占用的大量CPU时间" class="headerlink" title="2.3 CPU分析，哪些方法占用的大量CPU时间"></a>2.3 CPU分析，哪些方法占用的大量CPU时间</h2><ul>
+<li>方式：<ul>
+<li>命令top -p ，显示你的java进程的内存情况，找到当前进程的PID</li>
+<li>top -Hp，获取每个线程的内存情况，获取CPU比较高的线程id，并专成16进制</li>
+<li>执行 <code>jstack PID|grep -A 10 4cd0</code>得到线程堆栈信息，找出可能存在问题的代码，比如大量计算，或者循环new 对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-4-垃圾回收器选择"><a href="#2-4-垃圾回收器选择" class="headerlink" title="2.4  垃圾回收器选择"></a>2.4  垃圾回收器选择</h2><ul>
+<li><strong>JDK 1.8默认使用 Parallel</strong>，<strong>JDK 1.9默之后认使用 G1</strong></li>
+<li>100M以下用Serial，简单+高效</li>
+<li>4G以下可以用parallel，并发收集 + 高吞吐量。（标记整理，STW）</li>
+<li>4-8G可以用ParNew+CMS，并发收集 + 低停顿(注重用户体验）</li>
+<li>8G以上可以用G1，避免长时间的停顿+可预期的GC停顿周期 + 高吞吐量(筛选回收时需要STW)</li>
+<li>几百G以上用ZGC，支持TB量级的堆+ 最大GC停顿时间不超10ms</li>
+</ul>
+<h2 id="2-5-Full-GC-次数频繁"><a href="#2-5-Full-GC-次数频繁" class="headerlink" title="2.5 Full GC 次数频繁"></a>2.5 Full GC 次数频繁</h2><p>可以通过<code>jstat -gc pid interval count</code>，每隔interval秒，打印count次，pid进程下GC压力整体情况。观察是否出现频繁Full GC</p>
+<h3 id="2-5-1-调用System-gc-方法的调用"><a href="#2-5-1-调用System-gc-方法的调用" class="headerlink" title="2.5.1 调用System.gc()方法的调用"></a>2.5.1 调用System.gc()方法的调用</h3><ul>
+<li>此方法的调用是建议JVM进行Full GC,虽然只是建议而非一定,但很多情况下它会触发 Full GC,从而增加Full GC的频率</li>
+<li><strong>调优建议</strong>：能不使用此方法就别使用，让虚拟机自己去管理它的内存</li>
+</ul>
+<h3 id="2-5-2-方法区空间不足"><a href="#2-5-2-方法区空间不足" class="headerlink" title="2.5.2 方法区空间不足"></a>2.5.2 方法区空间不足</h3><ul>
+<li>方法区存放的为一些class的信息、常量、静态变量等数据，当系统中要加载的类、反射的类和调用的方法较多时，方法区可能会被占满，从而执行Full GC。</li>
+<li>元空间的初始阈值设置太小，垃圾收集器调整元空间的大小需要Full GC。比如初始值是21M，full gc后，释放了20M，只剩1M，那么垃圾收集器就会将该值调成2M；相反，如果释放了1M，还剩20M，下次就会调整到40M，这个过程会多次触发full GC.</li>
+<li>一般建议在JVM参数中将MetaspaceSize和MaxMetaspaceSize设置成一样的值，并设置得比初始值要大。</li>
+<li><strong>调优建议：</strong>对于8G物理内存的机器来说，一般我会将这两个值都设置为256M。常见的问题：项目jar包只有1G，但是启动了好久，就可能是因为由于元空间设置的太小，一直在触发full GC。</li>
+</ul>
+<h3 id="2-5-3-老年代空间不足"><a href="#2-5-3-老年代空间不足" class="headerlink" title="2.5.3 老年代空间不足"></a>2.5.3 老年代空间不足</h3><p><strong>对象转入老年代的场景有：</strong></p>
+<ul>
+<li><p>大对象直接进入老年代：为了避免为大对象GC时，多次在survivor上来回复制而降低效率。</p>
+<ul>
+<li><strong>调优建议：</strong><ul>
+<li>尽量避免写大对象，</li>
+<li>结合你自己系统看下有没有什么大对象 生成，预估下大对象的大小，设置XX:PretenureSizeThreshold的值，一般来说设置为1M就差不多了，很少有超过1M的大对象，这些对象一般就是你系统初始 化分配的缓存对象，比如大的缓存List，Map之类的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>长期存活的对象进入老年代：默认是经历了15次minor GC ，CMS是6次。</p>
+<ul>
+<li><strong>调优建议：</strong><ul>
+<li>调整Eden和survivor的比例，默认时8:1:1，避免Eden区域过小，导致频繁minor GC，增大系统消耗</li>
+<li>如果我们可以确定大多数对象都是很快会被回收的，可以将该值调小，比如大多数对象都是3次左右就可以被回收，我们可以设置成5，如果超过了5，就说明剩下的应该是一些类似java bean 这种，会长期存活的对象，我们就没必要，让他再待在survivor占用空间了，提前让他们进入老年代。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>对象动态年龄判断</strong>：survivor区域里，对象年龄从小到大排序，当累加到某个年龄时，占用 survivor区域 的50%，就会把这个年龄大的对象都晋升到老年代。 如果系统中朝生夕死的对象比较多，</p>
+<ul>
+<li><strong>调优建议：</strong><ul>
+<li>如果系统中朝生夕死的对象比较多，可以考虑将年轻代参数调大一些，这样对应survivor区域就会对应变大，减少对象因为触发了这个机制，进入到老年代，从而触发Full GC。一般情况，新生代默认是堆大小的1&#x2F;3</li>
+<li>避免Survivor设置过小，导致对象从 eden 直接到达老年代，从而触发Full GC</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>老年代空间分配担保机制。 </p>
+<p>在发生 Minor GC 之前，虚拟机先检查老年代最大可用的连续空间是否大于新生代所有对象总空间。</p>
+<ul>
+<li>大于 -&gt; minor GC</li>
+<li>小于 -&gt;查看是否开启了空间担保机制<ul>
+<li>没开启就直接触发full GC，</li>
+<li>开启了，就会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小，如果大于，将尝试着进行一次 Minor GC；如果小于，会触发full gc。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-调优案例"><a href="#3-调优案例" class="headerlink" title="3.调优案例"></a>3.调优案例</h1><h2 id="3-1-场景"><a href="#3-1-场景" class="headerlink" title="3.1 场景"></a>3.1 场景</h2><p>天气预报系统，有一个展示所有城市天气预报的页面，由于城市比较多，需要分页去展示，于是先设置了一次查询5000条，由于每一条城市都需要再去给他设置对应的天气信息，所以搞了一个foreach每一条记录都需要new City()，然后再去set天气信息</p>
+<p>初始参数是：</p>
+<p>堆的最大和最小容量都设置了1536M, 年轻代是512M，使用的ParNew+CMS垃圾收集器，元空间256M</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">-Xms1536M -Xmx1536M -Xmn512M -Xss256K -XX:<span class="hljs-attribute">SurvivorRatio</span>=6 -XX:<span class="hljs-attribute">MetaspaceSize</span>=256M -XX:<span class="hljs-attribute">MaxMetaspaceSize</span>=512M  -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:<span class="hljs-attribute">CMSInitiatingOccupancyFraction</span>=75 -XX:+UseCMSInitiatingOccupancyOnly<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-2-观察GC整体情况"><a href="#3-2-观察GC整体情况" class="headerlink" title="3.2 观察GC整体情况"></a>3.2 观察GC整体情况</h2><ul>
+<li><p>step1 : 运行<code> jps</code>看下, 查看当前java进程PID</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png" srcset="/img/loading.gif" lazyload alt="image-20230228222821739"></p>
+</li>
+<li><p>step2: 运行 <code>jstat -gc 2593 3000 10000</code>，每隔3秒，打印下GC压力整体情况。观察可发现，程序突然开始频繁Young Gc 和Full GC。</p>
+</li>
+</ul>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222903395.png" srcset="/img/loading.gif" lazyload alt="image-20230228222903395"></p>
+<h2 id="3-2-思考频繁Full-Gc-触发条件"><a href="#3-2-思考频繁Full-Gc-触发条件" class="headerlink" title="3.2 思考频繁Full Gc 触发条件"></a>3.2 思考频繁Full Gc 触发条件</h2><ul>
+<li><p>调用System.gc()方法的调用。   <strong>-&gt; 不可能，系统中没这样调用</strong></p>
+</li>
+<li><p>云空间，方法区空间不足  <strong>-&gt; 不可能，观察MU并没有很大变化，说明元空间没有一直扩容，所以空间是够的</strong></p>
+</li>
+<li><p>老年代空间不足，对象转入老年代的场景有：</p>
+<ul>
+<li>大对象直接进入老年代：为了避免为大对象GC时，多次在survivor上来回复制而降低效率。   <strong>-&gt; 不可能，系统中没很多大对象</strong></li>
+<li>长期存活的对象进入老年代：默认是经历了15次minor GC ，CMS是6次 <strong>-&gt; 可能，代码在频繁生成对象，且占用周期比较长。有可能是代码有问题，其实我们可以频繁生成对象，但是应该让他朝生夕死。</strong></li>
+<li><strong>对象动态年龄判断</strong>：survivor区域里，对象年龄从小到大排序，当累加到某个年龄时，占用 survivor区域 的50%，就会把这个年龄大的对象都晋升到老年代。  <strong>-&gt; 可能，因为现在是频繁生成了对象，可以考虑年轻代调大一些。</strong></li>
+</ul>
+</li>
+<li><p>老年代空间分配担保机制。 <strong>-&gt; 可能性不大，因为老年代挺大的</strong></p>
+</li>
+</ul>
+<h2 id="3-3-调优步骤"><a href="#3-3-调优步骤" class="headerlink" title="3.3 调优步骤"></a>3.3 调优步骤</h2><p>如果是对于对象动态年龄判断机制导致的full gc较为频繁可以先试着优化下JVM参数，把年轻代适当调大点： -Xmn1024M</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">-Xms1536M -Xmx1536M -Xmn1024M -Xss256K -XX:SurvivorRatio=<span class="hljs-number">6</span> -XX:MetaspaceSize=256M -XX:MaxMetaspaceSize=512M  -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=<span class="hljs-number">75</span> -XX:+UseCMSInitiatingOccupancyOnly<br></code></pre></td></tr></table></figure>
+
+<p>我们发现young gc和full gc依然很频繁了，而且看到有大量的对象频繁的被挪动到老年代</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222923471.png" srcset="/img/loading.gif" lazyload alt="image-20230228222923471"></p>
+<p>这种情况我们可以借助jmap或者jvisualvm命令大概看下是什么对象</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222946533.png" srcset="/img/loading.gif" lazyload alt="image-20230228222946533"></p>
+<p>查到了有大量User对象产生，这个可能是问题所在，但不确定，还必须找到对应的代码确认，如何去找对应的代码了？ </p>
+<p>1、代码里全文搜索生成User对象的地方(适合只有少数几处地方的情况) </p>
+<p>2、如果生成User对象的地方太多，无法定位具体代码，我们可以同时分析下占用cpu较高的线程，一般有大量对象不断产生，对应的方法 代码肯定会被频繁调用，占用的cpu必然较高 </p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222956571.png" srcset="/img/loading.gif" lazyload alt="image-20230228222956571"></p>
+<p>可以用上面讲过的jstack或jvisualvm来定位cpu使用较高的代码，最终定位到的代码如下： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/report&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WeatherReportController</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 模拟批量查询城市天气预报场景</span><br><span class="hljs-comment">   */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> ArrayList&lt;City&gt; <span class="hljs-title">queryCities</span><span class="hljs-params">()</span> </span>&#123;<br>    ArrayList&lt;City&gt; cities = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5000</span>; i++) &#123;<br>      cities.add(<span class="hljs-keyword">new</span> City(String.valueOf(i),<span class="hljs-string">&quot;深圳&quot;</span>));<br>    &#125;<br>    <span class="hljs-keyword">return</span> cities;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">City</span> </span>&#123;<br>  <span class="hljs-keyword">private</span> String id;<br><br>  <span class="hljs-keyword">private</span> String name;<br><br>  <span class="hljs-keyword">private</span> String code;<br><br>  <span class="hljs-keyword">byte</span>[] info = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1024</span>*<span class="hljs-number">100</span>];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>同时，java的代码也是需要优化的，一次查询出500M的对象出来，明显不合适，要根据之前说的各种原则尽量优化到合适的值，尽量消除这种朝生夕死的对象导致的full gc</p>
+<p>改成批量查询500后，Full GC 基本不再发生</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223006680.png" srcset="/img/loading.gif" lazyload alt="image-20230228223006680"></p>
+<h1 id="4-内存泄露到底是怎么回事"><a href="#4-内存泄露到底是怎么回事" class="headerlink" title="4 内存泄露到底是怎么回事"></a>4 <strong>内存泄露到底是怎么回事</strong></h1><p>一般电商架构可能会使用多级缓存架构，就是redis加上JVM级缓存，大多数同学可能为了图方便对于JVM级缓存就简单使用一个hashmap，于是不断往里面放缓存数据，但是很少考虑这个map的容量问题，结果这个缓存map越来越大，一直占用着老年代的很多空间，时间长了就会导致full gc非常频繁，这就是一种内存泄漏，对于一些老旧数据没有及时清理导致一直占用着宝贵的内存资源，时间长了除了导致full gc，还有可能导致OOM。 </p>
+<p>这种情况完全可以考虑采用一些成熟的JVM级缓存框架来解决，比如ehcache等自带一些LRU数据淘汰算法的框架来作为JVM级的缓存。</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+      
+        <a href="/tags/JVM/">#JVM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JVM调优</div>
+      <div>http://example.com/JVM调优/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月17日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" title="注册中心">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">注册中心</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/" title="垃圾收集器之ZGC收集器">
+                        <span class="hidden-mobile">垃圾收集器之ZGC收集器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

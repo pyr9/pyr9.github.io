@@ -1,0 +1,1014 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="表引擎介绍表引擎是 ClickHouse 的一大特色。不同的引擎有不同的作用，可以说， 表引擎决定了如何存储表的数据。包括： ➢ 数据的存储方式和位置，写到哪里以及从哪里读取数据。 （一般的引擎都存在磁盘中，但是存在与其他数据库继承的场景，比如和mysql集成，数据放在mysql服务端。） ➢ 支持哪些查询以及如何支持。（有些语法只有在特定的引擎才可以使用，比如不能在 MergeTree 表中存储">
+<meta property="og:type" content="article">
+<meta property="og:title" content="clickhouse表引擎">
+<meta property="og:url" content="http://example.com/clickhouse%E8%A1%A8%E5%BC%95%E6%93%8E/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="表引擎介绍表引擎是 ClickHouse 的一大特色。不同的引擎有不同的作用，可以说， 表引擎决定了如何存储表的数据。包括： ➢ 数据的存储方式和位置，写到哪里以及从哪里读取数据。 （一般的引擎都存在磁盘中，但是存在与其他数据库继承的场景，比如和mysql集成，数据放在mysql服务端。） ➢ 支持哪些查询以及如何支持。（有些语法只有在特定的引擎才可以使用，比如不能在 MergeTree 表中存储">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225811773.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225822725.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225836780.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225859455.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225917132.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225930135.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225939573.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225956910.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230010636.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230022485.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230039985.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230047812.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230057295.png">
+<meta property="article:published_time" content="2022-02-03T05:24:24.000Z">
+<meta property="article:modified_time" content="2023-02-28T15:01:06.589Z">
+<meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225811773.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>clickhouse表引擎 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="clickhouse表引擎"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-03 13:24" pubdate>
+          2022年2月3日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">clickhouse表引擎</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="表引擎介绍"><a href="#表引擎介绍" class="headerlink" title="表引擎介绍"></a>表引擎介绍</h1><p>表引擎是 ClickHouse 的一大特色。不同的引擎有不同的作用，可以说， 表引擎决定了如何存储表的数据。包括：</p>
+<p>➢ 数据的存储方式和位置，写到哪里以及从哪里读取数据。 （一般的引擎都存在磁盘中，但是存在与其他数据库继承的场景，比如和mysql集成，数据放在mysql服务端。）</p>
+<p>➢ 支持哪些查询以及如何支持。（有些语法只有在特定的引擎才可以使用，比如不能在 MergeTree 表中存储多维数组）</p>
+<p>➢ 并发数据访问。（可以多线程执行同一条sql）</p>
+<p>➢ 索引的使用（如果存在）。</p>
+<p>➢ 是否可以执行多线程请求。</p>
+<p>➢ 数据复制参数。</p>
+<blockquote>
+<p>表引擎的使用方式就是必须显式在创建表时定义该表使用的引擎，以及引擎使用的相关参数。</p>
+</blockquote>
+<p><strong>特别注意：引擎的名称大小写敏感</strong></p>
+<h1 id="合并树家族"><a href="#合并树家族" class="headerlink" title="合并树家族"></a>合并树家族</h1><h2 id="MergeTree"><a href="#MergeTree" class="headerlink" title="MergeTree"></a><strong>MergeTree</strong></h2><ul>
+<li>ClickHouse 中最强大的表引擎当属 MergeTree（合并树）引擎及该系列（*MergeTree）</li>
+</ul>
+<p>中的其他引擎，支持索引和分区，地位可以相当于 innodb 之于 Mysql。而且基于 MergeTree，</p>
+<ul>
+<li>还衍生除了很多小弟，也是非常有特色的引擎。</li>
+</ul>
+<ol>
+<li><p>建表语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> t_order_mt(<br>id UInt32,<br>sku_id String,<br>total_amount <span class="hljs-type">Decimal</span>(<span class="hljs-number">16</span>,<span class="hljs-number">2</span>),<br>create_time Datetime<br>) engine <span class="hljs-operator">=</span>MergeTree<br><span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> toYYYYMMDD(create_time)<br><span class="hljs-keyword">primary</span> key (id)<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> (id,sku_id);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>插入数据</strong></p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_mt <span class="hljs-keyword">values</span><br>(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">1000.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>) ,<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 11:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_004&#x27;</span>,<span class="hljs-number">2500.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">600.00</span>,<span class="hljs-string">&#x27;2020-06-02 12:00:00&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h3><h4 id="partition-by-分区"><a href="#partition-by-分区" class="headerlink" title="partition by 分区"></a><strong>partition by</strong> 分区</h4><h5 id="1-目的"><a href="#1-目的" class="headerlink" title="1. 目的"></a>1. 目的</h5><p>分区的目的主要是降低扫描的范围，优化查询速度</p>
+<h5 id="2-可选"><a href="#2-可选" class="headerlink" title="2. 可选"></a>2. 可选</h5><p>可选的，如果不填，只会使用一个分区。</p>
+<h5 id="3-分区目录"><a href="#3-分区目录" class="headerlink" title="3.分区目录"></a>3.<strong>分区目录</strong></h5><p>MergeTree 是以列文件+索引文件+表定义文件组成的，但是如果设定了分区那么这些文</p>
+<p>件就会保存到不同的分区目录中。</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225811773.png" srcset="/img/loading.gif" lazyload alt="image-20230228225811773"></p>
+<h5 id="4-并行"><a href="#4-并行" class="headerlink" title="4.并行"></a>4.<strong>并行</strong></h5><p>分区后，面对涉及跨分区的查询统计，ClickHouse 会以分区为单位并行处理。</p>
+<h5 id="5-数据写入与分区合并"><a href="#5-数据写入与分区合并" class="headerlink" title="5.数据写入与分区合并"></a>5.<strong>数据写入与分区合并</strong></h5><ul>
+<li><p>任何一个批次的数据写入都会产生一个临时分区，不会纳入任何一个已有的分区。</p>
+</li>
+<li><p>写入后的某个时刻（大概 10-15 分钟后），ClickHouse 会自动执行合并操作。</p>
+</li>
+<li><p>也可以手动通过 optimize 执行，把临时分区的数据，合并到已有分区中。语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">optimize <span class="hljs-keyword">table</span> xxxx <span class="hljs-keyword">final</span>;<br></code></pre></td></tr></table></figure>
+
+<p>如：</p>
+<ul>
+<li>再次执行上面的插入操作</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_mt <span class="hljs-keyword">values</span><br>(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">1000.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>) ,<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 11:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_004&#x27;</span>,<span class="hljs-number">2500.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">600.00</span>,<span class="hljs-string">&#x27;2020-06-02 12:00:00&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>查看数据并没有纳入任何分区</li>
+</ul>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225822725.png" srcset="/img/loading.gif" lazyload alt="image-20230228225822725"></p>
+</li>
+<li><p>手动 optimize 之后，再次查询</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225836780.png" srcset="/img/loading.gif" lazyload alt="image-20230228225836780"></p>
+</li>
+</ul>
+<h4 id="primary-key-主键"><a href="#primary-key-主键" class="headerlink" title="primary key 主键"></a><strong>primary key</strong> <strong>主键</strong></h4><ul>
+<li>ClickHouse 中的主键，和其他数据库不太一样，<strong>它只提供了数据的一级索引，但是却不</strong></li>
+</ul>
+<p><strong>是唯一约束。</strong>这就意味着是可以存在相同 primary key 的数据的。</p>
+<ul>
+<li><p>主键的设定主要依据是查询语句中的 where 条件。</p>
+</li>
+<li><p>根据条件通过对主键进行某种形式的二分查找，能够定位到对应的 index granularity（粒度）,避免了全表扫描。</p>
+<blockquote>
+<p>index granularity： 直接翻译的话就是索引粒度，指在稀疏索引中两个相邻索引对应数据的间隔。ClickHouse 中的 MergeTree 默认是 8192。官方不建议修改这个值，除非该列存在大量重复值，比如在一个分区中几万行才有一个不同数据。</p>
+</blockquote>
+<p><strong>稀疏索引：</strong></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225859455.png" srcset="/img/loading.gif" lazyload alt="image-20230228225859455"></p>
+<p>稀疏索引的好处就是可以用很少的索引数据，定位更多的数据，代价就是只能定位到索	引粒度的第一行，然后再进行进行一点扫描。</p>
+<blockquote>
+<p>比如要查找id为15151的数据，可以判断出他大于10101 小于32343 ，因此会在这个区域内进行查找，类似的根据二分查找定位到具体的值。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="order-by"><a href="#order-by" class="headerlink" title="order by"></a><strong>order by</strong></h4><ul>
+<li><p>order by 设定了分区内的数据按照哪些字段顺序进行有序保存。</p>
+</li>
+<li><p>order by 是 MergeTree 中唯一一个必填项，甚至比 primary key 还重要，因为当用户不</p>
+<p>设置主键的情况，很多处理会依照 order by 的字段进行处理（比如后面会讲的去重和汇总）。</p>
+</li>
+<li><p><strong>要求：主键必须是 order by 字段的前缀字段</strong>。比如 order by 字段是 (id,sku_id) 那么主键必须是 id 或者(id,sku_id)</p>
+</li>
+</ul>
+<h3 id="跳数索引"><a href="#跳数索引" class="headerlink" title="跳数索引"></a>跳数索引</h3><ul>
+<li><p>MergeTree支持二级索引，又称之为跳数索引，是由数据的聚合信息构建而成。跳数索引的目录也是帮助查询，减少数据扫描的范围。</p>
+</li>
+<li><p>此索引在 <code>CREATE</code> 语句的列部分里定义。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">INDEX index_name expr TYPE type(...) GRANULARITY granularity_value<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>*MergeTree</code> 系列的表可以指定跳数索引。</p>
+</li>
+<li><p>跳数索引是指数据片段按照粒度(建表时指定的<code>index_granularity</code>)分割成小块后，将上述SQL的granularity_value数量的小块组合成一个大的块，对这些大块写入索引信息。</p>
+</li>
+<li><p>这样有助于使用<code>where</code>筛选时跳过大量不必要的数据，减少<code>SELECT</code>需要读取的数据量。</p>
+</li>
+<li><p>如：创建测试表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> t_order_mt2(<br>id UInt32,	<br>sku_id String,<br>total_amount <span class="hljs-type">Decimal</span>(<span class="hljs-number">16</span>,<span class="hljs-number">2</span>),<br>create_time Datetime,<br>INDEX a total_amount TYPE minmax GRANULARITY <span class="hljs-number">5</span><br>) engine <span class="hljs-operator">=</span>MergeTree<br><span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> toYYYYMMDD(create_time)<br><span class="hljs-keyword">primary</span> key (id)<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> (id, sku_id);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中 GRANULARITY N 是设定二级索引对于一级索引粒度的粒度。</p>
+<p>即一级索引为[1,3],[3,6],[6,9] ，对应的二级索引范围为[1,9]，将3个一级索引进行了合并，这样查找时就不需要根据一级索引去进行比较，直接根据二级索引就可以。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p> 目前在 ClickHouse 的官网上二级索引的功能在 v20.1.2.4 之前是被标注为实验性的，在这个版本之后默认是开启的。 </p>
+</blockquote>
+<h3 id="数据-TTL"><a href="#数据-TTL" class="headerlink" title="数据 TTL"></a><strong>数据</strong> <strong>TTL</strong></h3><ul>
+<li><p>TTL 即 Time To Live，TTL用于设置值的生命周期，它既可以为整张表设置，也可以为每个列字段单独设置。表级别的 TTL 还会指定数据在磁盘和卷上自动转移的逻辑（也就是数据过期后可以移动到指定磁盘上）。</p>
+</li>
+<li><p>TTL 表达式的计算结果必须是 <a target="_blank" rel="noopener" href="https://clickhouse.com/docs/zh/engines/table-engines/mergetree-family/mergetree/">日期</a> 或 <a target="_blank" rel="noopener" href="https://clickhouse.com/docs/zh/engines/table-engines/mergetree-family/mergetree/">日期时间</a> 类型的字段。</p>
+</li>
+<li><p><code>TTL</code>子句不能被用于主键字段。</p>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">TTL time_column<br>TTL time_column <span class="hljs-operator">+</span> <span class="hljs-type">interval</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="1-列级别-TTL"><a href="#1-列级别-TTL" class="headerlink" title="1.列级别 TTL"></a>1.<strong>列级别</strong> <strong>TTL</strong></h4><p>当列中的值过期时, ClickHouse会将它们替换成该列数据类型的默认值。如果数据片段中列的所有值均已过期，则ClickHouse 会从文件系统中的数据片段中删除此列。</p>
+<h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><p>创建表时指定 <code>TTL</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> example_table<br>(<br>    d DateTime,<br>    a <span class="hljs-type">Int</span> TTL d <span class="hljs-operator">+</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">1</span> <span class="hljs-keyword">MONTH</span>,<br>    b <span class="hljs-type">Int</span> TTL d <span class="hljs-operator">+</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">1</span> <span class="hljs-keyword">MONTH</span>,<br>    c String<br>)<br>ENGINE <span class="hljs-operator">=</span> MergeTree<br><span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> toYYYYMM(d)<br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> d;<br></code></pre></td></tr></table></figure>
+
+<p>为表中已存在的列字段添加 <code>TTL</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> example_table<br>    MODIFY <span class="hljs-keyword">COLUMN</span><br>    c String TTL d <span class="hljs-operator">+</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">1</span> <span class="hljs-keyword">DAY</span>;<br></code></pre></td></tr></table></figure>
+
+<p><strong>案例演示</strong></p>
+<ul>
+<li><p>创建测试表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> t_order_mt7(<br>id UInt32,<br>sku_id String,<br>total_amount <span class="hljs-type">Decimal</span>(<span class="hljs-number">16</span>,<span class="hljs-number">2</span>) TTL create_time<span class="hljs-operator">+</span><span class="hljs-type">interval</span> <span class="hljs-number">10</span> <span class="hljs-keyword">SECOND</span>,<br>create_time Datetime <br>) engine <span class="hljs-operator">=</span>MergeTree<br><span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> toYYYYMMDD(create_time)<br><span class="hljs-keyword">primary</span> key (id)<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> (id, sku_id);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>插入数据（注意：根据实际时间改变）</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_mt7 <span class="hljs-keyword">values</span><br>(<span class="hljs-number">106</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">1000.00</span>,<span class="hljs-string">&#x27;2022-02-03 10:44:32&#x27;</span>),<br>(<span class="hljs-number">107</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2022-02-03 10:44:32&#x27;</span>),<br>(<span class="hljs-number">110</span>,<span class="hljs-string">&#x27;sku_003&#x27;</span>,<span class="hljs-number">600.00</span>,<span class="hljs-string">&#x27;2022-02-04 19:20:30&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225917132.png" srcset="/img/loading.gif" lazyload alt="image-20230228225917132"></p>
+<ul>
+<li><p>手动合并，查看效果 到期后，指定的字段数据归 0</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">optimize <span class="hljs-keyword">table</span> t_order_mt7 <span class="hljs-keyword">final</span>;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225930135.png" srcset="/img/loading.gif" lazyload alt="image-20230228225930135"></p>
+<h4 id="2-表-TTL"><a href="#2-表-TTL" class="headerlink" title="2.表 TTL"></a>2.表 TTL</h4><ul>
+<li><p>表可以设置一个用于移除过期行的表达式，以及多个用于在磁盘或卷上自动转移数据片段的表达式。当表中的行过期时，ClickHouse 会删除所有对应的行。对于数据片段的转移特性，必须所有的行都满足转移条件。</p>
+</li>
+<li><p>下面的这条语句是数据会在 create_time 之后 10 秒丢失</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> t_order_mt3 MODIFY TTL create_time <span class="hljs-operator">+</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">10</span> <span class="hljs-keyword">SECOND</span>;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h5><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225939573.png" srcset="/img/loading.gif" lazyload alt="image-20230228225939573"></p>
+<h2 id="ReplacingMergeTree"><a href="#ReplacingMergeTree" class="headerlink" title="ReplacingMergeTree"></a>ReplacingMergeTree</h2><ul>
+<li><p>ReplacingMergeTree 是 MergeTree 的一个变种，它存储特性完全继承 MergeTree，只是多了一个去重的功能。 </p>
+</li>
+<li><p>尽管 MergeTree 可以设置主键，但是 primary key 其实没有唯一约束的功能。如果你想处理掉重复的数据，可以借助这个 ReplacingMergeTree。</p>
+</li>
+</ul>
+<h3 id="去重时机"><a href="#去重时机" class="headerlink" title="去重时机"></a><strong>去重时机</strong></h3><p>数据的去重只会在同一批插入（新版本）或合并的过程中出现。合并会在未知的时间在后台进行，所以你无法预</p>
+<p>先作出计划。有一些数据可能仍未被处理。</p>
+<h3 id="去重范围"><a href="#去重范围" class="headerlink" title="去重范围"></a><strong>去重范围</strong></h3><ul>
+<li><p>如果表经过了分区，去重只会在分区内部进行去重，不能执行跨分区的去重。</p>
+</li>
+<li><p>所以 ReplacingMergeTree 能力有限， ReplacingMergeTree 适用于在后台清除重复的数据以节省空间，但是它不保证没有重复的数据出现。</p>
+</li>
+</ul>
+<h3 id="案例演示-1"><a href="#案例演示-1" class="headerlink" title="案例演示"></a><strong>案例演示</strong></h3><p>（1）创建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> t_order_rmt(<br>id UInt32,<br>sku_id String,<br>total_amount <span class="hljs-type">Decimal</span>(<span class="hljs-number">16</span>,<span class="hljs-number">2</span>) ,<br>create_time Datetime <br>) engine <span class="hljs-operator">=</span>ReplacingMergeTree(create_time)<br><span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> toYYYYMMDD(create_time)<br><span class="hljs-keyword">primary</span> key (id)<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> (id, sku_id);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>ReplacingMergeTree() 填入的参数为版本字段，重复数据保留版本字段值最大的。</p>
+</li>
+<li><p>如果不填版本字段，默认按照插入顺序保留最后一条。</p>
+</li>
+</ul>
+<p>（2）向表中插入数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_rmt <span class="hljs-keyword">values</span><br>(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">1000.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>) ,<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 11:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_004&#x27;</span>,<span class="hljs-number">2500.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">12000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">600.00</span>,<span class="hljs-string">&#x27;2020-06-02 12:00:00&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>（3）执行第一次查询</p>
+<p>可以看到插入的数据是根据id和sku_id 去重过的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> t_order_rmt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225956910.png" srcset="/img/loading.gif" lazyload></p>
+<p>（4）再次插入数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_rmt <span class="hljs-keyword">values</span><br>(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">1000.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>) ,<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 11:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_004&#x27;</span>,<span class="hljs-number">2500.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">12000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">600.00</span>,<span class="hljs-string">&#x27;2020-06-02 12:00:00&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>(5) 再次查询，可以看到这次依旧只插入了4条数据，但是和第一次插入的数据没有进行去重，依旧存在重复数据。</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230010636.png" srcset="/img/loading.gif" lazyload alt="image-20230228230010636"></p>
+<p>（6）手动合并</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">OPTIMIZE <span class="hljs-keyword">TABLE</span> t_order_rmt <span class="hljs-keyword">FINAL</span>;<br></code></pre></td></tr></table></figure>
+
+<p>  (7) 再执行一次查询，此时数据已经根据分区进行了最终去重。</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230022485.png" srcset="/img/loading.gif" lazyload alt="image-20230228230022485"></p>
+<h3 id="案例结论"><a href="#案例结论" class="headerlink" title="案例结论"></a>案例结论</h3><p>➢ 实际上是使用 order by 字段作为唯一键</p>
+<p>➢ 去重不能跨分区</p>
+<p>➢ 只有同一批插入（新版本）或合并分区时才会进行去重</p>
+<p>➢ 认定重复的数据保留，版本字段值最大的</p>
+<p>➢ 如果版本字段相同则按插入顺序保留最后一笔</p>
+<h2 id="SummingMergeTree"><a href="#SummingMergeTree" class="headerlink" title="SummingMergeTree"></a><strong>SummingMergeTree</strong></h2><ul>
+<li><p>对于不查询明细，只关心以维度进行汇总聚合结果的场景。如果只使用普通的MergeTree的话，无论是存储空间的开销，还是查询时临时聚合的开销都比较大。</p>
+</li>
+<li><p>ClickHouse 为了这种场景，提供了一种能够“预聚合”的引擎 SummingMergeTree</p>
+</li>
+<li><p>不支持幂等性，当写入100条，写了50条后挂了，后面再次同步100条数据时，会把前50条的数据聚合两次。</p>
+</li>
+</ul>
+<h3 id="案例演示-2"><a href="#案例演示-2" class="headerlink" title="案例演示"></a><strong>案例演示</strong></h3><p>（1）创建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> t_order_smt(<br>id UInt32,<br>sku_id String,<br>total_amount <span class="hljs-type">Decimal</span>(<span class="hljs-number">16</span>,<span class="hljs-number">2</span>) ,<br>create_time Datetime <br>) engine <span class="hljs-operator">=</span>SummingMergeTree(total_amount)<br><span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> toYYYYMMDD(create_time)<br><span class="hljs-keyword">primary</span> key (id)<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> (id,sku_id );<br></code></pre></td></tr></table></figure>
+
+<p>（2）插入数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_smt <span class="hljs-keyword">values</span><br>(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">1000.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 11:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_004&#x27;</span>,<span class="hljs-number">2500.00</span>,<span class="hljs-string">&#x27;2020-06-01 12:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">12000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>),<br>(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;sku_002&#x27;</span>,<span class="hljs-number">600.00</span>,<span class="hljs-string">&#x27;2020-06-02 12:00:00&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>（3）执行第一次查询，可以看到已经做了一次聚合</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> t_order_smt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230039985.png" srcset="/img/loading.gif" lazyload alt="image-20230228230039985"></p>
+<p>（4）再次插入一条重复数据，并查询。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> t_order_smt <span class="hljs-keyword">values</span><br>(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;sku_001&#x27;</span>,<span class="hljs-number">2000.00</span>,<span class="hljs-string">&#x27;2020-06-01 13:00:00&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230047812.png" srcset="/img/loading.gif" lazyload alt="image-20230228230047812"></p>
+<p>（5）手动合并,并再次执行查询，可以看到数据已经全部聚合</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">OPTIMIZE <span class="hljs-keyword">TABLE</span> t_order_smt <span class="hljs-keyword">FINAL</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230057295.png" srcset="/img/loading.gif" lazyload alt="image-20230228230057295"></p>
+<h3 id="案例结论-1"><a href="#案例结论-1" class="headerlink" title="案例结论"></a>案例结论</h3><p>➢ 以 SummingMergeTree（）中指定的列作为汇总数据列 </p>
+<p>➢ 以 order by 的列为准，作为维度列</p>
+<p>➢ 可以填写多列必须数字列，如果不填，以所有非维度列且为数字列的字段为汇总数据列</p>
+<p>➢ 其他的列按插入顺序保留第一行</p>
+<p>➢ 不在一个分区的数据不会被聚合</p>
+<p>➢ 只有在同一批次插入(新版本)或分片合并时才会进行聚合</p>
+<h3 id="能不能直接执行查询-SQL-得到汇总值？"><a href="#能不能直接执行查询-SQL-得到汇总值？" class="headerlink" title="能不能直接执行查询 SQL 得到汇总值？"></a>能不能直接执行查询 SQL 得到汇总值？</h3><p>不行，可能会包含一些还没来得及聚合的临时明细如果要是获取汇总值，还是需要使用 sum 进行聚合，这样效率会有一定的提高，但本身 ClickHouse 是列式存储的，效率提升有限，不会特别明显。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> total_amount <span class="hljs-keyword">from</span> XXX <span class="hljs-keyword">where</span> province_name<span class="hljs-operator">=</span>’’ <span class="hljs-keyword">and</span> create_date<span class="hljs-operator">=</span>’xxx’<br></code></pre></td></tr></table></figure>
+
+<p>改写为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(total_amount) <span class="hljs-keyword">from</span> province_name<span class="hljs-operator">=</span>’’ <span class="hljs-keyword">and</span> create_date<span class="hljs-operator">=</span>‘xxx’<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h1><h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><p>MySQL 引擎可以对存储在远程 MySQL 服务器上的数据执行 <code>SELECT</code> 查询和<code>insert</code>插入。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> [IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] [db.]table_name [<span class="hljs-keyword">ON</span> CLUSTER cluster]<br>(<br>    name1 [type1] [<span class="hljs-keyword">DEFAULT</span><span class="hljs-operator">|</span>MATERIALIZED<span class="hljs-operator">|</span>ALIAS expr1] [TTL expr1],<br>    name2 [type2] [<span class="hljs-keyword">DEFAULT</span><span class="hljs-operator">|</span>MATERIALIZED<span class="hljs-operator">|</span>ALIAS expr2] [TTL expr2],<br>    ...<br>) ENGINE <span class="hljs-operator">=</span> MySQL(<span class="hljs-string">&#x27;host:port&#x27;</span>, <span class="hljs-string">&#x27;database&#x27;</span>, <span class="hljs-string">&#x27;table&#x27;</span>, <span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-string">&#x27;password&#x27;</span>[, replace_query, <span class="hljs-string">&#x27;on_duplicate_clause&#x27;</span>])<br>SETTINGS<br>    [connection_pool_size<span class="hljs-operator">=</span><span class="hljs-number">16</span>, ]<br>    [connection_max_tries<span class="hljs-operator">=</span><span class="hljs-number">3</span>, ]<br>    [connection_wait_timeout<span class="hljs-operator">=</span><span class="hljs-number">5</span>, ] <span class="hljs-comment">/* 0 -- do not wait */</span><br>    [connection_auto_close<span class="hljs-operator">=</span><span class="hljs-literal">true</span> ]<br>;<br></code></pre></td></tr></table></figure>
+
+<p>更多见：<a target="_blank" rel="noopener" href="https://clickhouse.com/docs/en/engines/table-engines/integrations/mysql/">MySQL | ClickHouse Documentation</a></p>
+<h1 id="日志系列"><a href="#日志系列" class="headerlink" title="日志系列"></a>日志系列</h1><ul>
+<li>这些引擎是为了需要写入许多小数据量（少于一百万行）的表的场景而开发的。</li>
+<li>这系列的引擎有：<ul>
+<li><a target="_blank" rel="noopener" href="https://clickhouse.com/docs/zh/engines/table-engines/log-family/stripelog/">StripeLog</a></li>
+<li><a target="_blank" rel="noopener" href="https://clickhouse.com/docs/zh/engines/table-engines/log-family/log/">日志</a></li>
+<li><a target="_blank" rel="noopener" href="https://clickhouse.com/docs/zh/engines/table-engines/log-family/tinylog/">TinyLog</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="TinyLog"><a href="#TinyLog" class="headerlink" title="TinyLog"></a>TinyLog</h2><p>以列文件的形式保存在磁盘上，不支持索引，没有并发控制。一般保存少量数据的小表，</p>
+<p>生产环境上作用有限。可以用于平时练习测试用。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Clickhouse/" class="category-chain-item">Clickhouse</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>clickhouse表引擎</div>
+      <div>http://example.com/clickhouse表引擎/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月3日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/clickHouse%E7%9A%84SQL%E6%93%8D%E4%BD%9C-1/" title="clickHouse的SQL操作">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">clickHouse的SQL操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/clickhouse%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="clickhouse基本数据类型">
+                        <span class="hidden-mobile">clickhouse基本数据类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

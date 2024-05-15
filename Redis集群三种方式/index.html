@@ -1,0 +1,889 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="为什么要有集群 单个Redis存在不稳定性，当Redis服务宕机或硬盘故障，系统崩溃之后，就没有可用的服务了，还会造成数据的丢失 单个Redis的读写能力也是有限的 还由于互联网的三高架构，高并发，高性能，高可用   通过添加服务器的数量，提供相同的服务，从而让服务器达到一个稳定，高效的状态  Redis集群的三种模式1. 主从模式产生的原因 避免单点Redis服务器故障。数据丢失，可能对业务造成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis集群三种方式">
+<meta property="og:url" content="http://example.com/Redis%E9%9B%86%E7%BE%A4%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="为什么要有集群 单个Redis存在不稳定性，当Redis服务宕机或硬盘故障，系统崩溃之后，就没有可用的服务了，还会造成数据的丢失 单个Redis的读写能力也是有限的 还由于互联网的三高架构，高并发，高性能，高可用   通过添加服务器的数量，提供相同的服务，从而让服务器达到一个稳定，高效的状态  Redis集群的三种模式1. 主从模式产生的原因 避免单点Redis服务器故障。数据丢失，可能对业务造成">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224935732.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224944541.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224955344.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225006830.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225016550.png">
+<meta property="article:published_time" content="2021-12-28T14:45:20.000Z">
+<meta property="article:modified_time" content="2023-02-28T14:50:30.729Z">
+<meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="redis主从架构">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224935732.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Redis集群三种方式 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis集群三种方式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-28 22:45" pubdate>
+          2021年12月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis集群三种方式</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="为什么要有集群"><a href="#为什么要有集群" class="headerlink" title="为什么要有集群"></a>为什么要有集群</h1><ul>
+<li>单个Redis存在不稳定性，当Redis服务宕机或硬盘故障，系统崩溃之后，就没有可用的服务了，还会造成数据的丢失</li>
+<li>单个Redis的读写能力也是有限的</li>
+<li>还由于互联网的三高<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%9E%B6%E6%9E%84&spm=1001.2101.3001.7020">架构</a>，高并发，高性能，高可用</li>
+</ul>
+<blockquote>
+<p>通过添加服务器的数量，提供相同的服务，从而让服务器达到一个稳定，高效的状态</p>
+</blockquote>
+<h1 id="Redis集群的三种模式"><a href="#Redis集群的三种模式" class="headerlink" title="Redis集群的三种模式"></a>Redis集群的三种模式</h1><h2 id="1-主从模式"><a href="#1-主从模式" class="headerlink" title="1. 主从模式"></a>1. 主从模式</h2><h3 id="产生的原因"><a href="#产生的原因" class="headerlink" title="产生的原因"></a>产生的原因</h3><ul>
+<li>避免单点Redis服务器故障。数据丢失，可能对业务造成灾难性打击</li>
+<li>容量瓶颈。内存不足，一台redis内存是有限的</li>
+</ul>
+<h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
+<li><p>一个master可以拥有多个slave，一个slave只对应一个master</p>
+</li>
+<li><p><strong>一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读</strong>。</p>
+</li>
+<li><p>所有的读请求全部走从节点。这样也可以很轻松实现水平扩容，支撑<strong>读高并发</strong>。</p>
+</li>
+<li><p>slave挂了不影响其他slave的读和master的读和写，重新启动后会将数据从master同步过来。可以使用全量复制和部分复制</p>
+</li>
+<li><p>master挂了以后，不影响slave的读，但redis不再提供写服务，master重启后redis将重新对外提供写服务</p>
+</li>
+<li><p>master挂了以后，不会在slave节点中重新选一个master，只能手动的一个一个改，不合适，就有了之后的哨兵</p>
+</li>
+</ul>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224935732.png" srcset="/img/loading.gif" lazyload alt="image-20230228224935732"></p>
+<h3 id="Redis主从复制工作原理"><a href="#Redis主从复制工作原理" class="headerlink" title="Redis主从复制工作原理"></a><strong>Redis主从复制工作原理</strong></h3><h4 id="1-全量复制流程："><a href="#1-全量复制流程：" class="headerlink" title="1. 全量复制流程："></a>1. 全量复制流程：</h4><p>Redis全量复制一般发生在Slave初始化阶段，这时Slave需要将Master上的所有数据都复制一份，具体步骤如下：</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224944541.png" srcset="/img/loading.gif" lazyload alt="image-20230228224944541"></p>
+<ol>
+<li>如果你为master配置了一个slave，不管这个slave是否是第一次连接上Master，它都会发送一个<strong>SYNC</strong>命令(redis2.8版本之前的命令)master请求复制数据。</li>
+<li>master收到SYNC命令后，会在后台进行数据持久化通过bgsave生成最新的rdb快照文件。</li>
+<li>master将生成的rdb数据发给slave。</li>
+<li>Master由于从执行bgsave到生成rdb数据存在时间，在此时间间隔内，可能有新的客户端请求，master会把这些最近的请求缓存在内存中。（也就是一个最近数据的缓冲区，默认大小为1M）</li>
+<li>当第3步的rdb数据发完后，他会把这些缓存的数据也发给slave</li>
+<li>当slave有老的rdb数据，就会先把老的数据清掉。重新生成包含缓存的rd b数据，并加载到内存中。</li>
+<li>之后，master和slave通过socket长连接，持续进行命令同步，从而保证主从数据一致。</li>
+</ol>
+<blockquote>
+<p>当master与slave之间的连接由于某些原因而断开时，slave能够自动重连Master。</p>
+</blockquote>
+<blockquote>
+<p>如果master收到了多个slave并发连接请求，它只会进行一次持久化，而不是一个连接一次，然后再把这一份持久化的数据发送给多个并发连接的slave。  </p>
+</blockquote>
+<p><strong>当master和slave断开重连后，一般都会对整份数据进行复制。但从redis2.8版本开始，master和slave断开重连后支持部分复制</strong>。</p>
+<h4 id="2-部分复制流程"><a href="#2-部分复制流程" class="headerlink" title="2. 部分复制流程"></a>2. 部分复制流程</h4><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224955344.png" srcset="/img/loading.gif" lazyload alt="image-20230228224955344"></p>
+<ol>
+<li>从2.8版本开始，slave与master能够在网络连接断开<strong>重连后只进行部分数据复制。</strong> </li>
+<li>master会在其内存中创建一个复制数据用的缓存队列，缓存最近一段时间的数据。master和它所有的slave都维护了复制的数据下标offset和master的进程id。</li>
+<li>当网络连接断开后，slave会请求master继续进行未完成的复制。<ul>
+<li>从节点数据下标 offset还在缓存队列里，那么将会从slave记录的数据下标开始从缓存区复制。</li>
+<li>如果master进程id变化了，或者从节点数据下标 offset太旧，已经不在master的缓存队列里了，那么将会进行一次全量数据的复制</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-增量复制"><a href="#3-增量复制" class="headerlink" title="3 增量复制"></a>3 增量复制</h4><ul>
+<li><p>是指在初始化的全量复制并开始正常工作之后，master服务器将发生的写操作同步到slave服务器的过程</p>
+</li>
+<li><p>增量复制的过程主要是master服务器每执行一个写命令就会向slave服务器发送相同的写命令，slave服务器接收并执行收到的写命令。</p>
+</li>
+</ul>
+<h2 id="2-哨兵模式"><a href="#2-哨兵模式" class="headerlink" title="2. 哨兵模式"></a>2. 哨兵模式</h2><h3 id="产生的原因-1"><a href="#产生的原因-1" class="headerlink" title="产生的原因"></a>产生的原因</h3><p>主从模式下，主机宕机，需要人为去设置master，哨兵模式就是解决：不用人为进行干预，高可用的恢复正常。</p>
+<blockquote>
+<p>哨兵（sentinel）是一个分布式系统，用于对主从结构中的每台服务器进行监控，当出现故障时通过投票机制选择新的master并将所有slave连接到新的master</p>
+</blockquote>
+<h3 id="特征-1"><a href="#特征-1" class="headerlink" title="特征"></a>特征</h3><ul>
+<li>监控：sentinel哨兵是特殊的redis服务，不提供读写服务，主要用来不断地检查master和slave是否正常运行。 </li>
+<li>自动故障转移：当master出现问题时，选取一个slave作为master，将其他slave连接到新地master，并告知客户端新地服务器地址</li>
+<li>通知：当redis的主节点发生变化，哨兵会第一时间感知到，并且将新的redis主节点通知给client端(这里面redis的client端一般都实现了订阅功能，订阅sentinel发布的节点变动消息)</li>
+</ul>
+<p><strong>注⚠️：</strong></p>
+<ul>
+<li>哨兵架构下client端第一次从哨兵找出redis的主节点，后续就直接访问redis的主节点，不会每次都通过sentinel代理访问redis的主节点。</li>
+<li>哨兵也是一台redis服务器，只是不提供数据服务</li>
+<li>为了高可用一般都推荐至少部署三个哨兵节点</li>
+</ul>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225006830.png" srcset="/img/loading.gif" lazyload alt="image-20230228225006830"></p>
+<h3 id="哨兵leader选举流程"><a href="#哨兵leader选举流程" class="headerlink" title="哨兵leader选举流程"></a><strong>哨兵leader选举流程</strong></h3><p>当一个master服务器被某sentinel视为下线状态后，该sentinel会与其他sentinel协商选出sentinel的leader进行故障转移工作。</p>
+<ol>
+<li>每个发现master服务器进入下线的sentinel都可以要求其他sentinel选自己为sentinel的 leader，选举是先到先得。</li>
+<li>超过一半的sentinel选举某sentinel作为leader。之后该sentinel进行故障转移操作，从存活的slave中选举出新的master</li>
+</ol>
+<h2 id="3-Cluster模式"><a href="#3-Cluster模式" class="headerlink" title="3. Cluster模式"></a>3. Cluster模式</h2><h3 id="产生的原因-2"><a href="#产生的原因-2" class="headerlink" title="产生的原因"></a>产生的原因</h3><ul>
+<li>哨兵模式，如果master节点异常，在主从切换的瞬间，存在不可用的情况。</li>
+<li>哨兵模式只有单个主节点可以用来写，没法支持很高的并发。</li>
+<li>哨兵模式单个节点的内存也不宜设的太大，会导致持久化文件过大，影响数据恢复主从效率。</li>
+</ul>
+<h3 id="特征-2"><a href="#特征-2" class="headerlink" title="特征"></a>特征</h3><ul>
+<li>Redis-Cluster采用无中心结构，每个节点保存数据和整个集群状态。</li>
+<li>提供多个master节点提供写服务，每个master节点中存储的数据都不一样，这些数据通过数据分片的方式被自动分割到不同的master节点上。</li>
+<li>每个master节点下面还需要添加至少1个slave节点，这样当某个master节点发生故障后，可以从它的slave节点中选举一个作为新的master节点继续提供服务</li>
+<li>Redis Cluster 将所有数据划分为 16384 个 slots(槽位)，每个节点负责其中一部分槽位。槽位的信息存储于每 个节点中。当 Redis Cluster 的客户端来连接集群时，它也会得到一份集群的槽位配置信息并将其缓存在客户端本地。这样当客户端要查找某个 key 时，可以直接定位到目标节点。</li>
+</ul>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225016550.png" srcset="/img/loading.gif" lazyload alt="image-20230228225016550"></p>
+<h3 id="槽位定位算法"><a href="#槽位定位算法" class="headerlink" title="槽位定位算法"></a><strong>槽位定位算法</strong></h3><p>Cluster 默认会对 key 值使用 crc16 算法进行 hash 得到一个整数值，然后用这个整数值对 16384 进行取模 来得到具体槽位。 </p>
+<p><code>HASH_SLOT = CRC16(key) mod 16384</code> </p>
+<h3 id="网络抖动"><a href="#网络抖动" class="headerlink" title="网络抖动"></a><strong>网络抖动</strong></h3><ul>
+<li><p>Redis Cluster 提供了一种选项<code>cluster-­node-­timeout</code>，表示当某个节点持续 timeout 的时间失联时，才可以认定该节点出现故障，需要进行主从切换。</p>
+</li>
+<li><p>如果没有这个选项，网络抖动会导致主从频 繁切换 (数据的重新复制)。</p>
+</li>
+</ul>
+<h3 id="Redis集群选举原理分析"><a href="#Redis集群选举原理分析" class="headerlink" title="Redis集群选举原理分析"></a><strong>Redis集群选举原理分析</strong></h3><p>当slave发现自己的master变为FAIL状态时，便尝试进行Failover，以期成为新的master。由于挂掉的master可能会有多个slave，从而存在多个slave竞争成为master节点的过程， 其过程如下： </p>
+<ol>
+<li><p>slave发现自己的master变为FAIL </p>
+</li>
+<li><p>将自己记录的集群currentEpoch加1，并广播FAILOVER_AUTH_REQUEST 信息</p>
+</li>
+<li><p>其他节点收到该信息，只有master响应，判断请求者的合法性，并发送FAILOVER_AUTH_ACK，对每一个 slaver只发送一次ack </p>
+</li>
+<li><p>slave收到超过半数master的ack后变成新Master</p>
+</li>
+<li><p>.slave广播Pong消息通知其他集群节点。</p>
+</li>
+</ol>
+<p>注意⚠️：</p>
+<ul>
+<li>从节点并不是在主节点一进入 FAIL 状态就马上尝试发起选举，而是有一定延迟。一定的延迟确保我们等待 FAIL状态在集群中传播，slave如果立即尝试选举，其它masters或许尚未意识到FAIL状态，可能会拒绝投票</li>
+<li>延迟计算公式： DELAY &#x3D; 500ms + random(0 ~ 500ms) + SLAVE_RANK * 1000ms</li>
+</ul>
+<p>​       SLAVE_RANK表示此slave已经从master复制数据的总量的rank。Rank越小代表已复制的数据越新。这种方式下，持有最新数据的slave将会首先发起选举（理论上）。</p>
+<h3 id="集群脑裂数据丢失问题"><a href="#集群脑裂数据丢失问题" class="headerlink" title="集群脑裂数据丢失问题"></a><strong>集群脑裂数据丢失问题</strong></h3><p>网络分区导致脑裂后多个主节点对外提供写服务，一旦网络分区恢复， 会将其中一个主节点变为从节点，这时会有大量数据丢失。</p>
+<p>规避方法可以在redis配置里加上参数(这种方法不可能百分百避免数据丢失，参考集群leader选举机制）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">min‐replicas‐to‐write <span class="hljs-number">1</span> <span class="hljs-comment">//写数据成功最少同步的slave数量，这个数量可以模仿大于半数机制配置，比如 集群总共三个节点可以配置1，加上leader就是2，超过了半数</span><br></code></pre></td></tr></table></figure>
+
+<p>这个配置在一定程度上会影响集群的可用性，比如slave要是少于1个，这个集群就算leader正常也不能提供服务了，需要具体场景权衡选择。 </p>
+<h3 id="Redis集群为什么至少需要三个master节点，并且推荐节点数为奇数"><a href="#Redis集群为什么至少需要三个master节点，并且推荐节点数为奇数" class="headerlink" title="Redis集群为什么至少需要三个master节点，并且推荐节点数为奇数"></a><strong>Redis集群为什么至少需要三个master节点，并且推荐节点数为奇数</strong></h3><ul>
+<li>因为新master的选举需要大于半数的集群master节点同意才能选举成功</li>
+<li>奇数个master节点可以在满足选举该条件的基础上节省一个节点，比如三个master节点和四个master节点的集群相比，都只允许挂一个节点，否则集群不可用。所以奇数的master节点更多的是<strong>从节省机器资源角度出发</strong>说的。</li>
+</ul>
+<h3 id="Redis集群对批量操作命令的支持"><a href="#Redis集群对批量操作命令的支持" class="headerlink" title="Redis集群对批量操作命令的支持"></a><strong>Redis集群对批量操作命令的支持</strong></h3><p>对于类似mset，mget这样的多个key的原生批量操作命令，redis集群只支持所有key落在同一slot的情况，如 果有多个key一定要用mset命令在redis集群上操作，则可以在key的前面加上{XX}，这样参数数据分片hash计算的只会是大括号里的值，这样能确保不同的key能落到同一slot里去，示例如下： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">mset &#123;user1&#125;:<span class="hljs-number">1</span>:name zhuge &#123;user1&#125;:<span class="hljs-number">1</span>:age <span class="hljs-number">18</span><br></code></pre></td></tr></table></figure>
+
+<p>假设name和age计算的hash slot值不一样，但是这条命令在集群下执行，redis只会用大括号里的 user1 做 hash slot计算，所以算出来的slot值肯定相同，最后都能落在同一slot</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/redis%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84/">#redis主从架构</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis集群三种方式</div>
+      <div>http://example.com/Redis集群三种方式/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月28日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Redis%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" title="Redis缓存问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis缓存问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/redis%E6%8C%81%E4%B9%85%E5%8C%96/" title="redis持久化">
+                        <span class="hidden-mobile">redis持久化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

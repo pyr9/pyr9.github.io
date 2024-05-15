@@ -1,0 +1,759 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="更新机制是指项目如何进行更新，主要有两种方式：一种是自动推送，另外一种是手动拉取。前者用于开发环境、后者可以用于所有环境 1. 手动拉取拉取更新流程：    sudo -i 输入密码，进入root目录 上述流程由 deploy.sh 脚本实现：  123456789101112#!&#x2F;bin&#x2F;bash -ecd &quot;&#96;dirname $0&#96;&quot;. .&#x2F;pom.sh#1. downlo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jenkins集成部署环境构建">
+<meta property="og:url" content="http://example.com/jenkins%E9%9B%86%E6%88%90%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83%E6%9E%84%E5%BB%BA/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="更新机制是指项目如何进行更新，主要有两种方式：一种是自动推送，另外一种是手动拉取。前者用于开发环境、后者可以用于所有环境 1. 手动拉取拉取更新流程：    sudo -i 输入密码，进入root目录 上述流程由 deploy.sh 脚本实现：  123456789101112#!&#x2F;bin&#x2F;bash -ecd &quot;&#96;dirname $0&#96;&quot;. .&#x2F;pom.sh#1. downlo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230126125309.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206160008255.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206154056839.png">
+<meta property="article:published_time" content="2023-01-26T04:52:41.000Z">
+<meta property="article:modified_time" content="2023-02-06T08:05:59.644Z">
+<meta property="article:author" content="Panyurou">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/20230126125309.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>jenkins集成部署环境构建 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="jenkins集成部署环境构建"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-26 12:52" pubdate>
+          2023年1月26日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          5.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">jenkins集成部署环境构建</h1>
+            
+            <div class="markdown-body">
+              
+              <p>更新机制是指项目如何进行更新，主要有两种方式：一种是自动推送，另外一种是手动拉取。前者用于开发环境、后者可以用于所有环境</p>
+<h1 id="1-手动拉取"><a href="#1-手动拉取" class="headerlink" title="1. 手动拉取"></a>1. 手动拉取</h1><p>拉取更新流程：</p>
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/20230126125309.png" srcset="/img/loading.gif" lazyload style="zoom:40%;" />
+
+<ol>
+<li>sudo -i 输入密码，进入root目录</li>
+<li>上述流程由 deploy.sh 脚本实现：</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash -e</span><br><span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;`dirname <span class="hljs-variable">$0</span>`&quot;</span><br>. ./pom.sh<br><br><span class="hljs-comment">#1. download war, ready env</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deploy time: <span class="hljs-variable">$work_time</span>&quot;</span><br>mkdir -p war/<br>war=war/<span class="hljs-variable">$pom_a</span>-<span class="hljs-variable">$pom_v</span>.war<br>download_path=<span class="hljs-string">&quot;<span class="hljs-variable">$nexus_redirect</span>?r=<span class="hljs-variable">$pom_r</span>&amp;g=<span class="hljs-variable">$pom_g</span>&amp;a=<span class="hljs-variable">$pom_a</span>&amp;v=<span class="hljs-variable">$pom_v</span>&amp;e=war&quot;</span><br>wget  <span class="hljs-variable">$download_path</span> -O <span class="hljs-variable">$war</span><br><br>deploy_war<br></code></pre></td></tr></table></figure>
+
+<p>pom.sh 脚本内容：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs xml">#!/bin/bash -e<br>. ../bin/env-set.sh<br><br>pom_g=org.example<br>pom_a=test-jenkins<br>pom_v=1.0-SNAPSHOT<br>pom_r=snapshots<br><br><br>deploy_war() &#123;<br>        target_d=war/$&#123;pom_a&#125;-$&#123;pom_v&#125;-$work_time<br>        target_dir=`pwd`/$target_d<br>        if [ ! -f &quot;$war&quot; ]; then<br>                echo &quot;war not exist: $war&quot;<br>                exit 1<br>        fi<br>        unzip -q $war -d $target_dir<br>        rm -rf appwar<br>        ln -sf $target_d appwar<br><br>        ./tomcat.sh stop<br><br>        target_ln=`pwd`/appwar<br>        echo &#x27;<span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Context</span> <span class="hljs-attr">docBase</span>=<span class="hljs-string">&quot;&#x27;$target_ln&#x27;&quot;</span> <span class="hljs-attr">allowLinking</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">Context</span>&gt;</span>&#x27; &gt; conf/Catalina/localhost/ROOT.xml<br>        ./tomcat.sh start<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>tomcat.sh 内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;`whoami`&quot;</span> != <span class="hljs-string">&quot;root&quot;</span> ];<span class="hljs-keyword">then</span><br>		<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Error: You must be apps to run this command.&quot;</span><br>		<span class="hljs-built_in">exit</span> 1<br><span class="hljs-keyword">fi</span><br><br><span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;`dirname <span class="hljs-variable">$0</span>`&quot;</span><br>. ../bin/env-set.sh<br>. ./pom.sh<br><br><span class="hljs-built_in">export</span> CATALINA_BASE=<span class="hljs-string">&quot;`pwd`&quot;</span><br>tomcat <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;pom_a&#125;</span>-<span class="hljs-variable">$&#123;pom_v&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p> env-set.sh内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash -e</span><br><span class="hljs-comment">#当前时间</span><br><span class="hljs-built_in">export</span> now_time=$(date +%Y-%m-%d_%H-%M-%S)<br><span class="hljs-comment">#整个期间的开始时间</span><br>[ -z <span class="hljs-string">&quot;<span class="hljs-variable">$work_time</span>&quot;</span> ] &amp;&amp; <span class="hljs-built_in">export</span> work_time=$(date +%Y-%m-%d_%H-%M-%S)<br><br><span class="hljs-keyword">if</span> [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$g_env_set</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>	<span class="hljs-built_in">unset</span> JRE_HOME JAVA_HOME CLASSPATH<br>	<span class="hljs-built_in">export</span> nexus_redirect=<span class="hljs-string">&quot;http://localhost:8081/nexus/service/local/artifact/maven/redirect&quot;</span><br>	<span class="hljs-built_in">export</span> data_home=<span class="hljs-string">&quot;/var/root/svr&quot;</span><br>	<span class="hljs-built_in">export</span> server_home=<span class="hljs-string">&quot;<span class="hljs-variable">$data_home</span>/services&quot;</span><br>	<span class="hljs-built_in">export</span> JAVA_HOME=<span class="hljs-string">&quot;<span class="hljs-variable">$data_home</span>/jdk&quot;</span><br>	<span class="hljs-built_in">export</span> CATALINA_HOME=<span class="hljs-string">&quot;<span class="hljs-variable">$data_home</span>/apache-tomcat&quot;</span><br>	<span class="hljs-built_in">export</span> CATALINA_BASE=<span class="hljs-string">&quot;<span class="hljs-variable">$CATALINA_HOME</span>&quot;</span><br>	<span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br>	<span class="hljs-built_in">export</span> g_env_set=<span class="hljs-literal">true</span><br><span class="hljs-keyword">fi</span><br><br><span class="hljs-comment">#能够输入2个grep的字符串用来查找</span><br><span class="hljs-function"><span class="hljs-title">proc_find</span></span>() &#123;<br>        <span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$#</span>&quot;</span> = 2 ]; <span class="hljs-keyword">then</span><br>                ps -eo pid,cmd|grep -v <span class="hljs-string">&#x27;cmd\|grep&#x27;</span>|grep <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span>|grep <span class="hljs-string">&quot;<span class="hljs-variable">$2</span>&quot;</span>|sed <span class="hljs-string">&#x27;s/^ *\(.*\) *$/\1/&#x27;</span><br>        <span class="hljs-keyword">else</span><br>                ps -eo pid,cmd|grep -v <span class="hljs-string">&#x27;cmd\|grep&#x27;</span>|grep <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span>|sed <span class="hljs-string">&#x27;s/^ *\(.*\) *$/\1/&#x27;</span><br>        <span class="hljs-keyword">fi</span><br>&#125;<br><span class="hljs-comment">#能够输入2个grep的字符串用来查找</span><br><span class="hljs-function"><span class="hljs-title">proc_pid</span></span>() &#123;<br>        proc_find <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span> | cut -d <span class="hljs-string">&#x27; &#x27;</span> -f1<br>&#125;<br><span class="hljs-comment">#$1: 要重试的次数，超过此次数后使用kill -9</span><br><span class="hljs-comment">#$2: 能够输入2个grep的字符串用来查找</span><br><span class="hljs-function"><span class="hljs-title">proc_kill</span></span>() &#123;<br>        grep_args=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;@:2&#125;</span>&quot;</span><br>        <span class="hljs-keyword">for</span> ((i=1;i&lt;=<span class="hljs-variable">$1</span>;++i))<br>        <span class="hljs-keyword">do</span><br>                pids=(`proc_pid <span class="hljs-string">&quot;<span class="hljs-variable">$grep_args</span>&quot;</span>`)<br>                [ <span class="hljs-variable">$&#123;#pids[@]&#125;</span> = 0 ] &amp;&amp; <span class="hljs-built_in">return</span> 0<br><br>                <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;n=<span class="hljs-variable">$i</span> kill <span class="hljs-variable">$&#123;pids[@]&#125;</span>&quot;</span><br>                <span class="hljs-built_in">kill</span> <span class="hljs-variable">$&#123;pids[@]&#125;</span><br>                sleep 1s<br>        <span class="hljs-keyword">done</span><br>        pids=(`proc_pid <span class="hljs-string">&quot;<span class="hljs-variable">$grep_args</span>&quot;</span>`)<br>        [ <span class="hljs-variable">$&#123;#pids[@]&#125;</span> = 0 ] || <span class="hljs-built_in">kill</span> -9 <span class="hljs-variable">$&#123;pids[@]&#125;</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-title">tomcat_start0</span></span>() &#123;<br><br>	[ <span class="hljs-string">&quot;<span class="hljs-variable">$JAVA_OPTS</span>&quot;</span> = <span class="hljs-string">&quot;&quot;</span> ] &amp;&amp; <span class="hljs-built_in">export</span> JAVA_OPTS=<span class="hljs-string">&quot;-server -XX:MaxPermSize=128m -Xms512m -Xmx512m&quot;</span><br>	[ <span class="hljs-string">&quot;`echo &quot;</span><span class="hljs-variable">$JAVA_OPTS</span><span class="hljs-string">&quot;|grep &#x27;\-Djava.security.egd=&#x27;`&quot;</span> = <span class="hljs-string">&quot;&quot;</span> ] &amp;&amp; <span class="hljs-built_in">export</span> JAVA_OPTS=<span class="hljs-string">&quot;<span class="hljs-variable">$JAVA_OPTS</span> -Djava.security.egd=file:/dev/./urandom&quot;</span><br><span class="hljs-comment">#防止X11导致awt在X11关闭后异常</span><br>	<span class="hljs-built_in">export</span> JAVA_OPTS=<span class="hljs-string">&quot;-Djava.awt.headless=true <span class="hljs-variable">$JAVA_OPTS</span> -<span class="hljs-variable">$grep_server</span>&quot;</span><br>	<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;START <span class="hljs-variable">$grep_server</span>: JAVA_OPTS=<span class="hljs-variable">$JAVA_OPTS</span>&quot;</span><br>	<span class="hljs-string">&quot;<span class="hljs-variable">$CATALINA_HOME</span>&quot;</span>/bin/startup.sh<br>&#125;<br><span class="hljs-function"><span class="hljs-title">tomcat_stop0</span></span>() &#123;<br>	proc_kill 3 <span class="hljs-string">&quot;<span class="hljs-variable">$grep_server</span>&quot;</span><br>&#125;<br><span class="hljs-function"><span class="hljs-title">tomcat_status0</span></span>() &#123;<br>	tmp=`proc_find <span class="hljs-string">&quot;<span class="hljs-variable">$grep_server</span>&quot;</span>`<br>	<span class="hljs-keyword">if</span> [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$tmp</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>		<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$grep_server</span> stopped.&quot;</span><br>	<span class="hljs-keyword">else</span><br>		<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$grep_server</span> running: <span class="hljs-variable">$tmp</span>&quot;</span><br>	<span class="hljs-keyword">fi</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-title">tomcat</span></span>() &#123;<br>	<span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> = <span class="hljs-string">&quot;&quot;</span> ]; <span class="hljs-keyword">then</span><br>		<span class="hljs-built_in">printf</span> <span class="hljs-string">&#x27;Usage: %s &#123;start|stop|restart|status&#125; ????\n&#x27;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$prog</span>&quot;</span><br>		<span class="hljs-built_in">exit</span> 1<br>	<span class="hljs-keyword">fi</span><br>	<span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$2</span>&quot;</span> = <span class="hljs-string">&quot;&quot;</span> ]; <span class="hljs-keyword">then</span><br>		<span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;java -Dmykey=$&#123;mykey&#125; miss: mykey&#x27;</span><br>		<span class="hljs-built_in">exit</span> 1<br>	<span class="hljs-keyword">fi</span><br>	<span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$CATALINA_BASE</span>&quot;</span> = <span class="hljs-string">&quot;&quot;</span> ]; <span class="hljs-keyword">then</span><br>		<span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;miss: $CATALINA_BASE=&#x27;</span><br>		<span class="hljs-built_in">exit</span> 1<br>	<span class="hljs-keyword">fi</span><br><br>	<span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;<span class="hljs-variable">$CATALINA_BASE</span>&quot;</span><br>	<span class="hljs-built_in">export</span> grep_server=<span class="hljs-string">&quot;Dmykey=<span class="hljs-variable">$&#123;2&#125;</span>x&quot;</span><br>	<span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>	start)<br>		tmp=`proc_find <span class="hljs-string">&quot;<span class="hljs-variable">$grep_server</span>&quot;</span>`<br>		<span class="hljs-keyword">if</span> [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$tmp</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>			tomcat_start0<br>		<span class="hljs-keyword">else</span><br>			<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$grep_server</span> already running: <span class="hljs-variable">$tmp</span>&quot;</span><br>		<span class="hljs-keyword">fi</span><br>		sleep 1s<br>		<span class="hljs-comment">#tomcat_status0</span><br>		;;<br>	stop)<br>		tomcat_stop0<br>		tomcat_status0<br>		;;<br>	status)<br>		tomcat_status0<br>		;;<br>	restart)<br>		tomcat_stop0<br>		tomcat_start0<br>		sleep 1s<br>		tomcat_status0<br>		;;<br>	*)<br>		<span class="hljs-built_in">printf</span> <span class="hljs-string">&#x27;Usage: %s &#123;start|stop|restart|status&#125; ????\n&#x27;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$prog</span>&quot;</span><br>		<span class="hljs-built_in">exit</span> 1<br>		;;<br>	<span class="hljs-keyword">esac</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>项目打包完成后，运行<code>deploy.sh</code>完成更新</p>
+<p><strong>代码地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/pyr9/jenkins-script">pyr9&#x2F;jenkins-script (github.com)</a></p>
+<h1 id="2-自动推送"><a href="#2-自动推送" class="headerlink" title="2 自动推送"></a>2 自动推送</h1><p>自动推送方式采用在 jenkins 构建完成之后，执行远程 sh 脚本用于下载本次构建 WAR 包，在自动部署重启。</p>
+<h3 id="1-jenkins-授予可读权限"><a href="#1-jenkins-授予可读权限" class="headerlink" title="1. jenkins 授予可读权限"></a>1. jenkins 授予可读权限</h3><p>不配置会403</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206160008255.png" srcset="/img/loading.gif" lazyload alt="image-20230206160008255"></p>
+<h3 id="2-jenkins-配置执行脚本"><a href="#2-jenkins-配置执行脚本" class="headerlink" title="2. jenkins 配置执行脚本"></a>2. jenkins 配置执行脚本</h3><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230206154056839.png" srcset="/img/loading.gif" lazyload alt="image-20230206154056839"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">BUILD_ID=dontKillMe<br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$BUILD_ID</span><br>ssh root@localhost BUILD_URL=<span class="hljs-variable">$BUILD_URL</span> /var/root/svr/services/test-jenkins-demo/jenkins.sh<br></code></pre></td></tr></table></figure>
+
+<p> jenkins.sh内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash -e</span><br><span class="hljs-built_in">source</span> /etc/profile<br><span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;`dirname <span class="hljs-variable">$0</span>`&quot;</span><br>. ./pom.sh<br><br><br><span class="hljs-comment">#1. download war, ready env</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;deploy time: <span class="hljs-variable">$work_time</span>&quot;</span><br>mkdir -p war/<br><span class="hljs-comment"># 配置下载存放目录</span><br>war=war/<span class="hljs-variable">$pom_a</span>-<span class="hljs-variable">$pom_v</span>.war<br><span class="hljs-comment"># 基于远程传过来的 BUILD_URL下载本次构建</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BUILD_URL&#125;</span><span class="hljs-variable">$&#123;pom_g&#125;</span>\$<span class="hljs-variable">$&#123;pom_a&#125;</span>/artifact/<span class="hljs-variable">$pom_g</span>/<span class="hljs-variable">$pom_a</span>/<span class="hljs-variable">$pom_v</span>/<span class="hljs-variable">$pom_a</span>-<span class="hljs-variable">$pom_v</span>.war&quot;</span><br>/opt/homebrew/bin/wget  <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BUILD_URL&#125;</span><span class="hljs-variable">$&#123;pom_g&#125;</span>\$<span class="hljs-variable">$&#123;pom_a&#125;</span>/artifact/<span class="hljs-variable">$pom_g</span>/<span class="hljs-variable">$pom_a</span>/<span class="hljs-variable">$pom_v</span>/<span class="hljs-variable">$pom_a</span>-<span class="hljs-variable">$pom_v</span>.war&quot;</span> -O <span class="hljs-variable">$war</span><br><span class="hljs-comment"># 执行部署函数</span><br>deploy_war<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-ssh设置免密登录"><a href="#3-ssh设置免密登录" class="headerlink" title="3. ssh设置免密登录"></a>3. ssh设置免密登录</h3><p>（添加公钥到服务器）<a target="_blank" rel="noopener" href="https://pyr9.github.io/SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/">SSH免密登录 - 楼上有只喵 (pyr9.github.io)</a></p>
+<p>注意事项⚠️：</p>
+<ol>
+<li>上面如果使用wget 而不是&#x2F;opt&#x2F;homebrew&#x2F;bin&#x2F;wget 会出现  404 Not Found</li>
+</ol>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>jenkins集成部署环境构建</div>
+      <div>http://example.com/jenkins集成部署环境构建/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月26日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Activiti-BPMN-visualizer-%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" title="Activiti BPMN visualizer 的安装和使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Activiti BPMN visualizer 的安装和使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0tomcat/" title="项目部署到tomcat的三种方式">
+                        <span class="hidden-mobile">项目部署到tomcat的三种方式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
