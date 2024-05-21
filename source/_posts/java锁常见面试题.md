@@ -1,8 +1,8 @@
 ---
 title: java锁常见面试题
-date: 2024-05-21 23:16:07
+date: 2023-05-21 23:16:07
 tags:
-categories:
+categories: Java基础
 ---
 
 # 1. sychronized
