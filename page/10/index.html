@@ -211,6 +211,128 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/rabbitMq%E9%9B%86%E7%BE%A4/" target="_self">
+          rabbitMq集群
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/rabbitMq%E9%9B%86%E7%BE%A4/" target="_self">
+        <div>
+          
+          普通集群模式 queue的消息，只会放在一个rabbtimq实例上。每个实例都同步queue的结构和queue消息的真正位置。  消费的时候，实际上如果连接到了另外一个实例，那么那个实例会从queue所在实例上拉取数据过来。   这种集群模式的消息可靠性不是很高。因为如果其中有个节点服务宕机了，那这个节点上的数据就无法消费了，需要等到这个节点服务恢复后才能消费。 镜像集群模式 这种模式是在普通集群
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-21 23:38" pubdate>
+              2022-09-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Mysql%E9%9B%86%E7%BE%A4/" target="_self">
+          Mysql集群
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Mysql%E9%9B%86%E7%BE%A4/" target="_self">
+        <div>
+          
+          1 主从模式 一个master可以拥有多个slave，一个slave只对应一个master 一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。 所有的读请求全部走从节点。这样也可以很轻松实现水平扩容，支撑读高并发。 一主多从的结构，主要目的是实现数据的多点备份（没有故障自动转移和负载均衡）  缺点：  从库要从binlog获取数据并重放，这肯定与主库写入数据存在时间延迟，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-21 16:46" pubdate>
+              2022-09-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/zookeeper%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
           zookeeper的使用场景
         </a>
@@ -687,132 +809,6 @@
               <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
             
               <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
-          垃圾收集器
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
-        <div>
-          
-          1 垃圾收集算法1.1 分代收集算法当前虚拟机的垃圾收集都采用分代收集算法，只是根据对象存活周期的不同将内存分为几块。一般将java堆分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。  新生代使用：复制算法 新生代中，每次收集都会有大量对象(近99%)死去，所以可以选择复制算法，只需要付出少量对象的复制成本就可以完成每次垃圾收集。  老年代使用：标记 - 清除 或者 标
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 17:33" pubdate>
-              2022-09-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-            
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">#垃圾收集算法</a>
-            
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/" target="_self">
-          JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/" target="_self">
-        <div>
-          
-          场景分析有一个订单系统，需要支持每秒支持下300个订单。假定每个订单对象是1kb，那么每秒将会有300kb对象生成。 下单可能还涉及创建其他对象创建，比如库存，优惠卷，积分，以及这个系统可能还支持订单的查询，我们放大20倍，那么就是300 * 20  &#x3D; 6000kb，约60MB，也就是这个系统每秒会产生60M的垃圾。  假设机器是4核8G，那么一般可能会给我们虚拟机分配个四五G的内存，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 17:29" pubdate>
-              2022-09-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
             
           </div>
         

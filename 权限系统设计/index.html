@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231121143805877.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231121145331930.png">
 <meta property="article:published_time" content="2023-10-05T12:42:17.000Z">
-<meta property="article:modified_time" content="2023-11-21T11:03:22.221Z">
+<meta property="article:modified_time" content="2024-05-21T11:09:50.652Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231005205506829.png">
@@ -214,7 +214,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.2k 字
+          1.8k 字
         
       </span>
     
@@ -226,7 +226,7 @@
         
         
           <!-- compatible with older versions-->
-          4 分钟
+          6 分钟
         
       </span>
     
@@ -327,6 +327,41 @@
 <p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231121143805877.png" srcset="/img/loading.gif" lazyload alt="image-20231121143805877"></p>
 <p>表设计：</p>
 <p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231121145331930.png" srcset="/img/loading.gif" lazyload alt="image-20231121145331930"></p>
+<h1 id="4-实战演练"><a href="#4-实战演练" class="headerlink" title="4. 实战演练"></a>4. 实战演练</h1><h2 id="1-表设计："><a href="#1-表设计：" class="headerlink" title="1. 表设计："></a>1. 表设计：</h2><p><strong>基础表：</strong></p>
+<ul>
+<li><p>用户 User：id, name</p>
+</li>
+<li><p>角色 Role:   id, name, code</p>
+</li>
+<li><p>权限模块 Acl_Module：name, parent_id, level, code</p>
+</li>
+<li><p>权限ACl : id, name, acl_module_id, parent_id, url, type(按钮，请求地址)</p>
+</li>
+</ul>
+<p><strong>关系表：</strong></p>
+<ul>
+<li>用户-角色关系表</li>
+<li>角色权限关系表</li>
+</ul>
+<h2 id="2-后端逻辑"><a href="#2-后端逻辑" class="headerlink" title="2. 后端逻辑"></a>2. 后端逻辑</h2><ol>
+<li>新建权限点，菜单或者按钮（url是请求地址）</li>
+<li>创建角色，设置角色名称， 角色读写权限等级（增&#x2F;删&#x2F;改&#x2F;查）中的组合。给这个权限配置新建的权限点以及对应的人</li>
+</ol>
+<p>（增删改查，分别对应2，3，5，7 这样的话，数据库只需要存一位去记录，当然存0101这种也行）</p>
+<ol start="3">
+<li>在权限拦截器增加校验<ol>
+<li>获取当前登录用户可以访问的权限列表</li>
+<li>将权限列表和当前请求做比较，需满足以下两个条件，即可放行，否则提示没有权限<ul>
+<li>请求URL在当前权限URL列表里</li>
+</ul>
+</li>
+<li>当前访问的method也在权限URL列表里（这里需要后端使用restful请求，即增删改查对应 POST，DELETE， PUT，GET， 或者后端带标识过来）</li>
+</ol>
+</li>
+</ol>
+<h2 id="3-前端逻辑"><a href="#3-前端逻辑" class="headerlink" title="3. 前端逻辑"></a>3. 前端逻辑</h2><ol>
+<li>前端在用户登录后，就在localstory里存储了，调用当前user的权限列表的结果，只有用户退出登录后，才会更新</li>
+</ol>
 
               
             </div>
