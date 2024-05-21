@@ -1,0 +1,860 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. sychronizedSynchronized是Java中解决并发问题的一种最常用的方法，Synchronized的作用主要有三个：  确保互斥访问。确保被同步的方法或代码块在同一时刻只能由一个线程执行，其他线程必须等待该线程执行完毕后才能进入。 保证可见性。保证线程间对共享变量的修改是可见的。具体来说，当一个线程修改了共享变量的值后，synchronized 关键字确保其他线程能够立即看到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java锁常见面试题">
+<meta property="og:url" content="http://example.com/java%E9%94%81%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="1. sychronizedSynchronized是Java中解决并发问题的一种最常用的方法，Synchronized的作用主要有三个：  确保互斥访问。确保被同步的方法或代码块在同一时刻只能由一个线程执行，其他线程必须等待该线程执行完毕后才能进入。 保证可见性。保证线程间对共享变量的修改是可见的。具体来说，当一个线程修改了共享变量的值后，synchronized 关键字确保其他线程能够立即看到">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-21T15:16:07.000Z">
+<meta property="article:modified_time" content="2024-05-21T16:10:51.571Z">
+<meta property="article:author" content="Panyurou">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>java锁常见面试题 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tva1.sinaimg.cn/large/008vxvgGly1h7gd2f1npaj31jk0rswkv.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="java锁常见面试题"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-21 23:16" pubdate>
+          2023年5月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">java锁常见面试题</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="1-sychronized"><a href="#1-sychronized" class="headerlink" title="1. sychronized"></a>1. sychronized</h1><p>Synchronized是Java中解决并发问题的一种最常用的方法，Synchronized的作用主要有三个：</p>
+<ul>
+<li><strong>确保互斥访问</strong>。确保被同步的方法或代码块在同一时刻只能由一个线程执行，其他线程必须等待该线程执行完毕后才能进入。</li>
+<li><strong>保证可见性</strong>。保证线程间对共享变量的修改是可见的。具体来说，当一个线程修改了共享变量的值后，<code>synchronized</code> 关键字确保其他线程能够立即看到这个修改。</li>
+<li><strong>防止指令重排序</strong>。指令重排序是一种优化技术，编译器和处理器可能会重新排列指令的执行顺序，以提高性能。但是在多线程环境下，指令重排序可能会导致线程间的执行顺序和预期的不一致。<code>synchronized</code> 通过内存屏障（Memory Barrier）机制，确保在进入和退出同步块时，内存的读写操作不会被重排序。</li>
+</ul>
+<h2 id="1-应用方式"><a href="#1-应用方式" class="headerlink" title="1. 应用方式"></a>1. 应用方式</h2><p>synchronized关键字最主要有以下3种应用方式，下面分别介绍</p>
+<p>1.修饰实例方法，作用于当前实例加锁，进入同步代码前要获得当前实例的锁</p>
+<p>2.修饰静态方法，作用于当前类对象加锁，进入同步代码前要获得当前类对象的锁</p>
+<p>3.修饰代码块，指定加锁对象，对给定对象加锁，进入同步代码库前要获得给定对象的锁。</p>
+<h2 id="2-实现原理"><a href="#2-实现原理" class="headerlink" title="2. 实现原理"></a>2. 实现原理</h2><p>基于对象锁（monitor）机制。编译用sychronized修饰的同步代码块，再用javap -v查看字节码文件：执行同步代码块后首先要先执行monitorenter指令，退出的时候monitorexit指令。使用Synchronized进行同步，其关键就是必须要对对象的监视器monitor进行获取，当线程获取monitor后才能继续往下执行，否则就只能等待。而这个获取的过程是互斥的，即同一时刻只有一个线程能够获取到monitor。每个对象拥有一个计数器，当线程获取该对象锁后，计数器就会加一，释放锁后就会将计数器减一。</p>
+<h2 id="2-Lock和synchronized区别"><a href="#2-Lock和synchronized区别" class="headerlink" title="2. Lock和synchronized区别"></a>2. Lock和synchronized区别</h2><ol>
+<li><p>Lock是一个接口，而synchronized是Java中的关键字,synchronized是内置的语言实现， lock是通过代码实现的.</p>
+</li>
+<li><p>synchronized在发生异常时，会自动释放线程占有的锁，因此不会导致死锁现象发生；而Lock在发生异常时，如果没有主动通过unLock()去释放锁，则很可能造成死锁现象，因此使用Lock时需要在finally块中释放锁；</p>
+</li>
+<li><p>通过Lock可以知道有没有成功获取锁，而synchronized却无法办到。</p>
+</li>
+<li><p>Lock可以提高多个线程进行读操作的效率。</p>
+</li>
+<li><p>Lock可以让等待锁的线程响应中断，线程可以中断去干别的事务，而synchronized却不行，使用synchronized时，等待的线程会一直等待下去，不能够响应中断；</p>
+<p><strong>在性能上来说，如果竞争资源不激烈，两者的性能是差不多的，而当竞争资源非常激烈时（即有大量线程同时竞争），此时Lock的性能要远远优于synchronized。所以说，在具体使用时要根据适当情况选择。</strong></p>
+</li>
+</ol>
+<h1 id="2-AQS"><a href="#2-AQS" class="headerlink" title="2. AQS"></a>2. AQS</h1><h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h2><p>AQS，全称为 <strong>AbstractQueuedSynchronizer</strong>，是 Java 中提供的一种实现同步器的框架。它是 <code>java.util.concurrent.locks</code> 包的一部分。其核心是维护一个同步状态 <code>state</code> 以及一个 FIFO 等待队列。它提供了多种方法来操纵同步状态，并管理进入等待队列的线程。</p>
+<h4 id="同步状态"><a href="#同步状态" class="headerlink" title="同步状态"></a>同步状态</h4><p>同步状态是一个 <code>int</code> 类型的变量，通常用于表示资源的可用性。例如，在一个独占锁中，<code>state</code> 为 0 表示锁是可用的，1 表示锁已被持有。</p>
+<h4 id="等待队列"><a href="#等待队列" class="headerlink" title="等待队列"></a>等待队列</h4><p>当一个线程尝试获取锁但失败时，它会被加入到 AQS 的等待队列中。这个等待队列是一个双向链表，所有尝试获取锁的线程都排成队列，等待被唤醒并再次尝试获取锁。</p>
+<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h2><p>AQS 通常不会直接使用，而是通过子类实现具体的同步器，如 <code>ReentrantLock</code>、<code>Semaphore</code> 等。</p>
+<h1 id="3-ReentrantLock"><a href="#3-ReentrantLock" class="headerlink" title="3.  ReentrantLock"></a>3.  ReentrantLock</h1><h2 id="1-公平锁的加锁实现："><a href="#1-公平锁的加锁实现：" class="headerlink" title="1. 公平锁的加锁实现："></a>1. 公平锁的加锁实现：</h2><p>公平锁保证线程按照请求锁的顺序来获取锁.</p>
+<p>1.加锁时会调用lock()方法去获取锁，lock()会调用用acquire()(AQS中)，而这个acquire方法内部又去调用了tryAcquire的方法</p>
+<ol>
+<li><p>tryAcquire方法通过getState获取当前同步状态</p>
+<ul>
+<li><p>发现state为0。</p>
+<ol>
+<li><strong>判断是否有比当前线程等待时间更长的线程</strong>。如果有，当前线程将等待。</li>
+<li>没有的话，使用原子操作尝试将锁的状态从 0 改为 1，表示获取锁成功，设置锁的拥有者为当前线程， 获取成功，</li>
+</ol>
+</li>
+<li><p>不为0，检查当前线程是否已经持有锁，判断重入锁的逻辑。</p>
+<ol>
+<li>是重入锁的话，增加重入次数， 也是获取成功，</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>获取失败时，调用 <code>addWaiter</code> 将当前线程加入等待队列。尝试通过CAS把当前现在追加到队尾，修改为节点为最新的节点，如果修改失败，意味着有并发，这个时候进入enq中的死循环，进行“自旋”的方式修改</p>
+</li>
+</ol>
+<h2 id="2-公平锁的释放锁实现："><a href="#2-公平锁的释放锁实现：" class="headerlink" title="2. 公平锁的释放锁实现："></a>2. 公平锁的释放锁实现：</h2><ol>
+<li><p>头节点在释放同步状态的时候，会调用unlock（），而unlock会调用release()，release()会调用tryRelease方法尝试释放当前线程持有的锁,先判断当前线程是否为持有锁的线程，如果是，则执行减减操作，否则抛出异常（同步状态）</p>
+</li>
+<li><p>成功的话调用unparkSuccessor() 唤醒后继线程，并返回true，否则直接返回false，</p>
+<p>注意：</p>
+<ul>
+<li>只有线程A把此锁全部释放了，状态值减到0了，其他线程才有机会获取锁，当A把锁完全释放后，state恢复为0</li>
+<li>队列中的节点在被唤醒之前都处于阻塞状态。当一个线程节点被唤醒然后取得了锁，对应节点会从队列中删除</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-非公平锁的加锁实现："><a href="#3-非公平锁的加锁实现：" class="headerlink" title="3. 非公平锁的加锁实现："></a>3. 非公平锁的加锁实现：</h2><ul>
+<li>非公平锁在尝试获取锁时，是先直接 CAS 设置 state 变量，如果设置成功，表明加锁成功，当前线程就成为了锁的持有者。</li>
+<li>抢占失败,再调用 acquire 方法将线程置于队列尾部排队。</li>
+</ul>
+<blockquote>
+<p>非公平锁的机制：如果新来了一个线程，试图访问一个同步资源，只需要确认当前没有其他线程持有这个同步状态，即可获取到。</p>
+</blockquote>
+<p>这个区别很重要，因为线程在阻塞和非阻塞之间切换时需要比较长的时间，如果刚好线程A释放了资源，A会去唤醒下一个排着队的Node节点，当这个唤醒操作还没完成的时候，这时又来了一个线程B，线程B发现当前没人持有这个资源，于是自己就迅速拿到了这个资源，充分利用了线程A去唤醒B的这一段时间，这就是公平锁和非公平锁之间的差异，这里也体现了非公平锁性能较高的地方。</p>
+<h1 id="4-ReentrantReadWriteLock"><a href="#4-ReentrantReadWriteLock" class="headerlink" title="4. ReentrantReadWriteLock"></a>4. ReentrantReadWriteLock</h1><p>ReentrantReadWriteLock是 Lock 的另一种实现方式，我们已经知道了 ReentrantLock 是一个排他锁，同一时间只允许一个线程访问，而 ReentrantReadWriteLock 允许多个读线程同时访问，但不允许写线程和读线程、写线程和写线程同时访问。相对于排他锁，提高了并发性。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h1 id="5-CountDownLatch-amp-CyclicBarrier"><a href="#5-CountDownLatch-amp-CyclicBarrier" class="headerlink" title="5. CountDownLatch &amp; CyclicBarrier"></a>5. CountDownLatch &amp; CyclicBarrier</h1><h2 id="1-CountDownLatch"><a href="#1-CountDownLatch" class="headerlink" title="1. CountDownLatch"></a>1. CountDownLatch</h2><p>CountDownLatch是一个计数器闭锁，通过它可以完成类似于阻塞当前线程的功能，即：一个线程或多个线程一直等待，直到其他线程执行的操作完成。</p>
+<p>CountDownLatch用一个给定的计数器来初始化，该计数器的操作是原子操作，即同时只能有一个线程去操作该计数器。调用该类await方法的线程会一直处于阻塞状态，直到其他线程调用countDown方法使当前计数器的值变为零，每次调用countDown计数器的值减1。当计数器值减至零时，所有因调用await()方法而处于等待状态的线程就会继续往下执行。这种现象只会出现一次，因为计数器不能被重置，如果业务上需要一个可以重置计数次数的版本，可以考虑使用CycliBarrier。</p>
+<h2 id="2-CyclicBarrier"><a href="#2-CyclicBarrier" class="headerlink" title="2 CyclicBarrier"></a>2 CyclicBarrier</h2><p>CyclicBarrier也是一个同步辅助类，它允许一组线程相互等待，直到到达某个公共屏障点（common barrier point）。</p>
+<p>通过它可以完成多个线程之间相互等待，只有当每个线程都准备就绪后，才能各自继续往下执行后面的操作。类似于CountDownLatch，它也是通过计数器来实现的。当某个线程调用await方法时，该线程进入等待状态，且计数器加1，当计数器的值达到设置的初始值时，所有因调用await进入等待状态的线程被唤醒，继续执行后续操作。因为CycliBarrier在释放等待线程后可以重用，所以称为循环barrier。CycliBarrier支持一个可选的Runnable，在计数器的值到达设定值后（但在释放所有线程之前），该Runnable运行一次，注，Runnable在每个屏障点只运行一个。</p>
+<h2 id="3-区别"><a href="#3-区别" class="headerlink" title="3. 区别"></a>3. 区别</h2><p>CountDownLatch主要是实现了1个或N个线程需要等待其他线程完成某项操作之后才能继续往下执行操作，描述的是1个线程或N个线程等待其他线程的关系。CyclicBarrier主要是实现了多个线程之间相互等待，直到所有的线程都满足了条件之后各自才能继续执行后续的操作，描述的多个线程内部相互等待的关系。<br>CountDownLatch是一次性的，而CyclicBarrier则可以被重置而重复使用。</p>
+<h1 id="6-CAS"><a href="#6-CAS" class="headerlink" title="6 CAS"></a>6 CAS</h1><p>CAS（Compare and Swap）有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。</p>
+<p>java.util.concurrent(J.U.C)种提供的atomic包中的类，使用的是乐观锁，用到的机制就是CAS，当多个线程尝试使用CAS同时更新一个变量时，只有其中一个线程可能更新变量的值，而其他线程都失败，失败的线程不会被挂起，而是被告知这次竞争失败，并可以再次尝试。</p>
+<h2 id="1-AtomicInteger"><a href="#1-AtomicInteger" class="headerlink" title="1. AtomicInteger"></a>1. AtomicInteger</h2><p>以AtomicInteger为例，研究在没有锁的情况下是如何做到数据正确性的。<br>例如 AtomicInteger 中有一个原子方式 i++ 操作，即</p>
+<ol>
+<li>调用incrementAndGet(),而incrementAndGet() 调用 unsafe下的方法getAndAddInt()</li>
+<li>getAndAddInt()中有一个 valueOffset 参数，这个值是 value 值在 AtomicInteger 类型中内存的偏移地址。传入的 valueOffset 参数会在后续方法中，直接从内存位置读取这个字段的值。</li>
+<li>得到最新值后，调用 compareAndSwapInt 来更新最新值，如果对象 o 中 offset 偏移位置的值等于期望值(expected)，就将该 offset 处的值更新为 x，当更新成功时，返回 true。结合前面调用来看，如果当前值是 v，就设置为 v+1。否则重试直到成功为止。</li>
+</ol>
+<h2 id="2-CAS问题"><a href="#2-CAS问题" class="headerlink" title="2. CAS问题"></a>2. CAS问题</h2><ol>
+<li><p><strong>ABA问题</strong>。<br>因为CAS需要在操作值的时候检查下值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是A，变成了B，又变成了A，那么使用CAS进行检查时会发现它的值没有发生变化，但是实际上却变化了。<br>ABA问题的解决思路就是使用版本号。在变量前面追加上版本号，每次变量更新的时候把版本号加一，那么A－B－A 就会变成1A-2B－3A。<br>从Java1.5开始JDK的atomic包里提供了一个类AtomicStampedReference来解决ABA问题。这个类的compareAndSet方法作用是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。</p>
+</li>
+<li><p><strong>循环时间长开销大。</strong><br>自旋CAS如果长时间不成功，会给CPU带来非常大的执行开销。如果JVM能支持处理器提供的pause指令那么效率会有一定的提升，pause指令有两个作用，第一它可以延迟流水线执行指令（de-pipeline）,使CPU不会消耗过多的执行资源，延迟的时间取决于具体实现的版本，在一些处理器上延迟时间是零。第二它可以避免在退出循环的时候因内存顺序冲突（memory order violation）而引起CPU流水线被清空（CPU pipeline flush），从而提高CPU的执行效率。</p>
+</li>
+<li><p><strong>只能保证一个共享变量的原子操作。</strong><br>当对一个共享变量执行操作时，我们可以使用循环CAS的方式来保证原子操作，但是对多个共享变量操作时，循环CAS就无法保证操作的原子性，这个时候就可以用锁，或者有一个取巧的办法，就是把多个共享变量合并成一个共享变量来操作。比如有两个共享变量i＝2,j&#x3D;a，合并一下ij&#x3D;2a，然后用CAS来操作ij。从Java1.5开始JDK提供了AtomicReference类来保证引用对象之间的原子性，你可以把多个变量放在一个对象里来进行CAS操作。</p>
+</li>
+</ol>
+<h1 id="7-ThreadLocal"><a href="#7-ThreadLocal" class="headerlink" title="7 ThreadLocal"></a>7 ThreadLocal</h1><p>ThreadLocal 提供线程内部的局部变量，在本线程内随时随地可取，隔离其他线程</p>
+<p><strong>早期设计：</strong></p>
+<p>每个 ThreadLocal类都创建一个 Map，然后用线程的 ID threadID 作为 Map 的 key，要存储的局部变量作为 Map 的 value，这样就能达到各个线程的值隔离的效果。</p>
+<p> <strong>JDK8 ThreadLocal 的设计：</strong></p>
+<p>每个 Thread 维护一个 ThreadLocalMap 哈希表，这个哈希表的 key 是 ThreadLocal 实例本身，value才是真正要存储的值 Object。</p>
+<p><strong>这样设计有如下几点优势：</strong><br>1） 这样设计之后每个 Map 存储的 Entry 数量就会变小，因为之前的存储数量由Thread 的数量决定，现在是由 ThreadLocal 的数量决定。<br>2） 当 Thread 销毁之后，对应的 ThreadLocalMap 也会随之销毁，生命周期与线程相同，能减少内存的使用。<br>注：ThreadLocalMap其实是线程自身的一个成员属性threadLocals的类型。也就是线程本地数据都存在这个threadLocals应用的ThreadLocalMap中。</p>
+<h2 id="1-底层实现"><a href="#1-底层实现" class="headerlink" title="1. 底层实现"></a>1. 底层实现</h2><h2 id="1-set-Tvalue"><a href="#1-set-Tvalue" class="headerlink" title="1. set(Tvalue)"></a>1. set(Tvalue)</h2><p>1 ) 获取当前线程 Thread 对象，进而获取此线程对象中维护的 ThreadLocalMap 对象。<br>2 ) 判断当前的 ThreadLocalMap 是否存在：<br>如果存在，则调用 map.set 设置此实体 entry。<br>如果不存在，则调用 createMap 进行 ThreadLocalMap 对象的初始化，并将此实体 entry 作为第一个值存放至 ThreadLocalMap 中。</p>
+<h2 id="2-get"><a href="#2-get" class="headerlink" title="2. get()"></a>2. get()</h2><ol>
+<li><p>获取当前线程 Thread 对象，进而获取此线程对象中维护的 ThreadLocalMap 对象。</p>
+</li>
+<li><p>判断当前的 ThreadLocalMap 是否存在：</p>
+<ul>
+<li><p>如果存在，则以当前的 ThreadLocal 为 key，调用 ThreadLocalMap 中的 getEntry 方法获取对应的存储实体 e。找到对应的存储实体 e，获取存储实体 e 对应的 value 值，即为我们想要的当前线程对应此 ThreadLocal 的值，返回结果值。</p>
+</li>
+<li><p>如果不存在，则证明此线程没有维护的 ThreadLocalMap 对象，调用 setInitialValue 方法进行初始化。返回 setInitialValue 初始化的值。</p>
+</li>
+</ul>
+</li>
+<li><p>setInitialValue 方法的操作如下：</p>
+<ol>
+<li>调用 initialValue 获取初始化的值。</li>
+<li>获取当前线程 Thread 对象，进而获取此线程对象中维护的 ThreadLocalMap 对象，并判断当前的 ThreadLocalMap 是否存在：<ul>
+<li>如果存在，则调用 map.set 设置此实体 entry。</li>
+<li>如果不存在，则调用 createMap 进行 ThreadLocalMap 对象的初始化，并将此实体 entry 作为第一个值存放至 ThreadLocalMap 中。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>java锁常见面试题</div>
+      <div>http://example.com/java锁常见面试题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月21日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="简单工厂模式">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">简单工厂模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/" title="技术选型">
+                        <span class="hidden-mobile">技术选型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
