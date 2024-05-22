@@ -211,6 +211,69 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
+          RabbitMQ的消息零丢失方案
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
+        <div>
+          
+          RabbitMQ如何保证消息的可靠性？哪些环节会有丢消息的可能？ 普通消息处理流程 消息生成者发送消息 MQ收到消息，将消息进行存储（持久化到硬盘）。 返回ACK给生产者 MQ push 消息给对应的消费者，然后等待消费者返回ACK 如果消息消费者在指定时间内成功返回ack，那么MQ认为消息消费成功，在存储中删除消息，即执行第6步；如果MQ在指定时间内没有收到ACK，则认为消息消费失败，会尝试重新
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-12 12:37" pubdate>
+              2022-09-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MQ/">#MQ</a>
+            
+              <a href="/tags/%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/">#消息可靠性</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" target="_self">
           RabbitMQ的高级特性
         </a>
@@ -518,11 +581,11 @@
             
               <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">#面试题</a>
             
-              <a href="/tags/postgreSQL/">#postgreSQL</a>
+              <a href="/tags/redis/">#redis</a>
             
               <a href="/tags/mysql/">#mysql</a>
             
-              <a href="/tags/redis/">#redis</a>
+              <a href="/tags/postgreSQL/">#postgreSQL</a>
             
               <a href="/tags/mongo/">#mongo</a>
             
@@ -679,67 +742,6 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2022-08-16 09:51" pubdate>
-              2022-08-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B4%E7%90%86/">#整理</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-          java知识点整理
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-        <div>
-          
-          死锁 定义：死锁是两个或两个以上的线程互相都持有对方所需要的资源，导致这些线程都处于等待状态。  死锁产生的条件：  互斥条件：一个资源只能被一个进程占用。 请求和保持条件：一个进程因请求被占用资源而发生阻塞时，对已获得的资源保持不变。 不剥夺条件：任何一个资源在没被该进程释放之前，其他线程都无法对他剥夺占用。 循环等待：当发生死锁时，所等待的线程会进入一个类似死循环，造成阻塞。   如何避免
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-16 09:28" pubdate>
               2022-08-16
             </time>
           </div>

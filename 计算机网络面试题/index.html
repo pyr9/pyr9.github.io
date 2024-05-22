@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. get和post的区别 表现形式 get 请求的数据会附在url之后，以？形式分割URL和传输的数据，参数之间以&amp;连接。 post请求的数据是提交在HTTP的包体中。   对数据长度的限制 get是通过URl提交数据，所以他的长度受浏览器的限制 post是没有数据长度的限制的，起限制作用的是：服务器的处理能力。   安全性 与post相比，Get安全性较差。get提交数据的时候，用户">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-15T07:21:28.000Z">
-<meta property="article:modified_time" content="2022-08-23T07:34:44.519Z">
+<meta property="article:modified_time" content="2024-05-22T13:38:45.641Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="整理">
 <meta name="twitter:card" content="summary_large_image">
@@ -272,7 +272,7 @@
             
             <div class="markdown-body">
               
-              <h4 id="1-get和post的区别"><a href="#1-get和post的区别" class="headerlink" title="1. get和post的区别"></a>1. get和post的区别</h4><ul>
+              <h1 id="1-get和post的区别"><a href="#1-get和post的区别" class="headerlink" title="1. get和post的区别"></a>1. get和post的区别</h1><ul>
 <li>表现形式<ul>
 <li>get 请求的数据会附在url之后，以？形式分割URL和传输的数据，参数之间以&amp;连接。</li>
 <li>post请求的数据是提交在HTTP的包体中。</li>
@@ -289,7 +289,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="2-http的常用方法"><a href="#2-http的常用方法" class="headerlink" title="2. http的常用方法"></a>2. http的常用方法</h4><ul>
+<h1 id="2-http的常用方法"><a href="#2-http的常用方法" class="headerlink" title="2. http的常用方法"></a>2. http的常用方法</h1><ul>
 <li>Get: 使用给定的URL请求资源</li>
 <li>post：将数据发送到服务器，用来创建或者更新资源</li>
 <li>head: 获取报文首部</li>
@@ -298,7 +298,7 @@
 <li>trace: 追踪路径</li>
 <li>permission：访问支持的方法。</li>
 </ul>
-<h4 id="3-TCP和UDP的区别与联系"><a href="#3-TCP和UDP的区别与联系" class="headerlink" title="3. TCP和UDP的区别与联系"></a>3. TCP和UDP的区别与联系</h4><ul>
+<h1 id="3-TCP和UDP的区别与联系"><a href="#3-TCP和UDP的区别与联系" class="headerlink" title="3. TCP和UDP的区别与联系"></a>3. TCP和UDP的区别与联系</h1><ul>
 <li><p>相同点：都是基于IP协议的传输协议。</p>
 </li>
 <li><p>不同点：</p>
@@ -326,7 +326,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="4-HTTP的长连接和短连接"><a href="#4-HTTP的长连接和短连接" class="headerlink" title="4. HTTP的长连接和短连接"></a>4. HTTP的长连接和短连接</h3><ul>
+<h1 id="4-HTTP的长连接和短连接"><a href="#4-HTTP的长连接和短连接" class="headerlink" title="4. HTTP的长连接和短连接"></a>4. HTTP的长连接和短连接</h1><ul>
 <li>http的长连接和短连接本质上就是：Tcp的长连接和短连接</li>
 <li>在http1.0 中默认使用短连接，客户端和服务端每进行一次HTTP操作，就建立一次短连接，任务结束就中断。从HTTP1.0 起，默认使用长连接，当一个网页打开完成后，客户端和服务器之间用户传输HTTP数据的TCP连接就不会关闭，客户端再次访问这个服务器，会使用这一条已经建立的连接。可以设置这个保持时间。</li>
 <li>通过心跳机制维护长连接，客户端发送一个心跳给服务器，服务器给客户一个心跳应答，这样双方就可以知道他们的连接没有断开。</li>
@@ -336,7 +336,7 @@
 <li>长连接：多用于操作频繁，点对点的通讯。</li>
 <li>短连接：web网站的Http服务一般都使用短连接，因为长连接比较耗费资源。</li>
 </ul>
-<h3 id="5-HTTP和HTTPs的区别"><a href="#5-HTTP和HTTPs的区别" class="headerlink" title="5. HTTP和HTTPs的区别"></a>5. HTTP和HTTPs的区别</h3><ul>
+<h1 id="5-HTTP和HTTPs的区别"><a href="#5-HTTP和HTTPs的区别" class="headerlink" title="5. HTTP和HTTPs的区别"></a>5. HTTP和HTTPs的区别</h1><ul>
 <li><p>Http明文传输，数据都是未加密的，安全性比较差，https（ssl+http）传输过程是加密的，安全性较好，采用混合加密算法。</p>
 </li>
 <li><p>Http使用80端口，https使用的是443端口</p>
@@ -354,7 +354,7 @@
 </blockquote>
 </li>
 </ul>
-<h3 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h3><h4 id="对称加密："><a href="#对称加密：" class="headerlink" title="对称加密："></a>对称加密：</h4><ul>
+<h1 id="6-加密方式"><a href="#6-加密方式" class="headerlink" title="6 加密方式"></a>6 加密方式</h1><h4 id="对称加密："><a href="#对称加密：" class="headerlink" title="对称加密："></a>对称加密：</h4><ul>
 <li>定义：服务器和客户端都拥有一把相同的钥匙，对报文的加密和解密都用的是这把钥匙。</li>
 <li>流程：刚开始的时候B没有钥匙，A有，那A需要将钥匙发给B，在这个过程中一旦钥匙被攻击者X获取到，加密就失了意义。</li>
 </ul>
@@ -365,7 +365,7 @@
 <h4 id="混合加密"><a href="#混合加密" class="headerlink" title="混合加密"></a>混合加密</h4><ul>
 <li>http首先通过非对称加密来对对称密钥加密，当对称密钥安全传输后，双方则采取对称密钥的方式来进行传输。</li>
 </ul>
-<h3 id="cookie-和session-的区别和联系"><a href="#cookie-和session-的区别和联系" class="headerlink" title="cookie 和session 的区别和联系"></a>cookie 和session 的区别和联系</h3><ul>
+<h1 id="7-cookie-和session-的区别和联系"><a href="#7-cookie-和session-的区别和联系" class="headerlink" title="7 cookie 和session 的区别和联系"></a>7 cookie 和session 的区别和联系</h1><ul>
 <li>session是存储在服务器端的，cookie是存储在客户端的。</li>
 <li>cookie不是很安全，因为别人可以分析你存放在本地的cookie进行cookie欺骗，考虑到安全应该放到session。</li>
 <li>由于session存放在服务器上，所以当访问增多的时候，会比较占用服务器的性能，考虑到服务器性能，</li>

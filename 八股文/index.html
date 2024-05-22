@@ -16,30 +16,23 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁   2 基于数据库实现分布式锁基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，">
+    <meta name="description" content="1. 网络1. 三次握手三次握手 2. 四次挥手四次挥手  一 网络  二 操作系统  三 java基础  四 Javaweb  五 JDBC  六 框架  七 java多线程  八 java并发  九 java集合  十 JVM  十一 MySQL  十二 Redis  十三 设计模式  十四 Linux  十五 数据结构和算法  十五 其他  十六 项目">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库实现分布式锁">
-<meta property="og:url" content="http://example.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
+<meta property="og:title" content="j八股文">
+<meta property="og:url" content="http://example.com/%E5%85%AB%E8%82%A1%E6%96%87/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁   2 基于数据库实现分布式锁基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，">
+<meta property="og:description" content="1. 网络1. 三次握手三次握手 2. 四次挥手四次挥手  一 网络  二 操作系统  三 java基础  四 Javaweb  五 JDBC  六 框架  七 java多线程  八 java并发  九 java集合  十 JVM  十一 MySQL  十二 Redis  十三 设计模式  十四 Linux  十五 数据结构和算法  十五 其他  十六 项目">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222626149.png">
-<meta property="article:published_time" content="2021-12-29T15:45:20.000Z">
-<meta property="article:modified_time" content="2023-03-17T02:10:37.350Z">
+<meta property="article:published_time" content="2023-05-22T13:32:41.000Z">
+<meta property="article:modified_time" content="2024-05-22T13:36:03.347Z">
 <meta property="article:author" content="Panyurou">
-<meta property="article:tag" content="分布式框架">
-<meta property="article:tag" content="zookeeper">
-<meta property="article:tag" content="redis">
-<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>数据库实现分布式锁 - 楼上有只喵</title>
+  <title>j八股文 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -190,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="数据库实现分布式锁"></span>
+            <span id="subtitle" data-typed-text="j八股文"></span>
           
         </div>
 
@@ -201,8 +194,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-12-29 23:45" pubdate>
-          2021年12月29日 晚上
+        <time datetime="2023-05-22 21:32" pubdate>
+          2023年5月22日 晚上
         </time>
       </span>
     
@@ -214,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.6k 字
+          125 字
         
       </span>
     
@@ -226,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          1 分钟
         
       </span>
     
@@ -274,40 +267,48 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">数据库实现分布式锁</h1>
+            <h1 style="display: none">j八股文</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-什么是分布式锁"><a href="#1-什么是分布式锁" class="headerlink" title="1 什么是分布式锁"></a>1 什么是分布式锁</h1><ul>
-<li>在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。</li>
-<li>在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁</li>
+              <h1 id="1-网络"><a href="#1-网络" class="headerlink" title="1. 网络"></a>1. 网络</h1><h2 id="1-三次握手"><a href="#1-三次握手" class="headerlink" title="1. 三次握手"></a>1. 三次握手</h2><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a></p>
+<h2 id="2-四次挥手"><a href="#2-四次挥手" class="headerlink" title="2. 四次挥手"></a>2. 四次挥手</h2><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a></p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#__1">一 网络</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#__31">二 操作系统</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_java_42">三 java基础</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_Javaweb_72">四 Javaweb</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_JDBC_85">五 JDBC</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#__88">六 框架</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_java_112">七 java多线程</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_java_128">八 java并发</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_java_156">九 java集合</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_JVM_176">十 JVM</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_MySQL_194">十一 MySQL</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#_Redis_226">十二 Redis</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#__234">十三 设计模式</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#__Linux_243">十四 Linux</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#__250">十五 数据结构和算法</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#__09_283">十五 其他</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42922647/article/details/100184868?ops_request_misc=%7B%22request_id%22:%22171638473616800180669275%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171638473616800180669275&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-100184868-null-null.nonecase&utm_term=%E9%9D%A2%E8%AF%95&spm=1018.2226.3001.4450#__290">十六 项目</a></p>
+</li>
 </ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png" srcset="/img/loading.gif" lazyload alt="image-20230228222616394"></p>
-<h1 id="2-基于数据库实现分布式锁"><a href="#2-基于数据库实现分布式锁" class="headerlink" title="2 基于数据库实现分布式锁"></a>2 基于数据库实现分布式锁</h1><p>基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，这刚好符合我们对锁的要求</p>
-<h2 id="2-1-设计原理"><a href="#2-1-设计原理" class="headerlink" title="2.1 设计原理"></a>2.1 设计原理</h2><ul>
-<li>同一时刻只能允许一个竞争者获取锁。加锁时我们在数据库中插入一条记录，利用唯一键进行防重。</li>
-<li>当竞争者A加锁成功后，第竞争者B再来加锁就会抛出唯一索引冲突，如果抛出这个异常，我们就判定竞争者B加锁失败</li>
-<li>竞争者B加锁失败后，会阻塞等待，一直到竞争者A释放锁（也就是删除记录后），再去获取锁</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222626149.png" srcset="/img/loading.gif" lazyload alt="image-20230228222626149"></p>
-<h2 id="2-2-实现注意事项"><a href="#2-2-实现注意事项" class="headerlink" title="2.2 实现注意事项"></a>2.2 实现注意事项</h2><ul>
-<li>没有锁超时机制。如果程序发生了异常，将无法删除数据，也就是锁无法被释放掉，需要自己写一套锁超时机制，比如：在表中新增一列，用于记录失效时间，并且需要有定时任务清除这些失效的数据；</li>
-<li>基于数据库实现的，数据库的可用性和性能将直接影响分布式锁的可用性及性能，可以考虑实现数据库的高可用方案</li>
-<li>自旋实现阻塞效果。当获取锁失败时自旋转</li>
-<li>如果使用数据库自增 id ,<strong>规律太明显</strong></li>
-<li><strong>受单表数据量的限制</strong> 在高并发场景下，我们都知道 MySQL 的单张表根本不可能容纳大量数据（性能等原因的限制）；如果是将单表拆成多表，还是用数据库自增 id 的话，就存在了 id 重复的情况了，很显然这是业务不允许的。</li>
-</ul>
-<blockquote>
-<p>db操作性能较差，并且有锁表的风险，一般不考虑。</p>
-</blockquote>
-<h2 id="2-3-代码示例"><a href="#2-3-代码示例" class="headerlink" title="2.3 代码示例"></a>2.3 代码示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"> */<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractLock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Lock</span></span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 加锁，增加重试逻辑</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//尝试获取锁</span><br>        <span class="hljs-keyword">if</span>(tryLock())&#123;<br>            System.out.println(<span class="hljs-string">&quot;---------获取锁---------&quot;</span>);<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//等待锁 阻塞</span><br>            waitLock();<br>            <span class="hljs-comment">//重试</span><br>            lock();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MysqlDistributedLock</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractLock</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> MethodlockMapper baseMapper;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//插入一条数据   insert into</span><br>            baseMapper.insert(<span class="hljs-keyword">new</span> Methodlock(<span class="hljs-string">&quot;lock&quot;</span>));<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            <span class="hljs-comment">//插入失败</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">waitLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            Thread.sleep(<span class="hljs-number">10</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//删除数据   delete</span><br>        baseMapper.deleteByMethodlock(<span class="hljs-string">&quot;lock&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;-------释放锁------&quot;</span>);<br>    &#125;<br><br></code></pre></td></tr></table></figure>
-
-
-
 
               
             </div>
@@ -325,7 +326,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
+  <a href="/categories/%E5%85%AB%E8%82%A1%E6%96%87/" class="category-chain-item">八股文</a>
   
   
 
@@ -337,19 +338,6 @@
     </div>
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
-      
-        <a href="/tags/zookeeper/">#zookeeper</a>
-      
-        <a href="/tags/redis/">#redis</a>
-      
-        <a href="/tags/mysql/">#mysql</a>
-      
-    </div>
-  
 </div>
 
 
@@ -358,8 +346,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>数据库实现分布式锁</div>
-      <div>http://example.com/数据库实现分布式锁/</div>
+      <div>j八股文</div>
+      <div>http://example.com/八股文/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +359,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年12月29日</div>
+          <div>2023年5月22日</div>
         </div>
       
       
@@ -401,9 +389,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/zookeeper%E5%85%A5%E9%97%A8/" title="">
+                      <a href="/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="简单工厂模式">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">简单工厂模式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -411,8 +399,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Redis%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" title="Redis缓存问题">
-                        <span class="hidden-mobile">Redis缓存问题</span>
+                      <a href="/java%E9%94%81%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" title="java锁常见面试题">
+                        <span class="hidden-mobile">java锁常见面试题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
