@@ -16,12 +16,12 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="索引的本质 索引是帮助Mysql高效获取数据的排好序的数据结构  索引的数据结构二叉树：单边增长的场景会导致全表扫描。">
+    <meta name="description" content="1. 索引的本质 索引是帮助Mysql高效获取数据的排好序的数据结构  2. 索引的数据结构二叉树：单边增长的场景会导致全表扫描。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql索引介绍">
 <meta property="og:url" content="http://example.com/mysql%E7%B4%A2%E5%BC%95%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="索引的本质 索引是帮助Mysql高效获取数据的排好序的数据结构  索引的数据结构二叉树：单边增长的场景会导致全表扫描。">
+<meta property="og:description" content="1. 索引的本质 索引是帮助Mysql高效获取数据的排好序的数据结构  2. 索引的数据结构二叉树：单边增长的场景会导致全表扫描。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230316043.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230321402.png">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230401564.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png">
 <meta property="article:published_time" content="2021-11-04T13:22:22.000Z">
-<meta property="article:modified_time" content="2023-02-28T15:04:14.610Z">
+<meta property="article:modified_time" content="2024-05-22T04:59:52.642Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="mysql索引">
 <meta name="twitter:card" content="summary_large_image">
@@ -216,7 +216,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.4k 字
+          2k 字
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          7 分钟
         
       </span>
     
@@ -280,10 +280,10 @@
             
             <div class="markdown-body">
               
-              <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="索引的本质"><a href="#索引的本质" class="headerlink" title="索引的本质"></a>索引的本质</h2><blockquote>
+              <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h1 id="1-索引的本质"><a href="#1-索引的本质" class="headerlink" title="1. 索引的本质"></a>1. 索引的本质</h1><blockquote>
 <p>索引是帮助Mysql高效获取数据的排好序的数据结构</p>
 </blockquote>
-<h2 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h2><h4 id="二叉树：单边增长的场景会导致全表扫描。"><a href="#二叉树：单边增长的场景会导致全表扫描。" class="headerlink" title="二叉树：单边增长的场景会导致全表扫描。"></a>二叉树：单边增长的场景会导致全表扫描。</h4><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230316043.png" srcset="/img/loading.gif" lazyload alt="image-20230228230316043"></p>
+<h1 id="2-索引的数据结构"><a href="#2-索引的数据结构" class="headerlink" title="2. 索引的数据结构"></a>2. 索引的数据结构</h1><h4 id="二叉树：单边增长的场景会导致全表扫描。"><a href="#二叉树：单边增长的场景会导致全表扫描。" class="headerlink" title="二叉树：单边增长的场景会导致全表扫描。"></a>二叉树：单边增长的场景会导致全表扫描。</h4><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230316043.png" srcset="/img/loading.gif" lazyload alt="image-20230228230316043"></p>
 <span id="more"></span>
 
 <h4 id="红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。"><a href="#红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。" class="headerlink" title="红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。"></a>红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。</h4><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230321402.png" srcset="/img/loading.gif" lazyload alt="image-20230228230321402"></p>
@@ -319,9 +319,10 @@
 <p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230339454.png" srcset="/img/loading.gif" lazyload alt="image-20230228230339454"></p>
 </li>
 </ol>
-<h2 id="索引是怎么支持千万级表快速查找？"><a href="#索引是怎么支持千万级表快速查找？" class="headerlink" title="索引是怎么支持千万级表快速查找？"></a>索引是怎么支持千万级表快速查找？</h2><p>mysql建议一个结点大小为16kb,这样一次iO速度比较快，一个大结点下的一个索引元素大约是14b，所以一个大结点里面约有1170个索引元素，对于一个高度为3的b+树，可以存储<code>16* 1170* 1170 </code>&#x3D; 2000万。</p>
-<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>存储引擎是对于表而言的，不同的表可以设置不同的存储引擎</p>
-<h3 id="MyISAM索引实现-非聚集"><a href="#MyISAM索引实现-非聚集" class="headerlink" title="MyISAM索引实现(非聚集)"></a>MyISAM索引实现(非聚集)</h3><ul>
+<p><strong>索引是怎么支持千万级表快速查找？</strong></p>
+<p>mysql建议一个结点大小为16kb,这样一次iO速度比较快，一个大结点下的一个索引元素大约是14b，所以一个大结点里面约有1170个索引元素，对于一个高度为3的b+树，可以存储<code>16* 1170* 1170 </code>&#x3D; 2000万。</p>
+<h1 id="4-存储引擎"><a href="#4-存储引擎" class="headerlink" title="4 存储引擎"></a>4 存储引擎</h1><p>存储引擎是对于表而言的，不同的表可以设置不同的存储引擎</p>
+<h2 id="1-MyISAM索引实现-非聚集"><a href="#1-MyISAM索引实现-非聚集" class="headerlink" title="1 MyISAM索引实现(非聚集)"></a>1 MyISAM索引实现(非聚集)</h2><ul>
 <li><p>MyISAM索引文件和数据文件是分离的</p>
 </li>
 <li><p>表结构文件是xxx.frm, 索引文件是xxx.MYI, 数据文件是xxx.MYD</p>
@@ -331,7 +332,7 @@
 <blockquote>
 <p>执行流程：当有一条查询语句：where Col1 &#x3D; 49， 先判断有没有走索引，走索引的话，先根据49快速在MYI文件中定位到结点，获取该结点存储的索引所在行的磁盘文件指针0x90，再去MYD中定位数据。</p>
 </blockquote>
-<h3 id="InnoDb索引实现-聚集"><a href="#InnoDb索引实现-聚集" class="headerlink" title="InnoDb索引实现(聚集)"></a>InnoDb索引实现(聚集)</h3><ul>
+<h2 id="2-InnoDb索引实现-聚集"><a href="#2-InnoDb索引实现-聚集" class="headerlink" title="2 InnoDb索引实现(聚集)"></a>2 InnoDb索引实现(聚集)</h2><ul>
 <li><p>表数据文件本身就是按B+tree组织的一个索引文件</p>
 </li>
 <li><p>叶子结点包含了完整的数据记录，data里存储的是：索引所在行的其他所有数据</p>
@@ -340,28 +341,73 @@
 </li>
 </ul>
 <p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230401564.png" srcset="/img/loading.gif" lazyload alt="image-20230228230401564"></p>
-<h4 id="为什么InnoDb表要尽量设定一个主键"><a href="#为什么InnoDb表要尽量设定一个主键" class="headerlink" title="为什么InnoDb表要尽量设定一个主键"></a>为什么InnoDb表要尽量设定一个主键</h4><ul>
+<h1 id="5-常见面试题"><a href="#5-常见面试题" class="headerlink" title="5 常见面试题"></a>5 常见面试题</h1><h2 id="1-mysql-为什么使用B-树而不是B树"><a href="#1-mysql-为什么使用B-树而不是B树" class="headerlink" title="1. mysql 为什么使用B+树而不是B树"></a>1. mysql 为什么使用B+树而不是B树</h2><ol>
+<li>更高的节点利用率</li>
+</ol>
+<p>B+树与B树的一个关键区别在于B+树的所有数据都存储在叶子节点，而非叶子节点只存储键值和指向子节点的指针。这样可以使非叶子节点包含更多的键值和指针，提高了节点的利用率，从而减少了树的高度。</p>
+<ol start="2">
+<li>更高的查询效率</li>
+</ol>
+<p>由于B+树的叶子节点形成了一个链表，所有的实际数据都存储在叶子节点中，这使得范围查询和顺序遍历更加高效。可以很容易地通过顺序访问叶子节点来实现范围查询，而不需要回溯。</p>
+<ol start="3">
+<li>更适合磁盘存储</li>
+</ol>
+<p>数据库系统通常需要处理大量的数据，这些数据大部分存储在磁盘上。B+树设计更加适合磁盘存储，因为它减少了树的高度，进而减少了磁盘I&#x2F;O操作的次数。每个节点可以存储更多的指针，从而降低了访问数据时需要读取的磁盘块数量。</p>
+<ol start="4">
+<li>更稳定的查询性能</li>
+</ol>
+<p>在B+树中，所有实际数据都在叶子节点上，非叶子节点仅作为索引使用，这意味着所有的查找操作所需的路径长度相同。因此，B+树的查询性能更加稳定。</p>
+<p><strong>具体比较：B树 vs B+树</strong></p>
+<ul>
+<li><p><strong>节点结构</strong>：</p>
+<ul>
+<li><strong>B树</strong>：每个节点既包含键值也包含数据。</li>
+<li><strong>B+树</strong>：所有数据都存储在叶子节点，非叶子节点只包含键值和指针。</li>
+</ul>
+</li>
+<li><p><strong>数据存储位置</strong>：</p>
+<ul>
+<li><strong>B树</strong>：数据存储在各个节点中。</li>
+<li><strong>B+树</strong>：数据存储在叶子节点中，且叶子节点形成链表。</li>
+</ul>
+</li>
+<li><p><strong>查询性能</strong>：</p>
+<ul>
+<li><strong>B树</strong>：查找过程中可能在不同深度找到数据。</li>
+<li><strong>B+树</strong>：查找路径长度相同，查询性能更稳定。</li>
+</ul>
+</li>
+<li><p><strong>范围查询</strong>：</p>
+<ul>
+<li><p><strong>B树</strong>：范围查询需要遍历多个节点，不如B+树高效。</p>
+</li>
+<li><p><strong>B+树</strong>：叶子节点形成链表，顺序遍历和范围查询非常高效。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-为什么InnoDb表要尽量设定一个主键"><a href="#2-为什么InnoDb表要尽量设定一个主键" class="headerlink" title="2 为什么InnoDb表要尽量设定一个主键"></a>2 为什么InnoDb表要尽量设定一个主键</h2><ul>
 <li>innnoDb表数据文件本身就是按B+tree组织的一个索引文件</li>
 <li>主键是数据库确保数据行在整张表唯一性的保障.</li>
 <li>设定了主键之后，在后续的删改查的时候可能更加快速以及确保操作数据范围安全。 </li>
 <li>如果没有主键，InnoDB会选择一个唯一键来作为聚簇索 引，如果没有唯一键，会生成一个隐式的主键。</li>
 </ul>
-<h4 id="主键使用整型的自增ID而不是UUID？"><a href="#主键使用整型的自增ID而不是UUID？" class="headerlink" title="主键使用整型的自增ID而不是UUID？"></a>主键使用整型的自增ID而不是UUID？</h4><ul>
+<h2 id="3-主键使用整型的自增ID而不是UUID？"><a href="#3-主键使用整型的自增ID而不是UUID？" class="headerlink" title="3 主键使用整型的自增ID而不是UUID？"></a>3 主键使用整型的自增ID而不是UUID？</h2><ul>
 <li>查找元素的时候会涉及到大量的数据比较，整型比字符串快</li>
 <li>UUID占用的存储空间会大于整形</li>
 <li>叶子结点是按顺序排列的，如果主键索 引是自增ID，那么只需要不断向后排列即可，如果是UUID，由于到来的ID与原来的大小不确定，在维护B+树的过程中，会造成非常多的数据插入，数据移动，然后导致产生很多的内 存碎片，进而造成插入性能的下降。</li>
 </ul>
-<h3 id="辅助索引（非主键索引）"><a href="#辅助索引（非主键索引）" class="headerlink" title="辅助索引（非主键索引）"></a>辅助索引（非主键索引）</h3><ul>
+<h2 id="4-辅助索引（非主键索引）是什么"><a href="#4-辅助索引（非主键索引）是什么" class="headerlink" title="4 辅助索引（非主键索引）是什么"></a>4 辅助索引（非主键索引）是什么</h2><ul>
 <li><p>叶子结点存储的是索引所在数据行的主键。</p>
 </li>
 <li><p>辅助索引访问数据总是需要二次查找，先遍历非主键索引再遍历主键索引</p>
 </li>
 </ul>
-<h4 id="为什么非主键索引结构叶子结点存储的是主键值"><a href="#为什么非主键索引结构叶子结点存储的是主键值" class="headerlink" title="为什么非主键索引结构叶子结点存储的是主键值?"></a>为什么非主键索引结构叶子结点存储的是主键值?</h4><ul>
+<h2 id="5-为什么非主键索引结构叶子结点存储的是主键值"><a href="#5-为什么非主键索引结构叶子结点存储的是主键值" class="headerlink" title="5 为什么非主键索引结构叶子结点存储的是主键值?"></a>5 为什么非主键索引结构叶子结点存储的是主键值?</h2><ul>
 <li>一致性，完整的数据只在主键索引上维护一份就可以，不用考虑分布式的问题。</li>
 <li>节省存储空间.</li>
 </ul>
-<h2 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h2><ul>
+<h2 id="6-联合索引是什么"><a href="#6-联合索引是什么" class="headerlink" title="6 联合索引是什么"></a>6 联合索引是什么</h2><ul>
 <li>5个单值索引，对应5棵B+树，联合索引就只需要一棵树，所以日常推荐使用联合索引而不是单值索引。</li>
 <li>索引排序的时候会按照字段顺序，逐个去排序</li>
 </ul>
