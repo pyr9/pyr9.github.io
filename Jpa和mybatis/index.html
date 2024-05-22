@@ -16,15 +16,15 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 全局 ID 生成器全局ID生成器，是一种在分布式系统下用来生成全局唯一ID的工具，一般要满足下列特性：  唯一性 高可用，可以由主从、集群等模式保证可用性 高性能，比如基于内存 递增性 安全性：id如果是顺序递增，则容易暴露业务信息  2 全局唯一ID生成策略 UUID Redis自增（需要额外拼接） snowflake算法 数据库自增">
+    <meta name="description" content="1. JPA和mybatis的区别基本概念  MyBatis： 是一个半自动化的持久层框架，专注于 SQL 映射和管理。 提供 SQL 查询、结果映射和存储过程的调用，允许开发者编写自己的 SQL。   JPA： 是 Java EE 和 Java SE 的标准规范，用于对象关系映射（ORM）。 主要实现包括 Hibernate、spring data jpa 和 OpenJPA。 提供全自动化的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="全局唯一ID">
-<meta property="og:url" content="http://example.com/%E5%85%A8%E5%B1%80%E5%94%AF%E4%B8%80ID/index.html">
+<meta property="og:title" content="Jpa和mybatis">
+<meta property="og:url" content="http://example.com/Jpa%E5%92%8Cmybatis/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 全局 ID 生成器全局ID生成器，是一种在分布式系统下用来生成全局唯一ID的工具，一般要满足下列特性：  唯一性 高可用，可以由主从、集群等模式保证可用性 高性能，比如基于内存 递增性 安全性：id如果是顺序递增，则容易暴露业务信息  2 全局唯一ID生成策略 UUID Redis自增（需要额外拼接） snowflake算法 数据库自增">
+<meta property="og:description" content="1. JPA和mybatis的区别基本概念  MyBatis： 是一个半自动化的持久层框架，专注于 SQL 映射和管理。 提供 SQL 查询、结果映射和存储过程的调用，允许开发者编写自己的 SQL。   JPA： 是 Java EE 和 Java SE 的标准规范，用于对象关系映射（ORM）。 主要实现包括 Hibernate、spring data jpa 和 OpenJPA。 提供全自动化的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-03-17T02:11:18.000Z">
-<meta property="article:modified_time" content="2023-03-17T02:38:29.755Z">
+<meta property="article:published_time" content="2024-05-22T10:16:54.000Z">
+<meta property="article:modified_time" content="2024-05-22T10:24:28.190Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -32,7 +32,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>全局唯一ID - 楼上有只喵</title>
+  <title>Jpa和mybatis - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="全局唯一ID"></span>
+            <span id="subtitle" data-typed-text="Jpa和mybatis"></span>
           
         </div>
 
@@ -194,8 +194,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-17 10:11" pubdate>
-          2023年3月17日 上午
+        <time datetime="2024-05-22 18:16" pubdate>
+          2024年5月22日 晚上
         </time>
       </span>
     
@@ -207,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          155 字
+          1.5k 字
         
       </span>
     
@@ -219,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          1 分钟
+          5 分钟
         
       </span>
     
@@ -267,51 +267,114 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">全局唯一ID</h1>
+            <h1 style="display: none">Jpa和mybatis</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-全局-ID-生成器"><a href="#1-全局-ID-生成器" class="headerlink" title="1 全局 ID 生成器"></a>1 全局 ID 生成器</h1><p>全局ID生成器，是一种在分布式系统下用来生成全局唯一ID的工具，一般要满足下列特性：</p>
+              <h1 id="1-JPA和mybatis的区别"><a href="#1-JPA和mybatis的区别" class="headerlink" title="1. JPA和mybatis的区别"></a>1. JPA和mybatis的区别</h1><p><strong>基本概念</strong></p>
 <ul>
-<li><strong>唯一性</strong></li>
-<li><strong>高可用</strong>，可以由主从、集群等模式保证可用性</li>
-<li><strong>高性能</strong>，比如基于内存</li>
-<li><strong>递增性</strong></li>
-<li><strong>安全性</strong>：id如果是顺序递增，则容易暴露业务信息</li>
+<li><strong>MyBatis</strong>：<ul>
+<li>是一个半自动化的持久层框架，专注于 SQL 映射和管理。</li>
+<li>提供 SQL 查询、结果映射和存储过程的调用，允许开发者编写自己的 SQL。</li>
 </ul>
-<h1 id="2-全局唯一ID生成策略"><a href="#2-全局唯一ID生成策略" class="headerlink" title="2 全局唯一ID生成策略"></a>2 全局唯一ID生成策略</h1><ul>
-<li>UUID</li>
-<li>Redis自增（需要额外拼接）</li>
-<li>snowflake算法</li>
-<li>数据库自增</li>
+</li>
+<li><strong>JPA</strong>：<ul>
+<li>是 Java EE 和 Java SE 的标准规范，用于对象关系映射（ORM）。</li>
+<li>主要实现包括 Hibernate、spring data jpa 和 OpenJPA。</li>
+<li>提供全自动化的 ORM 功能，开发者通常不需要编写 SQL，而是依赖于 JPA 提供的抽象层。</li>
 </ul>
+</li>
+</ul>
+<p><strong>2. SQL 操作</strong></p>
+<ul>
+<li><strong>MyBatis</strong>：<ul>
+<li>强调手写 SQL，开发者有完全的 SQL 控制权。</li>
+<li>通过 XML 文件或注解定义 SQL 映射。</li>
+<li>更适合对 SQL 有细粒度控制需求的场景。</li>
+</ul>
+</li>
+<li><strong>JPA</strong>：<ul>
+<li>使用 JPQL（Java Persistence Query Language）或 Criteria API 查询，类似于 SQL，但面向对象。</li>
+<li>复杂查询下可以使用QueryDsL 和写nativeSQL</li>
+<li>更侧重于通过实体类操作数据库，减少直接 SQL 的编写。</li>
+<li>对 SQL 的控制较少，但方便数据操作。</li>
+<li>更换数据库平台方便</li>
+</ul>
+</li>
+</ul>
+<p><strong>3. 配置和复杂度</strong></p>
+<ul>
+<li><strong>MyBatis</strong>：<ul>
+<li>配置较为简单，主要通过 XML 文件或注解。</li>
+<li>需要手动管理 SQL 和对象映射，适合复杂 SQL 或存储过程的项目。</li>
+</ul>
+</li>
+<li><strong>JPA</strong>：<ul>
+<li>配置相对复杂，依赖于实体类、关系映射和持久化单元配置。</li>
+<li>通过注解或 XML 文件定义实体类及其关系，自动管理实体的生命周期。</li>
+</ul>
+</li>
+</ul>
+<p><strong>4 性能和灵活性</strong></p>
+<ul>
+<li><strong>MyBatis</strong>：<ul>
+<li>性能较好，尤其在复杂查询和批量操作方面。</li>
+<li>灵活性高，开发者可以优化每个 SQL 语句。</li>
+</ul>
+</li>
+<li><strong>JPA</strong>：<ul>
+<li>提供缓存机制（一级和二级缓存）和延迟加载，提高性能。</li>
+<li>性能受 ORM 层次的影响较大，适合 CRUD 操作较多的应用。</li>
+</ul>
+</li>
+</ul>
+<p><strong>5. 学习曲线</strong></p>
+<ul>
+<li><strong>MyBatis</strong>：<ul>
+<li>学习曲线较平缓，SQL 和映射配置简单直观。</li>
+<li>适合有 SQL 基础的开发者。</li>
+</ul>
+</li>
+<li><strong>JPA</strong>：<ul>
+<li>学习曲线较陡，需要掌握 JPA 规范和面向对象的数据库操作方法。</li>
+<li>适合需要高层次抽象和自动化管理的项目。</li>
+</ul>
+</li>
+</ul>
+<p><strong>6 适用场景</strong></p>
+<ul>
+<li><strong>MyBatis</strong>：<ul>
+<li>适用于需要频繁编写复杂 SQL 的项目。</li>
+<li>适合对 SQL 语句有精细控制要求的应用。</li>
+</ul>
+</li>
+<li><strong>JPA</strong>：<ul>
+<li>适用于标准化 CRUD 操作较多的企业级应用。</li>
+<li>适合需要 ORM 特性和面向对象数据库操作的项目。</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-Mybatis-动态-sql-概念"><a href="#2-Mybatis-动态-sql-概念" class="headerlink" title="2. Mybatis 动态 sql 概念"></a>2. Mybatis 动态 sql 概念</h1><p>摆脱根据不同条件拼接 SQL 语句的痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。MyBatis 中用于实现动态 SQL 的元素主要有：</p>
+<ol>
+<li><p>if 语句 (简单的条件判断)</p>
+</li>
+<li><p>choose (when,otherwize) ,相当于 java 语言中的 switch ,与 jstl 中的choose 很类似.</p>
+</li>
+<li><p>where (主要是用来简化 sql 语句中 where 条件判断的，能智能的处理 and or , 不必担心多余导致语法错误)</p>
+</li>
+<li><p>set (主要用于更新时，功能和 where 标签元素差不多，主要是在包含的语句前输出一个 set，然后如果包含的语句是以逗号结束的话将会把该逗号忽略，如果 set 标签最终返回的内容为空的话则可能会出错（ update set name &#x3D; #{name}, where … ? )</p>
+</li>
+<li><p>trim (trim 元素的主要功能是可以在自己包含的内容前加上某些前缀，也可以在其后加上某些后缀，与之对应的属性是 prefix 和 suffix；可以把包含内容的首部某些内容覆盖，即忽略，也可以把尾部的某些内容覆盖，对应的属性是 prefixOverrides 和 suffixOverrides；正因为 trim 有这样的功能，它可以用来实现 where 和 set 的效果)</p>
+</li>
+<li><p>foreach (java中有for, 可通过for循环， 同样， mybatis中有foreach, 可通过它实现循环，循环的对象当然主要是java集合或数组。)</p>
+</li>
+</ol>
 
               
             </div>
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" class="category-chain-item">分布式</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -322,8 +385,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>全局唯一ID</div>
-      <div>http://example.com/全局唯一ID/</div>
+      <div>Jpa和mybatis</div>
+      <div>http://example.com/Jpa和mybatis/</div>
     </div>
     <div class="license-meta">
       
@@ -335,7 +398,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月17日</div>
+          <div>2024年5月22日</div>
         </div>
       
       
@@ -365,18 +428,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="分布式锁">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">分布式锁</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/jenkins%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/" title="jenkins部署vue项目">
-                        <span class="hidden-mobile">jenkins部署vue项目</span>
+                      <a href="/jpa%E7%9A%84%E6%89%B9%E9%87%8F%E4%BC%98%E5%8C%96/" title="jpa的批量优化">
+                        <span class="hidden-mobile">jpa的批量优化</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
