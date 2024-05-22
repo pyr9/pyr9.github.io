@@ -56,7 +56,7 @@ AQS，全称为 **AbstractQueuedSynchronizer**，是 Java 中提供的一种实�
 
 ## 2. 使用
 
-AQS 通常不会直接使用，而是通过子类实现具体的同步器，如 `ReentrantLock`、`Semaphore` 等。
+AQS 通常不会直接使用，而是通过子类实现具体的同步器，如 `ReentrantLock`、`CountDownLatch`、`Semaphore` 等。
 
 # 3.  ReentrantLock
 
