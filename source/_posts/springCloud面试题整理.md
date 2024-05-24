@@ -94,7 +94,7 @@ Netflix OSS 开源组件集成，包括Eureka、Hystrix、Ribbon、Feign、Zuul�
 
 由于所有服务都在 Eureka 服务器上注册并 通过调用 Eureka 服务器完成查找，因此无需处理服务地点的任何更改和处理。
 
-[CAP原则以及eureka和zookeeper的对比 - 楼上有只喵 (pyr9.github.io)](https://pyr9.github.io/2022/07/21/CAP原则以及eureka和zookeeper的对比/)
+[CAP原则以及eureka和zookeeper的对比](https://pyr9.github.io/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/)
 
 ## 5.2 服务调用
 
