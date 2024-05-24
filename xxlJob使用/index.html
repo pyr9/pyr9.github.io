@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231114184858772.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231114184353146.png">
 <meta property="article:published_time" content="2023-11-14T06:29:20.000Z">
-<meta property="article:modified_time" content="2023-11-14T10:49:06.190Z">
+<meta property="article:modified_time" content="2024-05-24T08:45:49.918Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231114165019091.png">
@@ -218,7 +218,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          4.5k 字
+          5.4k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
           <!-- compatible with older versions-->
-          15 分钟
+          17 分钟
         
       </span>
     
@@ -309,6 +309,59 @@
 <li><p><strong>执行模块（执行器）</strong>：<br>负责接收调度请求并执行任务逻辑。任务模块专注于任务的执行等操作，开发和维护更加简单和高效；<br>接收“调度中心”的执行请求、终止请求和日志请求等。</p>
 </li>
 </ul>
+<h1 id="3-如何自己去实现一个XXL-JOb"><a href="#3-如何自己去实现一个XXL-JOb" class="headerlink" title="3. 如何自己去实现一个XXL JOb"></a>3. 如何自己去实现一个XXL JOb</h1><h2 id="1-需求分析"><a href="#1-需求分析" class="headerlink" title="1. 需求分析"></a>1. 需求分析</h2><ol>
+<li><strong>任务调度</strong>：支持定时任务、延迟任务和周期性任务。</li>
+<li><strong>任务执行</strong>：任务分发给不同的执行节点。</li>
+<li><strong>任务管理</strong>：支持任务的增加、删除、修改、暂停和恢复。</li>
+<li><strong>监控和日志</strong>：记录任务执行情况和日志，便于监控和调试。</li>
+<li><strong>高可用性</strong>：保证调度系统的高可用性和可靠性。</li>
+</ol>
+<h2 id="2-系统设计"><a href="#2-系统设计" class="headerlink" title="2. 系统设计"></a>2. 系统设计</h2><ol>
+<li><strong>调度中心</strong>：<ul>
+<li>负责任务的调度、分发和管理。</li>
+<li>维护任务的元数据和调度策略。</li>
+<li>提供管理界面（Web 界面）用于任务的增删改查。</li>
+</ul>
+</li>
+<li><strong>执行器</strong>：<ul>
+<li>接收调度中心分发的任务并执行。</li>
+<li>反馈任务的执行状态和日志到调度中心。</li>
+</ul>
+</li>
+<li><strong>通信机制</strong>：<ul>
+<li>调度中心和执行器之间需要一个可靠的通信机制，常见的有 HTTP、RPC 等。</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-技术选型"><a href="#3-技术选型" class="headerlink" title="3. 技术选型"></a>3. 技术选型</h2><ol>
+<li><strong>编程语言</strong>：Java 是一个不错的选择，因为 XXL-JOB 本身就是基于 Java 实现的，且 Java 有丰富的生态支持。</li>
+<li><strong>持久化存储</strong>：MySQL 用于存储任务元数据和执行日志。</li>
+<li><strong>通信协议</strong>：RESTful API 或者 gRPC。</li>
+<li><strong>调度框架</strong>：Quartz，可以用来实现复杂的调度策略。</li>
+<li><strong>监控与日志</strong>：Logback 或 Log4j2 记录日志，Prometheus 和 Grafana 用于监控。</li>
+</ol>
+<h2 id="4-具体实现步骤"><a href="#4-具体实现步骤" class="headerlink" title="4. 具体实现步骤"></a>4. 具体实现步骤</h2><h4 id="1-创建调度中心"><a href="#1-创建调度中心" class="headerlink" title="1. 创建调度中心"></a>1. 创建调度中心</h4><ul>
+<li><strong>任务管理接口</strong>：提供增删改查任务的 API。</li>
+<li><strong>任务调度模块</strong>：使用 Quartz 来调度任务，并实现任务的分发。</li>
+<li><strong>任务监控与日志模块</strong>：记录任务执行的日志和状态，提供监控接口。</li>
+</ul>
+<h4 id="2-执行器实现"><a href="#2-执行器实现" class="headerlink" title="2. 执行器实现"></a>2. 执行器实现</h4><ul>
+<li><strong>任务执行接口</strong>：实现一个 HTTP 或 RPC 接口，用于接收调度中心分发的任务。</li>
+<li><strong>任务执行逻辑</strong>：根据任务的定义执行具体的任务逻辑，并反馈执行结果和日志。</li>
+</ul>
+<h4 id="3-调度和执行流程"><a href="#3-调度和执行流程" class="headerlink" title="3. 调度和执行流程"></a>3. 调度和执行流程</h4><ul>
+<li><strong>任务调度</strong>：Quartz 触发任务调度后，通过 HTTP 或 RPC 调用执行器的任务执行接口。</li>
+<li><strong>任务执行反馈</strong>：执行器在完成任务后，将结果和日志反馈给调度中心，调度中心更新任务状态和日志。</li>
+</ul>
+<h4 id="4-高可用设计"><a href="#4-高可用设计" class="headerlink" title="4. 高可用设计"></a>4. 高可用设计</h4><ul>
+<li><strong>调度中心高可用</strong>：通过多实例部署和负载均衡实现高可用。</li>
+<li><strong>执行器高可用</strong>：执行器也是多实例部署，调度中心根据负载均衡策略选择合适的执行器。</li>
+</ul>
+<h3 id="五、部署与运维"><a href="#五、部署与运维" class="headerlink" title="五、部署与运维"></a>五、部署与运维</h3><ol>
+<li><strong>使用 Docker 容器化调度中心和执行器</strong>。</li>
+<li><strong>使用 Kubernetes 实现调度中心和执行器的高可用部署</strong>。</li>
+<li><strong>使用ELK监控日志</strong></li>
+</ol>
 <h2 id="4-Spring-Boot-集成-XXL-JOB"><a href="#4-Spring-Boot-集成-XXL-JOB" class="headerlink" title="4 Spring Boot 集成 XXL-JOB"></a>4 <strong>Spring Boot 集成 XXL-JOB</strong></h2><p>参考<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-job/#%E4%BA%8C%E3%80%81%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8">快速入门</a></p>
 <h3 id="1-配置运行调度中心（xxl-job-admin）"><a href="#1-配置运行调度中心（xxl-job-admin）" class="headerlink" title="1. 配置运行调度中心（xxl-job-admin）"></a>1. 配置运行调度中心（xxl-job-admin）</h3><ol>
 <li>首先从源码仓库中下载代码</li>
