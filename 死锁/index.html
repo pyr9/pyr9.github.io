@@ -18,13 +18,13 @@
   
     <meta name="description" content="死锁 定义：死锁是两个或两个以上的线程互相都持有对方所需要的资源，导致这些线程都处于等待状态。  死锁产生的条件：  互斥条件：一个资源只能被一个进程占用。 请求和保持条件：一个进程因请求被占用资源而发生阻塞时，对已获得的资源保持不变。 不剥夺条件：任何一个资源在没被该进程释放之前，其他线程都无法对他剥夺占用。 循环等待：当发生死锁时，所等待的线程会进入一个类似死循环，造成阻塞。   如何避免">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java知识点整理">
-<meta property="og:url" content="http://example.com/java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:title" content="死锁">
+<meta property="og:url" content="http://example.com/%E6%AD%BB%E9%94%81/index.html">
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="死锁 定义：死锁是两个或两个以上的线程互相都持有对方所需要的资源，导致这些线程都处于等待状态。  死锁产生的条件：  互斥条件：一个资源只能被一个进程占用。 请求和保持条件：一个进程因请求被占用资源而发生阻塞时，对已获得的资源保持不变。 不剥夺条件：任何一个资源在没被该进程释放之前，其他线程都无法对他剥夺占用。 循环等待：当发生死锁时，所等待的线程会进入一个类似死循环，造成阻塞。   如何避免">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-16T01:28:59.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:40:09.196Z">
+<meta property="article:modified_time" content="2024-05-24T06:33:04.100Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="整理">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>java知识点整理 - 楼上有只喵</title>
+  <title>死锁 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="java知识点整理"></span>
+            <span id="subtitle" data-typed-text="死锁"></span>
           
         </div>
 
@@ -208,7 +208,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          299 字
+          482 字
         
       </span>
     
@@ -220,7 +220,7 @@
         
         
           <!-- compatible with older versions-->
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -268,7 +268,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">java知识点整理</h1>
+            <h1 style="display: none">死锁</h1>
             
             <div class="markdown-body">
               
@@ -289,7 +289,19 @@
 <li>设置加锁时限。当一个线程在制定时限内没有获取到所需要的锁，则会释放已经获取到的锁，然后等待一段时间再重试。</li>
 </ul>
 </li>
-<li></li>
+<li><p>死锁检查</p>
+</li>
+<li><p>方式一：jps+jstack</p>
+<ul>
+<li>运行<code>jps</code>，查看当前所有java进程的pid</li>
+<li><code>jstack pid</code> 查看当前进程的堆栈状态，如果有死锁会打印出来found 1 deadLock</li>
+</ul>
+</li>
+<li><p>方式二：jvisualvm</p>
+<p>代码运行起来后，启动jvisualvm，在线程页面会直接有一个红色的显示：监测到死锁</p>
+</li>
+<li><p>参考地址：<a target="_blank" rel="noopener" href="https://pyr9.github.io/java%E5%91%BD%E4%BB%A4-jstack-%E5%B7%A5%E5%85%B7/">java命令–jstack的使用 - 楼上有只喵 (pyr9.github.io)</a></p>
+</li>
 </ul>
 
               
@@ -335,8 +347,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>java知识点整理</div>
-      <div>http://example.com/java基础面试题/</div>
+      <div>死锁</div>
+      <div>http://example.com/死锁/</div>
     </div>
     <div class="license-meta">
       
