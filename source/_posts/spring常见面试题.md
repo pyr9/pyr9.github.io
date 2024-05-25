@@ -1,11 +1,18 @@
 ---
-title: spring.md
+title: spring常见面试题
 date: 2024-05-24 15:10:23
 tags:
 categories:
 ---
 
-# 1. Spring 注入
+# 1. Spring 注入过程
+
+1. 启动 Spring 容器
+2. 读取配置文件或注解扫描（如 `@ComponentScan`）加载 Bean 的定义。
+3. Spring 容器会根据 Bean 的定义实例化对象。这个过程称为实例化（Instantiation）。
+4. Spring 容器会注入依赖对象到 Bean 中。依赖注入可以通过构造器、Setter 方法或字段注入来实现。
+
+依赖注入完成后，可以通过 Spring 上下文获取 Bean 实例。
 
 
 
