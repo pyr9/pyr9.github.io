@@ -16,15 +16,15 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. Spring 注入2. Spring两大特性Spring 是一个开源框架，Spring可以做很多事情，它为企业级开发提供这些功能的底层都依赖于它的两个核心特性：IOC和AOP。  IOC：IOC控制反转也叫依赖注入，IOC 利用 java 反射机制，所谓控制反转是指，本来被调用者的实例是有调用者来创建的，这样的缺点是耦合性太强，IOC 则是统一交给 spring 容器来管理创建，将对象交给容">
+    <meta name="description" content="1. Spring 注入过程 启动 Spring 容器 读取配置文件或注解扫描（如 @ComponentScan）加载 Bean 的定义。 Spring 容器会根据 Bean 的定义实例化对象。这个过程称为实例化（Instantiation）。 Spring 容器会注入依赖对象到 Bean 中。依赖注入可以通过构造器、Setter 方法或字段注入来实现。  依赖注入完成后，可以通过 Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring.md">
-<meta property="og:url" content="http://example.com/spring/index.html">
+<meta property="og:title" content="spring常见面试题">
+<meta property="og:url" content="http://example.com/spring%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1. Spring 注入2. Spring两大特性Spring 是一个开源框架，Spring可以做很多事情，它为企业级开发提供这些功能的底层都依赖于它的两个核心特性：IOC和AOP。  IOC：IOC控制反转也叫依赖注入，IOC 利用 java 反射机制，所谓控制反转是指，本来被调用者的实例是有调用者来创建的，这样的缺点是耦合性太强，IOC 则是统一交给 spring 容器来管理创建，将对象交给容">
+<meta property="og:description" content="1. Spring 注入过程 启动 Spring 容器 读取配置文件或注解扫描（如 @ComponentScan）加载 Bean 的定义。 Spring 容器会根据 Bean 的定义实例化对象。这个过程称为实例化（Instantiation）。 Spring 容器会注入依赖对象到 Bean 中。依赖注入可以通过构造器、Setter 方法或字段注入来实现。  依赖注入完成后，可以通过 Spring">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-24T07:10:23.000Z">
-<meta property="article:modified_time" content="2024-05-24T07:16:03.417Z">
+<meta property="article:modified_time" content="2024-05-25T14:12:41.030Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -32,7 +32,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>spring.md - 楼上有只喵</title>
+  <title>spring常见面试题 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="spring.md"></span>
+            <span id="subtitle" data-typed-text="spring常见面试题"></span>
           
         </div>
 
@@ -207,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.2k 字
+          2.4k 字
         
       </span>
     
@@ -219,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          7 分钟
+          8 分钟
         
       </span>
     
@@ -267,11 +267,18 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">spring.md</h1>
+            <h1 style="display: none">spring常见面试题</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-Spring-注入"><a href="#1-Spring-注入" class="headerlink" title="1. Spring 注入"></a>1. Spring 注入</h1><h1 id="2-Spring两大特性"><a href="#2-Spring两大特性" class="headerlink" title="2. Spring两大特性"></a>2. Spring两大特性</h1><p>Spring 是一个开源框架，Spring可以做很多事情，它为企业级开发提供这些功能的底层都依赖于它的两个核心特性：IOC和AOP。</p>
+              <h1 id="1-Spring-注入过程"><a href="#1-Spring-注入过程" class="headerlink" title="1. Spring 注入过程"></a>1. Spring 注入过程</h1><ol>
+<li>启动 Spring 容器</li>
+<li>读取配置文件或注解扫描（如 <code>@ComponentScan</code>）加载 Bean 的定义。</li>
+<li>Spring 容器会根据 Bean 的定义实例化对象。这个过程称为实例化（Instantiation）。</li>
+<li>Spring 容器会注入依赖对象到 Bean 中。依赖注入可以通过构造器、Setter 方法或字段注入来实现。</li>
+</ol>
+<p>依赖注入完成后，可以通过 Spring 上下文获取 Bean 实例。</p>
+<h1 id="2-Spring两大特性"><a href="#2-Spring两大特性" class="headerlink" title="2. Spring两大特性"></a>2. Spring两大特性</h1><p>Spring 是一个开源框架，Spring可以做很多事情，它为企业级开发提供这些功能的底层都依赖于它的两个核心特性：IOC和AOP。</p>
 <ol>
 <li><p>IOC：IOC控制反转也叫依赖注入，IOC 利用 java 反射机制，所谓控制反转是指，本来被调用者的实例是有调用者来创建的，这样的缺点是耦合性太强，IOC 则是统一交给 spring 容器来管理创建，将对象交给容器管理，你只需要在 spring 配置文件中配置相应的 bean，以及设置相关的属性，让spring 容器来生成类的实例对象以及管理对象。就比如：原来我的service层要调用dao层，service就要创建dao,但spring发现你的service层要依赖dao层后，就可以给你注入。</p>
 </li>
@@ -307,8 +314,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>spring.md</div>
-      <div>http://example.com/spring/</div>
+      <div>spring常见面试题</div>
+      <div>http://example.com/spring常见面试题/</div>
     </div>
     <div class="license-meta">
       
@@ -349,6 +356,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/java%E5%9F%BA%E7%A1%80/" title="java基础">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">java基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

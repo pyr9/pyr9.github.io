@@ -19,7 +19,7 @@
     <meta name="description" content="1 docker解决了什么问题？比如我们现在开发了一个应用程序比如淘宝App，程序员从头到尾搭建了一套环境开始写代码，比如安装JDK等，代码写完后需要交给测试同事去运行，这事测试同学也需要从头到尾搭建一套环境，但比如JDK版本和你安装的不同，导致无法在测试同学的机器上运行起来，找开发去看问题，此时开发也很无辜，“明明在我的机器上是可以跑起来的”。 在没有容器技术之前，我们可以采用搭建虚拟机，然后测">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker">
-<meta property="og:url" content="http://example.com/dcoker/index.html">
+<meta property="og:url" content="http://example.com/docker/index.html">
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1 docker解决了什么问题？比如我们现在开发了一个应用程序比如淘宝App，程序员从头到尾搭建了一套环境开始写代码，比如安装JDK等，代码写完后需要交给测试同事去运行，这事测试同学也需要从头到尾搭建一套环境，但比如JDK版本和你安装的不同，导致无法在测试同学的机器上运行起来，找开发去看问题，此时开发也很无辜，“明明在我的机器上是可以跑起来的”。 在没有容器技术之前，我们可以采用搭建虚拟机，然后测">
 <meta property="og:locale" content="zh_CN">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418151220544.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418170422909.png">
 <meta property="article:published_time" content="2023-04-18T06:20:45.000Z">
-<meta property="article:modified_time" content="2024-01-30T08:44:31.482Z">
+<meta property="article:modified_time" content="2024-05-25T11:23:41.775Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230418145138450.png">
@@ -212,7 +212,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          6.7k 字
+          7.1k 字
         
       </span>
     
@@ -224,7 +224,7 @@
         
         
           <!-- compatible with older versions-->
-          21 分钟
+          23 分钟
         
       </span>
     
@@ -291,6 +291,12 @@
 <li><strong>NameSpace</strong>： 我们知道Linux中的PID、IPC、网络等资源是全局的，而NameSpace机制是一种资源隔离方案，在该机制下这些资源就不再是全局的了，而是属于某个特定的NameSpace，各个NameSpace下的资源互不干扰，这就使得每个NameSpace看上去就像一个独立的操作系统一样，但是只有NameSpace是不够。</li>
 <li><strong>Control groups</strong>：虽然有了NameSpace技术可以实现资源隔离，但进程还是可以不受控的访问系统资源，比如CPU、内存、磁盘、网络等，为了控制容器中进程对资源的访问，Docker采用control groups技术(也就是cgroup)，有了cgroup就可以控制容器中进程对系统资源的消耗了，比如你可以限制某个容器使用内存的上限、可以在哪些CPU上运行等等。</li>
 </ul>
+<h1 id="3-Docker容器和虚拟机的区别是什么？"><a href="#3-Docker容器和虚拟机的区别是什么？" class="headerlink" title="3. Docker容器和虚拟机的区别是什么？"></a>3. <strong>Docker容器和虚拟机的区别是什么？</strong></h1><p>Docker容器在操作系统级别进行虚拟化，共享宿主机的内核。</p>
+<p>虚拟机在硬件级别进行虚拟化，拥有独立的内核。</p>
+<p>容器通常更轻量级、启动更快，资源占用更少。</p>
+<h1 id="4-什么是Docker镜像？"><a href="#4-什么是Docker镜像？" class="headerlink" title="4. 什么是Docker镜像？"></a>4. <strong>什么是Docker镜像？</strong></h1><p>Docker镜像是一个轻量级、只读的模板，用于创建Docker容器。它包含运行容器所需的代码、库、环境变量和配置文件。</p>
+<h1 id="5-Docker镜像和容器之间有什么区别？"><a href="#5-Docker镜像和容器之间有什么区别？" class="headerlink" title="5. Docker镜像和容器之间有什么区别？"></a>5. <strong>Docker镜像和容器之间有什么区别？</strong></h1><p>Docker镜像是静态的定义，类似于类；而容器是镜像的实例，类似于对象。</p>
+<h1 id="6-什么是-DockerFile？"><a href="#6-什么是-DockerFile？" class="headerlink" title="6. 什么是 DockerFile？"></a>6. 什么是 DockerFile？</h1><p>Dockerfile 是一个文本文件，其中包含我们需要运行以构建 Docker 映像的所有命令。Docker 使用 Dockerfile 中的指令自动构建镜像。我们可以<code>docker build</code>用来创建按顺序执行多个命令行指令的自动构建。</p>
 <h1 id="3-安装下载"><a href="#3-安装下载" class="headerlink" title="3 安装下载"></a>3 安装下载</h1><h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">brew cask install docker<br></code></pre></td></tr></table></figure>
 
 <h2 id="2-修改镜像源"><a href="#2-修改镜像源" class="headerlink" title="2. 修改镜像源"></a>2. 修改镜像源</h2><p>这里是网易的镜像源</p>
@@ -475,7 +481,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>docker</div>
-      <div>http://example.com/dcoker/</div>
+      <div>http://example.com/docker/</div>
     </div>
     <div class="license-meta">
       
