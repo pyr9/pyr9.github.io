@@ -211,6 +211,189 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/Redis%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" target="_self">
+          Redis缓存问题
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Redis%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" target="_self">
+        <div>
+          
+          1 缓存穿透1.1 定义缓存穿透是指查询一个根本不存在的数据， 缓存层和存储层都不会命中， 导致不存在的数据每次请求都要到存储层去查询， 失去了缓存保护后端存储的意义。  1.2 产生原因 自身业务代码或者数据出现问题。  一些恶意攻击、 爬虫等造成大量空命中。  1.3 解决方案1.3.1 缓存空对象123456789101112131415161718String get(String key
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-29 22:45" pubdate>
+              2021-12-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BC%93%E5%AD%98/">#缓存</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Redis%E9%9B%86%E7%BE%A4%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" target="_self">
+          Redis集群三种方式
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Redis%E9%9B%86%E7%BE%A4%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" target="_self">
+        <div>
+          
+          为什么要有集群 单个Redis存在不稳定性，当Redis服务宕机或硬盘故障，系统崩溃之后，就没有可用的服务了，还会造成数据的丢失 单个Redis的读写能力也是有限的 还由于互联网的三高架构，高并发，高性能，高可用   通过添加服务器的数量，提供相同的服务，从而让服务器达到一个稳定，高效的状态  Redis集群的三种模式1. 主从模式产生的原因 避免单点Redis服务器故障。数据丢失，可能对业务造成
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-28 22:45" pubdate>
+              2021-12-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/redis%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84/">#redis主从架构</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/redis%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
+          redis持久化
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/redis%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
+        <div>
+          
+          redis 持久化主要有2种方式：RDB 和AOF  RDB快照什么是RDB快照 rdb就是快照，是redis默认的持久化方式，就是把所有的数据持久化到磁盘，隔一段时间持久化一次到 dump.rdb 的二进制文件中，在服务器重启后只需要把文件中的数据恢复即可。  你可以对 Redis 进行设置， 让它在“ N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。 比如说， sa
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-27 22:40" pubdate>
+              2021-12-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/redis%E6%8C%81%E4%B9%85%E5%8C%96/">#redis持久化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/redis/" target="_self">
           redis 核心数据结构
         </a>
@@ -632,166 +815,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/RabbitMQ%E7%9A%847%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/" target="_self">
-          RabbitMQ的7种工作模式
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/RabbitMQ%E7%9A%847%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/" target="_self">
-        <div>
-          
-          RabbitMQ的7种工作模式1. simple模式  最简单的收发模式。生产者发送一个消息到一个指定的queue，中间不需要任何exchange规则。消费者端通过queue方式进行消费。  代码  producer: 123channel.queueDeclare(QUEUE_NAME, true, false, false, null);String message &#x3D; &quot;hello
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-27 21:35" pubdate>
-              2021-10-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">#消息中间件</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E7%A7%92%E6%9D%80%E6%A8%A1%E5%9D%97%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" target="_self">
-          秒杀模块学习
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E7%A7%92%E6%9D%80%E6%A8%A1%E5%9D%97%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" target="_self">
-        <div>
-          
-          秒杀模块1. 秒杀接口优化 用户是否登陆 判断库存（备份在redis中一份） 在初始化contoller接口的时候，就把商品id和对应的库存数存入到redis   判断是否已经秒杀到了 减缓存， 下订单（订单和秒杀订单） 队列里面存的消息message，有两个变量用户和商品id, receiver监听该队列，减库存，减库存成功了，根据用户和商品id,下订单 contoller需要的就是给队列发消息
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-14 22:30" pubdate>
-              2021-10-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E4%BD%BF%E7%94%A8Spock%E6%A1%86%E6%9E%B6%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81/" target="_self">
-          使用Spock框架编写测试代码
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E4%BD%BF%E7%94%A8Spock%E6%A1%86%E6%9E%B6%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81/" target="_self">
-        <div>
-          
-          Spock 介绍  Spock是一个为groovy和java语言应用程序来测试和规范的框架。  这个框架的突出点在于它美妙和高效表达规范的语言。  得益于JUnit runner，Spock能够在大多数IDE、编译工具、持续集成服务下工作。  Spock的灵感源于JUnit,jMock, RSpec, Groovy, Scala, Vulcans以及其他优秀的框架形态。    基本操作 a sim
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-07 19:02" pubdate>
-              2021-10-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" class="category-chain-item">测试框架</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/spock/">#spock</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/19/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#board">18</a><a class="page-number" href="/page/19/#board">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/21/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/19/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#board">18</a><a class="page-number" href="/page/19/#board">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/#board">21</a><a class="page-number" href="/page/22/#board">22</a><a class="extend next" rel="next" href="/page/21/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

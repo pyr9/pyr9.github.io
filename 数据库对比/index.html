@@ -24,7 +24,7 @@
 <meta property="og:description" content="1 postgreSQL 和 mysql的对比 PostgreSQL是进程模式，MySQL是线程模式。进程模式对多CPU利用率比较高。  事务的支持：PostgreSQL支持事务的强一致性，事务保证性好，完全支持ACID特性。MySQL只有innodb引擎支持事务，mysiam不支持事务。  分区的实现：MySQL分区表的实现要优于PG的基于继承表的分区实现，主要体现在分区个数达到上千上万后的处理">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-16T08:59:09.000Z">
-<meta property="article:modified_time" content="2024-05-25T14:54:59.938Z">
+<meta property="article:modified_time" content="2024-05-26T06:20:58.329Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="面试题">
 <meta property="article:tag" content="redis">
@@ -213,7 +213,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.1k 字
+          1.2k 字
         
       </span>
     
@@ -325,7 +325,9 @@
 </ul>
 </li>
 </ul>
-<h1 id="5-influxDb是什么？"><a href="#5-influxDb是什么？" class="headerlink" title="5. influxDb是什么？"></a>5. influxDb是什么？</h1>
+<h1 id="5-influxDb是什么？"><a href="#5-influxDb是什么？" class="headerlink" title="5. influxDb是什么？"></a>5. influxDb是什么？</h1><p>InfluxDB 是一个高性能、开源的时间序列数据库，专门设计用于存储和管理时间序列数据，如监控数据、物联网数据和实时分析数据。</p>
+<p>我们团队使用的场景是：opc数据采集，需要定时去采集设备的主轴数据。如：主轴转速、主轴负载、主轴倍率等</p>
+
               
             </div>
             <hr/>
