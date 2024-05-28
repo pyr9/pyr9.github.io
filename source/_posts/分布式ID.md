@@ -5,7 +5,13 @@ tags:
 categories: 分布式
 ---
 
-# 1 分布式ID
+# 1. 为什么需要分布式ID
+
+在单体结构的应用中，我们可以使用 MySQL 数据库的主键自增来为我们的数据设置唯一标识 ID，但是在分布式环境中，单个数据库的吞吐量成为整个应用的性能瓶颈，我们就可以搭建数据库集群来提升数据库的性能，此时如果还使用 MySQL 的主键自增来设置数据 ID 的话，就会出现重复的 ID，这样就会出现主键冲突的情况。
+
+如果使用分布式的全局唯一 ID 就不用担心会出现这个问题了
+
+# 2 分布式ID
 
 一个好的分布式ID，一般要满足下列特性：
 
@@ -15,7 +21,7 @@ categories: 分布式
 - **递增性**：适合作为数据库索引
 - **安全性**：id如果是顺序递增，则容易暴露业务信息
 
-# 2 全局唯一ID生成策略
+# 3 全局唯一ID生成策略
 
 ### 1. 数据库自增ID
 
@@ -33,7 +39,11 @@ categories: 分布式
 
 ### 2. UUID（Universally Unique Identifier）
 
-UUID 是一种标准的唯一标识符，通常为128位长，可以保证全局唯一性。
+UUID 是一种标准的唯一标识符，通常为128位长，可以保证全局唯一性。在 Java 中可以使用 java.util.UUID 的 randomUUID() 方法来获得：
+
+```java
+java.util.UUID.randomUUID().toString();
+```
 
 **优点**：
 
@@ -67,7 +77,12 @@ Snowflake 是 Twitter 开源的分布式ID生成算法，通过组合时间戳�
 
 ### 4. 使用Redis生成ID
 
-利用Redis的原子性递增操作，生成分布式唯一ID。
+利用Redis的原子性递增操作，生成分布式唯一ID。使用 Redis 的 Incr 命令来把 <key,value> 中 key 的数值加 1 并返回，如果这个 key 不存在，则 key 值会被初始化为 0，再执行 Incr 命令来进行加 1 操作
+
+```java
+// 使用 incr(key) 来让 key 加 1
+long id = jedis.incr("id");
+```
 
 **优点**：
 
