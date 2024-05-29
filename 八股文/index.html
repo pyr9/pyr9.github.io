@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 集合 ArrayList底层实现原理以及如何避免并发 HashMap如何避免并发&amp;ConcurrentHashMap实现 HashMap的put实现 HashMap 是如何扩容的 为什么以2的n次幂进行扩容 JDK1.7 和 JDK1.8 对 HashMap 的实现比较 HashMap 的哈希函数怎么设计的 链表的插入方式为什么从头插法改成了尾插法 如何避免hashMap的并发问题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-22T13:32:41.000Z">
-<meta property="article:modified_time" content="2024-05-28T15:28:08.319Z">
+<meta property="article:modified_time" content="2024-05-29T14:22:02.685Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.7k 字
+          1.8k 字
         
       </span>
     
@@ -342,50 +342,60 @@
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/Mysql%E9%9B%86%E7%BE%A4/">Mysql集群</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/Explain%E8%AF%A6%E8%A7%A3/">Explain详解</a></li>
 </ol>
-<h1 id="6-消息中间件"><a href="#6-消息中间件" class="headerlink" title="6. 消息中间件"></a>6. 消息中间件</h1><ol>
+<h1 id="6-RabbitMQ"><a href="#6-RabbitMQ" class="headerlink" title="6. RabbitMQ"></a>6. RabbitMQ</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/">rabbitMQ的消息的可靠性</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%847%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/">RabbitMQ的7种工作模式&#x2F;</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/rabbitMq%E9%9B%86%E7%BE%A4/">rabbitMq集群</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E9%A1%BA%E5%BA%8F%EF%BC%9F">如何保证消息的顺序？</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/#%E6%B6%88%E6%81%AF%E7%A7%AF%E5%8E%8B%E5%92%8C%E8%A7%A3%E5%86%B3">消息积压和解决</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/#MQ%E4%B8%AD%E6%B6%88%E6%81%AF%E5%A4%B1%E6%95%88">MQ中消息失效</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/#%E6%B6%88%E6%81%AF%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7">rabbitMq如何不消费重复数据</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/#%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97">死信队列</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/#%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97">延迟队列</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/#%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97%E7%9A%84%E5%8C%BA%E5%88%AB">死信队列和延时队列的区别</a></li>
+</ol>
+<h1 id="7-kafka"><a href="#7-kafka" class="headerlink" title="7. kafka"></a>7. kafka</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#kafka%E5%92%8CRabbitMq%E7%9A%84%E5%AF%B9%E6%AF%94">kafka和RabbitMq的对比</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AF%B9Topic%E4%B8%8B%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E5%88%86%E5%8C%BA%E5%AD%98%E5%82%A8%EF%BC%9F">kafka为什么要对Topic下数据进行分区存储</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3Topic%EF%BC%8CPartition%E5%92%8CBroker-%EF%BC%9F">怎么理解Topic，Partition和Broker</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#kafka%E7%9A%84%E6%B6%88%E8%B4%B9%E8%80%85%E6%98%AF-pull-%E6%8B%89-%E8%BF%98%E6%98%AFpush-%E6%8E%A8-%E6%A8%A1%E5%BC%8F%EF%BC%8C%E8%BF%99%E7%A7%8D%E6%A8%A1%E5%BC%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84%EF%BC%9F">kafka的消费者是pull还是push模式，这种模式有什么好处？</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B6%88%E8%B4%B9%E9%A1%BA%E5%BA%8F%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%EF%BC%9F">kafka消费顺序怎么保证</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B6%88%E6%81%AF%E7%A7%AF%E5%8E%8B%E5%92%8C%E8%A7%A3%E5%86%B3">kafka消息积压和解决</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#kafka-%E5%A6%82%E4%BD%95%E4%B8%8D%E6%B6%88%E8%B4%B9%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%EF%BC%9F">kafka 如何不消费重复数据？</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#6-Zookeeper-%E5%9C%A8-Kafka-%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8">Zookeeper 在 Kafka 中的作用</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B6%88%E8%B4%B9%E8%BF%9B%E5%BA%A6Offset%E7%9A%84%E7%90%86%E8%A7%A3">kafka消费进度Offset的理解</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E7%9A%84%E5%AE%9E%E7%8E%B0">延迟队列的实现</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#kafka-%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9F">kafka为什么快？</a></li>
-<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAMQ%E7%9A%84%E6%80%9D%E8%B7%AF">设计一个MQ的思路</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%85%A5%E9%97%A8/#1-kafka-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F">kafka 是什么</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%85%A5%E9%97%A8/#2-kafka-%E7%9A%84%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1">kafka 的整体设计</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%85%A5%E9%97%A8/#6-Kafka%E8%8A%82%E7%82%B9%E6%95%85%E9%9A%9C%E5%8E%9F%E5%9B%A0%E5%8F%8A%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F">Kafka节点故障原因及处理方式</a></li>
-<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/">rabbitMQ的消息的可靠性</a></li>
-<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/RabbitMQ%E7%9A%847%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/">RabbitMQ的7种工作模式&#x2F;</a></li>
-<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/rabbitMq%E9%9B%86%E7%BE%A4/">rabbitMq集群</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAMQ%E7%9A%84%E6%80%9D%E8%B7%AF">设计一个MQ的思路</a></li>
 </ol>
-<h1 id="7-持久层框架"><a href="#7-持久层框架" class="headerlink" title="7. 持久层框架"></a>7. 持久层框架</h1><ol>
+<h1 id="8-持久层框架"><a href="#8-持久层框架" class="headerlink" title="8. 持久层框架"></a>8. 持久层框架</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/Jpa%E5%92%8Cmybatis/#1-JPA%E5%92%8Cmybatis%E7%9A%84%E5%8C%BA%E5%88%AB">JPA和mybatis的区别</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/Jpa%E5%92%8Cmybatis/#2-Mybatis-%E5%8A%A8%E6%80%81-sql-%E6%A6%82%E5%BF%B5"> Mybatis 动态 sql 概念</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94/">postgreSQL、mysql、Mongoldb、redis的对比</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94/#5-influxDb%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F">influxDb</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/clickhouse%E5%85%A5%E9%97%A8/#ClickHouse-%E7%9A%84%E7%89%B9%E7%82%B9">ClickHouse的特点</a></li>
 </ol>
-<h1 id="8-XXL-JOb"><a href="#8-XXL-JOb" class="headerlink" title="8. XXL JOb"></a>8. XXL JOb</h1><ol>
+<h1 id="9-XXL-JOb"><a href="#9-XXL-JOb" class="headerlink" title="9. XXL JOb"></a>9. XXL JOb</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/xxlJob%E4%BD%BF%E7%94%A8/#1-%E5%AE%9A%E4%B9%89">xxlJob是什么</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/xxlJob%E4%BD%BF%E7%94%A8/#3-%E5%A6%82%E4%BD%95%E8%87%AA%E5%B7%B1%E5%8E%BB%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAXXL-JOb">自己设计一个xxlJob</a></li>
 </ol>
-<h1 id="9-Java基础"><a href="#9-Java基础" class="headerlink" title="9. Java基础"></a>9. Java基础</h1><ol>
+<h1 id="10-Java基础"><a href="#10-Java基础" class="headerlink" title="10. Java基础"></a>10. Java基础</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/java%E5%9F%BA%E7%A1%80/#1-Java-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7%E5%8F%8A%E7%90%86%E8%A7%A3">Java 面向对象的三大特性及理解</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/java%E5%9F%BA%E7%A1%80/#2-%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%EF%BC%9F">什么是面向对象？什么是面向过程？</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/java%E5%9F%BA%E7%A1%80/#2-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%AF%B9%E6%AF%94">面向对象和面向过程的优缺点？</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/java%E5%9F%BA%E7%A1%80/#3-Java%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E7%B1%BB">Java为什么要有类？</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E4%BB%A3%E7%A0%81%E5%B7%B2%E6%9C%89%E7%9A%84%E8%AE%BE%E8%AE%A1/">代码坏味道</a></li>
 </ol>
-<h1 id="10-spring"><a href="#10-spring" class="headerlink" title="10. spring"></a>10. spring</h1><ol>
+<h1 id="11-spring"><a href="#11-spring" class="headerlink" title="11. spring"></a>11. spring</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/spring/#2-Spring%E4%B8%A4%E5%A4%A7%E7%89%B9%E6%80%A7">Spring两大特性</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/spring/#3-spring%E4%BC%98%E7%82%B9"> spring优点</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/spring%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#4-%E5%9C%A8-Spring-%E4%B8%AD%EF%BC%8C%E6%9C%89%E5%87%A0%E7%A7%8D%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F%EF%BC%9F">Spring 中，有几种依赖注入方式</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/spring/#5-%E5%9C%A8-Spring-%E4%B8%AD%EF%BC%8C%E6%9C%89%E5%87%A0%E7%A7%8D%E9%85%8D%E7%BD%AE-Bean-%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9F">配置 Bean 的方式</a></li>
 </ol>
-<h1 id="11-springCloud"><a href="#11-springCloud" class="headerlink" title="11. springCloud"></a>11. springCloud</h1><ol>
+<h1 id="12-springCloud"><a href="#12-springCloud" class="headerlink" title="12. springCloud"></a>12. springCloud</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/springCloud%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0SpringCloud">为什么会出现SpringCloud</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/springCloud%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/#2-%E4%BB%80%E4%B9%88%E6%98%AFSpring-Cloud%EF%BC%9F">什么是Spring Cloud</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/springCloud%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/#3-springboot-%E5%92%8CspringCloud-%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB">springboot 和springCloud 的区别和联系</a></li>
@@ -394,16 +404,16 @@
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/#1-CAP%E7%90%86%E8%AE%BA%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F">CAP理论是什么, 为什么不能同时满足三个特性</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/#3-%E4%BD%9C%E4%B8%BA%E6%9C%8D%E5%8A%A1%E4%B8%AD%E5%BF%83%EF%BC%8Ceureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94">作为注册中心，eureka和zookeeper的对比</a></li>
 </ol>
-<h1 id="12-zookeeper"><a href="#12-zookeeper" class="headerlink" title="12. zookeeper"></a>12. zookeeper</h1><ol>
+<h1 id="13-zookeeper"><a href="#13-zookeeper" class="headerlink" title="13. zookeeper"></a>13. zookeeper</h1><ol>
 <li>Zookeeper选举(防止脑裂？)</li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/zookeeper%E8%8A%82%E7%82%B9%E4%BB%8B%E7%BB%8D/#3-%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B">zookeeper节点类型</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/zookeeper%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/#2-Zookeeper-%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">Zookeeper如何实现负载均衡？</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/zookeeper%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/#3-Zookeeper-%E5%AE%9E%E7%8E%B0%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83">Zookeeper 实现配置中心?</a></li>
 </ol>
-<h1 id="13-设计模式"><a href="#13-设计模式" class="headerlink" title="13 设计模式"></a>13 设计模式</h1><ol>
+<h1 id="14-设计模式"><a href="#14-设计模式" class="headerlink" title="14 设计模式"></a>14 设计模式</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E5%B8%B8%E7%94%A823%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">常用23种设计模式</a></li>
 </ol>
-<h1 id="14-网络"><a href="#14-网络" class="headerlink" title="14. 网络"></a>14. 网络</h1><ol>
+<h1 id="15-网络"><a href="#15-网络" class="headerlink" title="15. 网络"></a>15. 网络</h1><ol>
 <li><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">三次握手</a></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">四次挥手</a></p>
@@ -423,10 +433,10 @@
 <li><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98/#7-cookie-%E5%92%8Csession-%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB">cookie 和session 的区别和联系</a></p>
 </li>
 </ol>
-<h1 id="14-工作流"><a href="#14-工作流" class="headerlink" title="14. 工作流"></a>14. 工作流</h1><ol>
+<h1 id="16-工作流"><a href="#16-工作流" class="headerlink" title="16. 工作流"></a>16. 工作流</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E5%B7%A5%E4%BD%9C%E6%B5%81/#1-%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F">Activity 7</a></li>
 </ol>
-<h1 id="15-Docker"><a href="#15-Docker" class="headerlink" title="15 Docker"></a>15 Docker</h1><ol>
+<h1 id="17-Docker"><a href="#17-Docker" class="headerlink" title="17 Docker"></a>17 Docker</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/dcoker/#1-docker%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F">docker解决了什么问题</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/dcoker/#2-docker%E6%98%AF%E4%BB%80%E4%B9%88">docker是什么</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/docker/#3-Docker%E5%AE%B9%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F">Docker容器和虚拟机的区别是什么？</a></li>
@@ -434,7 +444,7 @@
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/docker/#5-Docker%E9%95%9C%E5%83%8F%E5%92%8C%E5%AE%B9%E5%99%A8%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F">Docker镜像和容器之间有什么区别？</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/docker/#6-%E4%BB%80%E4%B9%88%E6%98%AF-DockerFile%EF%BC%9F">什么是 DockerFile？</a></li>
 </ol>
-<h1 id="16-项目"><a href="#16-项目" class="headerlink" title="16 项目"></a>16 项目</h1><ol>
+<h1 id="18-项目"><a href="#18-项目" class="headerlink" title="18 项目"></a>18 项目</h1><ol>
 <li><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/#1-%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D">自我介绍</a></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/#3-sith-mes-%E6%98%AF%E5%B9%B2%E4%BB%80%E4%B9%88%E7%9A%84%EF%BC%9F">sith-mes这个项目简单介绍下</a></p>
@@ -456,7 +466,7 @@
 <li><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/#5-%E8%BF%90%E7%BB%B4%E9%83%A8%E5%88%86%EF%BC%9A">jenkins+ELK</a></p>
 </li>
 </ol>
-<h1 id="17-算法"><a href="#17-算法" class="headerlink" title="17 算法"></a>17 算法</h1><ol>
+<h1 id="19-算法"><a href="#19-算法" class="headerlink" title="19 算法"></a>19 算法</h1><ol>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%AE%97%E6%B3%95%E9%A2%98/">二叉树算法题</a></li>
 <li><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96/">股票买卖</a></li>
