@@ -16,15 +16,13 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 脑裂是什么？脑裂是指在分布式系统中，网络分区或其他原因导致集群中的节点分裂成多个子集。由于互相无法通信，这些子集各自认为自己是唯一的集群，从而可能导致数据不一致性、服务重复、竞态条件等严重问题。 在分布式数据库、分布式文件系统、分布式锁等系统中，脑裂问题尤为重要，因为它直接影响系统的正确性和一致性。 2. 脑裂的成因 网络分区：集群中的节点因网络故障被分隔成多个子集，子集之间无法通信。 节点">
-<meta property="og:type" content="article">
-<meta property="og:title" content="脑裂">
-<meta property="og:url" content="http://example.com/%E8%84%91%E8%A3%82/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="如何破坏双亲委派机制">
+<meta property="og:url" content="http://example.com/%E5%A6%82%E4%BD%95%E7%A0%B4%E5%9D%8F%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1. 脑裂是什么？脑裂是指在分布式系统中，网络分区或其他原因导致集群中的节点分裂成多个子集。由于互相无法通信，这些子集各自认为自己是唯一的集群，从而可能导致数据不一致性、服务重复、竞态条件等严重问题。 在分布式数据库、分布式文件系统、分布式锁等系统中，脑裂问题尤为重要，因为它直接影响系统的正确性和一致性。 2. 脑裂的成因 网络分区：集群中的节点因网络故障被分隔成多个子集，子集之间无法通信。 节点">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-30T14:51:30.000Z">
-<meta property="article:modified_time" content="2024-05-30T15:05:11.795Z">
+<meta property="article:published_time" content="2024-05-30T15:08:53.000Z">
+<meta property="article:modified_time" content="2024-05-30T15:09:31.777Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -32,7 +30,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>脑裂 - 楼上有只喵</title>
+  <title>如何破坏双亲委派机制 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +181,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="脑裂"></span>
+            <span id="subtitle" data-typed-text="如何破坏双亲委派机制"></span>
           
         </div>
 
@@ -194,7 +192,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-30 22:51" pubdate>
+        <time datetime="2024-05-30 23:08" pubdate>
           2024年5月30日 晚上
         </time>
       </span>
@@ -207,7 +205,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          723 字
+          0 字
         
       </span>
     
@@ -219,7 +217,7 @@
         
         
           <!-- compatible with older versions-->
-          3 分钟
+          1 分钟
         
       </span>
     
@@ -267,31 +265,11 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">脑裂</h1>
+            <h1 style="display: none">如何破坏双亲委派机制</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-脑裂是什么？"><a href="#1-脑裂是什么？" class="headerlink" title="1. 脑裂是什么？"></a>1. 脑裂是什么？</h1><p>脑裂是指在分布式系统中，网络分区或其他原因导致集群中的节点分裂成多个子集。由于互相无法通信，这些子集各自认为自己是唯一的集群，从而可能导致数据不一致性、服务重复、竞态条件等严重问题。</p>
-<p><strong>在分布式数据库、分布式文件系统、分布式锁等系统中，脑裂问题尤为重要，因为它直接影响系统的正确性和一致性。</strong></p>
-<h1 id="2-脑裂的成因"><a href="#2-脑裂的成因" class="headerlink" title="2. 脑裂的成因"></a>2. 脑裂的成因</h1><ol>
-<li><strong>网络分区</strong>：集群中的节点因网络故障被分隔成多个子集，子集之间无法通信。</li>
-<li><strong>节点故障</strong>：部分节点因故障暂时不可用，当恢复后产生与其他节点的状态冲突。</li>
-<li><strong>配置错误</strong>：集群配置不当，导致节点错误地加入或退出集群。</li>
-</ol>
-<h1 id="3-脑裂的影响"><a href="#3-脑裂的影响" class="headerlink" title="3. 脑裂的影响"></a>3. 脑裂的影响</h1><ul>
-<li><strong>数据不一致性</strong>：不同子集各自进行写操作，导致数据状态不同步。</li>
-<li><strong>服务重复</strong>：不同子集各自认为自己是唯一的服务提供者，导致重复的服务实例。</li>
-<li><strong>竞态条件</strong>：不同子集的操作相互冲突，导致系统行为不可预测。</li>
-</ul>
-<h1 id="4-解决脑裂的方式"><a href="#4-解决脑裂的方式" class="headerlink" title="4. 解决脑裂的方式"></a>4. 解决脑裂的方式</h1><ol>
-<li><strong>多数派机制（Quorum）</strong>：通过要求超过半数（即多数派）的节点达成一致来进行操作。只有多数派同意的操作才被执行。这样，即使分区，任意一个子集若未达到多数派都不能对外提供服务，从而避免脑裂。</li>
-<li><strong>租约（Leases）</strong>：使用租约机制，确保在一个时间段内只有一个节点能持有租约，成为Leader。租约过期后重新选举，避免同时存在多个Leader。</li>
-<li><strong>心跳检测和节点隔离</strong>：节点之间定期发送心跳信号以检测连通性。一旦检测到网络分区或节点失联，及时隔离失联节点，防止其继续提供服务。</li>
-<li><strong>仲裁机制</strong>：引入第三方仲裁节点，如仲裁服务器或外部存储系统，当分区发生时，仲裁节点决定哪一部分集群可以继续对外提供服务。</li>
-<li><strong>优先级策略</strong>：根据节点的角色、位置、负载等设置优先级，确保只有高优先级的子集继续提供服务，低优先级子集暂停服务。</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://pyr9.github.io/zookeeper%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#9-Zookeeper%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%84%91%E8%A3%82%E9%97%AE%E9%A2%98%EF%BC%9F">Zookeeper如何解决脑裂问题</a></p>
-
+              
               
             </div>
             <hr/>
@@ -307,8 +285,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>脑裂</div>
-      <div>http://example.com/脑裂/</div>
+      <div>如何破坏双亲委派机制</div>
+      <div>http://example.com/如何破坏双亲委派机制/</div>
     </div>
     <div class="license-meta">
       
@@ -350,18 +328,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E5%A6%82%E4%BD%95%E7%A0%B4%E5%9D%8F%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6/" title="如何破坏双亲委派机制">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何破坏双亲委派机制</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/java%E5%9F%BA%E7%A1%80/" title="java基础">
-                        <span class="hidden-mobile">java基础</span>
+                      <a href="/%E8%84%91%E8%A3%82/" title="脑裂">
+                        <span class="hidden-mobile">脑裂</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
