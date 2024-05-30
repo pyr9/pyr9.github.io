@@ -16,29 +16,23 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 垃圾收集算法1.1 标记 - 清除算法算法分为“标记”和“清除”两个阶段:首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。缺点:（1）效率问题， 标记和清除两个过程的效率都不高；（2）空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存面不得不提前触发另一次垃圾收集动作。 1.2 标记 - 整">
+    <meta name="description" content="1. 脑裂是什么？脑裂是指在分布式系统中，网络分区或其他原因导致集群中的节点分裂成多个子集。由于互相无法通信，这些子集各自认为自己是唯一的集群，从而可能导致数据不一致性、服务重复、竞态条件等严重问题。 在分布式数据库、分布式文件系统、分布式锁等系统中，脑裂问题尤为重要，因为它直接影响系统的正确性和一致性。 2. 脑裂的成因 网络分区：集群中的节点因网络故障被分隔成多个子集，子集之间无法通信。 节点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="垃圾收集器">
-<meta property="og:url" content="http://example.com/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/index.html">
+<meta property="og:title" content="脑裂">
+<meta property="og:url" content="http://example.com/%E8%84%91%E8%A3%82/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 垃圾收集算法1.1 标记 - 清除算法算法分为“标记”和“清除”两个阶段:首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。缺点:（1）效率问题， 标记和清除两个过程的效率都不高；（2）空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存面不得不提前触发另一次垃圾收集动作。 1.2 标记 - 整">
+<meta property="og:description" content="1. 脑裂是什么？脑裂是指在分布式系统中，网络分区或其他原因导致集群中的节点分裂成多个子集。由于互相无法通信，这些子集各自认为自己是唯一的集群，从而可能导致数据不一致性、服务重复、竞态条件等严重问题。 在分布式数据库、分布式文件系统、分布式锁等系统中，脑裂问题尤为重要，因为它直接影响系统的正确性和一致性。 2. 脑裂的成因 网络分区：集群中的节点因网络故障被分隔成多个子集，子集之间无法通信。 节点">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232824370.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232833764.png">
-<meta property="article:published_time" content="2022-09-14T09:33:51.000Z">
-<meta property="article:modified_time" content="2024-05-22T01:30:47.794Z">
+<meta property="article:published_time" content="2024-05-30T14:51:30.000Z">
+<meta property="article:modified_time" content="2024-05-30T14:56:27.640Z">
 <meta property="article:author" content="Panyurou">
-<meta property="article:tag" content="性能调优">
-<meta property="article:tag" content="垃圾收集器">
-<meta property="article:tag" content="垃圾收集算法">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232824370.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>垃圾收集器 - 楼上有只喵</title>
+  <title>脑裂 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -189,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="垃圾收集器"></span>
+            <span id="subtitle" data-typed-text="脑裂"></span>
           
         </div>
 
@@ -200,8 +194,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-14 17:33" pubdate>
-          2022年9月14日 下午
+        <time datetime="2024-05-30 22:51" pubdate>
+          2024年5月30日 晚上
         </time>
       </span>
     
@@ -213,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.5k 字
+          706 字
         
       </span>
     
@@ -225,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          11 分钟
+          3 分钟
         
       </span>
     
@@ -273,111 +267,29 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">垃圾收集器</h1>
+            <h1 style="display: none">脑裂</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-垃圾收集算法"><a href="#1-垃圾收集算法" class="headerlink" title="1 垃圾收集算法"></a>1 <strong>垃圾收集算法</strong></h1><h2 id="1-1-标记-清除算法"><a href="#1-1-标记-清除算法" class="headerlink" title="1.1 标记 - 清除算法"></a>1.1 <strong>标记 - 清除算法</strong></h2><p>算法分为“标记”和“清除”两个阶段:首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。<br>缺点:<br>（1）效率问题， 标记和清除两个过程的效率都不高；<br>（2）空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存面不得不提前触发另一次垃圾收集动作。</p>
-<h2 id="1-2-标记-整理算法"><a href="#1-2-标记-整理算法" class="headerlink" title="1.2 标记 - 整理算法"></a>1.2 <strong>标记 - 整理算法</strong></h2><p> 让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。<br>优点: 不会产生内存碎片<br>不足: 需要移动大量对象，处理效率比较低。</p>
-<h2 id="1-3-复制算法"><a href="#1-3-复制算法" class="headerlink" title="1.3 复制算法"></a>1.3 <strong>复制算法</strong></h2><p>将内存划分为大小相等的两块，每次只使用其中一块，当这一块内存用完了就将还存活的对象复制到另一块上面，然后再把使用过的内存空间进行一次清理。</p>
-<p>新生代的对象每次在每次垃圾收集时都会有大批对象死去，只有少量存活，因此我们不需要按照1:1划分内存空间而是 将内存分为一块较大的 Eden 空间和两块较小的 Survivor 空间，每次使用 Eden 和其中一块Survivor。</p>
-<p>在回收时，将 Eden 和 Survivor 中还存活着的对象全部复制到另一块 Survivor 上，最后清理 Eden 和使用过的那一块 Survivor空间。（HotSpot 虚拟机的 Eden 和 Survivor 大小比例默认为 8:1:1）</p>
-<h2 id="1-4-分代收集算法"><a href="#1-4-分代收集算法" class="headerlink" title="1.4 分代收集算法"></a>1.4 <strong>分代收集算法</strong></h2><p>当前虚拟机的垃圾收集都采用分代收集算法，只是根据对象存活周期的不同将内存分为几块。一般将java堆分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。</p>
-<ul>
-<li><p>新生代使用：复制算法</p>
-<p>新生代中，每次收集都会有大量对象(近99%)死去，所以可以选择复制算法，只需要付出少量对象的复制成本就可以完成每次垃圾收集。</p>
-</li>
-<li><p>老年代使用：标记 - 清除 或者 标记 - 整理 算法</p>
-<p>而老年代的对象存活几率是比较高的，而且没有额外的空间对它进行分配担保，所以我们必须选择“标记-清除”或“标记-整理”算法进行垃圾收集。<strong>“标记-清除”或“标记-整理”算法会比复制算法慢10倍以 上。</strong></p>
-</li>
-</ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232824370.png" srcset="/img/loading.gif" lazyload alt="image-20230228232824370"></p>
-<h1 id="2-垃圾收集器"><a href="#2-垃圾收集器" class="headerlink" title="2 垃圾收集器"></a>2 <strong>垃圾收集器</strong></h1><p><strong>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。</strong> </p>
-<p>虽然我们对各个收集器进行比较，但并非为了挑选出一个最好的收集器。因为直到现在为止还没有最好的垃圾收集器出现，更加没有万能的垃圾收集器，<strong>我们能做的就是根据具体应用场景选择适合自己的垃圾收集器</strong>。</p>
-<p>对于JDK8默认的垃圾回收器是-XX:+UseParallelGC(年轻代)和-XX:+UseParallelOldGC(老年代)，如果内存较大(超过4个G，只是经验值)，系统对停顿时间比较敏感，我们可以使用<strong>ParNew+CMS(</strong>-XX:+UseParNewGC -XX:+UseConcMarkSweepGC**)** </p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232833764.png" srcset="/img/loading.gif" lazyload alt="image-20230228232833764"></p>
-<h2 id="2-1-Serial收集器"><a href="#2-1-Serial收集器" class="headerlink" title="2.1 Serial收集器"></a>2.1 Serial收集器</h2><ul>
-<li><strong>-XX:+UseSerialGC -XX:+UseSerialOldGC</strong></li>
-<li>Serial（串行）收集器是最基本、历史最悠久的垃圾收集器了。</li>
-<li>它是单线程的收集器，只会使用一个线程进行垃圾收集工作。进行垃圾收集时必须暂停其他所有的工作线程(<strong>“Stop The World”</strong>) ，直到它收集结束。</li>
-<li>它的优点是简单高效，在单个 CPU 环境下，由于没有线程交互的开销，因此拥有最高的单线程收集效率。</li>
-<li><strong>Serial Old收集器是Serial收集器的老年代版本</strong>，它同样是一个单线程收集器。它主要有两大用途：一种用途是在JDK1.5 以及以前的版本中与Parallel Scavenge收集器搭配使用，<strong>另一种用途是作为CMS收集器的后备方案</strong>。</li>
-</ul>
-<blockquote>
-<p><strong>新生代采用复制算法，老年代采用标记-整理算法。</strong> </p>
-</blockquote>
-<h2 id="2-2-Parallel-Scavenge收集器"><a href="#2-2-Parallel-Scavenge收集器" class="headerlink" title="2.2 Parallel Scavenge收集器"></a>2.2 <strong>Parallel Scavenge收集器</strong></h2><ul>
-<li><strong>-XX:+UseParallelGC(年轻代),-XX:+UseParallelOldGC(老年代)</strong></li>
-<li><strong>Parallel</strong>收集器其实<strong>就是Serial收集器的多线程版本</strong>，除了使用多线程进行垃圾收集外，其余行为（控制参数、收集算法、回收策略等等）和Serial收集器类似。</li>
-<li>默认的收集线程数跟cpu核数相同，当然也可以用参数(- XX:ParallelGCThreads)指定收集线程数，但是一般不推荐修改。 </li>
-<li><strong>Parallel Scavenge收集器关注点是吞吐量（高效率的利用CPU，获取最短的垃圾回收时间）</strong></li>
-<li><strong>Parallel Old收集器是Parallel Scavenge收集器的老年代版本</strong>。使用多线程和“标记-整理”算法。在注重吞吐量以及 CPU资源的场合，都可以优先考虑 Parallel Scavenge收集器和Parallel Old收集器(<strong>JDK8默认的新生代和老年代收集器</strong>)。</li>
-</ul>
-<blockquote>
-<p><strong>新生代采用复制算法，老年代采用标记-整理算法。</strong></p>
-</blockquote>
-<h2 id="2-3-ParNew收集器"><a href="#2-3-ParNew收集器" class="headerlink" title="2.3 ParNew收集器"></a>2.3 ParNew收集器</h2><ul>
-<li><p><strong>-XX:+UseParNewGC</strong></p>
-</li>
-<li><p>ParNew收集器其实<strong>跟Parallel收集器很类似</strong>，区别主要在于它可以和CMS收集器配合使用。</p>
-</li>
-</ul>
-<blockquote>
-<p><strong>新生代采用复制算法，老年代采用标记-整理算法。</strong> </p>
-</blockquote>
-<h2 id="2-4-CMS收集器"><a href="#2-4-CMS收集器" class="headerlink" title="2.4 CMS收集器"></a>2.4 <strong>CMS收集器</strong></h2><ul>
-<li><p><strong>-XX:+UseConcMarkSweepGC(old)</strong></p>
-</li>
-<li><p><strong>CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器。它非常符合在注重用户体</strong> <strong>验的应用上使用，它是HotSpot虚拟机第一款真正意义上的并发收集器，它第一次实现了让垃圾收集线程与用户线程</strong> <strong>（基本上）同时工作</strong></p>
-</li>
-<li><p>整个过程分为四个步骤： </p>
-<ul>
-<li>初始标记：仅仅只是标记一下 GC Roots 能直接关联到的对象，速度很快，需要停顿。</li>
-<li>并发标记：进行 GC Roots Tracing 的过程，它在整个回收过程中耗时最长，不需要停顿。</li>
-<li>重新标记：为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，需要停顿。</li>
-<li>并发清除：用户可同时运行的，耗时较长。</li>
-</ul>
-</li>
-<li><p>优缺点：</p>
-<ul>
-<li>优点：<strong>并发收集、低停顿</strong>。由于在整个过程和中最耗时的并发标记和 并发清除过程收集器程序都可以和用户线程一起工作，所以总体来说，Cms收集器的内存回收过程是与用户线程一起并发执行的。</li>
-<li>缺点：<ul>
-<li>对CPU敏感，并发阶段，虽然不会导致用户线程停顿，但是会因为占用了一部分线程使应用程序变慢，总吞吐量会降低</li>
-<li>CMS基于标记 - 清除算法，会导致空间碎片，往往出现老年代空间剩余，但无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC。，当然通过参数- XX:+UseCMSCompactAtFullCollection可以让jvm在执行完标记清除后再做整理 </li>
-<li>无法处理浮动垃圾。浮动垃圾是指并发清除阶段由于用户线程继续运行而产生的垃圾，这部分垃圾只能到下一次 GC 时才能进行回收。由于浮动垃圾的存在，因此需要预留出一部分内存，意味着 CMS 收集不能像其它收集器那样等待老年代快满的时候再回收。如果预留的内存不够存放浮动垃圾，就会出现 Concurrent Mode Failure，这时虚拟机将临时启用 Serial Old 来替代 CMS。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>CMS的相关核心参数</strong></p>
-</li>
-</ul>
-<ol>
-<li><p>-XX:+UseConcMarkSweepGC：启用cms </p>
-</li>
-<li><p>-XX:ConcGCThreads：并发的GC线程数 </p>
-</li>
-<li><p>-XX:+UseCMSCompactAtFullCollection：FullGC之后做压缩整理（减少碎片） </p>
-</li>
-<li><p>-XX:CMSFullGCsBeforeCompaction：多少次FullGC之后压缩一次，默认是0，代表每次FullGC后都会压缩一次</p>
-</li>
-<li><p><strong>-XX:CMSInitiatingOccupancyFraction</strong>: 当老年代使用达到该比例时会触发FullGC（默认是92，这是百分比） </p>
-</li>
-<li><p>-XX:+UseCMSInitiatingOccupancyOnly：只使用设定的回收阈值(-XX:CMSInitiatingOccupancyFraction设定的值)，如果不指定，JVM仅在第一次使用设定值，后续则会自动调整 </p>
-</li>
-<li><p>-XX:+CMSScavengeBeforeRemark：在CMS GC前启动一次minor gc，目的在于减少老年代对年轻代的引用，降低CMS GC的标记阶段时的开销，一般CMS的GC耗时 80%都在标记阶段 </p>
-</li>
-<li><p>-XX:+CMSParallellnitialMarkEnabled：表示在初始标记的时候多线程执行，缩短STW </p>
-</li>
-<li><p>-XX:+CMSParallelRemarkEnabled：在重新标记的时候多线程执行，缩短STW;</p>
-</li>
+              <h1 id="1-脑裂是什么？"><a href="#1-脑裂是什么？" class="headerlink" title="1. 脑裂是什么？"></a>1. 脑裂是什么？</h1><p>脑裂是指在分布式系统中，网络分区或其他原因导致集群中的节点分裂成多个子集。由于互相无法通信，这些子集各自认为自己是唯一的集群，从而可能导致数据不一致性、服务重复、竞态条件等严重问题。</p>
+<p><strong>在分布式数据库、分布式文件系统、分布式锁等系统中，脑裂问题尤为重要，因为它直接影响系统的正确性和一致性。</strong></p>
+<h1 id="2-脑裂的成因"><a href="#2-脑裂的成因" class="headerlink" title="2. 脑裂的成因"></a>2. 脑裂的成因</h1><ol>
+<li><strong>网络分区</strong>：集群中的节点因网络故障被分隔成多个子集，子集之间无法通信。</li>
+<li><strong>节点故障</strong>：部分节点因故障暂时不可用，当恢复后产生与其他节点的状态冲突。</li>
+<li><strong>配置错误</strong>：集群配置不当，导致节点错误地加入或退出集群。</li>
 </ol>
-<blockquote>
-<p><strong>只可以用在老年代，使用“标记-清除”算法</strong></p>
-</blockquote>
-<h2 id="2-5-G1收集器"><a href="#2-5-G1收集器" class="headerlink" title="2.5 G1收集器"></a>2.5 <strong>G1收集器</strong></h2><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/">垃圾收集器之G1收集器 - 楼上有只喵 (pyr9.github.io)</a></p>
-<h2 id="2-6-ZGC收集器"><a href="#2-6-ZGC收集器" class="headerlink" title="2.6 ZGC收集器"></a>2.6 ZGC收集器</h2><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/">垃圾收集器之ZGC收集器 - 楼上有只喵 (pyr9.github.io)</a></p>
-<h1 id="3-什么情况下会触发Full-GC"><a href="#3-什么情况下会触发Full-GC" class="headerlink" title="3. 什么情况下会触发Full GC?"></a>3. 什么情况下会触发Full GC?</h1><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/JVM%E8%B0%83%E4%BC%98/#2-5-Full-GC-%E6%AC%A1%E6%95%B0%E9%A2%91%E7%B9%81">JVM调优 - 楼上有只喵 (pyr9.github.io)</a></p>
+<h1 id="3-脑裂的影响"><a href="#3-脑裂的影响" class="headerlink" title="3. 脑裂的影响"></a>3. 脑裂的影响</h1><ul>
+<li><strong>数据不一致性</strong>：不同子集各自进行写操作，导致数据状态不同步。</li>
+<li><strong>服务重复</strong>：不同子集各自认为自己是唯一的服务提供者，导致重复的服务实例。</li>
+<li><strong>竞态条件</strong>：不同子集的操作相互冲突，导致系统行为不可预测。</li>
+</ul>
+<h1 id="4-解决脑裂的方式"><a href="#4-解决脑裂的方式" class="headerlink" title="4. 解决脑裂的方式"></a>4. 解决脑裂的方式</h1><ol>
+<li><strong>多数派机制（Quorum）</strong>：通过要求超过半数（即多数派）的节点达成一致来进行操作。只有多数派同意的操作才被执行。这样，即使分区，任意一个子集若未达到多数派都不能对外提供服务，从而避免脑裂。</li>
+<li><strong>租约（Leases）</strong>：使用租约机制，确保在一个时间段内只有一个节点能持有租约，成为Leader。租约过期后重新选举，避免同时存在多个Leader。</li>
+<li><strong>心跳检测和节点隔离</strong>：节点之间定期发送心跳信号以检测连通性。一旦检测到网络分区或节点失联，及时隔离失联节点，防止其继续提供服务。</li>
+<li><strong>仲裁机制</strong>：引入第三方仲裁节点，如仲裁服务器或外部存储系统，当分区发生时，仲裁节点决定哪一部分集群可以继续对外提供服务。</li>
+<li><strong>优先级策略</strong>：根据节点的角色、位置、负载等设置优先级，确保只有高优先级的子集继续提供服务，低优先级子集暂停服务。</li>
+</ol>
 
               
             </div>
@@ -385,38 +297,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM%E8%B0%83%E4%BC%98/" class="category-chain-item">JVM调优</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-      
-        <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
-      
-        <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">#垃圾收集算法</a>
-      
-    </div>
   
 </div>
 
@@ -426,8 +306,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>垃圾收集器</div>
-      <div>http://example.com/垃圾收集器/</div>
+      <div>脑裂</div>
+      <div>http://example.com/脑裂/</div>
     </div>
     <div class="license-meta">
       
@@ -439,7 +319,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月14日</div>
+          <div>2024年5月30日</div>
         </div>
       
       
@@ -469,18 +349,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/" title="垃圾收集器之G1收集器">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">垃圾收集器之G1收集器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/" title="JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数">
-                        <span class="hidden-mobile">JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数</span>
+                      <a href="/zookeeper%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" title="zookeeper常见面试题">
+                        <span class="hidden-mobile">zookeeper常见面试题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
