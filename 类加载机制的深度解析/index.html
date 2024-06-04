@@ -16,18 +16,20 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="类加载运行全过程当我们用java命令运行某个类的main函数启动程序时，首先需要通过类加载器把主类加载到 JVM。 有如下几步： 加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt; 使用 &gt;&gt; 卸载   加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等，在加">
+    <meta name="description" content="1. 类加载运行全过程当我们用java命令运行某个类的main函数启动程序时，首先需要通过类加载器把主类加载到 JVM。 有如下几步： 加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt; 使用 &gt;&gt; 卸载   加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等">
 <meta property="og:type" content="article">
 <meta property="og:title" content="类加载机制的深度解析">
 <meta property="og:url" content="http://example.com/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="类加载运行全过程当我们用java命令运行某个类的main函数启动程序时，首先需要通过类加载器把主类加载到 JVM。 有如下几步： 加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt; 使用 &gt;&gt; 卸载   加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等，在加">
+<meta property="og:description" content="1. 类加载运行全过程当我们用java命令运行某个类的main函数启动程序时，首先需要通过类加载器把主类加载到 JVM。 有如下几步： 加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt; 使用 &gt;&gt; 卸载   加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240603232254437.png">
 <meta property="article:published_time" content="2022-08-23T16:20:48.000Z">
-<meta property="article:modified_time" content="2022-09-19T01:31:38.314Z">
+<meta property="article:modified_time" content="2024-06-04T13:00:55.180Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="类加载机制">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240603232254437.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -208,7 +210,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          616 字
+          3.2k 字
         
       </span>
     
@@ -220,7 +222,7 @@
         
         
           <!-- compatible with older versions-->
-          2 分钟
+          11 分钟
         
       </span>
     
@@ -272,7 +274,7 @@
             
             <div class="markdown-body">
               
-              <h2 id="类加载运行全过程"><a href="#类加载运行全过程" class="headerlink" title="类加载运行全过程"></a>类加载运行全过程</h2><p>当我们用java命令运行某个类的main函数启动程序时，首先需要通过<strong>类加载器</strong>把主类加载到 JVM。</p>
+              <h1 id="1-类加载运行全过程"><a href="#1-类加载运行全过程" class="headerlink" title="1. 类加载运行全过程"></a>1. 类加载运行全过程</h1><p>当我们用java命令运行某个类的main函数启动程序时，首先需要通过<strong>类加载器</strong>把主类加载到 JVM。</p>
 <p>有如下几步： <strong>加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt;</strong> 使用 &gt;&gt; 卸载 </p>
 <ul>
 <li>加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等，在加载阶段会在内存中生成一个<strong>代表这个类的</strong> <strong>.Class对象</strong>，作为这个类的各种数据的访问入口 。</li>
@@ -281,13 +283,52 @@
 <li>解析：将<strong>符号引用</strong>替换为直接引用（地址引用）</li>
 <li><strong>初始化</strong>：对类的静态变量初始化为指定的值，执行静态代码块</li>
 </ul>
-<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a><strong>类加载器</strong></h2><ul>
-<li>bootstrap ClassLoader引导类加载器：负责加载支撑JVM运行的位于JRE的lib目录下的核心类库，比如 rt.jar、charsets.jar等 </li>
-<li>ExtClassLoader 扩展类加载器：负责加载支撑JVM运行的位于JRE的lib目录下的ext扩展目录中的JAR 类包</li>
-<li>AppClassLoader 应用程序类加载器：负责加载ClassPath路径下的类包，主要就是加载你自己写的那些类</li>
-<li>自定义加载器：负责加载用户自定义路径下的类包</li>
+<h1 id="2-类加载器"><a href="#2-类加载器" class="headerlink" title="2. 类加载器"></a>2. <strong>类加载器</strong></h1><ol>
+<li>**引导类加载器 (Bootstrap ClassLoader)**：<ul>
+<li><strong>职责</strong>：加载 Java 核心库中的类，如 <code>java.lang.*</code>、<code>java.util.*</code> 等。</li>
+<li><strong>加载路径</strong>：JVM 启动时指定的 <code>rt.jar</code> 或者 <code>jmod</code> 文件中的类。</li>
+<li><strong>特点</strong>：由 JVM 实现，使用本地代码，不是一个普通的 Java 类。</li>
 </ul>
-<h2 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a><strong>双亲委派机制</strong></h2><p>加载某个类时会先委托父加载器寻找目标类，找不到再委托上层父加载器加载，如果所有父加载器在自己的加载类路径下都找不到目标类，则在自己的类加载路径中查找并载入目标类</p>
+</li>
+<li>**扩展类加载器 (Extension ClassLoader)**：<ul>
+<li><strong>职责</strong>：加载标准扩展库中的类，位于 <code>JAVA_HOME/lib/ext</code> 目录或由系统属性 <code>java.ext.dirs</code> 指定的目录。</li>
+<li><strong>加载路径</strong>：<code>lib/ext</code> 目录中的 JAR 文件。</li>
+<li><strong>特点</strong>：由 Java 实现，继承自 <code>ClassLoader</code> 类。</li>
+</ul>
+</li>
+<li>**系统类加载器 (System ClassLoader) &#x2F; 应用程序类加载器 (Application ClassLoader)**：<ul>
+<li><strong>职责</strong>：加载用户类路径 (<code>classpath</code>) 中的类，包含用户定义的类和第三方库。</li>
+<li><strong>加载路径</strong>：通过命令行参数 <code>-classpath</code> 或环境变量 <code>CLASSPATH</code> 指定的路径。</li>
+<li><strong>特点</strong>：默认的类加载器，可以通过 <code>ClassLoader.getSystemClassLoader()</code> 获取。</li>
+</ul>
+</li>
+<li>**自定义类加载器 (Custom ClassLoader)**：<ul>
+<li><strong>职责</strong>：由用户定义，可以从任意位置加载类，例如网络、数据库等。</li>
+<li><strong>加载路径</strong>：用户定义。</li>
+<li><strong>特点</strong>：用户可以通过继承 <code>ClassLoader</code> 类并覆盖 <code>findClass</code> 方法来自定义类加载逻辑。</li>
+</ul>
+</li>
+</ol>
+<h1 id="3-双亲委派机制"><a href="#3-双亲委派机制" class="headerlink" title="3. 双亲委派机制"></a>3. 双亲委派机制</h1><p>当某个类加载器需要加载某个<code>.class</code>文件时，它首先把这个任务委托给他的上级类加载器，递归这个操作，如果上级的类加载器没有加载，自己才会去加载这个类。</p>
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240603232254437.png" srcset="/img/loading.gif" lazyload alt="image-20240603232254437" style="zoom:50%;" />
+
+<p>loadClass 方法的主要职责就是实现双亲委派机制：首先检查这个类是不是已经被加载过了，如果加载过了直接返回，否则委派给父加载器加载，这是一个递归调用，一层一层向上委派，最顶层的类加载器（启动类加载器）无法加载该类时，再一层一层向下委派给子类加载器加载。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassLoader</span> </span>&#123;<br><br>    <span class="hljs-comment">//每个类加载器都有个父加载器</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ClassLoader parent;<br>    <br>    <span class="hljs-keyword">public</span> Class&lt;?&gt; loadClass(String name) &#123;<br>  <br>        <span class="hljs-comment">//查找一下这个类是不是已经加载过了</span><br>        Class&lt;?&gt; c = findLoadedClass(name);<br>        <br>        <span class="hljs-comment">//如果没有加载过</span><br>        <span class="hljs-keyword">if</span>( c == <span class="hljs-keyword">null</span> )&#123;<br>          <span class="hljs-comment">//先委派给父加载器去加载，注意这是个递归调用</span><br>          <span class="hljs-keyword">if</span> (parent != <span class="hljs-keyword">null</span>) &#123;<br>              c = parent.loadClass(name);<br>          &#125;<span class="hljs-keyword">else</span> &#123;<br>              <span class="hljs-comment">// 如果父加载器为空，查找Bootstrap加载器是不是加载过了</span><br>              c = findBootstrapClassOrNull(name);<br>          &#125;<br>        &#125;<br>        <span class="hljs-comment">// 如果父加载器没加载成功，调用自己的findClass去加载</span><br>        <span class="hljs-keyword">if</span> (c == <span class="hljs-keyword">null</span>) &#123;<br>            c = findClass(name);<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> c；<br>    &#125;<br>    <br>    <span class="hljs-keyword">protected</span> Class&lt;?&gt; findClass(String name)&#123;<br>       <span class="hljs-comment">//1. 根据传入的类名name，到在特定目录下去寻找类文件，把.class文件读入内存</span><br>          ...<br>          <br>       <span class="hljs-comment">//2. 调用defineClass将字节数组转成Class对象</span><br>       <span class="hljs-keyword">return</span> defineClass(buf, off, len)；<br>    &#125;<br>    <br>    <span class="hljs-comment">// 将字节码数组解析成一个Class对象，用native方法实现</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> Class&lt;?&gt; defineClass(<span class="hljs-keyword">byte</span>[] b, <span class="hljs-keyword">int</span> off, <span class="hljs-keyword">int</span> len)&#123;<br>       ...<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-1-作用"><a href="#3-1-作用" class="headerlink" title="3.1 作用"></a>3.1 作用</h2><ol>
+<li><p><strong>防止加载同一个.class。</strong>通过委托去询问上级是否已经加载过该.class，如果加载过了，则不需要重新加载。保证了数据安全。</p>
+</li>
+<li><p><strong>保证核心.class不被篡改。</strong>通过委托的方式，保证核心.class不被篡改，即使被篡改也不会被加载，即使被加载也不会是同一个class对象，因为不同的加载器加载同一个.class也不是同一个Class对象。这样则保证了Class的执行安全。</p>
+</li>
+</ol>
+<h2 id="3-2-如何打破双亲委派？"><a href="#3-2-如何打破双亲委派？" class="headerlink" title="3.2 如何打破双亲委派？"></a>3.2 如何打破双亲委派？</h2><p>打破双亲委派，其实就是不走双亲委派那一套，而是走自定义的类加载器。</p>
+<p>双亲委派的机制是ClassLoader中的loadClass方法实现的，打破双亲委派，其实就是重写这个方法，来用我们自己的方式来实现即可。典型的打破双亲委派模型的框架和中间件有tomcat。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomClassLoader</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ClassLoader</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String classPath;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CustomClassLoader</span><span class="hljs-params">(String classPath)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.classPath = classPath;<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Class&lt;?&gt; loadClass(String name) <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-comment">// 尝试加载自定义类</span><br>        Class&lt;?&gt; clazz = findClass(name);<br>        <span class="hljs-keyword">if</span> (clazz != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> clazz;<br>        &#125;<br>        <span class="hljs-comment">// 自己加载不了，再调用父类loadClass，保持双亲委托模式</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.loadClass(name);<br>    &#125;<br><br>    <span class="hljs-comment">// 自定义类加载逻辑，例如从文件、网络等加载类字节码</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-keyword">byte</span>[] result;<br>        String path = classPath + File.separatorChar + name.replace(<span class="hljs-string">&#x27;.&#x27;</span>, File.separatorChar) + <span class="hljs-string">&quot;.class&quot;</span>;<br>        <span class="hljs-keyword">try</span> (FileInputStream fis = <span class="hljs-keyword">new</span> FileInputStream(path)) &#123;<br>            <span class="hljs-keyword">byte</span>[] buffer = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[fis.available()];<br>            fis.read(buffer);<br>            result = buffer;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ClassNotFoundException(<span class="hljs-string">&quot;Could not load class &quot;</span> + name, e);<br>        &#125;<br>        <span class="hljs-keyword">return</span> defineClass(name, result, <span class="hljs-number">0</span>, result.length);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
 
               
             </div>
