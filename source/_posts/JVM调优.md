@@ -4,7 +4,7 @@ date: 2022-09-17 16:57:45
 tags:
 - 性能调优
 - JVM
-categories: JVM调优
+categories: JVM
 ---
 
 # 1 调优原则
@@ -40,7 +40,7 @@ categories: JVM调优
 
 # 3  JVM参数
 
-可以考虑JVM内存模型：
+可以考虑[JVM内存模型](https://pyr9.github.io/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/)：
 
 设置格式：
 
@@ -95,3 +95,4 @@ java ‐Xms2048M ‐Xmx2048M ‐Xmn1024M ‐Xss512K ‐XX:MetaspaceSize=256M ‐
 
 # 4. JVM调优案例
 
+[案例](https://pyr9.github.io/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B/)

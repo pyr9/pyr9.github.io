@@ -3,7 +3,7 @@ title: java命令--jstack的使用
 date: 2022-06-25 22:50:24
 tags:
 - java命令
-categories: JVM调优
+categories: JVM
 ---
 
 jstack用于生成java虚拟机当前时刻的线程快照。可以用来分析线程问题（如死锁），CPU突然飙升问题

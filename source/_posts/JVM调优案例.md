@@ -3,7 +3,7 @@ title: JVM调优案例
 date: 2022-09-14 17:29:19
 tags:
 - 性能调优
-categories: JVM调优
+categories: JVM
 ---
 
 # 1. 案例一 ——测试环境服务异常挂掉

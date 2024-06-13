@@ -3,7 +3,7 @@ title: java命令--jinfo&jstat
 date: 2022-06-19 21:36:07
 tags:
 - java命令
-categories: JVM调优
+categories: JVM
 ---
 
 # **Jstat** 

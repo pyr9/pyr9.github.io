@@ -2,7 +2,7 @@
 title: FullGC
 date: 2024-06-13 11:40:53
 tags:
-categories:
+categories: JVM
 ---
 
 # 1. FullGC 是什么？
