@@ -16,23 +16,25 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. Zookeeper集群中有几个角色Zookeeper集群中有三个主要角色：  Leader：负责处理写请求和同步数据到Followers。 Follower：处理读请求，参与选举过程。 Observer：不参与投票选举，仅同步Leader的数据，用于扩展读取性能。  2.  Zookeeper如何保证数据一致性？Zookeeper使用一种称为ZAB协议（Zookeeper Atomic Br">
+    <meta name="description" content="1. mysql 为什么使用B+树？ 二叉树：单边增长的场景会导致全表扫描。  红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。  Hash: 不支持范围查找和排序  B树 VS B+树：    更高的节点利用率  B+树与B树的一个关键区别在于B+树的所有数据都存储在叶子节点，而非叶子节点只存储键值和指向子节点的指针。这样可以使非叶子节点包含更多的键值和指针，提">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zookeeper常见面试题">
-<meta property="og:url" content="http://example.com/zookeeper%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:title" content="mysql索引常见面试题">
+<meta property="og:url" content="http://example.com/mysql%E7%B4%A2%E5%BC%95%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1. Zookeeper集群中有几个角色Zookeeper集群中有三个主要角色：  Leader：负责处理写请求和同步数据到Followers。 Follower：处理读请求，参与选举过程。 Observer：不参与投票选举，仅同步Leader的数据，用于扩展读取性能。  2.  Zookeeper如何保证数据一致性？Zookeeper使用一种称为ZAB协议（Zookeeper Atomic Br">
+<meta property="og:description" content="1. mysql 为什么使用B+树？ 二叉树：单边增长的场景会导致全表扫描。  红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。  Hash: 不支持范围查找和排序  B树 VS B+树：    更高的节点利用率  B+树与B树的一个关键区别在于B+树的所有数据都存储在叶子节点，而非叶子节点只存储键值和指向子节点的指针。这样可以使非叶子节点包含更多的键值和指针，提">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-29T15:00:29.000Z">
-<meta property="article:modified_time" content="2024-05-30T14:59:17.132Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png">
+<meta property="article:published_time" content="2023-06-13T08:45:55.000Z">
+<meta property="article:modified_time" content="2024-06-13T09:04:34.096Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>zookeeper常见面试题 - 楼上有只喵</title>
+  <title>mysql索引常见面试题 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="zookeeper常见面试题"></span>
+            <span id="subtitle" data-typed-text="mysql索引常见面试题"></span>
           
         </div>
 
@@ -194,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-29 23:00" pubdate>
-          2023年5月29日 晚上
+        <time datetime="2023-06-13 16:45" pubdate>
+          2023年6月13日 下午
         </time>
       </span>
     
@@ -207,7 +209,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.6k 字
+          2.9k 字
         
       </span>
     
@@ -219,7 +221,7 @@
         
         
           <!-- compatible with older versions-->
-          6 分钟
+          10 分钟
         
       </span>
     
@@ -267,66 +269,191 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">zookeeper常见面试题</h1>
+            <h1 style="display: none">mysql索引常见面试题</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-Zookeeper集群中有几个角色"><a href="#1-Zookeeper集群中有几个角色" class="headerlink" title="1. Zookeeper集群中有几个角色"></a>1. Zookeeper集群中有几个角色</h1><p>Zookeeper集群中有三个主要角色：</p>
-<ul>
-<li><strong>Leader</strong>：负责处理写请求和同步数据到Followers。</li>
-<li><strong>Follower</strong>：处理读请求，参与选举过程。</li>
-<li><strong>Observer</strong>：不参与投票选举，仅同步Leader的数据，用于扩展读取性能。</li>
+              <h1 id="1-mysql-为什么使用B-树？"><a href="#1-mysql-为什么使用B-树？" class="headerlink" title="1. mysql 为什么使用B+树？"></a>1. mysql 为什么使用B+树？</h1><ul>
+<li><p>二叉树：单边增长的场景会导致全表扫描。</p>
+</li>
+<li><p>红黑树：相对平衡，比二叉树性能好，大数据下，红黑树的高度过高，会造成磁盘IO频繁。</p>
+</li>
+<li><p>Hash: 不支持范围查找和排序</p>
+</li>
+<li><p><strong>B树 VS B+树</strong>：</p>
+</li>
 </ul>
-<h1 id="2-Zookeeper如何保证数据一致性？"><a href="#2-Zookeeper如何保证数据一致性？" class="headerlink" title="2.  Zookeeper如何保证数据一致性？"></a>2.  Zookeeper如何保证数据一致性？</h1><p>Zookeeper使用一种称为ZAB协议（Zookeeper Atomic Broadcast）的协议来保证数据的一致性。它确保所有写操作在Leader节点上进行，Leader通过广播将数据同步到Followers，从而确保数据一致性。</p>
-<h1 id="3-什么是ZAB协议？"><a href="#3-什么是ZAB协议？" class="headerlink" title="3. 什么是ZAB协议？"></a>3. 什么是ZAB协议？</h1><p>ZAB协议（Zookeeper Atomic Broadcast）是Zookeeper用于保证数据一致性的核心协议。它包括两种主要模式：</p>
-<ul>
-<li><strong>消息广播模式</strong>：用于正常操作期间，将Leader上的数据更新广播到所有Followers。</li>
-<li><strong>崩溃恢复模式</strong>：用于Leader崩溃时，选举新的Leader并同步数据。</li>
-</ul>
-<h1 id="4-Zookeeper集群需要多少个节点来保证高可用性？"><a href="#4-Zookeeper集群需要多少个节点来保证高可用性？" class="headerlink" title="4. Zookeeper集群需要多少个节点来保证高可用性？"></a>4. Zookeeper集群需要多少个节点来保证高可用性？</h1><p>Zookeeper集群通常由2N+1个节点组成，以保证在N个节点故障的情况下，集群仍能正常工作。例如，一个由5个节点组成的集群可以容忍2个节点故障。</p>
-<h1 id="5-在什么情况下需要进行Leader选举？"><a href="#5-在什么情况下需要进行Leader选举？" class="headerlink" title="5. 在什么情况下需要进行Leader选举？"></a>5. 在什么情况下需要进行Leader选举？</h1><ul>
-<li>Zookeeper集群启动时，没有Leader。</li>
-<li>当前Leader节点崩溃或失联。</li>
-<li>网络分区导致部分节点无法与Leader通信。</li>
-</ul>
-<h1 id="6-Zookeeper的选举机制是什么？"><a href="#6-Zookeeper的选举机制是什么？" class="headerlink" title="6. Zookeeper的选举机制是什么？"></a>6. Zookeeper的选举机制是什么？</h1><p>Zookeeper使用ZAB协议的Leader选举机制来选举新的Leader。选举机制主要分为以下几种情况：</p>
-<ul>
-<li><strong>启动期间的Leader选举</strong>：当Zookeeper集群启动时，没有Leader，所有节点会进行投票选举Leader。</li>
-<li><strong>Leader崩溃后的Leader选举</strong>：如果Leader节点崩溃，剩余节点会重新选举新的Leader。</li>
-</ul>
-<h1 id="7-选举过程是怎样的？"><a href="#7-选举过程是怎样的？" class="headerlink" title="7. 选举过程是怎样的？"></a>7. 选举过程是怎样的？</h1><ol>
-<li><strong>启动选举</strong>：所有节点初始化自己的投票（投票给自己）。</li>
-<li><strong>发送投票</strong>：节点将自己的投票发送给所有其他节点。</li>
-<li><strong>接收投票</strong>：节点接收来自其他节点的投票。</li>
-<li><strong>更新投票</strong>：根据接收到的投票，更新自己的投票（选择epoch和zxid更高的投票）。</li>
-<li><strong>统计投票</strong>：每个节点统计接收到的投票数量，如果某个投票获得超过半数节点的支持，该投票对应的节点被选为Leader。</li>
-<li><strong>通知结果</strong>：选举结束后，所有节点被通知选举结果，Leader节点开始工作，Follower节点开始同步数据。</li>
-</ol>
-<h1 id="8-Leader选举的算法是什么？"><a href="#8-Leader选举的算法是什么？" class="headerlink" title="8. Leader选举的算法是什么？"></a>8. Leader选举的算法是什么？</h1><p>Zookeeper使用Fast Paxos算法的一种变种进行Leader选举。选举过程通过比较每个节点的epoch（时代编号）和zxid（事务ID）来决定Leader，选择epoch和zxid最大的节点作为Leader。</p>
-<h1 id="9-Zookeeper如何解决脑裂问题？"><a href="#9-Zookeeper如何解决脑裂问题？" class="headerlink" title="9.  Zookeeper如何解决脑裂问题？"></a>9.  Zookeeper如何解决脑裂问题？</h1><p>Zookeeper使用多数派机制来应对脑裂问题。在Zookeeper集群中：</p>
-<ul>
-<li>只有超过半数的节点同意的操作才会被执行（如写操作、Leader选举等）。</li>
-<li>任何一个子集若未达到超过半数节点，则不能对外提供服务。</li>
-</ul>
-<p>具体措施包括：</p>
 <ol>
-<li><strong>ZAB协议</strong>：Zookeeper Atomic Broadcast协议确保在Leader崩溃后重新选举新的Leader，并同步数据，保证一致性。</li>
-<li><strong>选举机制</strong>：Zookeeper通过快速选举算法选择新的Leader，确保选举过程高效可靠。</li>
-<li><strong>同步机制</strong>：新的Leader当选后，会与Followers进行数据同步，确保所有节点数据一致。</li>
+<li>更高的节点利用率</li>
 </ol>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>假设有一个由5个节点组成的Zookeeper集群：</p>
+<p>B+树与B树的一个关键区别在于B+树的所有数据都存储在叶子节点，而非叶子节点只存储键值和指向子节点的指针。这样可以使非叶子节点包含更多的键值和指针，提高了节点的利用率，从而减少了树的高度。</p>
+<ol start="2">
+<li>更高的查询效率</li>
+</ol>
+<p>由于B+树的叶子节点形成了一个链表，所有的实际数据都存储在叶子节点中，这使得范围查询和顺序遍历更加高效。可以很容易地通过顺序访问叶子节点来实现范围查询，而不需要回溯。</p>
+<ol start="3">
+<li>更适合磁盘存储</li>
+</ol>
+<p>数据库系统通常需要处理大量的数据，这些数据大部分存储在磁盘上。B+树设计更加适合磁盘存储，因为它减少了树的高度，进而减少了磁盘I&#x2F;O操作的次数。每个节点可以存储更多的指针，从而降低了访问数据时需要读取的磁盘块数量。</p>
+<ol start="4">
+<li>更稳定的查询性能</li>
+</ol>
+<p>在B+树中，所有实际数据都在叶子节点上，非叶子节点仅作为索引使用，这意味着所有的查找操作所需的路径长度相同。因此，B+树的查询性能更加稳定。</p>
+<p><strong>具体比较：B树 vs B+树</strong></p>
 <ul>
-<li>在正常情况下，所有5个节点互相通信，协调一致。</li>
-<li>发生网络分区后，节点可能被分为两个子集，一个包含3个节点，另一个包含2个节点。</li>
-<li>由于Zookeeper使用多数派机制，包含3个节点的子集可以继续对外提供服务（因为3 &gt; 5&#x2F;2），而包含2个节点的子集则暂停服务。</li>
+<li><p><strong>节点结构</strong>：</p>
+<ul>
+<li><strong>B树</strong>：每个节点既包含键值也包含数据。</li>
+<li><strong>B+树</strong>：所有数据都存储在叶子节点，非叶子节点只包含键值和指针。</li>
 </ul>
-<p>通过这些机制，Zookeeper有效避免了脑裂问题，确保系统的一致性和正确性。</p>
+</li>
+<li><p><strong>数据存储位置</strong>：</p>
+<ul>
+<li><strong>B树</strong>：数据存储在各个节点中。</li>
+<li><strong>B+树</strong>：数据存储在叶子节点中，且叶子节点形成链表。</li>
+</ul>
+</li>
+<li><p><strong>查询性能</strong>：</p>
+<ul>
+<li><strong>B树</strong>：查找过程中可能在不同深度找到数据。</li>
+<li><strong>B+树</strong>：查找路径长度相同，查询性能更稳定。</li>
+</ul>
+</li>
+<li><p><strong>范围查询</strong>：</p>
+<ul>
+<li><p><strong>B树</strong>：范围查询需要遍历多个节点，不如B+树高效。</p>
+</li>
+<li><p><strong>B+树</strong>：叶子节点形成链表，顺序遍历和范围查询非常高效。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-聚簇索引和非聚簇索引"><a href="#2-聚簇索引和非聚簇索引" class="headerlink" title="2. 聚簇索引和非聚簇索引"></a>2. 聚簇索引和非聚簇索引</h1><h2 id="1-聚簇索引-Clustered-Index"><a href="#1-聚簇索引-Clustered-Index" class="headerlink" title="1. 聚簇索引 (Clustered Index)"></a>1. 聚簇索引 (Clustered Index)</h2><p><strong>定义</strong>： 聚簇索引将数据行的物理存储顺序与索引顺序一致。每张表只能有一个聚簇索引，因为数据行的物理存储顺序只能有一种。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>数据行和索引存储在同一个结构中，索引叶子节点包含完整的数据行。</li>
+<li>通常，表的主键会被作为聚簇索引。如果没有显式定义主键，MySQL 会选择一个唯一的非空索引作为聚簇索引；如果没有这样的索引，MySQL 会生成一个隐藏的行 ID 作为聚簇索引。</li>
+<li>聚簇索引提高了基于主键的查询性能，因为索引和数据在同一个结构中，无需二次查找。</li>
+<li>插入、更新和删除操作的性能可能会受到影响，因为数据行的物理位置可能需要调整以维持索引顺序。</li>
+</ul>
+<p><strong>示例</strong>： 假设有一张表 <code>employees</code>，它的主键是 <code>employee_id</code>，则 <code>employee_id</code> 字段是聚簇索引：</p>
+<h2 id="2-非聚簇索引-Non-clustered-Index"><a href="#2-非聚簇索引-Non-clustered-Index" class="headerlink" title="2. 非聚簇索引 (Non-clustered Index)"></a>2. 非聚簇索引 (Non-clustered Index)</h2><p><strong>定义</strong>： 非聚簇索引的叶子节点包含指向数据行的指针（通常是聚簇索引键值或行 ID），而不是实际的数据行。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>数据行的物理存储顺序与索引顺序无关。</li>
+<li>每个表可以有多个非聚簇索引。</li>
+<li>非聚簇索引的叶子节点存储索引键和指向数据行的指针。</li>
+<li>通过非聚簇索引进行查询时，首先通过索引找到指针，然后根据指针找到实际的数据行，这需要一次额外的查找操作。</li>
+</ul>
+<p>假设有一张表 <code>employees</code>，你可以为 <code>name</code> 字段创建一个非聚簇索引：</p>
+<h2 id="3-聚簇索引与非聚簇索引的区别"><a href="#3-聚簇索引与非聚簇索引的区别" class="headerlink" title="3 聚簇索引与非聚簇索引的区别"></a>3 聚簇索引与非聚簇索引的区别</h2><ol>
+<li><strong>数据存储方式</strong>：<ul>
+<li><strong>聚簇索引</strong>：数据行按索引顺序存储，叶子节点包含实际的数据行。</li>
+<li><strong>非聚簇索引</strong>：索引结构和数据分开存储，叶子节点包含指向数据行的指针。</li>
+</ul>
+</li>
+<li><strong>查询性能</strong>：<ul>
+<li><strong>聚簇索引</strong>：对主键查询非常高效，因为不需要额外的查找操作。</li>
+<li><strong>非聚簇索引</strong>：查询需要先通过索引找到指针，再通过指针找到数据行，有一定的查找开销。</li>
+</ul>
+</li>
+<li><strong>插入、更新和删除性能</strong>：<ul>
+<li><strong>聚簇索引</strong>：可能需要重排数据行以保持顺序，因此插入、更新和删除操作可能会更慢。</li>
+<li><strong>非聚簇索引</strong>：只需更新索引结构，不影响数据行的物理顺序，操作相对较快。</li>
+</ul>
+</li>
+<li><strong>空间使用</strong>：<ul>
+<li><strong>聚簇索引</strong>：由于数据行存储在索引结构中，可能会占用更多的存储空间。</li>
+<li><strong>非聚簇索引</strong>：索引结构较小，因为只包含索引键和指针。</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-实际应用中的选择"><a href="#4-实际应用中的选择" class="headerlink" title="4 实际应用中的选择"></a>4 实际应用中的选择</h2><ul>
+<li><strong>聚簇索引</strong>：适用于频繁的基于主键的查询操作，尤其是范围查询。例如，按日期或ID范围查询数据时，聚簇索引可以显著提高性能。</li>
+<li><strong>非聚簇索引</strong>：适用于其他频繁查询的列，比如搜索、过滤和排序操作。非聚簇索引可以加快这些操作的速度，但要注意维护索引带来的额外开销。</li>
+</ul>
+<h1 id="3-InnoDB和MyISAM对比"><a href="#3-InnoDB和MyISAM对比" class="headerlink" title="3 InnoDB和MyISAM对比"></a>3 InnoDB和MyISAM对比</h1><p>存储引擎是对于表而言的，不同的表可以设置不同的存储引擎</p>
+<h2 id="1-InnoDb"><a href="#1-InnoDb" class="headerlink" title="1 InnoDb"></a>1 InnoDb</h2><ul>
+<li><p>适合需要事务和外键约束。</p>
+</li>
+<li><p>高度并发的读写操作性能较好。</p>
+</li>
+<li><p>支持行级锁定，提高并发处理能力。</p>
+</li>
+<li><p>支持聚簇索引和非聚簇索引。</p>
+<ul>
+<li>InnoDB 使用 B+ 树结构实现聚簇索引。每个 InnoDB 表都有一个聚簇索引，通常是表的主键。如果没有显式定义主键，InnoDB 会选择一个唯一的非空索引作为聚簇索引；如果没有这样的索引，InnoDB 会生成一个隐藏的行 ID 作为聚簇索引。</li>
+<li>索引文件和数据文件是在一起的。 索引文件+ 数据文件 是xxx.ibd</li>
+<li>叶子结点包含了完整的数据记录，data里存储的是：索引所在行的其他所有数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-MyISAM索引"><a href="#2-MyISAM索引" class="headerlink" title="2 MyISAM索引"></a>2 MyISAM索引</h2><ul>
+<li><p>不支持事务和外键约束。</p>
+</li>
+<li><p>适合读操作多于写操作的应用。</p>
+</li>
+<li><p>表级锁定，写操作会锁定整个表，适合低并发写操作的应用。</p>
+</li>
+<li><p>索引文件较小，适合大量读操作和全文索引。</p>
+</li>
+</ul>
+<ul>
+<li>只支持非聚簇索引，不支持聚簇索引。<ul>
+<li>故MyISAM索引文件和数据文件是分离的。索引文件是xxx.MYI, 数据文件是xxx.MYD</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>执行流程：当有一条查询语句：where Col1 &#x3D; 49， 先判断有没有走索引，走索引的话，先根据49快速在MYI文件中定位到结点，获取该结点存储的索引所在行的磁盘文件指针0x90，再去MYD中定位数据。</p>
+</blockquote>
+<h1 id="4-最左前缀法则"><a href="#4-最左前缀法则" class="headerlink" title="4 最左前缀法则"></a>4 最左前缀法则</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>对于一个多列索引，查询条件必须从索引的最左列开始并按顺序使用，否则索引不会被完全利用。MySQL 查询优化器会重新排列条件顺序，以充分利用索引。因此，即使条件顺序不同，只要包含索引的前缀部分，索引仍会被使用。</p>
+<p>即：假设你建立了一个联合索引（A，B，C），那么在执行查询的时候  <code>where A=xx1 </code>或者 <code>where A=xx1 and B=xx2  </code>或者<code>where A=xx1 and B=xx2 and C=xx3 </code>会走索引进行查询优化，因为他们都是从最左列A开始。</p>
+<p>比如： <code>where B=xx1 and C=xx2  </code> 就不会走索引</p>
+<p> <code>where a=xx1 and C=xx2  </code> 就会走部分索引，即A的部分</p>
+<h1 id="5-为什么InnoDb表要尽量设定一个主键"><a href="#5-为什么InnoDb表要尽量设定一个主键" class="headerlink" title="5 为什么InnoDb表要尽量设定一个主键"></a>5 为什么InnoDb表要尽量设定一个主键</h1><ul>
+<li>innnoDb表数据文件本身就是按B+tree组织的一个索引文件</li>
+<li>主键是数据库确保数据行在整张表唯一性的保障.</li>
+<li>设定了主键之后，在后续的删改查的时候可能更加快速以及确保操作数据范围安全。 </li>
+<li>如果没有主键，InnoDB会选择一个唯一键来作为聚簇索 引，如果没有唯一键，会生成一个隐式的主键。</li>
+</ul>
+<h1 id="6-主键使用整型的自增ID而不是UUID？"><a href="#6-主键使用整型的自增ID而不是UUID？" class="headerlink" title="6 主键使用整型的自增ID而不是UUID？"></a>6 主键使用整型的自增ID而不是UUID？</h1><ul>
+<li>查找元素的时候会涉及到大量的数据比较，整型比字符串快</li>
+<li>UUID占用的存储空间会大于整形</li>
+<li>叶子结点是按顺序排列的，如果主键索 引是自增ID，那么只需要不断向后排列即可，如果是UUID，由于到来的ID与原来的大小不确定，在维护B+树的过程中，会造成非常多的数据插入，数据移动，然后导致产生很多的内 存碎片，进而造成插入性能的下降。</li>
+</ul>
+<h1 id="7-联合索引是什么"><a href="#7-联合索引是什么" class="headerlink" title="7 联合索引是什么"></a>7 联合索引是什么</h1><ul>
+<li>5个单值索引，对应5棵B+树，联合索引就只需要一棵树，所以日常推荐使用联合索引而不是单值索引。</li>
+<li>索引排序的时候会按照字段顺序，逐个去排序</li>
+</ul>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png" srcset="/img/loading.gif" lazyload alt="image-20230228230412331"></p>
 
               
             </div>
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
 </div>
@@ -337,8 +464,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>zookeeper常见面试题</div>
-      <div>http://example.com/zookeeper常见面试题/</div>
+      <div>mysql索引常见面试题</div>
+      <div>http://example.com/mysql索引常见面试题/</div>
     </div>
     <div class="license-meta">
       
@@ -350,7 +477,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年5月29日</div>
+          <div>2023年6月13日</div>
         </div>
       
       
@@ -380,9 +507,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/mysql%E7%B4%A2%E5%BC%95%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" title="mysql索引常见面试题">
+                      <a href="/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="简单工厂模式">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql索引常见面试题</span>
+                        <span class="hidden-mobile">简单工厂模式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -390,8 +517,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%97%8B%E8%BD%AC/" title="字符串旋转">
-                        <span class="hidden-mobile">字符串旋转</span>
+                      <a href="/zookeeper%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" title="zookeeper常见面试题">
+                        <span class="hidden-mobile">zookeeper常见面试题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
