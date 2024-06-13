@@ -8,7 +8,7 @@ categories: JVM调优
 
 # **JVM内存参数设置**
 
-![image-20230228224116710](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224116710.png)
+
 
 ## JVM参数设置格式
 
