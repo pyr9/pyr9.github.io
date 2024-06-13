@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232824370.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228232833764.png">
 <meta property="article:published_time" content="2022-09-14T09:33:51.000Z">
-<meta property="article:modified_time" content="2024-05-22T01:30:47.794Z">
+<meta property="article:modified_time" content="2024-06-13T03:37:56.624Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="性能调优">
 <meta property="article:tag" content="垃圾收集算法">
@@ -213,7 +213,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.5k 字
+          3.7k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
           <!-- compatible with older versions-->
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -377,7 +377,14 @@
 </blockquote>
 <h2 id="2-5-G1收集器"><a href="#2-5-G1收集器" class="headerlink" title="2.5 G1收集器"></a>2.5 <strong>G1收集器</strong></h2><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BG1%E6%94%B6%E9%9B%86%E5%99%A8/">垃圾收集器之G1收集器 - 楼上有只喵 (pyr9.github.io)</a></p>
 <h2 id="2-6-ZGC收集器"><a href="#2-6-ZGC收集器" class="headerlink" title="2.6 ZGC收集器"></a>2.6 ZGC收集器</h2><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B9%8BZGC%E6%94%B6%E9%9B%86%E5%99%A8/">垃圾收集器之ZGC收集器 - 楼上有只喵 (pyr9.github.io)</a></p>
-<h1 id="3-什么情况下会触发Full-GC"><a href="#3-什么情况下会触发Full-GC" class="headerlink" title="3. 什么情况下会触发Full GC?"></a>3. 什么情况下会触发Full GC?</h1><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/JVM%E8%B0%83%E4%BC%98/#2-5-Full-GC-%E6%AC%A1%E6%95%B0%E9%A2%91%E7%B9%81">JVM调优 - 楼上有只喵 (pyr9.github.io)</a></p>
+<h1 id="3-垃圾回收器选择"><a href="#3-垃圾回收器选择" class="headerlink" title="3. 垃圾回收器选择?"></a>3. 垃圾回收器选择?</h1><ul>
+<li><strong>JDK 1.8默认使用 Parallel</strong>，<strong>JDK 1.9默之后认使用 G1</strong></li>
+<li>100M以下用Serial，简单+高效</li>
+<li>4G以下可以用parallel，并发收集 + 高吞吐量。（标记整理，STW）</li>
+<li>4-8G可以用ParNew+CMS，并发收集 + 低停顿(注重用户体验）</li>
+<li>8G以上可以用G1，避免长时间的停顿+可预期的GC停顿周期 + 高吞吐量(筛选回收时需要STW)</li>
+<li>几百G以上用ZGC，支持TB量级的堆+ 最大GC停顿时间不超10ms</li>
+</ul>
 
               
             </div>
@@ -479,7 +486,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/" title="JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数">
+                      <a href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B/" title="JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数">
                         <span class="hidden-mobile">JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>

@@ -211,6 +211,105 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/" target="_self">
+          内存泄漏和内存溢出
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/" target="_self">
+        <div>
+          
+          1.内存泄漏 (Memory Leak)1. 定义 内存泄漏是指程序未能释放已经不再使用的内存，从而导致内存资源被浪费。尽管这些内存不再被程序使用，但由于程序仍然持有对它们的引用，垃圾收集器无法回收它们。 2. 症状： 随着时间推移，程序占用的内存不断增加。 程序可能在长时间运行后变得越来越慢。 最终可能导致内存溢出错误（OutOfMemoryError）。  3. 原因： 忘记移除不再使用的对象
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-13 16:03" pubdate>
+              2024-06-13
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/FullGC/" target="_self">
+          FullGC
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/FullGC/" target="_self">
+        <div>
+          
+          1. FullGC 是什么？Full GC（Full Garbage Collection，全垃圾收集）是 Java 虚拟机（JVM）执行的一种垃圾收集过程，它会对整个堆内存进行垃圾收集，包括年轻代（Young Generation）和老年代（Old Generation），以及永久代（PermGen）或元空间（Metaspace）。  Minor GC：仅针对年轻代（Eden 和 Survivo
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-13 11:40" pubdate>
+              2024-06-13
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FOOM-Killer/" target="_self">
+          操作系统OOM Killer
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FOOM-Killer/" target="_self">
+        <div>
+          
+          1. OOM Killer 是什么？OOM Killer（Out of Memory Killer）是 Linux 操作系统内核中的一个机制，用于在系统内存耗尽时，通过终止进程来释放内存资源，从而防止系统崩溃或无法响应。 2. OOM Killer 的触发条件当系统的物理内存和交换空间（swap）都被完全占用，且内核无法再分配内存时，就会触发 OOM（Out of Memory）状态。在这种情况下
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-12 10:43" pubdate>
+              2024-06-12
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/%E8%84%91%E8%A3%82/" target="_self">
           脑裂
         </a>
@@ -451,105 +550,6 @@
 </span>
 
           </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E5%90%8C%E6%AD%A5%E9%98%BB%E5%A1%9E%E4%B8%8E%E5%BC%82%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84%E6%95%B4%E7%90%86/" target="_self">
-          同步阻塞与异步非阻塞的整理
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E5%90%8C%E6%AD%A5%E9%98%BB%E5%A1%9E%E4%B8%8E%E5%BC%82%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84%E6%95%B4%E7%90%86/" target="_self">
-        <div>
-          
-          1. BIO 和NIOBIO（Blocking I&#x2F;O）和 NIO（Non-blocking I&#x2F;O）是 Java 中用于处理 I&#x2F;O 操作的两种不同的编程模型。 BIO（Blocking I&#x2F;O）：  同步阻塞：在 BIO 模型中，I&#x2F;O 操作是同步阻塞的。当一个线程执行一个 I&#x2F;O 操作时，线程会被阻塞，直到这个 I&#x2F;O 操
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-05-15 15:29" pubdate>
-              2024-05-15
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E9%9B%86%E5%90%88/" target="_self">
-          集合
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E9%9B%86%E5%90%88/" target="_self">
-        <div>
-          
-          ⼀、集合分类Java中的集合框架⼤类可分为Collection和Map，⽽collection⼜有两个⼦接⼝List和Set 1. List 特点：元素有顺序，能重复 ，可以插⼊多个 null 元素。  List 接⼝有三个实现类：LinkedList，ArrayList，Vector  LinkedList：底层基于链表实现，链表内存是散乱的，每⼀个元素存储本身内存地址的同时还存储下⼀个元素的地
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-02-26 21:23" pubdate>
-              2024-02-26
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          k8s常用命令
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          
-          1. 用频率最高的K8s常用命令 kubectl get: 获取资源的信息，如获取Pod、Service、Deployment等资源的状态信息。 kubectl create: 创建资源，如创建Pod、Service、Deployment等资源。 kubectl delete: 删除资源，如删除Pod、Service、Deployment等资源。 kubectl apply: 应用配置文件，如应
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-02-04 19:25" pubdate>
-              2024-02-04
-            </time>
-          </div>
-        
         
         
       </div>

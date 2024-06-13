@@ -16,22 +16,27 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="场景分析有一个订单系统，需要支持每秒支持下300个订单。假定每个订单对象是1kb，那么每秒将会有300kb对象生成。 下单可能还涉及创建其他对象创建，比如库存，优惠卷，积分，以及这个系统可能还支持订单的查询，我们放大20倍，那么就是300 * 20  &#x3D; 6000kb，约60MB，也就是这个系统每秒会产生60M的垃圾。  假设机器是4核8G，那么一般可能会给我们虚拟机分配个四五G的内存，">
+    <meta name="description" content="1. 案例一 ——测试环境服务异常挂掉1. 问题测试环境服务异常挂掉 2. 排查步骤查看操作系统日志，发现发生了OOM，操作系统的OOM KIiller 机制 将Java进程杀掉了（使用命令 egrep -i &#39;Out of memory&#39; &#x2F;var&#x2F;log&#x2F;messages）  [root@sith-mom-test-node deploy]# egrep -i ‘Out of">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数">
-<meta property="og:url" content="http://example.com/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B-%E4%B8%80-%E2%80%94%E2%80%94%E6%97%A5%E5%9D%87%E7%99%BE%E4%B8%87%E7%BA%A7%E8%AE%A2%E5%8D%95%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEJVM%E5%8F%82%E6%95%B0/index.html">
+<meta property="og:url" content="http://example.com/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="场景分析有一个订单系统，需要支持每秒支持下300个订单。假定每个订单对象是1kb，那么每秒将会有300kb对象生成。 下单可能还涉及创建其他对象创建，比如库存，优惠卷，积分，以及这个系统可能还支持订单的查询，我们放大20倍，那么就是300 * 20  &#x3D; 6000kb，约60MB，也就是这个系统每秒会产生60M的垃圾。  假设机器是4核8G，那么一般可能会给我们虚拟机分配个四五G的内存，">
+<meta property="og:description" content="1. 案例一 ——测试环境服务异常挂掉1. 问题测试环境服务异常挂掉 2. 排查步骤查看操作系统日志，发现发生了OOM，操作系统的OOM KIiller 机制 将Java进程杀掉了（使用命令 egrep -i &#39;Out of memory&#39; &#x2F;var&#x2F;log&#x2F;messages）  [root@sith-mom-test-node deploy]# egrep -i ‘Out of">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224236047.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222903395.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222923471.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222946533.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222956571.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223006680.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224246219.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224257622.png">
 <meta property="article:published_time" content="2022-09-14T09:29:19.000Z">
-<meta property="article:modified_time" content="2023-02-28T14:43:01.574Z">
+<meta property="article:modified_time" content="2024-06-13T03:39:45.463Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="性能调优">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224236047.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -212,7 +217,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.3k 字
+          4.6k 字
         
       </span>
     
@@ -224,7 +229,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          15 分钟
         
       </span>
     
@@ -276,9 +281,62 @@
             
             <div class="markdown-body">
               
-              <h1 id="场景分析"><a href="#场景分析" class="headerlink" title="场景分析"></a>场景分析</h1><p>有一个订单系统，需要支持每秒支持下300个订单。假定每个订单对象是1kb，那么每秒将会有300kb对象生成。</p>
+              <h1 id="1-案例一-——测试环境服务异常挂掉"><a href="#1-案例一-——测试环境服务异常挂掉" class="headerlink" title="1. 案例一 ——测试环境服务异常挂掉"></a>1. 案例一 ——测试环境服务异常挂掉</h1><h2 id="1-问题"><a href="#1-问题" class="headerlink" title="1. 问题"></a>1. 问题</h2><p>测试环境服务异常挂掉</p>
+<h2 id="2-排查步骤"><a href="#2-排查步骤" class="headerlink" title="2. 排查步骤"></a>2. 排查步骤</h2><p>查看操作系统日志，发现发生了OOM，操作系统的OOM KIiller 机制 将Java进程杀掉了（使用命令<code> egrep -i &#39;Out of memory&#39; /var/log/messages</code>）</p>
+<blockquote>
+<p>[root@sith-mom-test-node deploy]# egrep -i ‘Out of memory’ &#x2F;var&#x2F;log&#x2F;messages<br>May 28 10:19:07 sith-mom-test-node kernel: Out of memory: Kill process 12420 (java) score 161 or sacrifice child<br>May 28 10:19:07 sith-mom-test-node kernel: Out of memory: Kill process 12607 (java) score 161 or sacrifice child<br>May 28 10:19:07 sith-mom-test-node kernel: Out of memory: Kill process 12721 (java) score 161 or sacrifice child<br>May 28 17:07:24 sith-mom-test-node kernel: Out of memory: Kill process 10434 (java) score 92 or sacrifice child<br>May 28 17:34:42 sith-mom-test-node kernel: Out of memory: Kill process 9270 (java) score 75 or sacrifice child<br>May 28 17:34:42 sith-mom-test-node kernel: Out of memory: Kill process 9281 (java) score 75 or sacrifice child<br>May 28 17:50:18 sith-mom-test-node kernel: Out of memory: Kill process 24060 (java) score 64 or sacrifice child</p>
+</blockquote>
+<p>重新启动项目，使用<code>df -h</code>发现测试环境内存空闲也就20G，使用<code>jstat -gc 67825 3000 1000</code> 发现元空间占了10G以上，还在一直增长。（测试环境内存62G），因为jdk.8之后元空间使用的内存是本地内存，默认是-1， 即不限制，所以怀疑到了元空间</p>
+<h2 id="3-修复"><a href="#3-修复" class="headerlink" title="3. 修复"></a>3. 修复</h2><p>在启动jar包时，加上了<code>-XX:MaxMetaspaceSize=20G</code>, 指定最大元空间大小, 问题修复，后续又感觉20G占用太大，又尝试降低10G， 5G， 目前设置的是1000M，5天Full GC 了200次，平均2小时3次， 一次5.8秒，还在持续调整（期待1小时一次Full GC, 一次1s）。</p>
+<h1 id="3-案例二-——天气预报系统"><a href="#3-案例二-——天气预报系统" class="headerlink" title="3.案例二 ——天气预报系统"></a>3.案例二 ——天气预报系统</h1><p>天气预报系统，有一个展示所有城市天气预报的页面，由于城市比较多，需要分页去展示，于是先设置了一次查询5000条，由于每一条城市都需要再去给他设置对应的天气信息，所以搞了一个foreach每一条记录都需要new City()，然后再去set天气信息</p>
+<p>初始参数是：</p>
+<p>堆的最大和最小容量都设置了1536M, 年轻代是512M，使用的ParNew+CMS垃圾收集器，元空间256M</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">-Xms1536M -Xmx1536M -Xmn512M -Xss256K -XX:<span class="hljs-attribute">SurvivorRatio</span>=6 -XX:<span class="hljs-attribute">MetaspaceSize</span>=256M -XX:<span class="hljs-attribute">MaxMetaspaceSize</span>=512M  -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:<span class="hljs-attribute">CMSInitiatingOccupancyFraction</span>=75 -XX:+UseCMSInitiatingOccupancyOnly<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-2-观察GC整体情况"><a href="#3-2-观察GC整体情况" class="headerlink" title="3.2 观察GC整体情况"></a>3.2 观察GC整体情况</h2><ul>
+<li><p>step1 : 运行<code> jps</code>看下, 查看当前java进程PID</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222821739.png" srcset="/img/loading.gif" lazyload alt="image-20230228222821739"></p>
+</li>
+<li><p>step2: 运行 <code>jstat -gc 2593 3000 10000</code>，每隔3秒，打印下GC压力整体情况。观察可发现，程序突然开始频繁Young Gc 和Full GC。</p>
+</li>
+</ul>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222903395.png" srcset="/img/loading.gif" lazyload alt="image-20230228222903395"></p>
+<h2 id="3-2-思考频繁Full-Gc-触发条件"><a href="#3-2-思考频繁Full-Gc-触发条件" class="headerlink" title="3.2 思考频繁Full Gc 触发条件"></a>3.2 思考频繁Full Gc 触发条件</h2><ul>
+<li><p>调用System.gc()方法的调用。   <strong>-&gt; 不可能，系统中没这样调用</strong></p>
+</li>
+<li><p>云空间，方法区空间不足  <strong>-&gt; 不可能，观察MU并没有很大变化，说明元空间没有一直扩容，所以空间是够的</strong></p>
+</li>
+<li><p>老年代空间不足，对象转入老年代的场景有：</p>
+<ul>
+<li>大对象直接进入老年代：为了避免为大对象GC时，多次在survivor上来回复制而降低效率。   <strong>-&gt; 不可能，系统中没很多大对象</strong></li>
+<li>长期存活的对象进入老年代：默认是经历了15次minor GC ，CMS是6次 <strong>-&gt; 可能，代码在频繁生成对象，且占用周期比较长。有可能是代码有问题，其实我们可以频繁生成对象，但是应该让他朝生夕死。</strong></li>
+<li><strong>对象动态年龄判断</strong>：survivor区域里，对象年龄从小到大排序，当累加到某个年龄时，占用 survivor区域 的50%，就会把这个年龄大的对象都晋升到老年代。  <strong>-&gt; 可能，因为现在是频繁生成了对象，可以考虑年轻代调大一些。</strong></li>
+</ul>
+</li>
+<li><p>老年代空间分配担保机制。 <strong>-&gt; 可能性不大，因为老年代挺大的</strong></p>
+</li>
+</ul>
+<h2 id="3-3-调优步骤"><a href="#3-3-调优步骤" class="headerlink" title="3.3 调优步骤"></a>3.3 调优步骤</h2><p>如果是对于对象动态年龄判断机制导致的full gc较为频繁可以先试着优化下JVM参数，把年轻代适当调大点： -Xmn1024M</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">-Xms1536M -Xmx1536M -Xmn1024M -Xss256K -XX:SurvivorRatio=<span class="hljs-number">6</span> -XX:MetaspaceSize=256M -XX:MaxMetaspaceSize=512M  -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=<span class="hljs-number">75</span> -XX:+UseCMSInitiatingOccupancyOnly<br></code></pre></td></tr></table></figure>
+
+<p>我们发现young gc和full gc依然很频繁了，而且看到有大量的对象频繁的被挪动到老年代</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222923471.png" srcset="/img/loading.gif" lazyload alt="image-20230228222923471"></p>
+<p>这种情况我们可以借助jmap或者jvisualvm命令大概看下是什么对象</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222946533.png" srcset="/img/loading.gif" lazyload alt="image-20230228222946533"></p>
+<p>查到了有大量User对象产生，这个可能是问题所在，但不确定，还必须找到对应的代码确认，如何去找对应的代码了？ </p>
+<p>1、代码里全文搜索生成User对象的地方(适合只有少数几处地方的情况) </p>
+<p>2、如果生成User对象的地方太多，无法定位具体代码，我们可以同时分析下占用cpu较高的线程，一般有大量对象不断产生，对应的方法 代码肯定会被频繁调用，占用的cpu必然较高 </p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222956571.png" srcset="/img/loading.gif" lazyload alt="image-20230228222956571"></p>
+<p>可以用上面讲过的jstack或jvisualvm来定位cpu使用较高的代码，最终定位到的代码如下： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/report&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WeatherReportController</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 模拟批量查询城市天气预报场景</span><br><span class="hljs-comment">   */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> ArrayList&lt;City&gt; <span class="hljs-title">queryCities</span><span class="hljs-params">()</span> </span>&#123;<br>    ArrayList&lt;City&gt; cities = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5000</span>; i++) &#123;<br>      cities.add(<span class="hljs-keyword">new</span> City(String.valueOf(i),<span class="hljs-string">&quot;深圳&quot;</span>));<br>    &#125;<br>    <span class="hljs-keyword">return</span> cities;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">City</span> </span>&#123;<br>  <span class="hljs-keyword">private</span> String id;<br><br>  <span class="hljs-keyword">private</span> String name;<br><br>  <span class="hljs-keyword">private</span> String code;<br><br>  <span class="hljs-keyword">byte</span>[] info = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1024</span>*<span class="hljs-number">100</span>];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>同时，java的代码也是需要优化的，一次查询出500M的对象出来，明显不合适，要根据之前说的各种原则尽量优化到合适的值，尽量消除这种朝生夕死的对象导致的full gc</p>
+<p>改成批量查询500后，Full GC 基本不再发生</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228223006680.png" srcset="/img/loading.gif" lazyload alt="image-20230228223006680"></p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="3-案例三——-订单系统"><a href="#3-案例三——-订单系统" class="headerlink" title="3. 案例三—— 订单系统"></a>3. 案例三—— 订单系统</h1><p>有一个订单系统，需要支持每秒支持下300个订单。假定每个订单对象是1kb，那么每秒将会有300kb对象生成。</p>
 <p>下单可能还涉及创建其他对象创建，比如库存，优惠卷，积分，以及这个系统可能还支持订单的查询，我们放大20倍，那么就是300 * 20  &#x3D; 6000kb，约60MB，也就是这个系统每秒会产生60M的垃圾。</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228224236047.png" srcset="/img/loading.gif" lazyload alt="image-20230228224236047"></p>
 <p>假设机器是4核8G，那么一般可能会给我们虚拟机分配个四五G的内存，就会给堆分配个3G的内存，那么方法区分配256M，单个栈内存分配1M。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">1</span> ‐Xms3072M ‐Xmx3072M ‐Xss1M ‐XX:MetaspaceSize=256M ‐XX:MaxMetaspaceSize=256M ‐XX:SurvivorRatio=<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
 
@@ -342,7 +400,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>JVM调优案例(一)——日均百万级订单交易系统如何设置JVM参数</div>
-      <div>http://example.com/JVM调优案例-一-——日均百万级订单交易系统如何设置JVM参数/</div>
+      <div>http://example.com/JVM调优案例/</div>
     </div>
     <div class="license-meta">
       
