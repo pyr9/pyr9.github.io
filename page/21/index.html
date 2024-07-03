@@ -211,15 +211,76 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/redis%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
+          redis持久化
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/redis%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
+        <div>
+          
+          redis 持久化主要有2种方式：RDB 和AOF  RDB快照什么是RDB快照 rdb就是快照，是redis默认的持久化方式，就是把所有的数据持久化到磁盘，隔一段时间持久化一次到 dump.rdb 的二进制文件中，在服务器重启后只需要把文件中的数据恢复即可。  你可以对 Redis 进行设置， 让它在“ N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。 比如说， sa
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-27 22:40" pubdate>
+              2021-12-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/redis%E6%8C%81%E4%B9%85%E5%8C%96/">#redis持久化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/redis/" target="_self">
-          redis 核心数据结构
+          redis常见面试题
         </a>
       </h1>
 
       <a class="index-excerpt" href="/redis/" target="_self">
         <div>
           
-          1. redis 是什么？ redis是一个高性能的key-value 数据库，它可以用来存储字符串，哈希，列表，集合，有序集合。    StringString 是redis中最基础的数据结构，主要用在常规计数，如：统计网站访问数据量，当前在线人数等 应用场景  单值缓存 1234127.0.0.1:6379&gt; set key1 &quot;zhangsan&quot;OK127.0.0.
+          redis是一个高性能的key-value 数据库，它可以用来存储字符串，哈希，列表，集合，有序集合。  1. redis常见数据结构1 StringString 是redis中最基础的数据结构，主要用在常规计数，如：统计网站访问数据量，当前在线人数等 1.应用场景1 单值缓存1127.0.0.1:6379&gt; set key1 &quot;zhangsan&quot;  2 计数器1127
         </div>
       </a>
 
@@ -456,14 +517,14 @@
       <h1 class="index-header">
         
         <a href="/%E5%B8%B8%E8%A7%81sql%E4%BC%98%E5%8C%96/" target="_self">
-          常见sql优化
+          sql优化方式
         </a>
       </h1>
 
       <a class="index-excerpt" href="/%E5%B8%B8%E8%A7%81sql%E4%BC%98%E5%8C%96/" target="_self">
         <div>
           
-          常见sql优化 如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。  尽量使用覆盖索引（只访问索引的查询（索引列包含查询列）），减少select * 语句  尽量不使用不等于（！&#x3D;或者&lt;&gt;），这些无法使用索引，会导致全表扫描   尽量不使用 is null,is not null ，这些无法使用索引，会导致全表扫描   like以通配符开
+          1. sql优化方式1. 选择合适的数据类型 使用合适的数据类型：确保字段使用最合适的数据类型，避免使用比实际需要更大或更复杂的数据类型。 长度优化：例如，对于电话号码，可以使用CHAR(10)而不是VARCHAR(255)。  2. 创建和使用索引 索引常用查询字段：对经常出现在WHERE、JOIN、ORDER BY、GROUP BY中的字段建立索引。 组合索引：创建包含多个列的组合索引，以满足
         </div>
       </a>
 
@@ -726,72 +787,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E4%BD%BF%E7%94%A8Spock%E6%A1%86%E6%9E%B6%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81/" target="_self">
-          使用Spock框架编写测试代码
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E4%BD%BF%E7%94%A8Spock%E6%A1%86%E6%9E%B6%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81/" target="_self">
-        <div>
-          
-          Spock 介绍  Spock是一个为groovy和java语言应用程序来测试和规范的框架。  这个框架的突出点在于它美妙和高效表达规范的语言。  得益于JUnit runner，Spock能够在大多数IDE、编译工具、持续集成服务下工作。  Spock的灵感源于JUnit,jMock, RSpec, Groovy, Scala, Vulcans以及其他优秀的框架形态。    基本操作 a sim
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-07 19:02" pubdate>
-              2021-10-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" class="category-chain-item">测试框架</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/spock/">#spock</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/20/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="page-number" href="/page/20/#board">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/#board">22</a><a class="extend next" rel="next" href="/page/22/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/20/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="page-number" href="/page/20/#board">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/#board">22</a><a class="page-number" href="/page/23/#board">23</a><a class="extend next" rel="next" href="/page/22/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

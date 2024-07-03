@@ -16,27 +16,24 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="常见sql优化 如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。  尽量使用覆盖索引（只访问索引的查询（索引列包含查询列）），减少select * 语句  尽量不使用不等于（！&#x3D;或者&lt;&gt;），这些无法使用索引，会导致全表扫描   尽量不使用 is null,is not null ，这些无法使用索引，会导致全表扫描   like以通配符开">
+    <meta name="description" content="1. sql优化方式1. 选择合适的数据类型 使用合适的数据类型：确保字段使用最合适的数据类型，避免使用比实际需要更大或更复杂的数据类型。 长度优化：例如，对于电话号码，可以使用CHAR(10)而不是VARCHAR(255)。  2. 创建和使用索引 索引常用查询字段：对经常出现在WHERE、JOIN、ORDER BY、GROUP BY中的字段建立索引。 组合索引：创建包含多个列的组合索引，以满足">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常见sql优化">
+<meta property="og:title" content="sql优化方式">
 <meta property="og:url" content="http://example.com/%E5%B8%B8%E8%A7%81sql%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="常见sql优化 如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。  尽量使用覆盖索引（只访问索引的查询（索引列包含查询列）），减少select * 语句  尽量不使用不等于（！&#x3D;或者&lt;&gt;），这些无法使用索引，会导致全表扫描   尽量不使用 is null,is not null ，这些无法使用索引，会导致全表扫描   like以通配符开">
+<meta property="og:description" content="1. sql优化方式1. 选择合适的数据类型 使用合适的数据类型：确保字段使用最合适的数据类型，避免使用比实际需要更大或更复杂的数据类型。 长度优化：例如，对于电话号码，可以使用CHAR(10)而不是VARCHAR(255)。  2. 创建和使用索引 索引常用查询字段：对经常出现在WHERE、JOIN、ORDER BY、GROUP BY中的字段建立索引。 组合索引：创建包含多个列的组合索引，以满足">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx4g3b8iklj31m606ejsx.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx4g3oc8zsj31ek06cgmu.jpg">
 <meta property="article:published_time" content="2021-12-05T14:08:58.000Z">
-<meta property="article:modified_time" content="2022-11-20T15:16:28.527Z">
+<meta property="article:modified_time" content="2024-07-03T14:46:14.044Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="mysql索引">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gx4g3b8iklj31m606ejsx.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>常见sql优化 - 楼上有只喵</title>
+  <title>sql优化方式 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -187,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="常见sql优化"></span>
+            <span id="subtitle" data-typed-text="sql优化方式"></span>
           
         </div>
 
@@ -211,7 +208,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.5k 字
+          1.2k 字
         
       </span>
     
@@ -223,7 +220,7 @@
         
         
           <!-- compatible with older versions-->
-          8 分钟
+          4 分钟
         
       </span>
     
@@ -271,77 +268,63 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">常见sql优化</h1>
+            <h1 style="display: none">sql优化方式</h1>
             
             <div class="markdown-body">
               
-              <h2 id="常见sql优化"><a href="#常见sql优化" class="headerlink" title="常见sql优化"></a>常见sql优化</h2><ul>
-<li><p>如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。</p>
-</li>
-<li><p>尽量使用覆盖索引（只访问索引的查询（索引列包含查询列）），减少select * 语句</p>
-</li>
-<li><p>尽量不使用不等于（！&#x3D;或者&lt;&gt;），这些无法使用索引，会导致全表扫描 </p>
-</li>
-<li><p>尽量不使用 is null,is not null ，这些无法使用索引，会导致全表扫描 </p>
-</li>
-<li><p>like以通配符开头（’$abc…’）mysql索引失效会变成全表扫描操作</p>
-</li>
-<li><p>少用or或in，用它查询时，mysql不一定使用索引，mysql内部优化器会根据检索比例、表大小等多个因素整体评估是否使用索引。</p>
-</li>
-<li><p>尽量将大范围拆分成多个小范围。单次数据量查询过大可能导致优化器最终选择不走索引</p>
-</li>
-<li><p>范围和范围右边的字段不会走索引，只有范围和范围之前的等值字段会走索引</p>
-</li>
-<li><p>不在索引列上做任何操作。（计算、函数、（自动or手动）类型转换），会导致索引失效而转向全表扫描。</p>
-</li>
+              <h1 id="1-sql优化方式"><a href="#1-sql优化方式" class="headerlink" title="1. sql优化方式"></a>1. sql优化方式</h1><h3 id="1-选择合适的数据类型"><a href="#1-选择合适的数据类型" class="headerlink" title="1. 选择合适的数据类型"></a>1. <strong>选择合适的数据类型</strong></h3><ul>
+<li><strong>使用合适的数据类型</strong>：确保字段使用最合适的数据类型，避免使用比实际需要更大或更复杂的数据类型。</li>
+<li><strong>长度优化</strong>：例如，对于电话号码，可以使用<code>CHAR(10)</code>而不是<code>VARCHAR(255)</code>。</li>
 </ul>
-<p>准备工作：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> `employees` (<br>  `id` <span class="hljs-type">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> AUTO_INCREMENT,<br>  `name` <span class="hljs-type">varchar</span>(<span class="hljs-number">24</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">&#x27;&#x27;</span> COMMENT <span class="hljs-string">&#x27;姓名&#x27;</span>,<br>  `age` <span class="hljs-type">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">&#x27;0&#x27;</span> COMMENT <span class="hljs-string">&#x27;年龄&#x27;</span>,<br>  `position` <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">&#x27;&#x27;</span> COMMENT <span class="hljs-string">&#x27;职位&#x27;</span>,<br>  `hire_time` <span class="hljs-type">timestamp</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> COMMENT <span class="hljs-string">&#x27;入职时 间&#x27;</span>,<br>  <span class="hljs-keyword">PRIMARY</span> KEY (`id`),<br>  KEY `idx_name_age_position` (`name`,`age`,`position`) <span class="hljs-keyword">USING</span> BTREE) ENGINE<span class="hljs-operator">=</span>InnoDB AUTO_INCREMENT<span class="hljs-operator">=</span><span class="hljs-number">4</span> <span class="hljs-keyword">DEFAULT</span> CHARSET<span class="hljs-operator">=</span>utf8 COMMENT<span class="hljs-operator">=</span><span class="hljs-string">&#x27;员工记录表&#x27;</span>;<br>  <br>  <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> employees(name,age,position,hire_time) <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;LiLei&#x27;</span>,<span class="hljs-number">22</span>,<span class="hljs-string">&#x27;mana ger&#x27;</span>,NOW());<br>  <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> employees(name,age,position,hire_time) <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;HanMeimei&#x27;</span>, <span class="hljs-number">23</span>,<span class="hljs-string">&#x27;dev&#x27;</span>,NOW());<br>  <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> employees(name,age,position,hire_time) <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;Lucy&#x27;</span>,<span class="hljs-number">23</span>,<span class="hljs-string">&#x27;dev&#x27;</span>,NOW());<br></code></pre></td></tr></table></figure>
-
-<p>Eg1: </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> EXPLAIN <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> employees <span class="hljs-keyword">WHERE</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;LiLei&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx4g3b8iklj31m606ejsx.jpg" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> EXPLAIN <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> employees <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">left</span>(name,<span class="hljs-number">3</span>) <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;LiLei&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gx4g3oc8zsj31ek06cgmu.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>Eg2:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> EXPLAIN <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> employees <span class="hljs-keyword">where</span> <span class="hljs-type">date</span>(hire_time) <span class="hljs-operator">=</span><span class="hljs-string">&#x27;2018-09-30&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> EXPLAIN <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> employees <span class="hljs-keyword">where</span> hire_time <span class="hljs-operator">&gt;=</span><span class="hljs-string">&#x27;2018-09-30 00:00:00&#x27;</span> <span class="hljs-keyword">and</span> hire_time <span class="hljs-operator">&lt;=</span><span class="hljs-string">&#x27;2018-09-30 23:59:59&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-<p>给hire_time增加一个普通索引，上面的sql由于进行了date运算所以不会走索引，下面的会走。</p>
-<h2 id="Using-filesort文件排序原理详解"><a href="#Using-filesort文件排序原理详解" class="headerlink" title="Using filesort文件排序原理详解"></a><strong>Using filesort文件排序原理详解</strong></h2><ul>
-<li><p>MySQL支持两种方式的排序filesort和index，Using index是指MySQL扫描索引本身完成排序。index效率高，filesort效率低。 </p>
-</li>
-<li><p>filesort文件排序方式</p>
-<ul>
-<li>单路排序：是一次性取出满足条件行的所有字段，然后在sort buffer中进行排序；用trace工具可以看到sort_mode信息里显示&lt; sort_key, additional_fields &gt;或者&lt; sort_key, packed_additional_fields &gt;</li>
-<li>双路排序（又叫<strong>回表</strong>排序模式）：是首先根据相应的条件取出相应的<strong>排序字段</strong>和<strong>可以直接定位行</strong> <strong>数据的行 ID</strong>(主键)，然后在 sort buffer 中进行排序，排序完后需要再次通过主键回到原表查询需要的字段。用trace工具 可以看到sort_mode信息里显示&lt; sort_key, rowid &gt;</li>
+<h3 id="2-创建和使用索引"><a href="#2-创建和使用索引" class="headerlink" title="2. 创建和使用索引"></a>2. <strong>创建和使用索引</strong></h3><ul>
+<li><strong>索引常用查询字段</strong>：对经常出现在<code>WHERE</code>、<code>JOIN</code>、<code>ORDER BY</code>、<code>GROUP BY</code>中的字段建立索引。</li>
+<li><strong>组合索引</strong>：创建包含多个列的组合索引，以满足多个条件查询的需求。</li>
+<li><strong>覆盖索引</strong>：选择性地创建覆盖索引，使查询可以直接从索引中获取数据而无需访问表数据。</li>
+<li><strong>避免过多索引</strong>：过多的索引会影响写操作的性能，应在查询和写操作之间找到平衡。</li>
+<li><strong>遵守最左前缀法则</strong>：如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。</li>
 </ul>
-<blockquote>
-<p> MySQL 通过比较系统变量 max_length_for_sort_data(<strong>默认1024字节</strong>) 的大小和需要查询的字段总大小来 判断使用哪种排序模式。</p>
-<ul>
-<li><p>如果 max_length_for_sort_data 比查询字段的总长度大，那么使用 单路排序模式； </p>
-</li>
-<li><p>如果 max_length_for_sort_data 比查询字段的总长度小，那么使用 双路排序模式。</p>
-</li>
+<h3 id="3-优化查询语句"><a href="#3-优化查询语句" class="headerlink" title="3. 优化查询语句"></a>3. <strong>优化查询语句</strong></h3><ul>
+<li>**避免SELECT ***：只查询需要的字段，避免使用<code>SELECT *</code>。</li>
+<li><strong>减少子查询</strong>：在可能的情况下，使用<code>JOIN</code>代替子查询。</li>
+<li>**使用<code>EXISTS</code>替代<code>IN</code>**：对于子查询，使用<code>EXISTS</code>可能比<code>IN</code>更高效。</li>
+<li><strong>避免函数索引</strong>：在<code>WHERE</code>子句中避免对列使用函数，尽量在应用层处理数据。</li>
+<li><strong>避免索引失效，导致全表扫描</strong>：尽量不使用不等于（！&#x3D;或者&lt;&gt;）like，这些无法使用索引，会导致全表扫描 </li>
+<li>不在索引列上做任何操作。（计算、函数、（自动or手动）类型转换），会导致索引失效而转向全表扫描。</li>
 </ul>
-</blockquote>
-</li>
-<li><p>单路排序 和 双路排序的选择</p>
-<ul>
-<li><p>如果 MySQL 排序内存配置的比较小并且没有条件继续增加了，可以适当max_length_for_sort_data 配 置小点，让优化器选择使用<strong>双路排序</strong>算法，可以在sort_buffer 中一次排序更多的行，只是需要再根据主键回到原表取数据。 </p>
-</li>
-<li><p>如果 MySQL 排序内存有条件可以配置比较大，可以适当增大 max_length_for_sort_data 的值，让优化器 优先选择全字段排序(<strong>单路排序</strong>)，把需要的字段放到 sort_buffer 中，这样排序后就会直接从内存里返回查 询结果了。</p>
-</li>
+<h3 id="4-表设计优化"><a href="#4-表设计优化" class="headerlink" title="4. 表设计优化"></a>4. <strong>表设计优化</strong></h3><ul>
+<li><strong>规范化</strong>：确保表设计符合第三范式，减少数据冗余。</li>
+<li><strong>适当反规范化</strong>：在读操作频繁的情况下，可以适当反规范化，减少<code>JOIN</code>操作。</li>
+<li><strong>使用分区</strong>：对于非常大的表，可以使用分区表，提高查询性能。</li>
 </ul>
-</li>
+<h3 id="5-优化JOIN操作"><a href="#5-优化JOIN操作" class="headerlink" title="5. 优化JOIN操作"></a>5. <strong>优化<code>JOIN</code>操作</strong></h3><ul>
+<li><strong>选择适当的<code>JOIN</code>类型</strong>：根据需求选择<code>INNER JOIN</code>、<code>LEFT JOIN</code>等，避免不必要的全表扫描。</li>
+<li><strong>确保<code>JOIN</code>字段索引</strong>：确保<code>JOIN</code>操作中使用的字段上有索引。</li>
+<li><strong>减少<code>JOIN</code>数量</strong>：避免多个表的<code>JOIN</code>，减少复杂度。</li>
 </ul>
-<blockquote>
-<p>所以，MySQL通过 <strong>max_length_for_sort_data</strong> 这个参数来控制排序，在不同场景使用不同的排序模式， 从而提升排序效率。</p>
-</blockquote>
-
+<h3 id="6-分页查询优化"><a href="#6-分页查询优化" class="headerlink" title="6. 分页查询优化"></a>6. <strong>分页查询优化</strong></h3><ul>
+<li><strong>限制返回数据量</strong>：使用<code>LIMIT</code>和<code>OFFSET</code>进行分页查询，避免一次性返回大量数据。</li>
+<li><strong>优化分页</strong>：使用高效的分页查询方式，如基于索引的分页或通过ID范围查询。</li>
+</ul>
+<h3 id="7-批量操作"><a href="#7-批量操作" class="headerlink" title="7. 批量操作"></a>7. <strong>批量操作</strong></h3><ul>
+<li><strong>批量插入和更新</strong>：使用批量插入或更新操作，减少单次SQL操作的开销。</li>
+<li><strong>避免逐行处理</strong>：尽量使用批量操作代替逐行处理，提高效率。</li>
+</ul>
+<h3 id="8-分析查询性能"><a href="#8-分析查询性能" class="headerlink" title="8. 分析查询性能"></a>8. <strong>分析查询性能</strong></h3><ul>
+<li>**使用<code>EXPLAIN</code>**：使用<code>EXPLAIN</code>命令分析查询执行计划，识别性能瓶颈。</li>
+<li><strong>查询日志分析</strong>：启用慢查询日志，分析执行时间较长的查询，进行针对性优化。</li>
+</ul>
+<h3 id="9-使用缓存"><a href="#9-使用缓存" class="headerlink" title="9. 使用缓存"></a>9. <strong>使用缓存</strong></h3><ul>
+<li><strong>应用层缓存</strong>：使用Redis或Memcached等缓存频繁查询的数据。</li>
+<li><strong>数据库层缓存</strong>：利用数据库的查询缓存机制（如MySQL Query Cache）。</li>
+</ul>
+<h3 id="11-使用合适的存储引擎"><a href="#11-使用合适的存储引擎" class="headerlink" title="11. 使用合适的存储引擎"></a>11. <strong>使用合适的存储引擎</strong></h3><ul>
+<li><strong>选择合适的存储引擎</strong>：根据具体需求选择适合的存储引擎（如InnoDB、MyISAM）。</li>
+</ul>
+<h3 id="12-避免死锁"><a href="#12-避免死锁" class="headerlink" title="12. 避免死锁"></a>12. <strong>避免死锁</strong></h3><ul>
+<li><strong>合理的事务管理</strong>：控制事务的粒度，避免长时间持有锁。</li>
+<li><strong>避免资源竞争</strong>：尽量减少并发操作中对相同资源的竞争。</li>
+</ul>
+<h3 id="13-数据量大时采用归档或者CH等，提高查询效率"><a href="#13-数据量大时采用归档或者CH等，提高查询效率" class="headerlink" title="13. 数据量大时采用归档或者CH等，提高查询效率"></a>13. 数据量大时采用归档或者CH等，提高查询效率</h3>
               
             </div>
             <hr/>
@@ -385,7 +368,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>常见sql优化</div>
+      <div>sql优化方式</div>
       <div>http://example.com/常见sql优化/</div>
     </div>
     <div class="license-meta">
