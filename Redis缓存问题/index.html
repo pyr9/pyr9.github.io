@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225351935.png">
 <meta property="article:published_time" content="2021-12-29T14:45:20.000Z">
-<meta property="article:modified_time" content="2024-05-29T14:37:33.297Z">
+<meta property="article:modified_time" content="2024-07-07T12:35:38.157Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="缓存">
 <meta name="twitter:card" content="summary_large_image">
@@ -210,7 +210,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          4.3k 字
+          5.1k 字
         
       </span>
     
@@ -222,7 +222,7 @@
         
         
           <!-- compatible with older versions-->
-          14 分钟
+          17 分钟
         
       </span>
     
@@ -309,9 +309,27 @@
 </ul>
 </li>
 </ul>
-<h1 id="4-热点缓存key重建优化"><a href="#4-热点缓存key重建优化" class="headerlink" title="4 热点缓存key重建优化"></a>4 <strong>热点缓存key重建优化</strong></h1><h2 id="4-1定义"><a href="#4-1定义" class="headerlink" title="4.1定义"></a>4.1定义</h2><p>当前key是一个热点key（例如一个热门的娱乐新闻），并发量非常大。 重建缓存不能在短时间完成， 可能是一个复杂计算， 例如复杂的SQL、 多次IO、 多个依赖等。 </p>
-<h2 id="4-2-产生原因"><a href="#4-2-产生原因" class="headerlink" title="4.2 产生原因"></a>4.2 产生原因</h2><p>在缓存失效的瞬间， 有大量线程来重建缓存， 造成后端负载加大， 甚至可能会让应用崩溃。</p>
-<h2 id="4-3-解决方案"><a href="#4-3-解决方案" class="headerlink" title="4.3 解决方案"></a>4.3 解决方案</h2><h3 id="4-3-1-互斥锁"><a href="#4-3-1-互斥锁" class="headerlink" title="4.3.1 互斥锁"></a>4.3.1 互斥锁</h3><p>利用互斥锁来解决，此方法只允许一个线程重建缓存， 其他线程等待重建缓存的线程执行完， 重新从缓存获取数据即可。</p>
+<h1 id="4-Redis热key问题"><a href="#4-Redis热key问题" class="headerlink" title="4 Redis热key问题"></a>4 Redis热key问题</h1><h2 id="4-1定义"><a href="#4-1定义" class="headerlink" title="4.1定义"></a>4.1定义</h2><p>在Redis中，我们把访问频率高的Key，称为热Key（例如一个热门的娱乐新闻））。热key问题就是，突然有几十万的请求去访问redis上的某个特定key。那么这样会造成redis服务器短时间流量过于集中，很可能导致redis的服务器宕机。那么接下来对这个Key的请求，都会直接请求到我们的后端数据库中，数据库性能本来就不高，这样就可能直接压垮数据库，进而导致后端服务不可用。</p>
+<h2 id="4-2-产生原因"><a href="#4-2-产生原因" class="headerlink" title="4.2 产生原因"></a>4.2 产生原因</h2><p>用户消费的数据远大于生产的数据，如商品秒杀、热点新闻、热点评论等读多写少的场景</p>
+<p>双十一秒杀商品，短时间内某个爆款商品可能被点击&#x2F;购买上百万次，或者某条爆炸性新闻等被大量浏览，此时会造成一个较大的请求Redis量，这种情况下就会造成热点Key问题。</p>
+<h2 id="4-3-怎么发现热key"><a href="#4-3-怎么发现热key" class="headerlink" title="4.3 怎么发现热key"></a>4.3 怎么发现热key</h2><ol>
+<li><p>凭借业务经验，进行预估哪些是热key<br>其实这个方法还是挺有可行性的。比如某商品在做秒杀，那这个商品的key就可以判断出是热key。缺点很明显，并非所有业务都能预估出哪些key是热key。</p>
+</li>
+<li><p><em>在客户端进行收集</em>。</p>
+<p>操作redis之前，加入一行代码进行数据统计。那么这个数据统计的方式有很多种，也可以是给外部的通讯系统发送一个通知信息。缺点就是对客户端代码造成入侵。</p>
+</li>
+<li><p>用redis自带命令</p>
+<p>(1). monitor命令，该命令可以实时抓取出redis服务器接收到的命令，然后写代码统计出热key是啥。当然，也有现成的分析工具可以给你使用，比如<code>redis-faina</code>。但是该命令在高并发的条件下，有内存增暴增的隐患，还会降低redis的性能。<br>(2). hotkeys参数，redis 4.0.3提供了redis-cli的热点key发现功能，执行redis-cli时加上–hotkeys选项即可。但是该参数在执行的时候，如果key比较多，执行起来比较慢。</p>
+</li>
+<li><p><em>自己抓包评估</em></p>
+<p>自己写程序监听端口，按照RESP协议规则解析数据，进行分析。缺点就是开发成本高，维护困难，有丢包可能性。</p>
+</li>
+</ol>
+<h2 id="4-4-如何解决"><a href="#4-4-如何解决" class="headerlink" title="4.4 如何解决"></a>4.4 如何解决</h2><ol>
+<li>Redis集群扩容：增加分片副本，分摊客户端发过来的读请求；**</li>
+<li>使用二级缓存，即JVM本地缓存，减少Redis的读请求。比如利用<code>HashMap</code>。在你发现热key以后，把热key加载到系统的JVM中。针对这种热key请求，会直接从jvm中取，而不会走到redis层。</li>
+</ol>
+<h3 id="4-3-1-互斥锁"><a href="#4-3-1-互斥锁" class="headerlink" title="4.3.1 互斥锁"></a>4.3.1 互斥锁</h3><p>利用互斥锁来解决，此方法只允许一个线程重建缓存， 其他线程等待重建缓存的线程执行完， 重新从缓存获取数据即可。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function">String <span class="hljs-title">get</span><span class="hljs-params">(String key)</span> </span>&#123;<br>    <span class="hljs-comment">// 从Redis中获取数据</span><br>    String value = redis.get(key);<br>    <span class="hljs-comment">// 如果value为空， 则开始重构缓存</span><br>    <span class="hljs-keyword">if</span> (value == <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-comment">// 只允许一个线程重建缓存， 使用nx， 并设置过期时间ex</span><br>        String mutexKey = <span class="hljs-string">&quot;mutext:key:&quot;</span> + key;<br>        <span class="hljs-keyword">if</span> (redis.set(mutexKey, <span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;ex 180&quot;</span>, <span class="hljs-string">&quot;nx&quot;</span>)) &#123;<br>             <span class="hljs-comment">// 从数据源获取数据</span><br>            value = db.get(key);<br>            <span class="hljs-comment">// 回写Redis， 并设置过期时间</span><br>            redis.setex(key, timeout, value);<br>            <span class="hljs-comment">// 删除key_mutex</span><br>            redis.delete(mutexKey);<br>        &#125;<span class="hljs-comment">// 其他线程休息50毫秒后重试</span><br>        <span class="hljs-keyword">else</span> &#123;<br>            Thread.sleep(<span class="hljs-number">50</span>);<br>            get(key);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> value;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
