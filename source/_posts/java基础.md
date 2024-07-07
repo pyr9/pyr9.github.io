@@ -101,3 +101,199 @@ categories:
 
 
 
+# 4. java如何创建一个线程？
+
+1. **通过继承`Thread`类**：
+
+- 创建一个新的类继承`Thread`类。
+- 重写`run`方法，在`run`方法中定义线程要执行的任务。
+- 创建该类的实例并调用`start`方法启动线程。
+
+```java
+public class MyThread extends Thread {
+    @Override
+    public void run() {
+        // 线程要执行的任务
+        System.out.println("Thread is running");
+    }
+
+    public static void main(String[] args) {
+        MyThread thread = new MyThread();
+        thread.start();  // 启动线程
+    }
+}
+```
+
+2. **通过实现`Runnable`接口**：
+
+- 创建一个实现`Runnable`接口的类。
+- 实现`run`方法，在`run`方法中定义线程要执行的任务。
+- 创建一个`Thread`对象，并将实现`Runnable`接口的实例作为参数传递给`Thread`构造函数。
+- 调用`Thread`对象的`start`方法启动线程。
+
+```java
+public class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        // 线程要执行的任务
+        System.out.println("Thread is running");
+    }
+
+    public static void main(String[] args) {
+        MyRunnable myRunnable = new MyRunnable();
+        Thread thread = new Thread(myRunnable);
+        thread.start();  // 启动线程
+    }
+}
+```
+
+
+
+3. **通过实现 `Callable` 接口并使用 `FutureTask`**：
+
+通过使用 `Callable` 和 `FutureTask`，你可以创建一个带返回结果的线程，并在需要时获取其结果。这种方式非常适合用于需要并行执行并获取结果的任务。
+
+```java
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+
+public class SimpleCallableExample {
+
+    public static void main(String[] args) {
+        // 创建一个实现 Callable 接口的类
+        Callable<Integer> callableTask = new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                // 模拟一些计算任务
+                System.out.println("Thread is running");
+                return 42;  // 返回结果
+            }
+        };
+
+        // 使用 FutureTask 包装 Callable 对象
+        FutureTask<Integer> futureTask = new FutureTask<>(callableTask);
+
+        // 创建并启动线程
+        Thread thread = new Thread(futureTask);
+        thread.start();
+
+        try {
+            // 获取异步计算的结果
+            Integer result = futureTask.get();
+            System.out.println("Result from thread: " + result);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+3. **通过使用`ExecutorService`框架**：
+
+- 使用`Executors`创建一个线程池。
+- 提交实现`Runnable`或`Callable`接口的任务给线程池来执行。
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        // 线程要执行的任务
+        System.out.println("Thread is running");
+    }
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        MyRunnable myRunnable = new MyRunnable();
+        executorService.execute(myRunnable);  // 提交任务给线程池执行
+        executorService.shutdown();  // 关闭线程池
+    }
+}
+```
+
+# 5. Spring如何创建一个线程
+
+1. 使用 `@Async` 注解
+
+`@Async` 注解用于将某个方法标记为异步执行。要使用它，你需要启用Spring的异步支持。
+
+```java
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AsyncService {
+    
+    @Async
+    public void asyncMethod() {
+        System.out.println("Async method started");
+        try {
+            Thread.sleep(2000);  // 模拟长时间任务
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Async method finished");
+    }
+}
+
+```
+
+2. 使用 `TaskExecutor`
+
+`TaskExecutor` 是Spring提供的一组接口，用于抽象并发编程的细节。你可以使用 `ThreadPoolTaskExecutor` 来创建一个线程池。
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.concurrent.Executor;
+
+@Configuration
+public class TaskExecutorConfig {
+
+    @Bean(name = "taskExecutor")
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(25);
+        executor.setThreadNamePrefix("AsyncThread-");
+        executor.initialize();
+        return executor;
+    }
+}
+
+```
+
+在服务类中注入 `TaskExecutor` 并使用它执行任务：
+
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.stereotype.Service;
+
+@Service
+public class TaskExecutorService {
+
+    @Autowired
+    private TaskExecutor taskExecutor;
+
+    public void executeTask() {
+        taskExecutor.execute(() -> {
+            System.out.println("Task executed by TaskExecutor");
+            try {
+                Thread.sleep(2000);  // 模拟长时间任务
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Task completed");
+        });
+    }
+}
+
+```
