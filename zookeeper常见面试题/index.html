@@ -23,10 +23,12 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1. Zookeeper集群中有几个角色Zookeeper集群中有三个主要角色：  Leader：负责处理写请求和同步数据到Followers。 Follower：处理读请求，参与选举过程。 Observer：不参与投票选举，仅同步Leader的数据，用于扩展读取性能。  2.  Zookeeper如何保证数据一致性？Zookeeper使用一种称为ZAB协议（Zookeeper Atomic Br">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240707232914392.png">
 <meta property="article:published_time" content="2023-05-29T15:00:29.000Z">
-<meta property="article:modified_time" content="2024-05-30T14:59:17.132Z">
+<meta property="article:modified_time" content="2024-07-07T15:34:24.905Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240707232914392.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -207,7 +209,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.6k 字
+          2.2k 字
         
       </span>
     
@@ -219,7 +221,7 @@
         
         
           <!-- compatible with older versions-->
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -295,17 +297,44 @@
 <li><strong>Leader崩溃后的Leader选举</strong>：如果Leader节点崩溃，剩余节点会重新选举新的Leader。</li>
 </ul>
 <h1 id="7-选举过程是怎样的？"><a href="#7-选举过程是怎样的？" class="headerlink" title="7. 选举过程是怎样的？"></a>7. 选举过程是怎样的？</h1><ol>
-<li><strong>启动选举</strong>：所有节点初始化自己的投票（投票给自己）。</li>
-<li><strong>发送投票</strong>：节点将自己的投票发送给所有其他节点。</li>
-<li><strong>接收投票</strong>：节点接收来自其他节点的投票。</li>
-<li><strong>更新投票</strong>：根据接收到的投票，更新自己的投票（选择epoch和zxid更高的投票）。</li>
-<li><strong>统计投票</strong>：每个节点统计接收到的投票数量，如果某个投票获得超过半数节点的支持，该投票对应的节点被选为Leader。</li>
-<li><strong>通知结果</strong>：选举结束后，所有节点被通知选举结果，Leader节点开始工作，Follower节点开始同步数据。</li>
+<li><p><strong>启动选举</strong>：当ZooKeeper集群启动时，所有节点（Server）都会处于 LOOKING 状态，表示它们在寻找一个领导者。</p>
+</li>
+<li><p><strong>投票阶段</strong>：</p>
+<ul>
+<li><p>每个节点向其他所有节点发送一条投票信息。投票信息包含节点自身的ID（myid）、其当前的ZXID（事务ID）、以及它认为的Leader的ID和ZXID。</p>
+</li>
+<li><p>节点在初始状态下会投自己作为Leader，并向其他节点发送这个投票。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>接收投票</strong>：</p>
+<ul>
+<li><p>每个节点接收到来自其他节点的投票信息后，会对这些投票进行比较。</p>
+</li>
+<li><p>比较的依据是首先看ZXID，ZXID大的节点更有可能成为Leader。如果ZXID相同，则比较节点ID，ID大的节点会被选为Leader。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>更新投票</strong>：</p>
+<ul>
+<li>如果一个节点接收到的投票信息中，存在一个比自己当前投票更高的（根据ZXID和节点ID比较），那么该节点会更新自己的投票信息，并重新发送投票。</li>
+<li>这样不断地更新和传播投票信息，最终所有节点都会趋向于认可同一个Leader。</li>
+</ul>
+</li>
+<li><p><strong>胜出者</strong>：</p>
+<ul>
+<li>当某个节点发现自己收到的大多数投票（超过半数）都认可同一个节点作为Leader时，这个节点就会认为选举完成，并将自己状态从LOOKING转换为FOLLOWING或LEADING。</li>
+<li>Leader会将其他节点的状态从LOOKING转换为FOLLOWING或OBSERVING。</li>
+</ul>
+</li>
+<li><p><strong>完成选举</strong>：一旦大多数节点达成一致，选举过程结束，Leader节点开始工作，Follower节点开始同步数据。。</p>
+</li>
 </ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240707232914392.png" srcset="/img/loading.gif" lazyload alt="image-20240707232914392"></p>
 <h1 id="8-Leader选举的算法是什么？"><a href="#8-Leader选举的算法是什么？" class="headerlink" title="8. Leader选举的算法是什么？"></a>8. Leader选举的算法是什么？</h1><p>Zookeeper使用Fast Paxos算法的一种变种进行Leader选举。选举过程通过比较每个节点的epoch（时代编号）和zxid（事务ID）来决定Leader，选择epoch和zxid最大的节点作为Leader。</p>
 <h1 id="9-Zookeeper如何解决脑裂问题？"><a href="#9-Zookeeper如何解决脑裂问题？" class="headerlink" title="9.  Zookeeper如何解决脑裂问题？"></a>9.  Zookeeper如何解决脑裂问题？</h1><p>Zookeeper使用多数派机制来应对脑裂问题。在Zookeeper集群中：</p>
 <ul>
-<li>只有超过半数的节点同意的操作才会被执行（如写操作、Leader选举等）。</li>
+<li>只有超过半数的节点同意的操作才会被执行（如写操作、Leader选举等）。即使原来的集群分裂成多个小集群，那么拥有超过原集群半数节点的集群至多只有一个，因此至多只会有一个小集群可以成功选举出leader，就避免了脑裂。</li>
 <li>任何一个子集若未达到超过半数节点，则不能对外提供服务。</li>
 </ul>
 <p>具体措施包括：</p>
@@ -321,6 +350,8 @@
 <li>由于Zookeeper使用多数派机制，包含3个节点的子集可以继续对外提供服务（因为3 &gt; 5&#x2F;2），而包含2个节点的子集则暂停服务。</li>
 </ul>
 <p>通过这些机制，Zookeeper有效避免了脑裂问题，确保系统的一致性和正确性。</p>
+<p><strong>ZooKeeper集群Leader选举中,为 什么必须超过集群总节点数量一半的节点收到相同投票,才能选举出 Leader?</strong></p>
+<p>答:是为了防止因为集群脑裂导致整个ZooKeeper集群不可用。</p>
 
               
             </div>
