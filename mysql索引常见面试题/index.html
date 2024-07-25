@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png">
 <meta property="article:published_time" content="2023-06-13T08:45:55.000Z">
-<meta property="article:modified_time" content="2024-06-13T09:04:34.096Z">
+<meta property="article:modified_time" content="2024-07-25T12:32:12.898Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228230412331.png">
@@ -209,7 +209,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.9k 字
+          3.2k 字
         
       </span>
     
@@ -411,6 +411,8 @@
 <p>即：假设你建立了一个联合索引（A，B，C），那么在执行查询的时候  <code>where A=xx1 </code>或者 <code>where A=xx1 and B=xx2  </code>或者<code>where A=xx1 and B=xx2 and C=xx3 </code>会走索引进行查询优化，因为他们都是从最左列A开始。</p>
 <p>比如： <code>where B=xx1 and C=xx2  </code> 就不会走索引</p>
 <p> <code>where a=xx1 and C=xx2  </code> 就会走部分索引，即A的部分</p>
+<h2 id="2-原因"><a href="#2-原因" class="headerlink" title="2. 原因"></a>2. 原因</h2><p>最左匹配原则都是针对联合索引来说的，所以我们可以从联合索引的原理来了解最左匹配原则。</p>
+<p>索引的底层是一颗 B+ 树，那么联合索引当然还是一颗 B+ 树，只不过联合索引的键值数量不是一个，而是多个。构建一颗 B+ 树只能根据一个值来构建，因此数据库依据联合索引最左的字段来构建 B+ 树。形如(a,b,c)联合索引的 b+ 树。a 是有序的，而 b，c 都是无序的。但是当在 a 相同的时候，b 是有序的，b 相同的时候，c 又是有序的。即只有先确定了前一个（左侧的值）后，才能确定下一个值。</p>
 <h1 id="5-为什么InnoDb表要尽量设定一个主键"><a href="#5-为什么InnoDb表要尽量设定一个主键" class="headerlink" title="5 为什么InnoDb表要尽量设定一个主键"></a>5 为什么InnoDb表要尽量设定一个主键</h1><ul>
 <li>innnoDb表数据文件本身就是按B+tree组织的一个索引文件</li>
 <li>主键是数据库确保数据行在整张表唯一性的保障.</li>
