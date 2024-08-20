@@ -211,6 +211,320 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+          分布式锁
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" target="_self">
+        <div>
+          
+          [TOC] 1 什么是分布式锁在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁。 2 分布式锁的实现分布式锁的核心是实现多进程之间互斥，而满足这一点的方式有很多，常见的有三种：
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-08-01 10:20" pubdate>
+              2024-08-01
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/" target="_self">
+          CAP原则以及eureka和zookeeper的对比
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/CAP%E5%8E%9F%E5%88%99%E4%BB%A5%E5%8F%8Aeureka%E5%92%8Czookeeper%E7%9A%84%E5%AF%B9%E6%AF%94/" target="_self">
+        <div>
+          
+          1 CAP理论是什么？CAP即：  Consistency（一致性）：对于客户端的每次读操作，要么读到的是最新的数据，要么读取失败，返回一个错误或超时，其强调的是数据正确。 Availability（可用性）：任何客户端的请求都能得到响应数据，不会出现响应错误，但不保证数据最新，强调的是不出错。比如我们购买商品时，他的点赞数就与购买商品无关，我们可以允许他不是最新的。 Partition tole
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-21 22:23" pubdate>
+              2024-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/CAP%E5%8E%9F%E5%88%99/">#CAP原则</a>
+            
+              <a href="/tags/eureka/">#eureka</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" target="_self">
+          类加载机制的深度解析
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" target="_self">
+        <div>
+          
+          1. 类加载运行全过程当我们用java命令运行某个类的main函数启动程序时，首先需要通过类加载器把主类加载到 JVM。 有如下几步： 加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt; 使用 &gt;&gt; 卸载   加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-14 00:20" pubdate>
+              2024-07-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM/" class="category-chain-item">JVM</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">#类加载机制</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E8%AE%B0%E5%BD%95%E7%94%B1%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E5%AF%BC%E8%87%B4%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8A%E4%BA%8B%E6%95%85/" target="_self">
+          记录由于数据库用户权限导致的一次线上事故
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E8%AE%B0%E5%BD%95%E7%94%B1%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E5%AF%BC%E8%87%B4%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8A%E4%BA%8B%E6%95%85/" target="_self">
+        <div>
+          
+          1. 背景 11.3 生产环境和用户查询相关的功能，都报错could not extract ResultSet; SQL [n&#x2F;a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet ELK查询原因，Caused by: org.postgresql
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-07 17:19" pubdate>
+              2024-07-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BA%BF%E4%B8%8A%E4%BA%8B%E6%95%85/">#线上事故</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B/" target="_self">
+          JVM调优案例
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/JVM%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B/" target="_self">
+        <div>
+          
+          1. 案例一 ——测试环境服务异常挂掉1. 问题测试环境服务异常挂掉 2. 排查步骤查看操作系统日志，发现发生了OOM，操作系统的OOM KIiller 机制 将Java进程杀掉了（使用命令 egrep -i &#39;Out of memory&#39; &#x2F;var&#x2F;log&#x2F;messages）  [root@sith-mom-test-node deploy]# egrep -i ‘Out of
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-04 17:29" pubdate>
+              2024-07-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM/" class="category-chain-item">JVM</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/xxlJob%E4%BD%BF%E7%94%A8/" target="_self">
+          xxlJob使用
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/xxlJob%E4%BD%BF%E7%94%A8/" target="_self">
+        <div>
+          
+          1. 任务调度1. 什么是任务调度任务调度是为了自动完成特定任务，在约定的特定时刻去执行任务的过程。 2. 什么场景会需要任务调度 某电商平台需要每天上午10点，下午3点，晚上8点发放一批优惠券 某银行系统需要在信用卡到期还款日的前3天进行短信提醒 某财务系统需要每天凌晨结算前一天的财务数据  2. 分布式任务调度1. 什么是分布式任务调度采用分布式架构，一个服务往往会部署多个冗余实例来运行我们的
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-04 14:29" pubdate>
+              2024-07-04
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/pgsql/" target="_self">
           pgsql
         </a>
@@ -298,6 +612,69 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
+          RabbitMQ的消息零丢失方案
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/RabbitMQ%E7%9A%84%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7/" target="_self">
+        <div>
+          
+          RabbitMQ如何保证消息的可靠性？哪些环节会有丢消息的可能？ 普通消息处理流程 消息生成者发送消息 MQ收到消息，将消息进行存储（持久化到硬盘）。 返回ACK给生产者 MQ push 消息给对应的消费者，然后等待消费者返回ACK 如果消息消费者在指定时间内成功返回ack，那么MQ认为消息消费成功，在存储中删除消息，即执行第6步；如果MQ在指定时间内没有收到ACK，则认为消息消费失败，会尝试重新
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-13 12:37" pubdate>
+              2024-06-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MQ/">#MQ</a>
+            
+              <a href="/tags/%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7/">#消息可靠性</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/FullGC/" target="_self">
           FullGC
         </a>
@@ -340,237 +717,6 @@
 </span>
 
           </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FOOM-Killer/" target="_self">
-          操作系统OOM Killer
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FOOM-Killer/" target="_self">
-        <div>
-          
-          1. OOM Killer 是什么？OOM Killer（Out of Memory Killer）是 Linux 操作系统内核中的一个机制，用于在系统内存耗尽时，通过终止进程来释放内存资源，从而防止系统崩溃或无法响应。 2. OOM Killer 的触发条件当系统的物理内存和交换空间（swap）都被完全占用，且内核无法再分配内存时，就会触发 OOM（Out of Memory）状态。在这种情况下
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-06-12 10:43" pubdate>
-              2024-06-12
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E8%84%91%E8%A3%82/" target="_self">
-          脑裂
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E8%84%91%E8%A3%82/" target="_self">
-        <div>
-          
-          1. 脑裂是什么？脑裂是指在分布式系统中，网络分区或其他原因导致集群中的节点分裂成多个子集。由于互相无法通信，这些子集各自认为自己是唯一的集群，从而可能导致数据不一致性、服务重复、竞态条件等严重问题。 在分布式数据库、分布式文件系统、分布式锁等系统中，脑裂问题尤为重要，因为它直接影响系统的正确性和一致性。 2. 脑裂的成因 网络分区：集群中的节点因网络故障被分隔成多个子集，子集之间无法通信。 节点
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-05-30 22:51" pubdate>
-              2024-05-30
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/java%E5%9F%BA%E7%A1%80/" target="_self">
-          java基础
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/java%E5%9F%BA%E7%A1%80/" target="_self">
-        <div>
-          
-          1. Java 面向对象的三大特性及理解   默认情况下，面向对象有三大特性：继承、封装、多态。但如果考官让回答4大特性，我们就把抽象加上去。 1、继承  继承就是从已有的类继承信息创建新类的过程，被继承的类称为父类（也叫基类、超类），继承的类叫做子类（也叫派生类）。子类可以全盘接受父类的所有属性和方法（甚至是private修饰的，也可以继承，但是不能在父类之外访问，提供共有的访问方法（比如封装s
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-05-25 19:24" pubdate>
-              2024-05-25
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/spring%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-          spring常见面试题
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/spring%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-        <div>
-          
-          1. Spring 注入过程 启动 Spring 容器 读取配置文件或注解扫描（如 @ComponentScan）加载 Bean 的定义。 Spring 容器会根据 Bean 的定义实例化对象。这个过程称为实例化（Instantiation）。 Spring 容器会注入依赖对象到 Bean 中。依赖注入可以通过构造器、Setter 方法或字段注入来实现。  依赖注入完成后，可以通过 Spring
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-05-24 15:10" pubdate>
-              2024-05-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_self">
-          线程池
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_self">
-        <div>
-          
-          1. 线程池的定义  线程池的基本思想还是一种对象池的思想，开辟一块内存空间，里面存放了众多（未死亡）的线程，池中线程执行调度由池管理器来处理。当有线程任务时，从池中取一个，执行完成后线程对象归池，这样可以避免反复创建线程对象所带来的性能开销，节省了系统的资源，提高了代码执行效率。  线程池和工厂模式、观察者模式有关（自己不要提，设计模式是个坑） 2. 使用线程池的好处1.降低资源消耗。通过重复利
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-05-22 23:02" pubdate>
-              2024-05-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Jpa%E5%92%8Cmybatis/" target="_self">
-          Jpa和mybatis
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Jpa%E5%92%8Cmybatis/" target="_self">
-        <div>
-          
-          1. JPA和mybatis的区别基本概念  MyBatis： 是一个半自动化的持久层框架，专注于 SQL 映射和管理。 提供 SQL 查询、结果映射和存储过程的调用，允许开发者编写自己的 SQL。   JPA： 是 Java EE 和 Java SE 的标准规范，用于对象关系映射（ORM）。 主要实现包括 Hibernate、spring data jpa 和 OpenJPA。 提供全自动化的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-05-22 18:16" pubdate>
-              2024-05-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/jpa%E7%9A%84%E6%89%B9%E9%87%8F%E4%BC%98%E5%8C%96/" target="_self">
-          jpa的批量优化
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/jpa%E7%9A%84%E6%89%B9%E9%87%8F%E4%BC%98%E5%8C%96/" target="_self">
-        <div>
-          
-          1. 问题Spring-data-jpa自己带的JpaRepository里有很多现有的方法，如findAll, saveAll, deleteAll ,但是saveAll 和deleteAll 这种底层都是foreach的save或者delete的，性能非常低 2. 优化可以通过配置hibernate.jdbc.batch_size的方式， 将这些插入操作打包成一个批处理操作，然后一次性发送到数
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-05-21 19:11" pubdate>
-              2024-05-21
-            </time>
-          </div>
-        
         
         
       </div>

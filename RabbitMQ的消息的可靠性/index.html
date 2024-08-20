@@ -24,8 +24,8 @@
 <meta property="og:description" content="RabbitMQ如何保证消息的可靠性？哪些环节会有丢消息的可能？ 普通消息处理流程 消息生成者发送消息 MQ收到消息，将消息进行存储（持久化到硬盘）。 返回ACK给生产者 MQ push 消息给对应的消费者，然后等待消费者返回ACK 如果消息消费者在指定时间内成功返回ack，那么MQ认为消息消费成功，在存储中删除消息，即执行第6步；如果MQ在指定时间内没有收到ACK，则认为消息消费失败，会尝试重新">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228233457541.png">
-<meta property="article:published_time" content="2022-09-12T04:37:48.000Z">
-<meta property="article:modified_time" content="2023-02-28T15:35:03.775Z">
+<meta property="article:published_time" content="2024-06-13T04:37:48.000Z">
+<meta property="article:modified_time" content="2024-08-20T15:07:26.889Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="MQ">
 <meta property="article:tag" content="消息可靠性">
@@ -198,8 +198,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-12 12:37" pubdate>
-          2022年9月12日 下午
+        <time datetime="2024-06-13 12:37" pubdate>
+          2024年6月13日 下午
         </time>
       </span>
     
@@ -417,7 +417,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月12日</div>
+          <div>2024年6月13日</div>
         </div>
       
       
@@ -447,9 +447,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/" title="kafka的消息零丢失方案">
+                      <a href="/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/" title="内存泄漏和内存溢出">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">kafka的消息零丢失方案</span>
+                        <span class="hidden-mobile">内存泄漏和内存溢出</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -457,8 +457,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/RabbitMQ%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" title="RabbitMQ的高级特性">
-                        <span class="hidden-mobile">RabbitMQ的高级特性</span>
+                      <a href="/FullGC/" title="FullGC">
+                        <span class="hidden-mobile">FullGC</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
