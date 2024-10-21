@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/img_v3_02ao_623ea326-f24e-4ebb-9b9c-d41cc894e9ag.jpg">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/img_v3_02ao_a2e5305a-307f-4d19-a05a-17abb32f599g.jpg">
 <meta property="article:published_time" content="2024-01-04T01:56:22.000Z">
-<meta property="article:modified_time" content="2024-05-10T09:45:42.388Z">
+<meta property="article:modified_time" content="2024-10-21T02:47:35.310Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/img_v3_02ao_623ea326-f24e-4ebb-9b9c-d41cc894e9ag.jpg">
@@ -210,7 +210,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          8.7k 字
+          9.3k 字
         
       </span>
     
@@ -222,7 +222,7 @@
         
         
           <!-- compatible with older versions-->
-          28 分钟
+          30 分钟
         
       </span>
     
@@ -376,6 +376,21 @@
 <h3 id="7-修改docker启动脚本，增加-v挂载目录-3"><a href="#7-修改docker启动脚本，增加-v挂载目录-3" class="headerlink" title="7. 修改docker启动脚本，增加-v挂载目录"></a>7. 修改docker启动脚本，增加-v挂载目录</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -it \<br>  -d \<br>  --name filebeat \<br>  --network host \<br>  -e TZ=Asia/Shanghai \<br>  -v <span class="hljs-regexp">/home/</span>sith<span class="hljs-regexp">/deploy/</span>backend<span class="hljs-regexp">/logs:/u</span>sr<span class="hljs-regexp">/share/</span>filebeat/target \<br>  -v <span class="hljs-regexp">/etc/</span>elk8.<span class="hljs-number">4.3</span><span class="hljs-regexp">/filebeat/</span>filebeat.yml:<span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/filebeat/</span>filebeat.yml \<br>  -v <span class="hljs-regexp">/etc/</span>elk8.<span class="hljs-number">4.3</span><span class="hljs-regexp">/filebeat/</span>data:<span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/filebeat/</span>data \<br>  -v <span class="hljs-regexp">/etc/</span>elk8.<span class="hljs-number">4.3</span><span class="hljs-regexp">/filebeat/</span>logs:<span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/filebeat/</span>logs \<br>  elastic/filebeat:<span class="hljs-number">8.4</span>.<span class="hljs-number">3</span> \<br>  filebeat -e  -c <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/filebeat/</span>filebeat.yml<br></code></pre></td></tr></table></figure>
 
 <p>⚠️： ES映射的data和log比较大，建议放在磁盘空间比较足的目录。</p>
+<p><strong>注意：Docker中出现bash: vim: command not found解决方案</strong></p>
+<p>解决这个问题其实非常简单：只需要在你的Docker容器内安装vim即可。具体步骤如下：</p>
+<ol>
+<li><p>首先打开你正在运行的docker容器：<br><code>docker exec -it [container_id] /bin/bash</code></p>
+</li>
+<li><p>进入到了docker环境后, 我们可以通过apt-get（如果您使用基于Debian或Ubuntu等Linux发行版）或yum（如果您使用基于CentOS等Linux发行版）来安装Vim：</p>
+<ul>
+<li><code>apt-get update &amp;&amp; apt-get install vim -y   </code>Debian&#x2F;Ubuntu等系统 </li>
+<li>CentOS&#x2F;RHEL等系统<code>yum update &amp;&amp; yum install vim -y </code></li>
+</ul>
+</li>
+<li><p>以上步骤虽然能够解决问题，但每次创建新的Docker容器时，都需要手动执行这些步骤，显然不是一个理想的解决方案。更好的方法是在Dockerfile中添加安装vim编辑器的命令。这样，在构建docker镜像时就会自动安装vim。</p>
+<p>在你的Dockerfile中添加以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cobol">RUN apt-get update &amp;&amp; apt-get install vim -y  # Debian/Ubuntu等系统<br> <br>RUN yum update &amp;&amp; yum install vim -y  # CentOS/RHEL等系统<br></code></pre></td></tr></table></figure></li>
+</ol>
 
               
             </div>
