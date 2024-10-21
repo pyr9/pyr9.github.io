@@ -16,32 +16,25 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 配置nodeJs因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。官方文档  系统管理—&gt;管理插件—&gt;下载NodeJS插件    系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本  Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&amp;#x2F">
+    <meta name="description" content="1. 电商平台中订单未支付过期如何实现自动关单?业务场景：：外卖订单超 30 分钟未支付，则自动取订单；用户注册成功 15 分钟后，发短信息通知用户等等。 1.方案一：定时任务1. 定义写一个定时任务，定期扫描数据库中的订单，如果时间过期，就将其状态更新为关闭即可。  2. 优点 实现容易，成本低，基本不依赖其他组件  3. 缺点 时间可能不够精确。由于定时任务扫描的间隔是固定的，所以可能造成一些">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jenkins部署vue项目">
-<meta property="og:url" content="http://example.com/jenkins%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:title" content="场景题">
+<meta property="og:url" content="http://example.com/%E5%9C%BA%E6%99%AF%E9%A2%98/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 配置nodeJs因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。官方文档  系统管理—&gt;管理插件—&gt;下载NodeJS插件    系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本  Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&amp;#x2F">
+<meta property="og:description" content="1. 电商平台中订单未支付过期如何实现自动关单?业务场景：：外卖订单超 30 分钟未支付，则自动取订单；用户注册成功 15 分钟后，发短信息通知用户等等。 1.方案一：定时任务1. 定义写一个定时任务，定期扫描数据库中的订单，如果时间过期，就将其状态更新为关闭即可。  2. 优点 实现容易，成本低，基本不依赖其他组件  3. 缺点 时间可能不够精确。由于定时任务扫描的间隔是固定的，所以可能造成一些">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155958382.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155909887.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160310957.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160535916.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160620905.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322152124371.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230324163338300.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322154215106.png">
-<meta property="article:published_time" content="2023-03-15T06:44:30.000Z">
-<meta property="article:modified_time" content="2023-03-24T08:34:29.534Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240825224252447.png">
+<meta property="article:published_time" content="2024-08-25T14:39:28.000Z">
+<meta property="article:modified_time" content="2024-08-25T14:50:38.509Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155958382.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240825224252447.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>jenkins部署vue项目 - 楼上有只喵</title>
+  <title>场景题 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="jenkins部署vue项目"></span>
+            <span id="subtitle" data-typed-text="场景题"></span>
           
         </div>
 
@@ -203,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-15 14:44" pubdate>
-          2023年3月15日 下午
+        <time datetime="2024-08-25 22:39" pubdate>
+          2024年8月25日 晚上
         </time>
       </span>
     
@@ -216,7 +209,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.4k 字
+          808 字
         
       </span>
     
@@ -228,7 +221,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          3 分钟
         
       </span>
     
@@ -276,78 +269,38 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">jenkins部署vue项目</h1>
+            <h1 style="display: none">场景题</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-配置nodeJs"><a href="#1-配置nodeJs" class="headerlink" title="1 配置nodeJs"></a>1 配置nodeJs</h1><p>因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。<a target="_blank" rel="noopener" href="https://plugins.jenkins.io/nodejs">官方文档</a></p>
-<ol>
-<li>系统管理—&gt;管理插件—&gt;下载NodeJS插件</li>
-</ol>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155958382.png" srcset="/img/loading.gif" lazyload alt="image-20230315155958382"></p>
-<ol start="2">
-<li>系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本</li>
-</ol>
-<p>Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&#x2F;tools目录下</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155909887.png" srcset="/img/loading.gif" lazyload alt="image-20230315155909887"></p>
-<p>注：这里也需要配置git</p>
-<h1 id="2-新建一个任务"><a href="#2-新建一个任务" class="headerlink" title="2 新建一个任务"></a>2 新建一个任务</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160310957.png" srcset="/img/loading.gif" lazyload alt="image-20230315160310957"></p>
-<h1 id="3-配置仓库地址和分支名"><a href="#3-配置仓库地址和分支名" class="headerlink" title="3 配置仓库地址和分支名"></a>3 配置仓库地址和分支名</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160535916.png" srcset="/img/loading.gif" lazyload alt="image-20230315160535916"></p>
-<h1 id="4-配置构建环境"><a href="#4-配置构建环境" class="headerlink" title="4 配置构建环境"></a>4 配置构建环境</h1><p>构建环境勾选 Provide Node &amp; npm bin&#x2F;folder to PATH</p>
-<ul>
-<li>每次build，都会首先执行环境构建，环境构建无误后，才会开始真正的构建过程</li>
-<li>会下载nodejs并安装配置，并把node添加到当前PATH环境变量中，这样就支持node和npm命令了</li>
+              <h1 id="1-电商平台中订单未支付过期如何实现自动关单"><a href="#1-电商平台中订单未支付过期如何实现自动关单" class="headerlink" title="1. 电商平台中订单未支付过期如何实现自动关单?"></a>1. 电商平台中订单未支付过期如何实现自动关单?</h1><p>业务场景：：外卖订单超 30 分钟未支付，则自动取订单；用户注册成功 15 分钟后，发短信息通知用户等等。</p>
+<h2 id="1-方案一：定时任务"><a href="#1-方案一：定时任务" class="headerlink" title="1.方案一：定时任务"></a>1.方案一：<strong>定时任务</strong></h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h3><p>写一个定时任务，定期扫描数据库中的订单，如果时间过期，就将其状态更新为关闭即可。</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240825224252447.png" srcset="/img/loading.gif" lazyload alt="image-20240825224252447"></p>
+<h3 id="2-优点"><a href="#2-优点" class="headerlink" title="2. 优点"></a>2. 优点</h3><ul>
+<li>实现容易，成本低，基本不依赖其他组件</li>
 </ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160620905.png" srcset="/img/loading.gif" lazyload alt="image-20230315160620905"></p>
-<h1 id="5-配置shell"><a href="#5-配置shell" class="headerlink" title="5 配置shell"></a>5 配置shell</h1><p>执行：</p>
-<p><code>npm install &amp;&amp; npm run build &amp;&amp; npm run domain &amp;&amp; npm run aliyun</code></p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322152124371.png" srcset="/img/loading.gif" lazyload alt="image-20230322152124371"></p>
-<p>至此，可以点击立即构建了</p>
-<h1 id="6-配置远端服务器"><a href="#6-配置远端服务器" class="headerlink" title="6 配置远端服务器"></a>6 配置远端服务器</h1><p>注意：如果使用了echo,需要勾选Verbose output in console才可以在控制台，看到打印的日志</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230324163338300.png" srcset="/img/loading.gif" lazyload alt="image-20230324163338300"></p>
-<h1 id="7-使用打好的包替换服务器上的包"><a href="#7-使用打好的包替换服务器上的包" class="headerlink" title="7 使用打好的包替换服务器上的包"></a>7 使用打好的包替换服务器上的包</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322154215106.png" srcset="/img/loading.gif" lazyload alt="image-20230322154215106"></p>
-<h1 id="8-遇到的问题"><a href="#8-遇到的问题" class="headerlink" title="8 遇到的问题"></a>8 遇到的问题</h1><p>记录下在windows搭建时遇到的问题</p>
-<ol>
-<li>Cannot run program “sh” (in directory “C:\ProgramData\Jenkins.jenkins\workspace\sith-front”): CreateProcess error&#x3D;2, 系统找不到指定的文件。</li>
-</ol>
-<p>解决：Manage Jenkins-&gt; Configure System-&gt; Shell-&gt; Shell execute </p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">C:\Windows\system32\cmd.exe<br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>ssh:&#x2F;&#x2F;&#x2F;<a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#x74;&#x65;&#101;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#x74;&#x65;&#101;&#46;&#99;&#x6f;&#x6d;</a>:SIEMENS_MMF&#x2F;MMF.git +refs&#x2F;heads&#x2F;<em>:refs&#x2F;remotes&#x2F;origin&#x2F;</em>“ returned status code 128:<br>stdout:<br>stderr: ssh: connect to host  port 22: Connection refused<br>fatal: Could not read from remote repository.</p>
-<p>Please make sure you have the correct access rights<br>and the repository exists.</p>
+<h3 id="3-缺点"><a href="#3-缺点" class="headerlink" title="3. 缺点"></a>3. 缺点</h3><ul>
+<li><p><strong>时间可能不够精确</strong>。由于定时任务扫描的间隔是固定的，所以可能造成一些订单已经过</p>
+<p>期了一段时间才被扫描到，订单关闭的时间比正常时间晚一些。</p>
 </li>
-</ol>
-<p>原因：Jenkins网页登录时，ssh连接使用的是Jenkins自身的账户，并不是我们登录电脑所使用的的账户，该账户下并没有ssh连接所需要的rsa文件，</p>
-<p>解决：</p>
-<p>成功执行git pull等命令的账户，在C:\Users\xxxxxx.ssh目录下（xxxxxx是登录电脑的用户名，不是git的用户名），会有id_rsa，id_rsa.pub，known_hosts文件，把这3个文件拷贝到C:\Windows\System32\config\systemprofile.ssh目录下，再执行jenkins就OK了</p>
-
+<li><p><strong>增加了数据库的压力</strong>。随着订单的数量越来越多，扫描的成本也会越来越大，执行时间</p>
+<p>也会被拉长，可能导致某些应该被关闭的订单迟迟没有被关闭。</p>
+</li>
+</ul>
+<h3 id="4-适用场景"><a href="#4-适用场景" class="headerlink" title="4. 适用场景"></a>4. 适用场景</h3><p>对时间要求不是很敏感，并且数据量不太多的业务场景。</p>
+<h2 id="2-JDK-延迟队列-DelayQueue"><a href="#2-JDK-延迟队列-DelayQueue" class="headerlink" title="2. JDK 延迟队列 DelayQueue"></a>2. <strong>JDK 延迟队列 DelayQueue</strong></h2><h3 id="1-定义-1"><a href="#1-定义-1" class="headerlink" title="1. 定义"></a>1. 定义</h3><p>DelayQueue 是 JDK 提供的一个无界队列，我们可以看到，DelayQueue 队列中的元素需要实现 Delayed，它只提供了一个方法，就是获取过期时间用户的订单生成以后，设置过期时间比如 30 分钟，放入定义好的 DelayQueue，然后创建一个线程，在线程中while(true)不断的从 DelayQueue 中获取过期的数据。</p>
+<h3 id="2-优点-1"><a href="#2-优点-1" class="headerlink" title="2. 优点"></a>2. <strong>优点</strong></h3><p>不依赖任何第三方组件，连数据库也不需要了，实现起来也方便。</p>
+<h3 id="3-缺点-1"><a href="#3-缺点-1" class="headerlink" title="3. 缺点"></a>3. <strong>缺点</strong></h3><ul>
+<li>DelayQueue 是一个无界队列，如果放入的订单过多，会造成 JVM OOM</li>
+<li>DelayQueue基于 JVM 内存，如果 JVM 重启了，那所有数据就丢失了</li>
+</ul>
+<h3 id="4-适用场景-1"><a href="#4-适用场景-1" class="headerlink" title="4. 适用场景"></a>4. 适用场景</h3><p>DelayQueue 适用于数据量较小，且丢失也不影响主业务的场景，比如内部系统的一些非重要通知，就算丢失，也不会有太大影响。</p>
+<h2 id="3-RocketMQ-延迟消息"><a href="#3-RocketMQ-延迟消息" class="headerlink" title="3. RocketMQ 延迟消息"></a>3. <strong>RocketMQ 延迟消息</strong></h2><h3 id="1-定义-2"><a href="#1-定义-2" class="headerlink" title="1. 定义"></a>1. 定义</h3><h3 id="2-优点-2"><a href="#2-优点-2" class="headerlink" title="2. 优点"></a>2. 优点</h3><h3 id="3-缺点-2"><a href="#3-缺点-2" class="headerlink" title="3. 缺点"></a>3. 缺点</h3><h3 id="4-适用场景-2"><a href="#4-适用场景-2" class="headerlink" title="4. 适用场景"></a>4. 适用场景</h3><h2 id="4-RabbitMQ-死信队列"><a href="#4-RabbitMQ-死信队列" class="headerlink" title="4. RabbitMQ 死信队列"></a>4. <strong>RabbitMQ 死信队列</strong></h2><h3 id="1-定义-3"><a href="#1-定义-3" class="headerlink" title="1. 定义"></a>1. 定义</h3><h3 id="2-优点-3"><a href="#2-优点-3" class="headerlink" title="2. 优点"></a>2. 优点</h3><h3 id="3-缺点-3"><a href="#3-缺点-3" class="headerlink" title="3. 缺点"></a>3. 缺点</h3><h3 id="4-适用场景-3"><a href="#4-适用场景-3" class="headerlink" title="4. 适用场景"></a>4. 适用场景</h3><h2 id="5-Redisson-分布式延迟队列"><a href="#5-Redisson-分布式延迟队列" class="headerlink" title="5. Redisson 分布式延迟队列"></a>5. <strong>Redisson 分布式延迟队列</strong></h2><h3 id="1-定义-4"><a href="#1-定义-4" class="headerlink" title="1. 定义"></a>1. 定义</h3><h3 id="2-优点-4"><a href="#2-优点-4" class="headerlink" title="2. 优点"></a>2. 优点</h3><h3 id="3-缺点-4"><a href="#3-缺点-4" class="headerlink" title="3. 缺点"></a>3. 缺点</h3><h3 id="4-适用场景-4"><a href="#4-适用场景-4" class="headerlink" title="4. 适用场景"></a>4. 适用场景</h3><h2 id="6-redis-过期监听"><a href="#6-redis-过期监听" class="headerlink" title="6. redis 过期监听"></a>6. <strong>redis 过期监听</strong></h2><h3 id="1-定义-5"><a href="#1-定义-5" class="headerlink" title="1. 定义"></a>1. 定义</h3><h3 id="2-优点-5"><a href="#2-优点-5" class="headerlink" title="2. 优点"></a>2. 优点</h3><h3 id="3-缺点-5"><a href="#3-缺点-5" class="headerlink" title="3. 缺点"></a>3. 缺点</h3><h3 id="4-适用场景-5"><a href="#4-适用场景-5" class="headerlink" title="4. 适用场景"></a>4. 适用场景</h3>
               
             </div>
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/jenkins/" class="category-chain-item">jenkins</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -358,8 +311,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>jenkins部署vue项目</div>
-      <div>http://example.com/jenkins部署vue项目/</div>
+      <div>场景题</div>
+      <div>http://example.com/场景题/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +324,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月15日</div>
+          <div>2024年8月25日</div>
         </div>
       
       
@@ -401,18 +354,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E5%88%86%E5%B8%83%E5%BC%8FID/" title="分布式ID">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">分布式ID</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E6%9D%83%E9%99%90/" title="权限">
-                        <span class="hidden-mobile">权限</span>
+                      <a href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="分布式锁">
+                        <span class="hidden-mobile">分布式锁</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
