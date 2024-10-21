@@ -444,3 +444,25 @@ docker run -it \
 
 ⚠️： ES映射的data和log比较大，建议放在磁盘空间比较足的目录。
 
+
+
+**注意：Docker中出现bash: vim: command not found解决方案**
+
+解决这个问题其实非常简单：只需要在你的Docker容器内安装vim即可。具体步骤如下：
+
+1. 首先打开你正在运行的docker容器：
+   `docker exec -it [container_id] /bin/bash`
+
+2. 进入到了docker环境后, 我们可以通过apt-get（如果您使用基于Debian或Ubuntu等Linux发行版）或yum（如果您使用基于CentOS等Linux发行版）来安装Vim：
+   - `apt-get update && apt-get install vim -y   `Debian/Ubuntu等系统 
+   - CentOS/RHEL等系统`yum update && yum install vim -y ` 
+
+3. 以上步骤虽然能够解决问题，但每次创建新的Docker容器时，都需要手动执行这些步骤，显然不是一个理想的解决方案。更好的方法是在Dockerfile中添加安装vim编辑器的命令。这样，在构建docker镜像时就会自动安装vim。
+
+   在你的Dockerfile中添加以下命令：
+
+   ```cobol
+   RUN apt-get update && apt-get install vim -y  # Debian/Ubuntu等系统
+    
+   RUN yum update && yum install vim -y  # CentOS/RHEL等系统
+   ```
