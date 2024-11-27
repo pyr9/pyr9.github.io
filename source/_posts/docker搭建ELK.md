@@ -446,6 +446,86 @@ docker run -it \
 
 
 
+附：docker-compose.yml文件
+
+```yml
+networks:
+  tms:
+    external: true
+services:
+  elasticsearch:
+    image: elasticsearch:8.4.3
+    container_name: elasticsearch
+    user: "root"  # 设置容器内用户为 root
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=plm1234567890
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - ./elasticsearch/config:/usr/share/elasticsearch/config
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - ./elasticsearch/logs:/usr/share/elasticsearch/logs
+    networks:
+      - tms
+
+  logstash:
+    image: logstash:8.4.3
+    container_name: logstash
+    user: "root"  # 设置容器内用户为 root
+    ports:
+      - "5044:5044"
+    volumes:
+      - ./logstash/config:/usr/share/logstash/config
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    restart: always
+    networks:
+      - tms
+
+  kibana:
+    image: kibana:8.4.3
+    container_name: kibana
+    user: "root"  # 设置容器内用户为 root
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./kibana/config:/usr/share/kibana/config
+      - ./kibana/data:/usr/share/kibana/data
+      - ./kibana/plugins:/usr/share/kibana/plugins
+      - ./kibana/logs:/usr/share/kibana/logs
+    networks:
+      - tms
+
+  filebeat:
+    image: elastic/filebeat:8.4.3
+    container_name: filebeat
+    user: "root"  # 设置容器内用户为 root
+    volumes:
+      - /home/Z004NNRE/tms/deploy/backend/assistant-service/logs:/usr/share/filebeat/target/assistant-service
+      - /home/Z004NNRE/tms/deploy/backend/auth-service/logs:/usr/share/filebeat/target/auth-service
+      - /home/Z004NNRE/tms/deploy/backend/user-service/logs:/usr/share/filebeat/target/user-service
+      - /home/Z004NNRE/tms/deploy/backend/tms-service/logs:/usr/share/filebeat/target/tms-service
+      - /home/Z004NNRE/tms/deploy/backend/gateway-server/logs:/usr/share/filebeat/target/gateway-server
+      - /home/Z004NNRE/tms/deploy/backend/eureka-server/logs:/usr/share/filebeat/target/eureka-server
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./filebeat/data:/usr/share/filebeat/data
+      - ./filebeat/logs:/usr/share/filebeat/logs
+    depends_on:
+      - logstash
+    networks:
+      - tms
+
+```
+
+
+
+
+
 **注意：Docker中出现bash: vim: command not found解决方案**
 
 解决这个问题其实非常简单：只需要在你的Docker容器内安装vim即可。具体步骤如下：
