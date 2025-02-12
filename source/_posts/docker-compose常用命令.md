@@ -1,8 +1,9 @@
 ---
-title: docker-compose
+title: docker-compose容器化部署
 date: 2024-11-27 14:43:51
 tags:
 categories:
+password: 19980617pyr
 ---
 
 # 1. 常用命令
@@ -67,59 +68,75 @@ categories:
    docker-compose.yml
 
    ```yml
+   networks:
+     tms:
+       external: true
    services:
-     prod:
-       image: alpine:latest
-       links:
-         - postgres
-         - redis
-         - rabbitmq
-         - nginx
-       command: echo 'prod environment started'
      rabbitmq:
        image: rabbitmq:3-management-alpine
        hostname: rabbitmq
+       container_name: rabbitmq
        environment:
-         RABBITMQ_DEFAULT_USER: in_tms_ad
-         RABBITMQ_DEFAULT_PASS: INNOMOTICS.PE@2024
+         RABBITMQ_DEFAULT_USER: guest
+         RABBITMQ_DEFAULT_PASS: guest
+         TZ: Asia/Shanghai
        ports:
          - "5672:5672"
          - "15672:15672"
        restart: always
        networks:
          - tms
+       volumes:
+         - /etc/localtime:/etc/localtime:ro
+   
      redis:
        image: redis
+       container_name: redis
        ports:
          - 6379:6379
-       environment:
-         - REDIS_PASSWORD=INNOMOTICS.SO@2024
-       networks:
-         - tms
-     postgres:
-       image: postgres
-       environment:
-         POSTGRES_USER: in_tms_ad
-         POSTGRES_PASSWORD: INNOMOTICS.Dig@2024
-         POSTGRES_DB: db_tms
-       ports:
-         - "5432:5432"
        restart: always
-       volumes:
-         - ./postgresql/data:/var/lib/postgresql/data
-         - ./postgresql/logs:/var/log/postgresql
        networks:
          - tms
+       environment:
+         TZ: Asia/Shanghai
+       volumes:
+         - /etc/localtime:/etc/localtime:ro
+   
      nginx:
        image: nginx:latest
+       container_name: nginx
        ports:
          - "80:80"
+         - "443:443"
        restart: always
        volumes:
          - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf
          - ./nginx/config/conf.d:/etc/nginx/conf.d
-         - ./nginx/log/:/var/log/nginx
+         - ./nginx/ssl:/etc/nginx/ssl
+         - ./nginx/logs:/var/log/nginx
+         - ./nginx/html:/usr/share/nginx/html
          - ../frontend:/home/deploy/tms/frontend
+         - /etc/localtime:/etc/localtime:ro
+       networks:
+         - tms
+       environment:
+         TZ: Asia/Shanghai
+   
+     mysql:
+       image: mysql:8.0
+       container_name: mysql
+       environment:
+         MYSQL_DATABASE: xxl_job
+         MYSQL_USER: root
+         MYSQL_PASSWORD: root@1234
+         MYSQL_ROOT_PASSWORD: root@1234
+         TZ: Asia/Shanghai
+       ports:
+         - "3306:3306"
+       restart: always
+       volumes:
+         - mysql_data:/var/lib/mysql
+         - /etc/localtime:/etc/localtime:ro
        networks:
          - tms
    ```
@@ -136,14 +153,111 @@ categories:
 2. 更新nginx.conf配置, 并重启
 
 ```yml
-server {
-    listen 80;
-    server_name localhost;
+user  nginx;
+worker_processes  auto;
 
-    location / {
-        root /home/deploy/tms/frontend;
-        index index.html;
-        try_files $uri $uri/ /web/index.html;
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+	autoindex on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+	upstream gatewayservice {
+		server 10.64.192.112:8001;
+	}
+	upstream xxlJobAdmin {
+		server 10.64.192.112:8200;
+	}
+	upstream kibanaService {
+		server 10.64.192.112:5601;
+	}
+	upstream gitlabService {
+		server 10.64.192.112:8090;
+	}
+	upstream rabbitmqService {
+		server 10.64.192.112:15672;
+	}
+
+    server {
+        listen       80;
+        server_name  plm.innomotics.net.cn;
+        rewrite ^(.*)$ https://$host$1 permanent;
+    }
+
+
+    server {
+        listen       443 ssl;
+        server_name  plm.innomotics.net.cn;
+
+		#ssl证书的pem文件路径
+        ssl_certificate  /etc/nginx/ssl/S0004A05_plm.innomotics.net.cn.cer;
+        #ssl证书的key文件路径
+        ssl_certificate_key /etc/nginx/ssl/plm.innomotics.net.cn.key;
+
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Host $server_name;
+
+        # Header for SocketJS
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+        # 访问所有目录都默认走到
+        location / {
+            root   /home/deploy/tms/frontend/prod;
+            index  index.html index.htm;
+            add_header "Access-Control-Allow-Origin"  *;
+            try_files $uri $uri/ /index.html;
+        }   
+        location /api {
+		    rewrite ^/api/(.*)$ /$1 break;
+          proxy_pass         http://gatewayservice;
+					proxy_redirect     off;
+        }
+        location /xxl-job-admin/ {
+          proxy_pass			http://xxlJobAdmin;
+          proxy_redirect		off;
+        }
+        location /so-kibana/{
+          proxy_pass			http://kibanaService;
+          proxy_redirect		off;
+        }
+        location /so-gitlab/{
+          proxy_pass			http://gitlabService;
+          proxy_redirect		off;
+        }
+        location /so-rabbitmq/{
+          rewrite ^/so-rabbitmq/(.*) /$1 break; 
+          proxy_pass			http://rabbitmqService;
+          proxy_redirect		off;
+        }
+        location @router {
+          rewrite ^.*$ /index.html last;
+        } 
+
     }
 }
 ```
@@ -153,38 +267,42 @@ server {
 1. backend对应目录下上传jar包和docker-compose.yml
 
    ```yml
-   version: '3.8'
-   
+   networks:
+     tms:
+       external: true
    services:
-     ureka-server:
+     eureka-server:
        image: openjdk:17
-       container_name: ureka-server
-       networks:
-         - tms
-       ports:
-         - "8001:8001"
-       volumes:
-         - ./eureka-server:/home
-       environment:
-         - SPRING_PROFILES_ACTIVE=dev
-       command: ["java", "-jar", "/home/eureka-server-1.0-SNAPSHOT.jar"]
-   
-     gateway-server:
-       image: openjdk:17
-       container_name: gateway-server
+       container_name: eureka-server
+       restart: always
        networks:
          - tms
        ports:
          - "8002:8002"
        volumes:
+         - ./eureka-server:/home
+       environment:
+         - SPRING_PROFILES_ACTIVE=prod
+       command: ["java", "-jar", "/home/eureka-server-1.0-SNAPSHOT.jar"]
+   
+     gateway-server:
+       image: openjdk:17
+       container_name: gateway-server
+       restart: always
+       networks:
+         - tms
+       ports:
+         - "8001:8001"
+       volumes:
          - ./gateway-server:/home
        environment:
-         - SPRING_PROFILES_ACTIVE=dev
+         - SPRING_PROFILES_ACTIVE=prod
        command: ["java", "-jar", "/home/gateway-server-1.0-SNAPSHOT.jar"]
    
      auth-service:
        image: openjdk:17
        container_name: auth-service
+       restart: always
        networks:
          - tms
        ports:
@@ -192,12 +310,13 @@ server {
        volumes:
          - ./auth-service:/home
        environment:
-         - SPRING_PROFILES_ACTIVE=dev
+         - SPRING_PROFILES_ACTIVE=prod
        command: ["java", "-jar", "/home/auth-service-1.0-SNAPSHOT.jar"]
    
      user-service:
        image: openjdk:17
        container_name: user-service
+       restart: always
        networks:
          - tms
        ports:
@@ -205,12 +324,13 @@ server {
        volumes:
          - ./user-service:/home
        environment:
-         - SPRING_PROFILES_ACTIVE=dev
+         - SPRING_PROFILES_ACTIVE=prod
        command: ["java", "-jar", "/home/user-service-1.0-SNAPSHOT.jar"]
    
-     ssistant-service:
+     assistant-service:
        image: openjdk:17
-       container_name: ssistant-service
+       container_name: assistant-service
+       restart: always
        networks:
          - tms
        ports:
@@ -218,7 +338,7 @@ server {
        volumes:
          - ./assistant-service:/home
        environment:
-         - SPRING_PROFILES_ACTIVE=dev
+         - SPRING_PROFILES_ACTIVE=prod
        command: ["java", "-jar", "/home/assistant-service-1.0-SNAPSHOT.jar"]
    
      tms-service:
@@ -231,12 +351,8 @@ server {
        volumes:
          - ./tms-service:/home
        environment:
-         - SPRING_PROFILES_ACTIVE=dev
+         - SPRING_PROFILES_ACTIVE=prod
        command: ["java", "-jar", "/home/tms-service-1.0-SNAPSHOT.jar"]
-   
-   networks:
-     tms:
-       driver: bridge
    ```
 
    
