@@ -211,6 +211,130 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/Kafka%20%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
+          Kafka 持久化
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Kafka%20%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
+        <div>
+          
+          1 Kafka 持久化 每个 Topic 将消息分成多 Partition，每个 Partition 在存储层面是 append log 文件。 任何发布到此 Partition 的消息都会被直接追加到 log 文件的尾部，每条消息在文件中的位置称为 Offest（偏移量） Partition 是以文件的形式存储在文件系统中 log 文件根据 Broker 中的配置保留一定时间后删除来释放磁盘空间
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-13 17:26" pubdate>
+              2022-08-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Kafka/" class="category-chain-item">Kafka</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">#消息队列</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/kafka%E5%85%A5%E9%97%A8/" target="_self">
+          kafka入门
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/kafka%E5%85%A5%E9%97%A8/" target="_self">
+        <div>
+          
+          1 kafka 是什么？Kafka 是一个分布式，支持分区（partition）, 多副本（replication）,基于zookeeper 的分布式消息系统。它最大的特性就是可以实时的处理大数据量。 Kafka的使用场景：  日志的收集：记录各种服务的log。，通过kafka以统一接口服务的方式开放给各种 consumer，例如hadoop、Hbase、Solr等。 消息系统：解耦和生产者和消费
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-13 09:33" pubdate>
+              2022-08-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Kafka/" class="category-chain-item">Kafka</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
+            
+              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">#消息队列</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/kafka%E9%9B%86%E7%BE%A4/" target="_self">
           kafka集群
         </a>
@@ -703,128 +827,6 @@
               <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
             
               <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">#服务熔断</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/springCloud%E7%BD%91%E5%85%B3/" target="_self">
-          springCloud网关
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/springCloud%E7%BD%91%E5%85%B3/" target="_self">
-        <div>
-          
-          1.网关是什么1.1 网关产生的原因？ 在微服务架构中，一个系统往往由多个微服务组成，而这些服务可能部署在不同机房、不同地区、不同域名下。这种情况下，客户端想要直接请求这些服务，就需要知道它们具体的地址信息，例如 IP 地址、端口号等。这种客户端直接请求服务的方式存在以下问题：  当服务数量众多时，客户端需要维护大量的服务地址，这对于客户端来说，是非常繁琐复杂的。  在某些场景下可能会存在跨域请求
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-18 22:06" pubdate>
-              2022-07-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/springCloud%E4%B9%8BFeign%E6%90%AD%E5%BB%BA/" target="_self">
-          springCloud之集成Feign
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/springCloud%E4%B9%8BFeign%E6%90%AD%E5%BB%BA/" target="_self">
-        <div>
-          
-          Feign是什么？ Feign是Netflix开发的一款声明式服务调用组件 Feign可以帮助我们更快捷、优雅地调用HTTP API。 Feign 是 Spring Cloud Netflix 模块的子模块，它是 Spring Cloud 对 Netflix Feign 的二次封装，主要负责 Spring Cloud 的服务调用功能。  SpringCloud 集成Feign 搭建Eureka C
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-18 19:13" pubdate>
-              2022-07-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
             
           </div>
         

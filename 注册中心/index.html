@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221628038.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221650614.png">
 <meta property="article:published_time" content="2022-09-19T10:10:03.000Z">
-<meta property="article:modified_time" content="2023-02-28T14:16:54.374Z">
+<meta property="article:modified_time" content="2025-02-13T06:49:23.421Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="注册中心">
 <meta property="article:tag" content="mysql实现注册中心">
@@ -214,7 +214,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          856 字
+          1.1k 字
         
       </span>
     
@@ -226,7 +226,7 @@
         
         
           <!-- compatible with older versions-->
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -289,6 +289,15 @@
 <li>服务注册：就是需要维护一个注册表，存储服务和服务地址的映射关系。<strong>所以需要可以存储数据</strong></li>
 <li>服务发现：当服务要调用的时候，通过读取服务注册表获取可用的服务信息，客户端可以通过此信息连接服务器</li>
 </ul>
+<p>注：</p>
+<ol>
+<li><p>为了提高性能，可以在server端，自己维护一份注册中心的缓存，只有第一次调用时才需要连接zookeeper或者redis</p>
+</li>
+<li><p>同一个server, 每次新加一个ip都需要重新查询一次,从而更新缓存。因此zookeeper和redis还能做注册中心的一个条件是，他们能够监听数据的变化（redis具有消费订阅，zookeeper具有watch机制），当数据发生改变时，会收到消息，从而更新列表 </p>
+</li>
+<li><p>某个IP对应的服务挂掉的时候，也需要更新注册表，因此需要类似心跳机制，来检测服务是否挂掉，挂掉后，需要移除该服务。（redis的过期时间，zookeeper的临时节点）</p>
+</li>
+</ol>
 <h2 id="3-1-基于mysql-实现注册中心"><a href="#3-1-基于mysql-实现注册中心" class="headerlink" title="3.1 基于mysql 实现注册中心"></a>3.1 基于mysql 实现注册中心</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221628038.png" srcset="/img/loading.gif" lazyload alt="image-20230228221628038"></p>
 <ul>
 <li>订单服务启动时，调用注册接口，也就是insert，将服务名，ip，端口以及状态进行存储，对应生成注册表</li>
@@ -305,7 +314,7 @@
 <p>创建该节点的 Zookeeper 客户端与 Zookeeper 服务端断开连接时，该节点会被 Zookeeper 服务端移除。使用临时节点来维护 Server 的地址列表就保证了请求不会被分配到已经停机的服务上。</p>
 </blockquote>
 <p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228221650614.png" srcset="/img/loading.gif" lazyload alt="image-20230228221650614"></p>
-
+<h2 id="3-3-redis-实现注册中心"><a href="#3-3-redis-实现注册中心" class="headerlink" title="3.3 redis 实现注册中心"></a>3.3 redis 实现注册中心</h2>
               
             </div>
             <hr/>
