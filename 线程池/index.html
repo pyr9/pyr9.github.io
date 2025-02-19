@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 线程池的定义  线程池的基本思想还是一种对象池的思想，开辟一块内存空间，里面存放了众多（未死亡）的线程，池中线程执行调度由池管理器来处理。当有线程任务时，从池中取一个，执行完成后线程对象归池，这样可以避免反复创建线程对象所带来的性能开销，节省了系统的资源，提高了代码执行效率。  线程池和工厂模式、观察者模式有关（自己不要提，设计模式是个坑） 2. 使用线程池的好处1.降低资源消耗。通过重复利">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-22T15:02:04.000Z">
-<meta property="article:modified_time" content="2024-05-22T15:06:35.729Z">
+<meta property="article:modified_time" content="2025-02-19T04:40:36.033Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          951 字
+          986 字
         
       </span>
     
@@ -219,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -292,6 +292,7 @@
 <li>当一个线程无事可做，超过一定的时间（KeepAliveTime：线程被回收前的空闲时间）时，线程池会判断；如果当前运行的线程数大于corePoolSize，那么这个线程就会被停掉。</li>
 <li>当线程池所有任务完成后，他最终会收缩到corePoolSize的大小。</li>
 </ul>
+<p>(类似数据库的连接数，也需要设置maximum-pool-size:)</p>
 
               
             </div>
