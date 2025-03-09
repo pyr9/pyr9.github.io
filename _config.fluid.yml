@@ -123,7 +123,7 @@ dark_mode:
   # 默认的选项（当用户手动切换后则不再按照默认模式），选择 `auto` 会优先遵循 prefers-color-scheme，其次按用户本地时间 18 点到次日 6 点之间进入暗色模式
   # Default option (when the visitor switches manually, the default mode is no longer followed), choosing `auto` will give priority to prefers-color-scheme, and then enter the dark mode from 18:00 to 6:00 in the visitor’s local time
   # Options: auto | light | dark
-  default: auto
+  default: dark
 
 # 主题颜色配置，其他不生效的地方请使用自定义 css 解决，配色可以在下方链接中获得启发
 # Theme color, please use custom CSS to solve other colors, color schema can be inspired by the links below
@@ -430,11 +430,11 @@ index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
 #  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fkyiiocfj31hc0u0wkx.jpg
-  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fl1j9pa4j31hc0u0wje.jpg
+  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fl05uc98j30zk0k00tv.jpg
   # 头图高度，屏幕百分比
   # Height ratio of banner image
   # Available: 0 - 100
-  banner_img_height: 80
+  banner_img_height: 62
 
   # 头图黑色蒙版的不透明度，available: 0 - 1.0， 1 是完全不透明
   # Opacity of the banner mask, 1.0 is completely opaque
@@ -847,7 +847,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fl05uc98j30zk0k00tv.jpg
+  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fl1j9pa4j31hc0u0wje.jpg
   banner_img_height: 80
   banner_mask_alpha: 0.3
   subtitle:
