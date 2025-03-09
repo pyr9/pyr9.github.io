@@ -847,7 +847,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fl1j9pa4j31hc0u0wje.jpg
+  banner_img: https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg
   banner_img_height: 62
   banner_mask_alpha: 0.3
   subtitle:
@@ -865,7 +865,7 @@ tag:
 #---------------------------
 about:
   enable: false
-  banner_img: https://tva1.sinaimg.cn/large/008vxvgGly1h7fk9sr1a4j31hc0u0wje.jpg
+  banner_img: https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg
   banner_img_height: 62
   banner_mask_alpha: 0.3
   subtitle:
