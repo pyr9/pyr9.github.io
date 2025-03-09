@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225351935.png">
 <meta property="article:published_time" content="2021-12-29T14:45:20.000Z">
-<meta property="article:modified_time" content="2024-07-07T12:35:38.157Z">
+<meta property="article:modified_time" content="2025-02-24T11:38:26.025Z">
 <meta property="article:author" content="Panyurou">
 <meta property="article:tag" content="缓存">
 <meta name="twitter:card" content="summary_large_image">
@@ -210,7 +210,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          5.1k 字
+          5.6k 字
         
       </span>
     
@@ -222,7 +222,7 @@
         
         
           <!-- compatible with older versions-->
-          17 分钟
+          18 分钟
         
       </span>
     
@@ -335,17 +335,121 @@
 
 
 <h1 id="5-缓存与数据库不一致"><a href="#5-缓存与数据库不一致" class="headerlink" title="5 缓存与数据库不一致"></a>5 <strong>缓存与数据库不一致</strong></h1><h2 id="5-1-定义"><a href="#5-1-定义" class="headerlink" title="5.1 定义"></a>5.1 定义</h2><p>在大并发下，同时操作数据库与缓存会存在数据不一致性问题</p>
-<h2 id="5-2-缓存一致性的解决方案"><a href="#5-2-缓存一致性的解决方案" class="headerlink" title="5.2 缓存一致性的解决方案"></a>5.2 缓存一致性的解决方案</h2><h3 id="5-2-1-合理设置缓存过期时间"><a href="#5-2-1-合理设置缓存过期时间" class="headerlink" title="5.2.1 合理设置缓存过期时间"></a>5.2.1 合理设置缓存过期时间</h3><p>对于并发几率很小的数据(如个人维度的订单数据、用户数据等)，这种几乎不用考虑这个问题，很少会发生缓存不一致，可以给缓存数据加上过期时间，每隔一段时间触发读的主动更新即可。</p>
-<h3 id="5-2-2-异步消息队列"><a href="#5-2-2-异步消息队列" class="headerlink" title="5.2.2 异步消息队列"></a>5.2.2 <strong>异步消息队列</strong></h3><p>通过异步消息队列（如Kafka、RabbitMQ等）来同步更新缓存和数据库数据。在数据更新时，将更新操作发送到消息队列，消费者监听消息队列，更新缓存和数据库。</p>
-<p>注意：需要保证消息的<a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/">可靠性</a>、<a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B6%88%E8%B4%B9%E9%A1%BA%E5%BA%8F%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%EF%BC%9F">顺序性</a>、<a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#kafka-%E5%A6%82%E4%BD%95%E4%B8%8D%E6%B6%88%E8%B4%B9%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%EF%BC%9F">幂等性</a></p>
-<h3 id="5-2-2-双写策略"><a href="#5-2-2-双写策略" class="headerlink" title="5.2.2 双写策略"></a>5.2.2 <strong>双写策略</strong></h3><p>在更新数据库的同时，同步更新缓存。需要注意的是，在分布式系统中，双写策略需要确保事务的一致性。</p>
-<p>Spring中试用注解：</p>
-<p><strong>@Cacheable</strong>：标记的方法会先检查缓存是否存在数据，如果存在则直接返回缓存数据，如果不存在则执行方法并将返回结果缓存起来。</p>
-<p><strong>@CacheEvict</strong>：标记的方法在执行后，会从缓存中移除对应的缓存数据。</p>
-<p><strong>@CachePut</strong>：标记的方法在执行后，会将方法的返回值更新到缓存中。</p>
-<p><strong>@Transactional</strong>：确保数据库操作的原子性，防止在操作数据库时出现并发问题。</p>
+<h2 id="5-2-缓存一致性的解决方案"><a href="#5-2-缓存一致性的解决方案" class="headerlink" title="5.2 缓存一致性的解决方案"></a>5.2 缓存一致性的解决方案</h2><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>一致性类型</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>合理设置缓存时间</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>消息队列</td>
+<td>最终一致性</td>
+<td>实现简单，适合异步场景</td>
+<td>存在短暂不一致状态</td>
+</tr>
+<tr>
+<td>在数据库中增加时间戳&#x2F;版本号</td>
+<td>最终一致性</td>
+<td>简单易实现</td>
+<td>需要额外字段</td>
+</tr>
+<tr>
+<td>双写 + 延迟双删</td>
+<td>最终一致性</td>
+<td>实现简单</td>
+<td>存在短暂不一致状态</td>
+</tr>
+<tr>
+<td>Binlog 同步</td>
+<td>最终一致性</td>
+<td>自动化程度高</td>
+<td>需要额外的工具支持</td>
+</tr>
+<tr>
+<td>分布式锁</td>
+<td>最终一致性</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="5-2-1-合理设置缓存过期时间"><a href="#5-2-1-合理设置缓存过期时间" class="headerlink" title="5.2.1 合理设置缓存过期时间"></a>5.2.1 合理设置缓存过期时间</h3><p>对于并发几率很小的数据(如个人维度的订单数据、用户数据等)，这种几乎不用考虑这个问题，很少会发生缓存不一致，可以给缓存数据加上过期时间，每隔一段时间触发读的主动更新即可。</p>
+<h3 id="5-2-2-异步消息队列"><a href="#5-2-2-异步消息队列" class="headerlink" title="5.2.2 异步消息队列"></a>5.2.2 <strong>异步消息队列</strong></h3><ol>
+<li>更新数据库中的数据，并将更新事件发送到消息队列。</li>
+<li>消息队列中的消费者接收到事件后，更新 Redis 中的数据。</li>
+<li>如果 Redis 更新失败，可以通过重试机制或人工干预解决问题。</li>
+</ol>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h5><ul>
+<li>实现简单，适合异步场景。</li>
+<li>减少了数据库的压力。</li>
+</ul>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a><strong>缺点</strong></h5><ul>
+<li>存在短暂的不一致状态。</li>
+<li>需要额外的消息队列组件。</li>
+<li>需要保证消息的<a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E7%9A%84%E6%B6%88%E6%81%AF%E9%9B%B6%E4%B8%A2%E5%A4%B1%E6%96%B9%E6%A1%88/">可靠性</a>、<a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B6%88%E8%B4%B9%E9%A1%BA%E5%BA%8F%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%EF%BC%9F">顺序性</a>、<a target="_blank" rel="noopener" href="https://pyr9.github.io/kafka%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#kafka-%E5%A6%82%E4%BD%95%E4%B8%8D%E6%B6%88%E8%B4%B9%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%EF%BC%9F">幂等性</a></li>
+</ul>
+<h3 id="5-2-2基于时间戳或版本号的冲突检测"><a href="#5-2-2基于时间戳或版本号的冲突检测" class="headerlink" title="5.2.2基于时间戳或版本号的冲突检测"></a>5.2.2<strong>基于时间戳或版本号的冲突检测</strong></h3><p>通过在数据库和 Redis 中记录时间戳或版本号，可以检测和解决数据冲突。</p>
+<h5 id="流程"><a href="#流程" class="headerlink" title="流程"></a><strong>流程</strong></h5><ol>
+<li>在数据库中增加一个 <code>version</code> 或 <code>timestamp</code> 字段。</li>
+<li>更新数据库时，同时更新该字段。</li>
+<li>更新 Redis 时，检查其版本号或时间戳是否与数据库一致。</li>
+<li>如果不一致，则以数据库为准进行修正。</li>
+</ol>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a><strong>优点</strong></h5><ul>
+<li>简单易实现，适合中小型系统。</li>
+<li>不需要额外的组件。</li>
+</ul>
+<h3 id="5-2-2-双写策略-延迟双删"><a href="#5-2-2-双写策略-延迟双删" class="headerlink" title="5.2.2 双写策略+ 延迟双删"></a>5.2.2 <strong>双写策略</strong>+ 延迟双删</h3><p>这是一种常见的缓存更新策略，适用于读多写少的场景。</p>
+<h5 id="流程-1"><a href="#流程-1" class="headerlink" title="流程"></a><strong>流程</strong></h5><ol>
+<li>写操作<ul>
+<li>先更新数据库。</li>
+<li>再更新 Redis。</li>
+</ul>
+</li>
+<li>删除操作<ul>
+<li>先删除 Redis 中的数据。</li>
+<li>延迟一段时间后再删除数据库中的数据（防止 Redis 删除后未及时同步）。</li>
+</ul>
+</li>
+</ol>
+<h5 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a><strong>优点</strong></h5><ul>
+<li>实现简单，适合大多数场景。</li>
+<li>不需要额外的组件。</li>
+</ul>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a><strong>缺点</strong></h5><ul>
+<li>存在短暂的不一致状态。</li>
+<li>删除操作需要延迟处理。</li>
+</ul>
 <h3 id="5-2-1-使用分布式锁"><a href="#5-2-1-使用分布式锁" class="headerlink" title="5.2.1 使用分布式锁"></a>5.2.1 <strong>使用分布式锁</strong></h3><p>在高并发场景下，使用分布式锁（如Redis，zookeeper分布式锁）来控制缓存的更新操作，确保数据的一致性。</p>
-<h3 id="5-5-4-监控和日志"><a href="#5-5-4-监控和日志" class="headerlink" title="5.5.4 监控和日志"></a>5.5.4 <strong>监控和日志</strong></h3><p>通过监控和日志系统，及时发现缓存和数据库不一致的问题，并进行修复，调用幂等性接口。</p>
+<h3 id="5-5-4-基于数据库-Binlog-的自动同步"><a href="#5-5-4-基于数据库-Binlog-的自动同步" class="headerlink" title="5.5.4 基于数据库 Binlog 的自动同步"></a>5.5.4 <strong>基于数据库 Binlog 的自动同步</strong></h3><p>通过订阅数据库的 Binlog（二进制日志），可以实时将数据同步到 Redis。</p>
+<h5 id="流程-2"><a href="#流程-2" class="headerlink" title="流程"></a><strong>流程</strong></h5><ol>
+<li>数据库写入数据时，生成 Binlog。</li>
+<li>使用工具（如 Canal、Debezium）订阅 Binlog，捕获数据变更。</li>
+<li>根据捕获的变更事件，自动更新 Redis。</li>
+</ol>
+<h5 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a><strong>优点</strong></h5><ul>
+<li>自动化程度高，无需修改业务代码。</li>
+<li>实时性强，适合对一致性要求较高的场景。</li>
+</ul>
+<h5 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a><strong>缺点</strong></h5><ul>
+<li>对数据库性能有一定影响。</li>
+<li>需要额外的工具支持。</li>
+</ul>
+<p><strong>选择哪种方案取决于具体需求：</strong></p>
+<ul>
+<li><p>如果可以容忍短暂的不一致，可以选择 <strong>消息队列</strong> 或 <strong>双写 + 延迟双删</strong>。</p>
+</li>
+<li><p>如果需要强一致性，可以选择 <strong>Binlog 同步</strong>或<strong>分布式锁</strong>。</p>
+</li>
+</ul>
 <p>注：<strong>放入缓存的数据应该是对实时性、一致性要求不是很高的数据。</strong>如果<strong>写多读多</strong>的情况又不能容忍缓存数据不一致，那就没必要加缓存了，可以直接操作数据库。如果数据库抗不住压力，还可以把缓存作为数据读写的主存储，异步将数据同步到数据库，数据库只是作为数据的备份。</p>
 
               

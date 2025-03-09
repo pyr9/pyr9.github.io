@@ -24,7 +24,7 @@
 <meta property="og:description" content="1 概念1 定义设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。 优点  重用代码 让代码更容易被他人理解 保证代码可靠性  2 六大原则 开闭原则：对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。 里氏代换原则：任何基类可以出现的地方，子类一定可以出现。 依赖倒转原则：针对接口编程，依赖于抽象而不依赖于具体。 接口隔离原">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-03T09:34:59.000Z">
-<meta property="article:modified_time" content="2023-10-05T08:29:57.991Z">
+<meta property="article:modified_time" content="2025-03-08T08:23:40.752Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          792 字
+          1.4k 字
         
       </span>
     
@@ -219,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          3 分钟
+          5 分钟
         
       </span>
     
@@ -312,7 +312,7 @@
 <p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/">访问者模式</a></p>
 <p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/">中介者模式</a></p>
 <p><a target="_blank" rel="noopener" href="https://pyr9.github.io/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/">解释器模式</a></p>
-<h1 id="2-对比"><a href="#2-对比" class="headerlink" title="2 对比"></a>2 对比</h1><h2 id="1-享元模式与单例模式的区别"><a href="#1-享元模式与单例模式的区别" class="headerlink" title="1 享元模式与单例模式的区别"></a>1 享元模式与单例模式的区别</h2><ul>
+<h1 id="3-对比"><a href="#3-对比" class="headerlink" title="3 对比"></a>3 对比</h1><h2 id="1-享元模式与单例模式的区别"><a href="#1-享元模式与单例模式的区别" class="headerlink" title="1 享元模式与单例模式的区别"></a>1 享元模式与单例模式的区别</h2><ul>
 <li><p>享元设计模式是一个类有很多对象，而单例是一个类仅一个对象。</p>
 </li>
 <li><p>享元模式是为了节约内存空间，提升程序性能，而单例模式则主要是出于共享一个实例的目的。</p>
@@ -331,6 +331,36 @@
 <h2 id="4-模版方法模式和策略模式"><a href="#4-模版方法模式和策略模式" class="headerlink" title="4 模版方法模式和策略模式"></a>4 模版方法模式和策略模式</h2><ul>
 <li>策略模式可以改变算法的流程，模版方法模式不可以</li>
 </ul>
+<h1 id="4-项目使用"><a href="#4-项目使用" class="headerlink" title="4 项目使用"></a>4 项目使用</h1><ol>
+<li><p>单例模式：</p>
+<ul>
+<li>线程池：Executors.newSingleThreadExecutor确保只有一个线程实例在运行。</li>
+<li>数据库连接池： getInstance</li>
+</ul>
+</li>
+<li><p>工厂模式：</p>
+<ul>
+<li>单元测试通过UserFactory， 创建测试数据</li>
+<li>jpaQueryFactory创建一个select查询</li>
+</ul>
+</li>
+<li><p>建造者模式：lombok的@Builder，创建对象。</p>
+</li>
+<li><p>原型模式：<code>java.lang.Cloneable</code>接口和<code>clone()</code>方法（原型模式：通过克隆现有的对象来创建新的对象）</p>
+</li>
+<li><p>代理模式：AOP切面，</p>
+</li>
+<li><p>模版方法模式：定义算法框架，允许子类重写某些步骤而不改变整体结构。</p>
+<ul>
+<li>工作流，conpleteFeedback(完成后回调)， getProcessDefinitionKey(获取流程定义key): 基类定义框架，子类实现</li>
+<li>beforeSaveTrigger&#x2F;afterSaveTrigger</li>
+</ul>
+</li>
+<li><p>观察者模式：ApplicationEventPublisher.publishEvent(aaa), @EventListener handle </p>
+</li>
+<li><p>责任链模式：Activiti 使用责任链模式处理任务分配和流程流转。<code>Command</code> 接口定义了一组操作命令，不同的 <code>Command</code> 实现类负责具体的业务逻辑（如启动流程、完成任务），<code>CommandExecutor</code> 将多个命令串联起来，按顺序执行。</p>
+</li>
+</ol>
 
               
             </div>

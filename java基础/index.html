@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. Java 面向对象的三大特性及理解   默认情况下，面向对象有三大特性：继承、封装、多态。但如果考官让回答4大特性，我们就把抽象加上去。 1、继承  继承就是从已有的类继承信息创建新类的过程，被继承的类称为父类（也叫基类、超类），继承的类叫做子类（也叫派生类）。子类可以全盘接受父类的所有属性和方法（甚至是private修饰的，也可以继承，但是不能在父类之外访问，提供共有的访问方法（比如封装s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-25T11:24:37.000Z">
-<meta property="article:modified_time" content="2024-07-07T13:18:11.216Z">
+<meta property="article:modified_time" content="2025-03-08T09:10:01.338Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          5.6k 字
+          7.2k 字
         
       </span>
     
@@ -219,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          18 分钟
+          23 分钟
         
       </span>
     
@@ -380,6 +380,83 @@
 
 <p>在服务类中注入 <code>TaskExecutor</code> 并使用它执行任务：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.core.task.TaskExecutor;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Service;<br><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TaskExecutorService</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> TaskExecutor taskExecutor;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">executeTask</span><span class="hljs-params">()</span> </span>&#123;<br>        taskExecutor.execute(() -&gt; &#123;<br>            System.out.println(<span class="hljs-string">&quot;Task executed by TaskExecutor&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                Thread.sleep(<span class="hljs-number">2000</span>);  <span class="hljs-comment">// 模拟长时间任务</span><br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            System.out.println(<span class="hljs-string">&quot;Task completed&quot;</span>);<br>        &#125;);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h1 id="6-Java8引入stream有什么意义？"><a href="#6-Java8引入stream有什么意义？" class="headerlink" title="6. Java8引入stream有什么意义？"></a>6. Java8引入stream有什么意义？</h1><h4 id="1-更简洁的代码"><a href="#1-更简洁的代码" class="headerlink" title="1. 更简洁的代码"></a>1. <strong>更简洁的代码</strong></h4><ul>
+<li>使用流API，可以用更少的代码完成对集合的操作。例如，对集合进行过滤、转换、排序和聚合等操作可以通过链式调用实现，使代码更加简洁和易读。</li>
+</ul>
+<h4 id="2-并行处理能力"><a href="#2-并行处理能力" class="headerlink" title="2. 并行处理能力"></a>2. <strong>并行处理能力</strong></h4><ul>
+<li>流API支持轻松的并行操作，只需将 <code>stream()</code> 方法更换为 <code>parallelStream()</code>，就可以利用多核处理器的能力来加速数据处理。这对于处理大型数据集合尤为重要。</li>
+</ul>
+<h4 id="3-惰性求值"><a href="#3-惰性求值" class="headerlink" title="3. 惰性求值"></a>3. <strong>惰性求值</strong></h4><ul>
+<li><code>Stream</code> API 采用惰性求值策略，即只有在最终需要结果时才会执行中间操作。此外，一些终端操作（如 <code>findFirst()</code> 或 <code>anyMatch()</code>）具有短路特性，这意味着一旦找到符合条件的第一个元素，后续的操作就会停止，从而节省计算资源。</li>
+</ul>
+<h4 id="4-易于组合和重用"><a href="#4-易于组合和重用" class="headerlink" title="4. 易于组合和重用"></a>4. <strong>易于组合和重用</strong></h4><ul>
+<li>由于 <code>Stream</code> 操作是高度模块化的，你可以轻松地将不同的操作组合在一起形成复杂的处理流程，也可以方便地复用这些操作。</li>
+</ul>
+<h1 id="7-Transactional-常用的一些配置？"><a href="#7-Transactional-常用的一些配置？" class="headerlink" title="7 @Transactional 常用的一些配置？"></a>7 @Transactional 常用的一些配置？</h1><ol>
+<li><p><strong>propagation</strong>（传播行为）</p>
+<ul>
+<li><p>定义事务在遇到已有事务时的行为。</p>
+</li>
+<li><p>常用值</p>
+<ul>
+<li><p><code>REQUIRED</code>（默认）：如果当前存在事务，则加入该事务；否则创建一个新的事务。</p>
+</li>
+<li><p><code>REQUIRES_NEW</code>：总是创建一个新的事务，如果当前存在事务，则挂起它。如：在日志的save时，即使 <code>createUser</code> 方法失败并导致事务回滚，日志记录操作仍然会被提交。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Transactional</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">createUserWithLogging</span><span class="hljs-params">(User user)</span> </span>&#123;<br>  userService.createUser(user);<br>  loggingService.logMessage(<span class="hljs-string">&quot;User created: &quot;</span> + user.getName());<br>&#125;<br>    <br><br><span class="hljs-meta">@Transactional(propagation = Propagation.REQUIRES_NEW)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">logMessage</span><span class="hljs-params">(String message)</span> </span>&#123;<br>  logRepository.save(<span class="hljs-keyword">new</span> Log(message));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><code>SUPPORTS</code>：如果当前存在事务，则加入该事务；否则以非事务方式运行。</p>
+</li>
+<li><p><code>NOT_SUPPORTED</code>：以非事务方式运行，如果当前存在事务，则挂起它。</p>
+</li>
+<li><p><code>MANDATORY</code>：如果当前存在事务，则加入该事务；否则抛出异常。</p>
+</li>
+<li><p><code>NEVER</code>：以非事务方式运行，如果当前存在事务，则抛出异常。</p>
+</li>
+<li><p><code>NESTED</code>：如果当前存在事务，则在嵌套事务内执行；否则与 <code>REQUIRED</code> 行为相同。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>rollbackFor</strong>（回滚异常）</p>
+<ul>
+<li><p>指定哪些异常会导致事务回滚，默认情况下只有 <code>RuntimeException</code> 和 <code>Error</code> 会触发回滚。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Transactional(rollbackFor = &#123;SQLException.class, IOException.class&#125;)</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>timeout</strong>（超时时间）</p>
+<ul>
+<li><p>定义事务的最大持续时间（秒），超过该时间将抛出异常并回滚事务。当某个事务可能长时间运行时，可以通过设置超时时间来避免长时间占用资源。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Transactional(timeout = 30)</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>isolation</strong>（隔离级别）</p>
+<ul>
+<li><p>定义事务的隔离级别，控制事务之间的可见性。</p>
+</li>
+<li><p>常用值</p>
+<ul>
+<li><code>DEFAULT</code>（默认）：使用底层数据库的默认隔离级别。</li>
+<li><code>READ_UNCOMMITTED</code>：允许读取未提交的数据更改，可能导致脏读、不可重复读和幻读。</li>
+<li><code>READ_COMMITTED</code>：允许从已经提交的事务中读取数据，防止脏读。</li>
+<li><code>REPEATABLE_READ</code>：对同一字段的多次读取结果一致，除非数据被当前事务本身改变，可以防止脏读和不可重复读。</li>
+<li><code>SERIALIZABLE</code>：完全串行化，最高级别的隔离，防止所有并发问题，但性能较低。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>readOnly</strong>（只读标志）</p>
+</li>
+</ol>
+<ul>
+<li><p>如果设置为 <code>true</code>，表示该事务是只读的，优化器可能会进行一些优化。这种方式适用于查询操作，避免不必要的锁和写操作。</p>
+<pre><code class="hljs">   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Transactional(readOnly = true)</span><br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
 
               
             </div>
