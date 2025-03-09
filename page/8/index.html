@@ -211,6 +211,39 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/%E5%B9%82%E7%AD%89%E6%80%A7/" target="_self">
+          幂等性
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%B9%82%E7%AD%89%E6%80%A7/" target="_self">
+        <div>
+          
+          1. 幂等性是什么？在一个系统中，一个接口，运行多次和运行一次的结果是一致的。 什么情况下需要幂等性？ 重复提交、接口重试、前端窗口抖动等 业务场景：  用户多次点击提交订单，后台应该只生成一个订单。 支付时，由于发生网络问题重试，应该只扣一次钱。  保证幂等性的核心思想：通过唯一的业务单号保证幂等。 实现：  非并发的情况下，查询业务单号有没有操作过，没有则执行操作 并发的情况下，整个过程加锁
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-23 10:49" pubdate>
+              2023-04-23
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/postgresql-%E6%9F%A5%E8%AF%A2%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%A1%8C/" target="_self">
           postgresql 常用SQL整理
         </a>
@@ -595,60 +628,6 @@
               <a href="/tags/SpringSecurity/">#SpringSecurity</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E7%BD%91%E5%85%B3/" target="_self">
-          Activiti——网关
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E7%BD%91%E5%85%B3/" target="_self">
-        <div>
-          
-          网关用来控制流程的流向  1. 排他网关ExclusiveGateway1.1 概念排他网关，用来在流程中实现决策。 当流程执行到这个网关，所有分支都会判断条件是否为true，如果为true则执行该分支，排他网关只会选择一个为true的分支执行。如果有两个分支条件都为true，排他网关会选择id值较小的一条分支去执行。 为什么要用排他网关？ 不用排他网关也可以实现分支，如：在连线的condit
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-12 21:51" pubdate>
-              2023-02-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
         
       </div>
     </article>

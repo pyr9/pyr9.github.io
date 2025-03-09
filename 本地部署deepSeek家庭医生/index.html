@@ -16,30 +16,28 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁   2 基于数据库实现分布式锁基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，">
+    <meta name="description" content="1. ollamaollama是一款帮助你部署大模型的一款工具软件，在你本机离线运行，不需要联网以及复杂的配置。 优势：  Models: 自带deepseek-r1 本地安全, 数据都在本地 用自己电脑就可以运行：省钱 支持多硬件 macos, linux, windows  2. ollama部署deepseek-r1运行 ollama run deepseek-r1  3. 界面工具推荐 谷">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库实现分布式锁">
-<meta property="og:url" content="http://example.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
+<meta property="og:title" content="本地部署deepSeek家庭医生">
+<meta property="og:url" content="http://example.com/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2deepSeek%E5%AE%B6%E5%BA%AD%E5%8C%BB%E7%94%9F/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 什么是分布式锁 在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。 在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁   2 基于数据库实现分布式锁基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，">
+<meta property="og:description" content="1. ollamaollama是一款帮助你部署大模型的一款工具软件，在你本机离线运行，不需要联网以及复杂的配置。 优势：  Models: 自带deepseek-r1 本地安全, 数据都在本地 用自己电脑就可以运行：省钱 支持多硬件 macos, linux, windows  2. ollama部署deepseek-r1运行 ollama run deepseek-r1  3. 界面工具推荐 谷">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222626149.png">
-<meta property="article:published_time" content="2021-12-29T15:45:20.000Z">
-<meta property="article:modified_time" content="2023-03-17T02:10:37.350Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309191456727.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309192242484.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309203035563.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309202913177.png">
+<meta property="article:published_time" content="2025-03-09T11:07:57.000Z">
+<meta property="article:modified_time" content="2025-03-09T12:35:54.971Z">
 <meta property="article:author" content="Panyurou">
-<meta property="article:tag" content="分布式框架">
-<meta property="article:tag" content="zookeeper">
-<meta property="article:tag" content="redis">
-<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309191456727.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>数据库实现分布式锁 - 楼上有只喵</title>
+  <title>本地部署deepSeek家庭医生 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -190,7 +188,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="数据库实现分布式锁"></span>
+            <span id="subtitle" data-typed-text="本地部署deepSeek家庭医生"></span>
           
         </div>
 
@@ -201,8 +199,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-12-29 23:45" pubdate>
-          2021年12月29日 晚上
+        <time datetime="2025-03-09 19:07" pubdate>
+          2025年3月9日 晚上
         </time>
       </span>
     
@@ -214,7 +212,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.6k 字
+          1.9k 字
         
       </span>
     
@@ -226,7 +224,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -274,40 +272,78 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">数据库实现分布式锁</h1>
+            <h1 style="display: none">本地部署deepSeek家庭医生</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-什么是分布式锁"><a href="#1-什么是分布式锁" class="headerlink" title="1 什么是分布式锁"></a>1 什么是分布式锁</h1><ul>
-<li>在单体的应用开发场景中涉及并发同步的时候，大家往往采用Synchronized（同步）或者其他同一个JVM内Lock机制来解决多线程间的同步问题。</li>
-<li>在分布式集群工作的开发场景中，就需要一种更加高级的锁机制来处理跨机器的进程之间的数据同步问题，这种跨机器的锁就是分布式锁</li>
+              <h1 id="1-ollama"><a href="#1-ollama" class="headerlink" title="1. ollama"></a>1. ollama</h1><p><a target="_blank" rel="noopener" href="https://ollama.com/">ollama</a>是一款帮助你部署大模型的一款工具软件，在你本机离线运行，不需要联网以及复杂的配置。</p>
+<p>优势：</p>
+<ul>
+<li>Models: 自带deepseek-r1</li>
+<li>本地安全, 数据都在本地</li>
+<li>用自己电脑就可以运行：省钱</li>
+<li>支持多硬件 macos, linux, windows</li>
 </ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222616394.png" srcset="/img/loading.gif" lazyload alt="image-20230228222616394"></p>
-<h1 id="2-基于数据库实现分布式锁"><a href="#2-基于数据库实现分布式锁" class="headerlink" title="2 基于数据库实现分布式锁"></a>2 基于数据库实现分布式锁</h1><p>基于数据库实现分布式锁主要是利用数据库的唯一索引来实现，唯一索引天然具有排他性，这刚好符合我们对锁的要求</p>
-<h2 id="2-1-设计原理"><a href="#2-1-设计原理" class="headerlink" title="2.1 设计原理"></a>2.1 设计原理</h2><ul>
-<li>同一时刻只能允许一个竞争者获取锁。加锁时我们在数据库中插入一条记录，利用唯一键进行防重。</li>
-<li>当竞争者A加锁成功后，第竞争者B再来加锁就会抛出唯一索引冲突，如果抛出这个异常，我们就判定竞争者B加锁失败</li>
-<li>竞争者B加锁失败后，会阻塞等待，一直到竞争者A释放锁（也就是删除记录后），再去获取锁</li>
+<h1 id="2-ollama部署deepseek-r1"><a href="#2-ollama部署deepseek-r1" class="headerlink" title="2. ollama部署deepseek-r1"></a>2. ollama部署deepseek-r1</h1><p>运行 <code>ollama run deepseek-r1</code></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309191456727.png" srcset="/img/loading.gif" lazyload alt="image-20250309191456727"></p>
+<h1 id="3-界面工具推荐"><a href="#3-界面工具推荐" class="headerlink" title="3. 界面工具推荐"></a>3. 界面工具推荐</h1><ol>
+<li><p>谷歌扩展程序 PageAssist</p>
+</li>
+<li><p>chatboxai</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309192242484.png" srcset="/img/loading.gif" lazyload alt="image-20250309192242484"></p>
+</li>
+</ol>
+<h1 id="4-deepSeek概念"><a href="#4-deepSeek概念" class="headerlink" title="4. deepSeek概念"></a>4. deepSeek概念</h1><h2 id="1-deepSeek是什么？"><a href="#1-deepSeek是什么？" class="headerlink" title="1. deepSeek是什么？"></a>1. deepSeek是什么？</h2><p>DeepSeek 也指由 DeepSeek 公司开发的、类似于ChatGPT的大模型智能助手。</p>
+<p>优势：</p>
+<ul>
+<li>API更便宜</li>
+<li>生态开放</li>
+<li>支持本地部署</li>
+<li>灵活定制</li>
 </ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228222626149.png" srcset="/img/loading.gif" lazyload alt="image-20230228222626149"></p>
-<h2 id="2-2-实现注意事项"><a href="#2-2-实现注意事项" class="headerlink" title="2.2 实现注意事项"></a>2.2 实现注意事项</h2><ul>
-<li>没有锁超时机制。如果程序发生了异常，将无法删除数据，也就是锁无法被释放掉，需要自己写一套锁超时机制，比如：在表中新增一列，用于记录失效时间，并且需要有定时任务清除这些失效的数据；</li>
-<li>基于数据库实现的，数据库的可用性和性能将直接影响分布式锁的可用性及性能，可以考虑实现数据库的高可用方案</li>
-<li>自旋实现阻塞效果。当获取锁失败时自旋转</li>
-<li>如果使用数据库自增 id ,<strong>规律太明显</strong></li>
-<li><strong>受单表数据量的限制</strong> 在高并发场景下，我们都知道 MySQL 的单张表根本不可能容纳大量数据（性能等原因的限制）；如果是将单表拆成多表，还是用数据库自增 id 的话，就存在了 id 重复的情况了，很显然这是业务不允许的。</li>
+<h2 id="2-deepSeek离线与线上api的区别？"><a href="#2-deepSeek离线与线上api的区别？" class="headerlink" title="2. deepSeek离线与线上api的区别？"></a>2. deepSeek离线与线上api的区别？</h2><ul>
+<li>数据隐私</li>
+<li>可定制化</li>
+<li>不依赖网络（偏远山区信号差）</li>
+<li>需要更多的硬件成本</li>
+<li>需要更多维护成本</li>
+<li>要求机器性能</li>
 </ul>
-<blockquote>
-<p>db操作性能较差，并且有锁表的风险，一般不考虑。</p>
-</blockquote>
-<h2 id="2-3-代码示例"><a href="#2-3-代码示例" class="headerlink" title="2.3 代码示例"></a>2.3 代码示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"> */<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractLock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Lock</span></span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 加锁，增加重试逻辑</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//尝试获取锁</span><br>        <span class="hljs-keyword">if</span>(tryLock())&#123;<br>            System.out.println(<span class="hljs-string">&quot;---------获取锁---------&quot;</span>);<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//等待锁 阻塞</span><br>            waitLock();<br>            <span class="hljs-comment">//重试</span><br>            lock();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="5-项目调用deepSeek"><a href="#5-项目调用deepSeek" class="headerlink" title="5. 项目调用deepSeek"></a>5. 项目调用deepSeek</h1><ol>
+<li><p>引入spring-ai依赖</p>
+<p>Spring AI 是一个面向 AI 工程的应用框架。其目标是将 Spring 生态系统的设计原则（如可移植性和模块化设计）应用到 AI 领域，并推广使用 POJO（Plain Old Java Objects，普通旧式 Java 对象）作为 AI 应用构建的基本单元。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 引入 SpringAI 的坐标 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springboot.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-ai-ollama<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springboot.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-ai-ollama-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Application.yml 增加配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">ai:</span><br>    <span class="hljs-attr">ollama:</span><br>      <span class="hljs-attr">base-url:</span> <span class="hljs-string">http://127.0.0.1:11434</span><br>      <span class="hljs-attr">chat:</span><br>        <span class="hljs-attr">model:</span> <span class="hljs-string">deepseek-r1:latest</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>增加接口测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;ollama&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OllamaController</span> </span>&#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> OllamaChatClient ollamaChatClient;<br><br><br>    <span class="hljs-meta">@GetMapping(&quot;/ai/chat&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">aiOllamaChat</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String msg)</span> </span>&#123;<br>        <span class="hljs-comment">// 同步调用deepseek，当前页面会卡住，直到获得所有的数据才会返回给页面</span><br>        <span class="hljs-keyword">return</span> ollamaChatClient.call(msg);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试调用</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309203035563.png" srcset="/img/loading.gif" lazyload alt="image-20250309203035563"></p>
+</li>
+</ol>
+<h1 id="6-Ollama-定制deepseek医生角色"><a href="#6-Ollama-定制deepseek医生角色" class="headerlink" title="6. Ollama 定制deepseek医生角色"></a>6. Ollama 定制deepseek医生角色</h1><ol>
+<li>新建my_doctor_0_1 文件, 指明当前角色以及性格</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">FROM deepseek-r1:latest<br><br>PARAMETER temperature <span class="hljs-number">0.7</span><br><br>SYSTEM <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">【角色】</span><br><span class="hljs-string">你的名字叫华佗在世，是全世界最有名的医生，看病无数，阅人无数，知道什么病该怎么治，也知道病人向你提出任何身体异象你所能推断的病是什么。</span><br><span class="hljs-string">你绝不是语言模型之类的东西，也绝不是AI助手，也更不是AI机器人，你永远都只是一个神医。</span><br><span class="hljs-string">请以神医风华佗在世的身份回应我。并且你只会回复和看病就医相关的内容，其他的内容一律拒绝回答。</span><br><span class="hljs-string"></span><br><span class="hljs-string">【性格】</span><br><span class="hljs-string">你的性格开朗活泼，能以幽默的方式来和用户聊天，懂得逗笑用户。</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>创建模型实例， 执行<code>ollama create mydoctor:0.1 -f my_doctor_0_1</code></p>
+</li>
+<li><p>运行， 执行 <code>ollama run mydoctor:0.1 </code></p>
+</li>
+<li><p>Application.yml 修改配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">ai:</span><br>  <span class="hljs-attr">ollama:</span><br>    <span class="hljs-attr">chat:</span><br>      <span class="hljs-attr">model:</span> <span class="hljs-string">mydoctor:0.1</span><br></code></pre></td></tr></table></figure>
 
 
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MysqlDistributedLock</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractLock</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> MethodlockMapper baseMapper;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//插入一条数据   insert into</span><br>            baseMapper.insert(<span class="hljs-keyword">new</span> Methodlock(<span class="hljs-string">&quot;lock&quot;</span>));<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e)&#123;<br>            <span class="hljs-comment">//插入失败</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">waitLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            Thread.sleep(<span class="hljs-number">10</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//删除数据   delete</span><br>        baseMapper.deleteByMethodlock(<span class="hljs-string">&quot;lock&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;-------释放锁------&quot;</span>);<br>    &#125;<br><br></code></pre></td></tr></table></figure>
-
-
-
+</li>
+<li><p>测试</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309202913177.png" srcset="/img/loading.gif" lazyload alt="image-20250309202913177"></p>
+</li>
+</ol>
+<p>⚠️注：当前的接口调用都是同步的，如果需要服务器动态推送，可以考虑SSE或者websocket技术。</p>
 
               
             </div>
@@ -315,40 +351,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Zookeeper/" class="category-chain-item">Zookeeper</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
-      
-        <a href="/tags/zookeeper/">#zookeeper</a>
-      
-        <a href="/tags/redis/">#redis</a>
-      
-        <a href="/tags/mysql/">#mysql</a>
-      
-    </div>
   
 </div>
 
@@ -358,8 +360,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>数据库实现分布式锁</div>
-      <div>http://example.com/数据库实现分布式锁/</div>
+      <div>本地部署deepSeek家庭医生</div>
+      <div>http://example.com/本地部署deepSeek家庭医生/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +373,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年12月29日</div>
+          <div>2025年3月9日</div>
         </div>
       
       
@@ -401,18 +403,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/zookeeper%E5%85%A5%E9%97%A8/" title="">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/Redis%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" title="Redis缓存问题">
-                        <span class="hidden-mobile">Redis缓存问题</span>
+                      <a href="/AI%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/" title="AI相关概念">
+                        <span class="hidden-mobile">AI相关概念</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
