@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>websocket和SSE</title>
+    <link href="/websocket%E5%92%8CSSE/"/>
+    <url>/websocket%E5%92%8CSSE/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-websocket和SSE异同"><a href="#1-websocket和SSE异同" class="headerlink" title="1. websocket和SSE异同"></a>1. websocket和SSE异同</h1><p>SSE（Server-Sent Events）和WebSocket都是用于实现服务器与客户端之间实时通信的技术。</p><table><thead><tr><th></th><th>SSE（Server-Sent Events）</th><th>WebSocket</th></tr></thead><tbody><tr><td><strong>通信方式</strong></td><td>单向通信</td><td>双向通信</td></tr><tr><td><strong>协议基础</strong></td><td>基于HTTP协议</td><td>基于独立的TCP连接，使用自定义协议</td></tr><tr><td><strong>数据流向</strong></td><td>服务器向客户端发送数据</td><td>服务器和客户端可以互相发送数据</td></tr><tr><td><strong>消息类型</strong></td><td>主要支持文本数据，不支持二进制数据</td><td>支持文本和二进制数据</td></tr><tr><td><strong>连接管理</strong></td><td>每次消息发送完毕后，连接会被关闭，客户端需要重新连接</td><td>连接一旦建立，保持打开状态，直到客户端或服务器主动关闭</td></tr><tr><td><strong>实现复杂度</strong></td><td>协议简单，易于实现和使用</td><td>协议相对复杂，需要更多的代码和服务器资源</td></tr><tr><td><strong>自动重连</strong></td><td>支持自动重连功能</td><td>不支持自动重连，需要手动处理断线重连</td></tr><tr><td><strong>适用场景</strong></td><td>适合只需要服务器向客户端推送实时更新数据的场景，如实时新闻更新、股票行情推送等</td><td>适合需要客户端和服务器之间进行实时双向通信的场景，如聊天室、在线游戏等</td></tr><tr><td><strong>浏览器支持</strong></td><td>大多数现代浏览器都支持，但部分旧版或非主流浏览器可能不支持</td><td>大多数现代浏览器都支持，兼容性较好</td></tr></tbody></table>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>本地部署deepSeek家庭医生</title>
     <link href="/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2deepSeek%E5%AE%B6%E5%BA%AD%E5%8C%BB%E7%94%9F/"/>
     <url>/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2deepSeek%E5%AE%B6%E5%BA%AD%E5%8C%BB%E7%94%9F/</url>
@@ -1319,7 +1332,7 @@
     <link href="/jenkins%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/"/>
     <url>/jenkins%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/</url>
     
-    <content type="html"><![CDATA[<h1 id="1-配置nodeJs"><a href="#1-配置nodeJs" class="headerlink" title="1 配置nodeJs"></a>1 配置nodeJs</h1><p>因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。<a href="https://plugins.jenkins.io/nodejs">官方文档</a></p><ol><li>系统管理—&gt;管理插件—&gt;下载NodeJS插件</li></ol><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155958382.png" alt="image-20230315155958382"></p><ol start="2"><li>系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本</li></ol><p>Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&#x2F;tools目录下</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155909887.png" alt="image-20230315155909887"></p><p>注：这里也需要配置git</p><h1 id="2-新建一个任务"><a href="#2-新建一个任务" class="headerlink" title="2 新建一个任务"></a>2 新建一个任务</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160310957.png" alt="image-20230315160310957"></p><h1 id="3-配置仓库地址和分支名"><a href="#3-配置仓库地址和分支名" class="headerlink" title="3 配置仓库地址和分支名"></a>3 配置仓库地址和分支名</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160535916.png" alt="image-20230315160535916"></p><h1 id="4-配置构建环境"><a href="#4-配置构建环境" class="headerlink" title="4 配置构建环境"></a>4 配置构建环境</h1><p>构建环境勾选 Provide Node &amp; npm bin&#x2F;folder to PATH</p><ul><li>每次build，都会首先执行环境构建，环境构建无误后，才会开始真正的构建过程</li><li>会下载nodejs并安装配置，并把node添加到当前PATH环境变量中，这样就支持node和npm命令了</li></ul><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160620905.png" alt="image-20230315160620905"></p><h1 id="5-配置shell"><a href="#5-配置shell" class="headerlink" title="5 配置shell"></a>5 配置shell</h1><p>执行：</p><p><code>npm install &amp;&amp; npm run build &amp;&amp; npm run domain &amp;&amp; npm run aliyun</code></p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322152124371.png" alt="image-20230322152124371"></p><p>至此，可以点击立即构建了</p><h1 id="6-配置远端服务器"><a href="#6-配置远端服务器" class="headerlink" title="6 配置远端服务器"></a>6 配置远端服务器</h1><p>注意：如果使用了echo,需要勾选Verbose output in console才可以在控制台，看到打印的日志</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230324163338300.png" alt="image-20230324163338300"></p><h1 id="7-使用打好的包替换服务器上的包"><a href="#7-使用打好的包替换服务器上的包" class="headerlink" title="7 使用打好的包替换服务器上的包"></a>7 使用打好的包替换服务器上的包</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322154215106.png" alt="image-20230322154215106"></p><h1 id="8-遇到的问题"><a href="#8-遇到的问题" class="headerlink" title="8 遇到的问题"></a>8 遇到的问题</h1><p>记录下在windows搭建时遇到的问题</p><ol><li>Cannot run program “sh” (in directory “C:\ProgramData\Jenkins.jenkins\workspace\sith-front”): CreateProcess error&#x3D;2, 系统找不到指定的文件。</li></ol><p>解决：Manage Jenkins-&gt; Configure System-&gt; Shell-&gt; Shell execute </p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">C:\Windows\system32\cmd.exe<br></code></pre></td></tr></table></figure><ol start="2"><li><p>ssh:&#x2F;&#x2F;&#x2F;<a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x65;&#101;&#46;&#x63;&#x6f;&#109;">&#103;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x65;&#101;&#46;&#x63;&#x6f;&#109;</a>:SIEMENS_MMF&#x2F;MMF.git +refs&#x2F;heads&#x2F;<em>:refs&#x2F;remotes&#x2F;origin&#x2F;</em>“ returned status code 128:<br>stdout:<br>stderr: ssh: connect to host  port 22: Connection refused<br>fatal: Could not read from remote repository.</p><p>Please make sure you have the correct access rights<br>and the repository exists.</p></li></ol><p>原因：Jenkins网页登录时，ssh连接使用的是Jenkins自身的账户，并不是我们登录电脑所使用的的账户，该账户下并没有ssh连接所需要的rsa文件，</p><p>解决：</p><p>成功执行git pull等命令的账户，在C:\Users\xxxxxx.ssh目录下（xxxxxx是登录电脑的用户名，不是git的用户名），会有id_rsa，id_rsa.pub，known_hosts文件，把这3个文件拷贝到C:\Windows\System32\config\systemprofile.ssh目录下，再执行jenkins就OK了</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="1-配置nodeJs"><a href="#1-配置nodeJs" class="headerlink" title="1 配置nodeJs"></a>1 配置nodeJs</h1><p>因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。<a href="https://plugins.jenkins.io/nodejs">官方文档</a></p><ol><li>系统管理—&gt;管理插件—&gt;下载NodeJS插件</li></ol><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155958382.png" alt="image-20230315155958382"></p><ol start="2"><li>系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本</li></ol><p>Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&#x2F;tools目录下</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155909887.png" alt="image-20230315155909887"></p><p>注：这里也需要配置git</p><h1 id="2-新建一个任务"><a href="#2-新建一个任务" class="headerlink" title="2 新建一个任务"></a>2 新建一个任务</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160310957.png" alt="image-20230315160310957"></p><h1 id="3-配置仓库地址和分支名"><a href="#3-配置仓库地址和分支名" class="headerlink" title="3 配置仓库地址和分支名"></a>3 配置仓库地址和分支名</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160535916.png" alt="image-20230315160535916"></p><h1 id="4-配置构建环境"><a href="#4-配置构建环境" class="headerlink" title="4 配置构建环境"></a>4 配置构建环境</h1><p>构建环境勾选 Provide Node &amp; npm bin&#x2F;folder to PATH</p><ul><li>每次build，都会首先执行环境构建，环境构建无误后，才会开始真正的构建过程</li><li>会下载nodejs并安装配置，并把node添加到当前PATH环境变量中，这样就支持node和npm命令了</li></ul><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160620905.png" alt="image-20230315160620905"></p><h1 id="5-配置shell"><a href="#5-配置shell" class="headerlink" title="5 配置shell"></a>5 配置shell</h1><p>执行：</p><p><code>npm install &amp;&amp; npm run build &amp;&amp; npm run domain &amp;&amp; npm run aliyun</code></p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322152124371.png" alt="image-20230322152124371"></p><p>至此，可以点击立即构建了</p><h1 id="6-配置远端服务器"><a href="#6-配置远端服务器" class="headerlink" title="6 配置远端服务器"></a>6 配置远端服务器</h1><p>注意：如果使用了echo,需要勾选Verbose output in console才可以在控制台，看到打印的日志</p><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230324163338300.png" alt="image-20230324163338300"></p><h1 id="7-使用打好的包替换服务器上的包"><a href="#7-使用打好的包替换服务器上的包" class="headerlink" title="7 使用打好的包替换服务器上的包"></a>7 使用打好的包替换服务器上的包</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322154215106.png" alt="image-20230322154215106"></p><h1 id="8-遇到的问题"><a href="#8-遇到的问题" class="headerlink" title="8 遇到的问题"></a>8 遇到的问题</h1><p>记录下在windows搭建时遇到的问题</p><ol><li>Cannot run program “sh” (in directory “C:\ProgramData\Jenkins.jenkins\workspace\sith-front”): CreateProcess error&#x3D;2, 系统找不到指定的文件。</li></ol><p>解决：Manage Jenkins-&gt; Configure System-&gt; Shell-&gt; Shell execute </p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">C:\Windows\system32\cmd.exe<br></code></pre></td></tr></table></figure><ol start="2"><li><p>ssh:&#x2F;&#x2F;&#x2F;<a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#x69;&#x74;&#101;&#x65;&#46;&#x63;&#111;&#109;">&#x67;&#x69;&#x74;&#x40;&#103;&#x69;&#x74;&#101;&#x65;&#46;&#x63;&#111;&#109;</a>:SIEMENS_MMF&#x2F;MMF.git +refs&#x2F;heads&#x2F;<em>:refs&#x2F;remotes&#x2F;origin&#x2F;</em>“ returned status code 128:<br>stdout:<br>stderr: ssh: connect to host  port 22: Connection refused<br>fatal: Could not read from remote repository.</p><p>Please make sure you have the correct access rights<br>and the repository exists.</p></li></ol><p>原因：Jenkins网页登录时，ssh连接使用的是Jenkins自身的账户，并不是我们登录电脑所使用的的账户，该账户下并没有ssh连接所需要的rsa文件，</p><p>解决：</p><p>成功执行git pull等命令的账户，在C:\Users\xxxxxx.ssh目录下（xxxxxx是登录电脑的用户名，不是git的用户名），会有id_rsa，id_rsa.pub，known_hosts文件，把这3个文件拷贝到C:\Windows\System32\config\systemprofile.ssh目录下，再执行jenkins就OK了</p>]]></content>
     
     
     <categories>
@@ -2586,9 +2599,9 @@
       
       <tag>性能调优</tag>
       
-      <tag>垃圾收集算法</tag>
-      
       <tag>垃圾收集器</tag>
+      
+      <tag>垃圾收集算法</tag>
       
     </tags>
     
@@ -2847,11 +2860,11 @@
       
       <tag>面试题</tag>
       
-      <tag>redis</tag>
+      <tag>postgreSQL</tag>
       
       <tag>mysql</tag>
       
-      <tag>postgreSQL</tag>
+      <tag>redis</tag>
       
       <tag>mongo</tag>
       
@@ -4460,9 +4473,9 @@
       
       <tag>zookeeper</tag>
       
-      <tag>redis</tag>
-      
       <tag>mysql</tag>
+      
+      <tag>redis</tag>
       
     </tags>
     
