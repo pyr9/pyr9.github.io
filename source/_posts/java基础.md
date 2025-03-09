@@ -297,3 +297,95 @@ public class TaskExecutorService {
 }
 
 ```
+
+# 6. Java8引入stream有什么意义？
+
+#### 1. **更简洁的代码**
+
+- 使用流API，可以用更少的代码完成对集合的操作。例如，对集合进行过滤、转换、排序和聚合等操作可以通过链式调用实现，使代码更加简洁和易读。
+
+#### 2. **并行处理能力**
+
+- 流API支持轻松的并行操作，只需将 `stream()` 方法更换为 `parallelStream()`，就可以利用多核处理器的能力来加速数据处理。这对于处理大型数据集合尤为重要。
+
+#### 3. **惰性求值**
+
+- `Stream` API 采用惰性求值策略，即只有在最终需要结果时才会执行中间操作。此外，一些终端操作（如 `findFirst()` 或 `anyMatch()`）具有短路特性，这意味着一旦找到符合条件的第一个元素，后续的操作就会停止，从而节省计算资源。
+
+#### 4. **易于组合和重用**
+
+- 由于 `Stream` 操作是高度模块化的，你可以轻松地将不同的操作组合在一起形成复杂的处理流程，也可以方便地复用这些操作。
+
+# 7 @Transactional 常用的一些配置？
+
+1. **propagation**（传播行为）
+
+   - 定义事务在遇到已有事务时的行为。
+
+   - 常用值
+
+     - `REQUIRED`（默认）：如果当前存在事务，则加入该事务；否则创建一个新的事务。
+
+     - `REQUIRES_NEW`：总是创建一个新的事务，如果当前存在事务，则挂起它。如：在日志的save时，即使 `createUser` 方法失败并导致事务回滚，日志记录操作仍然会被提交。
+
+       ```java 
+       @Transactional
+       public void createUserWithLogging(User user) {
+         userService.createUser(user);
+         loggingService.logMessage("User created: " + user.getName());
+       }
+           
+       
+       @Transactional(propagation = Propagation.REQUIRES_NEW)
+       public void logMessage(String message) {
+         logRepository.save(new Log(message));
+       }
+       ```
+
+       
+
+     - `SUPPORTS`：如果当前存在事务，则加入该事务；否则以非事务方式运行。
+
+     - `NOT_SUPPORTED`：以非事务方式运行，如果当前存在事务，则挂起它。
+
+     - `MANDATORY`：如果当前存在事务，则加入该事务；否则抛出异常。
+
+     - `NEVER`：以非事务方式运行，如果当前存在事务，则抛出异常。
+
+     - `NESTED`：如果当前存在事务，则在嵌套事务内执行；否则与 `REQUIRED` 行为相同。
+
+2. **rollbackFor**（回滚异常）
+
+   - 指定哪些异常会导致事务回滚，默认情况下只有 `RuntimeException` 和 `Error` 会触发回滚。
+
+     ```java
+     @Transactional(rollbackFor = {SQLException.class, IOException.class})
+     ```
+
+3. **timeout**（超时时间）
+
+   - 定义事务的最大持续时间（秒），超过该时间将抛出异常并回滚事务。当某个事务可能长时间运行时，可以通过设置超时时间来避免长时间占用资源。
+
+     ```java
+     @Transactional(timeout = 30)
+     ```
+
+4. **isolation**（隔离级别）
+
+   - 定义事务的隔离级别，控制事务之间的可见性。
+
+   - 常用值
+     - `DEFAULT`（默认）：使用底层数据库的默认隔离级别。
+     - `READ_UNCOMMITTED`：允许读取未提交的数据更改，可能导致脏读、不可重复读和幻读。
+     - `READ_COMMITTED`：允许从已经提交的事务中读取数据，防止脏读。
+     - `REPEATABLE_READ`：对同一字段的多次读取结果一致，除非数据被当前事务本身改变，可以防止脏读和不可重复读。
+     - `SERIALIZABLE`：完全串行化，最高级别的隔离，防止所有并发问题，但性能较低。
+
+5. **readOnly**（只读标志）
+
+- 如果设置为 `true`，表示该事务是只读的，优化器可能会进行一些优化。这种方式适用于查询操作，避免不必要的锁和写操作。
+
+         ```java
+         @Transactional(readOnly = true)
+         ```
+
