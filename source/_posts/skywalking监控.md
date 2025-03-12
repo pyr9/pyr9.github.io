@@ -148,3 +148,4 @@ services:
 
 1. SkyWalking 不能检测服务是否存活，如果要检测服务是否存活，可以考虑使用Prometheus + Grafana+actuator
 2. Zipkin也能实现链路追踪，且他更轻量，只是不能监控 CPU、内存、数据库性能、触发告警等
+3. 可以通过nacos等来存储告警配置文件，使得skywalking实现告警规则动态刷新
