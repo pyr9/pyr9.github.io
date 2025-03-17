@@ -23,13 +23,13 @@
 <meta property="og:site_name" content="楼上有只喵">
 <meta property="og:description" content="1. 为什么需要链路追踪 理解复杂的调用链路。在微服务架构中，一个用户请求通常会跨越多个服务、数据库、缓存等组件。链路追踪可以帮助你清晰地看到每个请求在整个系统中的完整路径，包括经过的所有服务及其依赖关系。  快速定位性能瓶颈。通过链路追踪，你可以精确地测量每个服务的响应时间，并识别出哪些服务或组件是导致延迟的主要原因。这对于优化系统性能至关重要。  故障排查与诊断。当系统出现错误时，链路追踪可以">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213518425.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313094420295.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213613439.png">
 <meta property="article:published_time" content="2025-03-13T13:32:40.000Z">
-<meta property="article:modified_time" content="2025-03-13T13:48:32.152Z">
+<meta property="article:modified_time" content="2025-03-17T06:03:00.689Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213518425.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313094420295.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -310,7 +310,7 @@
 </li>
 </ol>
 <p>效果：</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213518425.png" srcset="/img/loading.gif" lazyload alt="image-20250313213518425"></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313094420295.png" srcset="/img/loading.gif" lazyload alt="image-20250313094420295"></p>
 <h1 id="3-Sleuth与Zipkin集成"><a href="#3-Sleuth与Zipkin集成" class="headerlink" title="3. Sleuth与Zipkin集成"></a>3. Sleuth与Zipkin集成</h1><h2 id="1-ZIpKin是什么？"><a href="#1-ZIpKin是什么？" class="headerlink" title="1. ZIpKin是什么？"></a>1. ZIpKin是什么？</h2><p>Zipkin 是一个开源的分布式追踪系统，由 Twitter 开发并开源。它主要用于收集和展示微服务架构中的链路追踪数据，帮助开发者和运维人员更好地理解、监控和诊断复杂的分布式系统。</p>
 <h2 id="2-主要功能-1"><a href="#2-主要功能-1" class="headerlink" title="2. 主要功能"></a>2. 主要功能</h2><ul>
 <li>分布式追踪：<br>Zipkin 支持分布式追踪，能够跟踪一个请求在多个服务之间的传递过程，并生成详细的调用链路图。</li>
@@ -343,6 +343,7 @@
 <li>zipkin只用于轻量级的链路追踪，如果需要更全面的监控服务、数据库、redis等中间件，可以考虑skywalking</li>
 </ul>
 <h1 id="4-集成ELK实现日志检索"><a href="#4-集成ELK实现日志检索" class="headerlink" title="4. 集成ELK实现日志检索"></a>4. 集成ELK实现日志检索</h1><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/docker%E6%90%AD%E5%BB%BAELK/">docker搭建ELK</a></p>
+<h1 id="5-skywalking"><a href="#5-skywalking" class="headerlink" title="5. skywalking"></a>5. skywalking</h1><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/Skywalking%E7%9B%91%E6%8E%A7/">skywalking</a></p>
 
               
             </div>
