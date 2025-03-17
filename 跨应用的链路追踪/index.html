@@ -16,23 +16,26 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. websocket和SSE异同SSE（Server-Sent Events）和WebSocket都是用于实现服务器与客户端之间实时通信的技术。     SSE（Server-Sent Events） WebSocket    通信方式 单向通信 双向通信   协议基础 基于HTTP协议 基于独立的TCP连接，使用自定义协议   数据流向 服务器向客户端发送数据 服务器和客户端可以互相发送数据">
+    <meta name="description" content="1. 为什么需要链路追踪 理解复杂的调用链路。在微服务架构中，一个用户请求通常会跨越多个服务、数据库、缓存等组件。链路追踪可以帮助你清晰地看到每个请求在整个系统中的完整路径，包括经过的所有服务及其依赖关系。  快速定位性能瓶颈。通过链路追踪，你可以精确地测量每个服务的响应时间，并识别出哪些服务或组件是导致延迟的主要原因。这对于优化系统性能至关重要。  故障排查与诊断。当系统出现错误时，链路追踪可以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="websocket和SSE">
-<meta property="og:url" content="http://example.com/websocket%E5%92%8CSSE/index.html">
+<meta property="og:title" content="跨应用的链路追踪">
+<meta property="og:url" content="http://example.com/%E8%B7%A8%E5%BA%94%E7%94%A8%E7%9A%84%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1. websocket和SSE异同SSE（Server-Sent Events）和WebSocket都是用于实现服务器与客户端之间实时通信的技术。     SSE（Server-Sent Events） WebSocket    通信方式 单向通信 双向通信   协议基础 基于HTTP协议 基于独立的TCP连接，使用自定义协议   数据流向 服务器向客户端发送数据 服务器和客户端可以互相发送数据">
+<meta property="og:description" content="1. 为什么需要链路追踪 理解复杂的调用链路。在微服务架构中，一个用户请求通常会跨越多个服务、数据库、缓存等组件。链路追踪可以帮助你清晰地看到每个请求在整个系统中的完整路径，包括经过的所有服务及其依赖关系。  快速定位性能瓶颈。通过链路追踪，你可以精确地测量每个服务的响应时间，并识别出哪些服务或组件是导致延迟的主要原因。这对于优化系统性能至关重要。  故障排查与诊断。当系统出现错误时，链路追踪可以">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-09T12:38:48.000Z">
-<meta property="article:modified_time" content="2025-03-09T12:41:43.553Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213518425.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213613439.png">
+<meta property="article:published_time" content="2025-03-13T13:32:40.000Z">
+<meta property="article:modified_time" content="2025-03-13T13:48:32.152Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213518425.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>websocket和SSE - 楼上有只喵</title>
+  <title>跨应用的链路追踪 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +186,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="websocket和SSE"></span>
+            <span id="subtitle" data-typed-text="跨应用的链路追踪"></span>
           
         </div>
 
@@ -194,8 +197,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-09 20:38" pubdate>
-          2025年3月9日 晚上
+        <time datetime="2025-03-13 21:32" pubdate>
+          2025年3月13日 晚上
         </time>
       </span>
     
@@ -207,7 +210,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          459 字
+          2.7k 字
         
       </span>
     
@@ -219,7 +222,7 @@
         
         
           <!-- compatible with older versions-->
-          2 分钟
+          9 分钟
         
       </span>
     
@@ -267,65 +270,79 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">websocket和SSE</h1>
+            <h1 style="display: none">跨应用的链路追踪</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-websocket和SSE异同"><a href="#1-websocket和SSE异同" class="headerlink" title="1. websocket和SSE异同"></a>1. websocket和SSE异同</h1><p>SSE（Server-Sent Events）和WebSocket都是用于实现服务器与客户端之间实时通信的技术。</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>SSE（Server-Sent Events）</th>
-<th>WebSocket</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>通信方式</strong></td>
-<td>单向通信</td>
-<td>双向通信</td>
-</tr>
-<tr>
-<td><strong>协议基础</strong></td>
-<td>基于HTTP协议</td>
-<td>基于独立的TCP连接，使用自定义协议</td>
-</tr>
-<tr>
-<td><strong>数据流向</strong></td>
-<td>服务器向客户端发送数据</td>
-<td>服务器和客户端可以互相发送数据</td>
-</tr>
-<tr>
-<td><strong>消息类型</strong></td>
-<td>主要支持文本数据，不支持二进制数据</td>
-<td>支持文本和二进制数据</td>
-</tr>
-<tr>
-<td><strong>连接管理</strong></td>
-<td>每次消息发送完毕后，连接会被关闭，客户端需要重新连接</td>
-<td>连接一旦建立，保持打开状态，直到客户端或服务器主动关闭</td>
-</tr>
-<tr>
-<td><strong>实现复杂度</strong></td>
-<td>协议简单，易于实现和使用</td>
-<td>协议相对复杂，需要更多的代码和服务器资源</td>
-</tr>
-<tr>
-<td><strong>自动重连</strong></td>
-<td>支持自动重连功能</td>
-<td>不支持自动重连，需要手动处理断线重连</td>
-</tr>
-<tr>
-<td><strong>适用场景</strong></td>
-<td>适合只需要服务器向客户端推送实时更新数据的场景，如实时新闻更新、股票行情推送等</td>
-<td>适合需要客户端和服务器之间进行实时双向通信的场景，如聊天室、在线游戏等</td>
-</tr>
-<tr>
-<td><strong>浏览器支持</strong></td>
-<td>大多数现代浏览器都支持，但部分旧版或非主流浏览器可能不支持</td>
-<td>大多数现代浏览器都支持，兼容性较好</td>
-</tr>
-</tbody></table>
+              <h1 id="1-为什么需要链路追踪"><a href="#1-为什么需要链路追踪" class="headerlink" title="1. 为什么需要链路追踪"></a>1. 为什么需要链路追踪</h1><ol>
+<li><p><strong>理解复杂的调用链路</strong>。在微服务架构中，一个用户请求通常会跨越多个服务、数据库、缓存等组件。链路追踪可以帮助你清晰地看到每个请求在整个系统中的完整路径，包括经过的所有服务及其依赖关系。</p>
+</li>
+<li><p><strong>快速定位性能瓶颈</strong>。通过链路追踪，你可以精确地测量每个服务的响应时间，并识别出哪些服务或组件是导致延迟的主要原因。这对于优化系统性能至关重要。</p>
+</li>
+<li><p><strong>故障排查与诊断</strong>。当系统出现错误时，链路追踪可以提供详细的上下文信息，帮助你更快地定位问题的根本原因。它可以显示请求在每个服务中的执行情况，以及每个服务返回的状态码和错误信息。</p>
+</li>
+<li><p><strong>跨服务的事务一致性</strong>。在分布式系统中，确保跨多个服务的事务一致性是一个挑战。链路追踪可以帮助你跟踪和验证这些跨服务的操作是否按预期执行，并确保数据的一致性。</p>
+</li>
+<li><p><strong>提高开发和运维效率</strong>。链路追踪提供了丰富的上下文信息，使得开发人员和运维人员能够更高效地协作。开发人员可以通过追踪信息快速找到代码中的问题，而运维人员则可以利用这些信息进行系统维护和优化。</p>
+</li>
+</ol>
+<h1 id="2-Sleuth"><a href="#2-Sleuth" class="headerlink" title="2. Sleuth"></a>2. Sleuth</h1><h2 id="1-sleuth是什么？"><a href="#1-sleuth是什么？" class="headerlink" title="1. sleuth是什么？"></a>1. sleuth是什么？</h2><p>Spring Cloud Sleuth 是一个用于分布式追踪的库，主要用于简化在微服务架构中实现链路追踪（Distributed Tracing）。它帮助开发者在复杂的分布式系统中跟踪请求的完整路径，从而更容易地进行性能监控、故障排查和问题诊断。</p>
+<h2 id="2-主要功能"><a href="#2-主要功能" class="headerlink" title="2. 主要功能"></a>2. 主要功能</h2><ul>
+<li>链路追踪（Distributed Tracing）：<br>为每个请求生成唯一的追踪ID（Trace ID），并为每个服务调用生成唯一的跨度ID（Span ID）。<br>这些ID会随着请求在不同服务之间的传递而保持一致，使得你可以清晰地看到整个请求的调用链路。</li>
+<li>日志关联（Log Correlation）：<br>将追踪ID和跨度ID自动添加到日志记录中，确保所有相关的日志条目都可以通过这些ID进行关联。<br>这有助于在日志中快速定位和分析特定请求的所有相关日志信息。</li>
+<li>集成第三方追踪系统：<br>支持与多种分布式追踪系统集成，如Zipkin、Jaeger等，将追踪数据发送到这些系统进行可视化和进一步分析。</li>
+<li>采样率控制：<br>提供采样机制，允许你控制哪些请求需要被追踪，以避免生成过多的数据影响系统性能。</li>
+</ul>
+<h2 id="2-调用链路模型"><a href="#2-调用链路模型" class="headerlink" title="2.  调用链路模型"></a>2.  调用链路模型</h2><p>Spring Cloud Sleuth 主要通过自动注入的上下文信息（如 TraceContext）和 AOP（面向切面编程）来实现链路追踪。</p>
+<h2 id="2-集成Springboot项目"><a href="#2-集成Springboot项目" class="headerlink" title="2. 集成Springboot项目"></a>2. 集成Springboot项目</h2><ol>
+<li><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-sleuth<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>修改配置文件 (按需，非必要)</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">sleuth:</span><br>    <span class="hljs-attr">sampler:</span><br>      <span class="hljs-attr">probability:</span> <span class="hljs-number">1.0</span> <span class="hljs-comment"># 设置采样率，按需</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改日志模板, ，我这里是log4j2.xml</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;Console name=<span class="hljs-string">&quot;consoleAppender&quot;</span> target=<span class="hljs-string">&quot;SYSTEM_OUT&quot;</span>&gt;<br>    &lt;PatternLayout pattern=<span class="hljs-string">&quot;xxx[%style&#123;%X&#123;X-B3-TraceId&#125;&#125;&#123;green&#125;,%style&#123;%X&#123;X-B3-SpanId&#125;&#125;&#123;yellow&#125;,%X&#123;X-B3-ParentSpanId&#125;] xxx&quot;</span>/&gt;<br>&lt;/Console&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重启项目，观察打印日志</p>
+</li>
+</ol>
+<p>效果：</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213518425.png" srcset="/img/loading.gif" lazyload alt="image-20250313213518425"></p>
+<h1 id="3-Sleuth与Zipkin集成"><a href="#3-Sleuth与Zipkin集成" class="headerlink" title="3. Sleuth与Zipkin集成"></a>3. Sleuth与Zipkin集成</h1><h2 id="1-ZIpKin是什么？"><a href="#1-ZIpKin是什么？" class="headerlink" title="1. ZIpKin是什么？"></a>1. ZIpKin是什么？</h2><p>Zipkin 是一个开源的分布式追踪系统，由 Twitter 开发并开源。它主要用于收集和展示微服务架构中的链路追踪数据，帮助开发者和运维人员更好地理解、监控和诊断复杂的分布式系统。</p>
+<h2 id="2-主要功能-1"><a href="#2-主要功能-1" class="headerlink" title="2. 主要功能"></a>2. 主要功能</h2><ul>
+<li>分布式追踪：<br>Zipkin 支持分布式追踪，能够跟踪一个请求在多个服务之间的传递过程，并生成详细的调用链路图。</li>
+<li>可视化界面：<br>提供了一个直观的 Web UI，用于查看和分析追踪数据，包括每个请求的详细路径、延迟时间、错误信息等</li>
+<li>多种数据传输方式：<br>支持通过 HTTP、Kafka、RabbitMQ 等多种方式进行数据传输，灵活适应不同的应用场景。</li>
+<li>集成多种语言和框架：<br>支持多种编程语言（如 Java、Python、Go、Node.js 等）和框架（如 Spring Cloud Sleuth、Finagle 等），方便在不同技术栈中使用。</li>
+<li>采样机制：<br>为了减少性能开销，Zipkin 提供了采样机制，允许你控制哪些请求需要被追踪。</li>
+<li>存储支持：<br>支持多种存储后端，如内存、Elasticsearch、Cassandra 等，便于长期保存和查询追踪数据。</li>
+</ul>
+<h2 id="2-集成Springboot项目-1"><a href="#2-集成Springboot项目-1" class="headerlink" title="2. 集成Springboot项目"></a>2. 集成Springboot项目</h2><ol>
+<li><p>docker-compose安装zipkin</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">zipkin:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">openzipkin/zipkin:latest</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">zipkin</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9411:9411&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">JAVA_OPTS=-Xms1g</span> <span class="hljs-string">-Xmx1g</span>  <span class="hljs-comment"># 根据需要调整内存设置</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-zipkin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>修改配置文件</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">zipkin:</span><br>    <span class="hljs-comment"># 连接 zipkin 服务端的地址，接口被调用后，调用相关信息通过这个 url 发送到 zipkin 服务端</span><br>    <span class="hljs-attr">base-url:</span> <span class="hljs-string">http://localhost:9411</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>访问<a href="http://localhost:9411，">http://localhost:9411，</a> 输入traceId 查看效果</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313213613439.png" srcset="/img/loading.gif" lazyload alt="image-20250313213613439"></p>
+</li>
+</ol>
+<p><strong>TIPS:</strong> </p>
+<ul>
+<li>如果不想使用http长连接，可以改成使用rabbitMQ收集数据</li>
+<li>zipkin默认存储在内存，即服务重启会数据丢失，可以考虑用ES等做数据持久化</li>
+<li>zipkin只用于轻量级的链路追踪，如果需要更全面的监控服务、数据库、redis等中间件，可以考虑skywalking</li>
+</ul>
+<h1 id="4-集成ELK实现日志检索"><a href="#4-集成ELK实现日志检索" class="headerlink" title="4. 集成ELK实现日志检索"></a>4. 集成ELK实现日志检索</h1><p><a target="_blank" rel="noopener" href="https://pyr9.github.io/docker%E6%90%AD%E5%BB%BAELK/">docker搭建ELK</a></p>
 
               
             </div>
@@ -342,8 +359,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>websocket和SSE</div>
-      <div>http://example.com/websocket和SSE/</div>
+      <div>跨应用的链路追踪</div>
+      <div>http://example.com/跨应用的链路追踪/</div>
     </div>
     <div class="license-meta">
       
@@ -355,7 +372,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月9日</div>
+          <div>2025年3月13日</div>
         </div>
       
       
@@ -385,9 +402,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Skywalking%E7%9B%91%E6%8E%A7/" title="Skywalking监控工具">
+                      <a href="/Actuator/" title="Actuator">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Skywalking监控工具</span>
+                        <span class="hidden-mobile">Actuator</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -395,8 +412,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2deepSeek%E5%AE%B6%E5%BA%AD%E5%8C%BB%E7%94%9F/" title="本地部署deepSeek家庭医生">
-                        <span class="hidden-mobile">本地部署deepSeek家庭医生</span>
+                      <a href="/Skywalking%E7%9B%91%E6%8E%A7/" title="Skywalking监控工具">
+                        <span class="hidden-mobile">Skywalking监控工具</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
