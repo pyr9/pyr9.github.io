@@ -36,6 +36,6 @@ Actuator 也可以和一些外部的应用监控系统整合（Prometheus等）
 
 3. 访问对应服务的 `/actuator/`
 
-   ![image-20250313215237665](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313215237665.png)
+   ![image-20250313110530621](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313110530621.png)
 
-   ![](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313215237665-20250313215311616-20250313215503904.png)
+   ![image-20250313110607444](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313110607444.png)
