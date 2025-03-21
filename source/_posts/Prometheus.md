@@ -15,7 +15,7 @@ categories: 监控
 
 # 1. 准备工作：
 
-需要监控的项目，都需要集成actuator， 可以使Prometheus通过http请求收集数据。参考博客：
+需要监控的项目，都需要集成actuator， 可以使Prometheus通过http请求收集数据。[参考博客](https://pyr9.github.io/Actuator/)
 
 # 2. docker-compose 安装
 
