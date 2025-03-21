@@ -1,0 +1,853 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="通过 Prometheus 和 Grafana 监控 Spring Cloud 服务实现的效果：当em-gateway服务宕机后, 飞书通知到群里。  prometheus（&#x2F;proˈmiθɪəs&#x2F;）: Prometheus 负责从各个目标服务中收集监控数据。 grafana: 开源的可视化系统,可实现Prometheus、Elasticsearch、Postgres、Infl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prometheus">
+<meta property="og:url" content="http://example.com/Prometheus/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="通过 Prometheus 和 Grafana 监控 Spring Cloud 服务实现的效果：当em-gateway服务宕机后, 飞书通知到群里。  prometheus（&#x2F;proˈmiθɪəs&#x2F;）: Prometheus 负责从各个目标服务中收集监控数据。 grafana: 开源的可视化系统,可实现Prometheus、Elasticsearch、Postgres、Infl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/z004nnre/AppData/Roaming/Typora/typora-user-images/image-20250313131253269.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313145316614.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313145416414.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313131723923.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313134156998.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313134357862.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313141328486.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313141833859.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313141924350.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313142044330.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112015718.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319110857781.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112616203.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112727528.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112757644.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112829866.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319113318248.png">
+<meta property="article:published_time" content="2025-03-21T00:09:51.000Z">
+<meta property="article:modified_time" content="2025-03-21T00:10:28.543Z">
+<meta property="article:author" content="Panyurou">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:/Users/z004nnre/AppData/Roaming/Typora/typora-user-images/image-20250313131253269.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Prometheus - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 62vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Prometheus"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-21 08:09" pubdate>
+          2025年3月21日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Prometheus</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="通过-Prometheus-和-Grafana-监控-Spring-Cloud-服务"><a href="#通过-Prometheus-和-Grafana-监控-Spring-Cloud-服务" class="headerlink" title="通过 Prometheus 和 Grafana 监控 Spring Cloud 服务"></a>通过 Prometheus 和 Grafana 监控 Spring Cloud 服务</h1><p>实现的效果：当em-gateway服务宕机后, 飞书通知到群里。</p>
+<ul>
+<li>prometheus（&#x2F;proˈmiθɪəs&#x2F;）: Prometheus 负责从各个目标服务中收集监控数据。</li>
+<li>grafana: 开源的可视化系统,可实现Prometheus、Elasticsearch、Postgres、InfluxDB等数据源的可视化，grafana 通过连接 Prometheus 数据源，利用其丰富的可视化选项创建直观的监控仪表板。</li>
+<li>prometheusalert: prometheusalert是一个开源的告警通知工具，旨在简化 Prometheus 告警的通知流程，并支持多种通知渠道。它可以帮助用户将 Prometheus 的告警信息发送到各种常用的消息平台和通知系统，如微信、钉钉、飞书、Slack、<strong>邮件等</strong></li>
+</ul>
+<h1 id="1-准备工作："><a href="#1-准备工作：" class="headerlink" title="1. 准备工作："></a>1. 准备工作：</h1><p>需要监控的项目，都需要集成actuator， 可以使Prometheus通过http请求收集数据。参考博客：</p>
+<h1 id="2-docker-compose-安装"><a href="#2-docker-compose-安装" class="headerlink" title="2. docker-compose 安装"></a>2. docker-compose 安装</h1><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">prometheus:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">prom/prometheus:v2.53.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">prometheus</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./config/prometheus.yml:/etc/prometheus/prometheus.yml</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./prometheus-data:/prometheu</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9090:9090&quot;</span><br><br>  <span class="hljs-attr">grafana:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">grafana/grafana:11.4.2</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">grafana</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">GF_SECURITY_ADMIN_PASSWORD=admin</span>  <span class="hljs-comment"># 设置Grafana管理员密码</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3000:3000&quot;</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">prometheus</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./grafana-storage:/var/lib/grafana</span><br><br>  <span class="hljs-attr">prometheusalert:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/feiyu563/prometheus-alert:v4.9.1</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">prometheusalert</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8089:8080&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PA_LOGIN_USER=prometheusalert</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PA_LOGIN_PASSWORD=prometheusalert</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PA_TITLE=PrometheusAlert</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PA_OPEN_FEISHU=1</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PA_OPEN_DINGDING=1</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PA_OPEN_WEIXIN=1</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">./prometheus-alert/db:/app/db</span><br>    <span class="hljs-attr">command:</span> [<span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;/app/prometheusalert.yml&quot;</span>]<br><br></code></pre></td></tr></table></figure>
+
+<h1 id="3-配置-Prometheus"><a href="#3-配置-Prometheus" class="headerlink" title="3. 配置 Prometheus"></a>3. 配置 Prometheus</h1><h2 id="1-修改配置文件"><a href="#1-修改配置文件" class="headerlink" title="1. 修改配置文件"></a>1. 修改配置文件</h2><p>这里使用到了<code>host.docker.internal</code>， 因为我的Java服务是运行在宿主机的，而prometheus是运行在容器里的，使用<code>host.docker.internal</code>来访问宿主机</p>
+<p>prometheus.yml </p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">global:</span><br>  <span class="hljs-attr">scrape_interval:</span> <span class="hljs-string">15s</span> <span class="hljs-comment"># 默认抓取间隔</span><br><br><span class="hljs-attr">scrape_configs:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">job_name:</span> <span class="hljs-string">&#x27;em-gateway&#x27;</span><br>    <span class="hljs-attr">metrics_path:</span> <span class="hljs-string">&#x27;/actuator/prometheus&#x27;</span><br>    <span class="hljs-attr">static_configs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">targets:</span> <br>        <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;host.docker.internal:9998&#x27;</span>  <span class="hljs-comment"># 替换为你的Spring Cloud服务地址</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">job_name:</span> <span class="hljs-string">&#x27;sith-mes&#x27;</span><br>    <span class="hljs-attr">metrics_path:</span> <span class="hljs-string">&#x27;/sith-mes/actuator/prometheus&#x27;</span><br>    <span class="hljs-attr">static_configs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">targets:</span> <br>        <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;host.docker.internal:6500&#x27;</span>  <span class="hljs-comment"># 替换为你的Spring Cloud服务地址 </span><br></code></pre></td></tr></table></figure>
+
+<h2 id="2-配置-Spring-Cloud-应用"><a href="#2-配置-Spring-Cloud-应用" class="headerlink" title="2.  配置 Spring Cloud 应用"></a>2.  配置 Spring Cloud 应用</h2><ol>
+<li><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.micrometer<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>micrometer-registry-prometheus<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment">## 开启所有actuator-endpoint</span><br><span class="hljs-attr">management:</span><br>  <span class="hljs-attr">endpoint:</span><br>    <span class="hljs-attr">health:</span><br>      <span class="hljs-attr">show-details:</span> <span class="hljs-string">always</span><br>  <span class="hljs-attr">endpoints:</span><br>    <span class="hljs-attr">web:</span><br>      <span class="hljs-attr">exposure:</span><br>        <span class="hljs-attr">include:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;*&#x27;</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;prometheus&#x27;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>访问项目 <code>/actuator/prometheus</code></p>
+</li>
+</ol>
+<p><img src="C:\Users\z004nnre\AppData\Roaming\Typora\typora-user-images\image-20250313131253269.png" srcset="/img/loading.gif" lazyload alt="image-20250313131253269"></p>
+<ol start="4">
+<li>再次访问<code>http://localhost:9090/targets</code>确保当前服务成功注册到了prometheus上</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313145316614.png" srcset="/img/loading.gif" lazyload alt="image-20250313145316614"></p>
+<ol start="5">
+<li>配置属性在prometheus简单查看</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313145416414.png" srcset="/img/loading.gif" lazyload alt="image-20250313145416414"></p>
+<h1 id="4-配置-Grafana"><a href="#4-配置-Grafana" class="headerlink" title="4. 配置 Grafana"></a>4. 配置 Grafana</h1><p>访问 Grafana 打开浏览器访问 <a href="http://localhost:3000，默认用户名和密码是">http://localhost:3000，默认用户名和密码是</a> admin&#x2F;admin</p>
+<h2 id="1-配置Prometheus作为datasource"><a href="#1-配置Prometheus作为datasource" class="headerlink" title="1. 配置Prometheus作为datasource"></a>1. 配置Prometheus作为datasource</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313131723923.png" srcset="/img/loading.gif" lazyload alt="image-20250313131723923"></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313134156998.png" srcset="/img/loading.gif" lazyload alt="image-20250313134156998"></p>
+<h2 id="2-测试展示系统的CPU使用情况"><a href="#2-测试展示系统的CPU使用情况" class="headerlink" title="2. 测试展示系统的CPU使用情况"></a>2. 测试展示系统的CPU使用情况</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313134357862.png" srcset="/img/loading.gif" lazyload alt="image-20250313134357862"></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313141328486.png" srcset="/img/loading.gif" lazyload alt="image-20250313141328486"></p>
+<h2 id="3-dashborad模板"><a href="#3-dashborad模板" class="headerlink" title="3. dashborad模板"></a>3. dashborad模板</h2><p>网址：<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/">Grafana dashboards | Grafana Labs</a></p>
+<ol>
+<li>dashboard 市场有很多现成的dashborad，可以直接使用，比如：</li>
+</ol>
+<ul>
+<li><p>Actuator: <a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/12856">https://grafana.com/grafana/dashboards/12856</a></p>
+</li>
+<li><p>jmx_exporter: <a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/3457">https://grafana.com/grafana/dashboards/3457</a></p>
+</li>
+<li><p>node_exporter: <a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/8919">https://grafana.com/grafana/dashboards/8919</a></p>
+</li>
+<li><p>mysqld_exporter:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/13106">https://grafana.com/grafana/dashboards/13106</a></li>
+<li><a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/11323">https://grafana.com/grafana/dashboards/11323</a></li>
+</ul>
+</li>
+<li><p>redis_exporter: <a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/11835">https://grafana.com/grafana/dashboards/11835</a></p>
+</li>
+<li><p>k8s: <a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/13105">https://grafana.com/grafana/dashboards/13105</a></p>
+</li>
+</ul>
+<ol start="2">
+<li>具体使用步骤<ol>
+<li>关键词搜索</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313141833859.png" srcset="/img/loading.gif" lazyload alt="image-20250313141833859"></p>
+<ol start="2">
+<li>复制模板ID</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313141924350.png" srcset="/img/loading.gif" lazyload alt="image-20250313141924350"></p>
+<ol start="3">
+<li>填入ID导入</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250313142044330.png" srcset="/img/loading.gif" lazyload alt="image-20250313142044330"></p>
+<h2 id="4-引入Prometheusalert"><a href="#4-引入Prometheusalert" class="headerlink" title="4. 引入Prometheusalert"></a>4. 引入Prometheusalert</h2><p>因为grafana的github的issue上写了他们短期不支持飞书，我也尝试配置webhook，飞书通知失败，所以这里引入了prometheusalert来做飞书通知。</p>
+<ol>
+<li>在模板管理里，找到自己需要的模板，复制URL， 后续作为webhook地址，供grafana使用。这是我下面示例使用的<a target="_blank" rel="noopener" href="http://host.docker.internal:8089/prometheusalert?type=fs&tpl=grafana-fs&fsurl=https://open.feishu.cn/open-apis/bot/v2/hook/ae1eaeaa-fab0-4815-bc7f-f96110281df4">URL</a></li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112015718.png" srcset="/img/loading.gif" lazyload alt="image-20250319112015718"></p>
+<h2 id="4-配置grafana告警"><a href="#4-配置grafana告警" class="headerlink" title="4. 配置grafana告警"></a>4. 配置grafana告警</h2><ol>
+<li>修改 prometheusalert.yml (不确定是否真的需要，可以先不配试试)</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">feishu:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;feishu&quot;</span><br>    <span class="hljs-attr">webhook:</span> <span class="hljs-string">&quot;https://open.feishu.cn/open-apis/bot/v2/hook/ae1eaeaa-fab0-4815-bc7f-f96110281df4&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>增加 Contact points，配置红框中的属性</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319110857781.png" srcset="/img/loading.gif" lazyload alt="image-20250319110857781"></p>
+<ol start="2">
+<li>创建看板，展示em-gateway的运行情况</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112616203.png" srcset="/img/loading.gif" lazyload alt="image-20250319112616203"></p>
+<ol start="3">
+<li>配置Alert</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112727528.png" srcset="/img/loading.gif" lazyload alt="image-20250319112727528"></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112757644.png" srcset="/img/loading.gif" lazyload alt="image-20250319112757644"></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319112829866.png" srcset="/img/loading.gif" lazyload alt="image-20250319112829866"></p>
+<p>停止服务，查看飞书通知;</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250319113318248.png" srcset="/img/loading.gif" lazyload alt="image-20250319113318248"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%9B%91%E6%8E%A7/" class="category-chain-item">监控</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Prometheus</div>
+      <div>http://example.com/Prometheus/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月21日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Actuator/" title="Actuator">
+                        <span class="hidden-mobile">Actuator</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":220,"height":320},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
