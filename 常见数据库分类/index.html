@@ -16,32 +16,23 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1 配置nodeJs因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。官方文档  系统管理—&gt;管理插件—&gt;下载NodeJS插件    系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本  Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&amp;#x2F">
+    <meta name="description" content="1. 数据库分类1.1. 按数据模型分类   分类 说明 典型代表    关系型数据库 基于关系模型，数据以表格形式存储，支持 SQL 查询语言。 MySQL、PostgreSQL、Oracle、SQL Server   NoSQL 数据库（非关系型） 非关系型数据库，不依赖固定表结构，支持灵活的数据模型。 MongoDB、Redis、Neo4j、InfluxDB、Elasticsearch、Cl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jenkins部署vue项目">
-<meta property="og:url" content="http://example.com/jenkins%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:title" content="常见数据库分类">
+<meta property="og:url" content="http://example.com/%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1 配置nodeJs因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。官方文档  系统管理—&gt;管理插件—&gt;下载NodeJS插件    系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本  Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&amp;#x2F">
+<meta property="og:description" content="1. 数据库分类1.1. 按数据模型分类   分类 说明 典型代表    关系型数据库 基于关系模型，数据以表格形式存储，支持 SQL 查询语言。 MySQL、PostgreSQL、Oracle、SQL Server   NoSQL 数据库（非关系型） 非关系型数据库，不依赖固定表结构，支持灵活的数据模型。 MongoDB、Redis、Neo4j、InfluxDB、Elasticsearch、Cl">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155958382.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155909887.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160310957.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160535916.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160620905.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322152124371.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230324163338300.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322154215106.png">
-<meta property="article:published_time" content="2023-03-15T06:44:30.000Z">
-<meta property="article:modified_time" content="2023-03-24T08:34:29.534Z">
+<meta property="article:published_time" content="2025-04-19T10:49:03.000Z">
+<meta property="article:modified_time" content="2025-04-19T10:57:06.921Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155958382.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>jenkins部署vue项目 - 楼上有只喵</title>
+  <title>常见数据库分类 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="jenkins部署vue项目"></span>
+            <span id="subtitle" data-typed-text="常见数据库分类"></span>
           
         </div>
 
@@ -203,8 +194,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-15 14:44" pubdate>
-          2023年3月15日 下午
+        <time datetime="2025-04-19 18:49" pubdate>
+          2025年4月19日 晚上
         </time>
       </span>
     
@@ -216,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.4k 字
+          3.6k 字
         
       </span>
     
@@ -228,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          12 分钟
         
       </span>
     
@@ -276,51 +267,302 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">jenkins部署vue项目</h1>
+            <h1 style="display: none">常见数据库分类</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-配置nodeJs"><a href="#1-配置nodeJs" class="headerlink" title="1 配置nodeJs"></a>1 配置nodeJs</h1><p>因为Jenkins容器中只有java环境支持运行jenkins，没有node环境，但是jenkins提供在线安装nodejs。<a target="_blank" rel="noopener" href="https://plugins.jenkins.io/nodejs">官方文档</a></p>
-<ol>
-<li>系统管理—&gt;管理插件—&gt;下载NodeJS插件</li>
-</ol>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155958382.png" srcset="/img/loading.gif" lazyload alt="image-20230315155958382"></p>
-<ol start="2">
-<li>系统管理—&gt;全局工具配置—&gt;选择需要安装的nodejs版本</li>
-</ol>
-<p>Jenkins 会从nodejs官网下载安装，nodejs安装包在：$JENKINS_HOME&#x2F;tools目录下</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315155909887.png" srcset="/img/loading.gif" lazyload alt="image-20230315155909887"></p>
-<p>注：这里也需要配置git</p>
-<h1 id="2-新建一个任务"><a href="#2-新建一个任务" class="headerlink" title="2 新建一个任务"></a>2 新建一个任务</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160310957.png" srcset="/img/loading.gif" lazyload alt="image-20230315160310957"></p>
-<h1 id="3-配置仓库地址和分支名"><a href="#3-配置仓库地址和分支名" class="headerlink" title="3 配置仓库地址和分支名"></a>3 配置仓库地址和分支名</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160535916.png" srcset="/img/loading.gif" lazyload alt="image-20230315160535916"></p>
-<h1 id="4-配置构建环境"><a href="#4-配置构建环境" class="headerlink" title="4 配置构建环境"></a>4 配置构建环境</h1><p>构建环境勾选 Provide Node &amp; npm bin&#x2F;folder to PATH</p>
-<ul>
-<li>每次build，都会首先执行环境构建，环境构建无误后，才会开始真正的构建过程</li>
-<li>会下载nodejs并安装配置，并把node添加到当前PATH环境变量中，这样就支持node和npm命令了</li>
+              <h2 id="1-数据库分类"><a href="#1-数据库分类" class="headerlink" title="1. 数据库分类"></a>1. 数据库分类</h2><h3 id="1-1-按数据模型分类"><a href="#1-1-按数据模型分类" class="headerlink" title="1.1. 按数据模型分类"></a>1.1. <strong>按数据模型分类</strong></h3><table>
+<thead>
+<tr>
+<th><strong>分类</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>典型代表</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>关系型数据库</strong></td>
+<td>基于关系模型，数据以表格形式存储，支持 SQL 查询语言。</td>
+<td>MySQL、PostgreSQL、Oracle、SQL Server</td>
+</tr>
+<tr>
+<td><strong>NoSQL 数据库（非关系型）</strong></td>
+<td>非关系型数据库，不依赖固定表结构，支持灵活的数据模型。</td>
+<td>MongoDB、Redis、Neo4j、InfluxDB、Elasticsearch、ClickHouse</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-按存储方式分类"><a href="#1-2-按存储方式分类" class="headerlink" title="1.2. 按存储方式分类"></a>1.2. <strong>按存储方式分类</strong></h3><table>
+<thead>
+<tr>
+<th><strong>分类</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>特点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>行存储</strong></td>
+<td>数据按行存储，适合事务处理和点查询。</td>
+<td>MySQL、PostgreSQL。</td>
+</tr>
+<tr>
+<td><strong>列存储</strong></td>
+<td>数据按列存储，适合分析型查询和批量处理。</td>
+<td>ClickHouse、</td>
+</tr>
+<tr>
+<td><strong>键值存储</strong></td>
+<td>数据以键值对形式存储，支持高速读写。</td>
+<td>Redis、Memcached。</td>
+</tr>
+<tr>
+<td><strong>文档存储</strong></td>
+<td>数据以文档形式存储（如 JSON），支持嵌套数据结构。</td>
+<td>MongoDB。</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-按开源与商业分类"><a href="#1-3-按开源与商业分类" class="headerlink" title="1.3. 按开源与商业分类"></a>1.3. <strong>按开源与商业分类</strong></h3><table>
+<thead>
+<tr>
+<th><strong>分类</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>代表</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>开源数据库</strong></td>
+<td>代码公开，社区驱动，免费使用。</td>
+<td>MySQL、PostgreSQL、MongoDB</td>
+</tr>
+<tr>
+<td><strong>商业数据库</strong></td>
+<td>由公司开发，提供技术支持和高级功能，需付费。</td>
+<td>Oracle、SQL Server、SAP HANA。</td>
+</tr>
+</tbody></table>
+<h2 id="2-数据库对比"><a href="#2-数据库对比" class="headerlink" title="2. 数据库对比"></a>2. 数据库对比</h2><h3 id="2-1-关系型数据库对比"><a href="#2-1-关系型数据库对比" class="headerlink" title="2.1. 关系型数据库对比"></a>2.1. <strong>关系型数据库对比</strong></h3><p>MySQL <strong>vs</strong> PostgreSQL  <strong>vs</strong> Oracle  <strong>vs</strong> SQL Server</p>
+<table>
+<thead>
+<tr>
+<th><strong>数据库</strong></th>
+<th><strong>设计目的</strong></th>
+<th><strong>使用场景</strong></th>
+<th><strong>开源 vs 商业</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MySQL</td>
+<td>面向 Web 应用和中小型项目，适合轻量级、高性能需求的场景</td>
+<td>Web应用、电子商务、内容管理系统（CMS）、数据分析、日志处理等</td>
+<td>开源，由 Oracle 公司维护</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>适合复杂查询、数据完整性和扩展性需求。支持复杂数据类型（如 JSON、数组、几何类型）</td>
+<td>复杂查询、数据仓库、地理信息系统（GIS）、金融应用、科学研究等</td>
+<td>开源，完全免费，无商业限制</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>面向大型企业，提供全面的数据库解决方案。</td>
+<td>企业资源规划（ERP）、客户关系管理（CRM）、银行系统、电信系统、政府机构等</td>
+<td>商业闭源 RDBMS，由 Oracle 公司开发</td>
+</tr>
+<tr>
+<td>SQL Server</td>
+<td>面向 Windows 企业用户，提供与微软生态的深度集成。</td>
+<td>企业级应用、商业智能（BI）、数据仓库、报表生成、与Microsoft Office的集成等</td>
+<td>商业闭源 RDBMS，由微软开发。</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-非关系型数据库对比"><a href="#2-2-非关系型数据库对比" class="headerlink" title="2.2. 非关系型数据库对比"></a>2.2. <strong>非关系型数据库对比</strong></h3><p>MongoDB <strong>vs</strong> Redis <strong>vs</strong> Neo4j <strong>vs</strong> InfluxDB <strong>vs</strong> Elasticsearch <strong>vs</strong> ClickHouse</p>
+<table>
+<thead>
+<tr>
+<th><strong>数据库</strong></th>
+<th><strong>定义</strong></th>
+<th><strong>设计目的</strong></th>
+<th><strong>使用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MongoDB</strong></td>
+<td>分布式文档数据库</td>
+<td>基于 BSON 格式存储，提供灵活的文档模型</td>
+<td>金数据的表单和数据结构用户配置文件存储</td>
+</tr>
+<tr>
+<td><strong>Redis</strong></td>
+<td>内存键值对数据库</td>
+<td>基于内存存储，提供超高性能</td>
+<td>缓存、会话存储、实时排行榜、计数器、分布式锁等。</td>
+</tr>
+<tr>
+<td><strong>Neo4j</strong></td>
+<td>图形数据库</td>
+<td>基于<strong>图形数据结构，</strong>处理复杂的关系网络数据</td>
+<td>社交网络分析、物联网设备关系管理等。</td>
+</tr>
+<tr>
+<td><strong>InfluxDB</strong></td>
+<td>时序数据库</td>
+<td>专为<strong>时间序列数据</strong>设计</td>
+<td>监控系统（CPU、内存使用情况）采集设备数据：主轴转速、倍率</td>
+</tr>
+<tr>
+<td><strong>Elasticsearch</strong></td>
+<td>分布式全文搜索引擎和分析引擎</td>
+<td>基于<strong>倒排索引</strong>，支持实时全文搜索和复杂聚合查询</td>
+<td>日志分析、百度搜索。</td>
+</tr>
+<tr>
+<td><strong>ClickHouse</strong></td>
+<td>列式存储数据库</td>
+<td>基于<strong>列式存储</strong>，支持大规模数据的高效查询和分析</td>
+<td>实时数据分析、大数据分析等。金数据表单数据平均值，最值计算</td>
+</tr>
+</tbody></table>
+<h2 id="3-常见数据库介绍"><a href="#3-常见数据库介绍" class="headerlink" title="3. 常见数据库介绍"></a>3. 常见数据库介绍</h2><h3 id="3-1-MongoDB"><a href="#3-1-MongoDB" class="headerlink" title="3.1 MongoDB"></a>3.1 MongoDB</h3><h4 id="1-原理"><a href="#1-原理" class="headerlink" title="1. 原理"></a>1. <strong>原理</strong></h4><ul>
+<li><strong>基于 BSON 格式的文档存储</strong>：数据以二进制 JSON（BSON）格式存储，支持动态模式，无需预定义结构。</li>
+<li><strong>分布式架构</strong>：通过分片（Sharding）和副本集（Replica Set）实现数据水平扩展和高可用性。</li>
+<li><strong>查询语言</strong>：提供类 SQL 的查询能力（MongoDB Query Language, MQL），支持复杂查询和聚合操作。</li>
 </ul>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230315160620905.png" srcset="/img/loading.gif" lazyload alt="image-20230315160620905"></p>
-<h1 id="5-配置shell"><a href="#5-配置shell" class="headerlink" title="5 配置shell"></a>5 配置shell</h1><p>执行：</p>
-<p><code>npm install &amp;&amp; npm run build &amp;&amp; npm run domain &amp;&amp; npm run aliyun</code></p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322152124371.png" srcset="/img/loading.gif" lazyload alt="image-20230322152124371"></p>
-<p>至此，可以点击立即构建了</p>
-<h1 id="6-配置远端服务器"><a href="#6-配置远端服务器" class="headerlink" title="6 配置远端服务器"></a>6 配置远端服务器</h1><p>注意：如果使用了echo,需要勾选Verbose output in console才可以在控制台，看到打印的日志</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230324163338300.png" srcset="/img/loading.gif" lazyload alt="image-20230324163338300"></p>
-<h1 id="7-使用打好的包替换服务器上的包"><a href="#7-使用打好的包替换服务器上的包" class="headerlink" title="7 使用打好的包替换服务器上的包"></a>7 使用打好的包替换服务器上的包</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230322154215106.png" srcset="/img/loading.gif" lazyload alt="image-20230322154215106"></p>
-<h1 id="8-遇到的问题"><a href="#8-遇到的问题" class="headerlink" title="8 遇到的问题"></a>8 遇到的问题</h1><p>记录下在windows搭建时遇到的问题</p>
-<ol>
-<li>Cannot run program “sh” (in directory “C:\ProgramData\Jenkins.jenkins\workspace\sith-front”): CreateProcess error&#x3D;2, 系统找不到指定的文件。</li>
-</ol>
-<p>解决：Manage Jenkins-&gt; Configure System-&gt; Shell-&gt; Shell execute </p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">C:\Windows\system32\cmd.exe<br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>ssh:&#x2F;&#x2F;&#x2F;<a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x65;&#101;&#46;&#x63;&#111;&#109;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x65;&#101;&#46;&#x63;&#111;&#109;</a>:SIEMENS_MMF&#x2F;MMF.git +refs&#x2F;heads&#x2F;<em>:refs&#x2F;remotes&#x2F;origin&#x2F;</em>“ returned status code 128:<br>stdout:<br>stderr: ssh: connect to host  port 22: Connection refused<br>fatal: Could not read from remote repository.</p>
-<p>Please make sure you have the correct access rights<br>and the repository exists.</p>
+<h4 id="2-核心概念"><a href="#2-核心概念" class="headerlink" title="2. 核心概念"></a>2. <strong>核心概念</strong></h4><ul>
+<li><strong>数据库（Database）</strong>：MongoDB 的逻辑容器，类似于关系型数据库中的数据库。</li>
+<li><strong>集合（Collection）</strong>：类似于关系型数据库中的表，存储一组文档。</li>
+<li><strong>文档（Document）</strong>：MongoDB 的基本数据单元，以 BSON 格式存储，支持嵌套结构。</li>
+<li><strong>字段（Field）</strong>：文档中的键值对，类似于关系型数据库中的列。</li>
+</ul>
+<h4 id="3-设计目的"><a href="#3-设计目的" class="headerlink" title="3. 设计目的"></a>3. <strong>设计目的</strong></h4><ul>
+<li>提供灵活的文档模型，适应快速变化的业务需求。</li>
+<li>支持高并发读写，适用于内容管理系统、物联网数据存储等场景。</li>
+</ul>
+<h4 id="4-使用场景"><a href="#4-使用场景" class="headerlink" title="4. 使用场景"></a>4. <strong>使用场景</strong></h4><ul>
+<li>内容管理系统（CMS）</li>
+<li>物联网（IoT）时序数据存储</li>
+<li>产品目录管理</li>
+<li>用户配置文件存储</li>
+</ul>
+<hr>
+<h3 id="3-2-Redis"><a href="#3-2-Redis" class="headerlink" title="3.2 Redis"></a>3.2 Redis</h3><h4 id="1-原理-1"><a href="#1-原理-1" class="headerlink" title="1. 原理"></a>1. <strong>原理</strong></h4><ul>
+<li><strong>基于内存存储</strong>：数据存储在内存中，提供超高性能的读写能力。</li>
+<li><strong>支持多种数据结构</strong>：包括字符串、列表、哈希、集合、有序集合等。</li>
+<li><strong>持久化机制</strong>：支持 RDB（快照）和 AOF（追加日志）两种持久化方式。</li>
+</ul>
+<h4 id="2-核心概念-1"><a href="#2-核心概念-1" class="headerlink" title="2. 核心概念"></a>2. <strong>核心概念</strong></h4><ul>
+<li><p><strong>键值对（Key-Value Pair）</strong>：Redis 的基本存储单元，键为字符串，值可以是多种数据结构。</p>
 </li>
-</ol>
-<p>原因：Jenkins网页登录时，ssh连接使用的是Jenkins自身的账户，并不是我们登录电脑所使用的的账户，该账户下并没有ssh连接所需要的rsa文件，</p>
-<p>解决：</p>
-<p>成功执行git pull等命令的账户，在C:\Users\xxxxxx.ssh目录下（xxxxxx是登录电脑的用户名，不是git的用户名），会有id_rsa，id_rsa.pub，known_hosts文件，把这3个文件拷贝到C:\Windows\System32\config\systemprofile.ssh目录下，再执行jenkins就OK了</p>
+<li><p><strong>数据结构</strong>：</p>
+</li>
+<li><ul>
+<li><strong>字符串（String）</strong>：简单的键值对。</li>
+<li><strong>列表（List）</strong>：有序的字符串集合。</li>
+<li><strong>哈希（Hash）</strong>：键值对的集合。</li>
+<li><strong>集合（Set）</strong>：无序的字符串集合。</li>
+<li><strong>有序集合（Sorted Set）</strong>：带分数的集合，按分数排序。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-设计目的-1"><a href="#3-设计目的-1" class="headerlink" title="3. 设计目的"></a>3. <strong>设计目的</strong></h4><ul>
+<li>提供超高性能的内存数据结构服务器，适用于需要快速读写操作的场景。</li>
+<li>支持持久化，确保数据不会因服务器重启而丢失。</li>
+</ul>
+<h4 id="4-使用场景-1"><a href="#4-使用场景-1" class="headerlink" title="4. 使用场景"></a>4. <strong>使用场景</strong></h4><ul>
+<li>缓存</li>
+<li>会话存储</li>
+<li>实时排行榜</li>
+<li>计数器</li>
+<li>分布式锁</li>
+<li>消息队列</li>
+</ul>
+<h3 id="3-3-Neo4j"><a href="#3-3-Neo4j" class="headerlink" title="3. 3 Neo4j"></a>3. 3 Neo4j</h3><h4 id="1-原理-2"><a href="#1-原理-2" class="headerlink" title="1. 原理"></a>1. <strong>原理</strong></h4><ul>
+<li><strong>基于图形数据结构</strong>：节点表示实体，边表示实体之间的关系。</li>
+<li><strong>属性图模型</strong>：节点和边都可以有属性，属性以键值对的形式存储。</li>
+<li><strong>Cypher 查询语言</strong>：专为图形数据设计的查询语言，支持复杂的图形查询。</li>
+</ul>
+<h4 id="2-核心概念-2"><a href="#2-核心概念-2" class="headerlink" title="2. 核心概念"></a>2. <strong>核心概念</strong></h4><ul>
+<li><strong>节点（Node）</strong>：表示实体，如用户、产品等。</li>
+<li><strong>关系（Relationship）</strong>：表示实体之间的关系，如朋友关系、购买关系等。</li>
+<li><strong>属性（Property）</strong>：节点和边都可以有属性，如用户的年龄、产品的价格等。</li>
+<li><strong>标签（Label）</strong>：用于分类节点，如用户节点可以有“管理员”标签。</li>
+</ul>
+<h4 id="3-设计目的-2"><a href="#3-设计目的-2" class="headerlink" title="3. 设计目的"></a>3. <strong>设计目的</strong></h4><ul>
+<li>处理复杂的关系网络数据，提供高效的图形查询和分析能力。</li>
+<li>支持实时推荐和社交网络分析。</li>
+</ul>
+<h4 id="4-使用场景-2"><a href="#4-使用场景-2" class="headerlink" title="4. 使用场景"></a>4. <strong>使用场景</strong></h4><ul>
+<li>社交网络分析</li>
+<li>推荐系统</li>
+<li>金融风险管理</li>
+<li>生物信息学（基因、蛋白质关系分析）</li>
+</ul>
+<hr>
+<h3 id="3-4-InfluxDB"><a href="#3-4-InfluxDB" class="headerlink" title="3.4  InfluxDB"></a>3.4  InfluxDB</h3><h4 id="1-原理-3"><a href="#1-原理-3" class="headerlink" title="1. 原理"></a>1. <strong>原理</strong></h4><ul>
+<li><strong>专为时间序列数据设计</strong>：数据按时间戳组织，支持高写入和低查询延迟。</li>
+<li><strong>分布式架构</strong>：通过分片和副本集实现数据水平扩展和高可用性。</li>
+<li><strong>查询语言</strong>：支持类似 SQL 的查询语法（InfluxQL），提供强大的时间序列数据分析能力。</li>
+</ul>
+<h4 id="2-核心概念-3"><a href="#2-核心概念-3" class="headerlink" title="2. 核心概念"></a>2. <strong>核心概念</strong></h4><ul>
+<li><strong>Measurement（测量值）</strong>：类似于关系型数据库中的表，存储一组相关的数据点。</li>
+<li><strong>Tag（标签）</strong>：用于索引的键值对，通常表示静态或低基数的属性。</li>
+<li><strong>Field（字段）</strong>：存储实际数据的键值对，通常表示动态或高基数的属性。</li>
+<li><strong>Series（序列）</strong>：由 Measurement、Tag Set 和 Timestamp 唯一确定的一组数据。</li>
+<li><strong>Point（数据点）</strong>：Series 中的一个单独数据记录，包含时间戳和字段值。</li>
+</ul>
+<h4 id="3-设计目的-3"><a href="#3-设计目的-3" class="headerlink" title="3. 设计目的"></a>3. <strong>设计目的</strong></h4><ul>
+<li>高效存储和查询时间序列数据，适用于监控和日志分析场景。</li>
+<li>支持实时数据写入和历史数据查询。</li>
+</ul>
+<h4 id="4-使用场景-3"><a href="#4-使用场景-3" class="headerlink" title="4. 使用场景"></a>4. <strong>使用场景</strong></h4><ul>
+<li>监控系统（如 CPU、内存使用情况）</li>
+<li>物联网设备数据</li>
+<li>应用性能监控（APM）</li>
+<li>日志数据存储与分析</li>
+</ul>
+<hr>
+<h3 id="3-5-Elasticsearch"><a href="#3-5-Elasticsearch" class="headerlink" title="3.5 Elasticsearch"></a>3.5 Elasticsearch</h3><h4 id="1-原理-4"><a href="#1-原理-4" class="headerlink" title="1. 原理"></a>1. <strong>原理</strong></h4><ul>
+<li><strong>基于倒排索引</strong>：数据以 JSON 格式存储，通过倒排索引加速搜索。</li>
+<li><strong>分布式架构</strong>：通过分片和副本集实现数据水平扩展和高可用性。</li>
+<li><strong>查询语言</strong>：支持强大的 DSL（Domain Specific Language）查询语法，提供复杂的全文搜索和聚合分析能力。</li>
+</ul>
+<h4 id="2-核心概念-4"><a href="#2-核心概念-4" class="headerlink" title="2. 核心概念"></a>2. <strong>核心概念</strong></h4><ul>
+<li><strong>索引（Index）</strong>：逻辑容器，存储一组相关的文档。</li>
+<li><strong>文档（Document）</strong>：存储的基本单元，以 JSON 格式存储。</li>
+<li><strong>映射（Mapping）</strong>：定义字段类型，类似于关系型数据库中的表结构。</li>
+<li><strong>倒排索引（Inverted Index）</strong>：加速搜索的关键数据结构，将词映射到包含该词的文档。</li>
+</ul>
+<h4 id="3-设计目的-4"><a href="#3-设计目的-4" class="headerlink" title="3. 设计目的"></a>3. <strong>设计目的</strong></h4><ul>
+<li>提供分布式全文搜索和分析能力，适用于大规模数据检索和分析。</li>
+<li>支持实时数据索引和查询。</li>
+</ul>
+<h4 id="4-使用场景-4"><a href="#4-使用场景-4" class="headerlink" title="4. 使用场景"></a>4. <strong>使用场景</strong></h4><ul>
+<li>日志分析</li>
+<li>安全信息和事件管理（SIEM）</li>
+<li>应用搜索</li>
+<li>电子商务搜索</li>
+</ul>
+<hr>
+<h3 id="3-6-ClickHouse"><a href="#3-6-ClickHouse" class="headerlink" title="3.6 ClickHouse"></a>3.6 ClickHouse</h3><h4 id="1-原理-5"><a href="#1-原理-5" class="headerlink" title="1. 原理"></a>1. <strong>原理</strong></h4><ul>
+<li><strong>基于列式存储</strong>：数据按列存储，支持高效压缩和并行处理。</li>
+<li><strong>MergeTree 引擎</strong>：支持分区、排序键和压缩算法，优化查询性能。</li>
+<li><strong>查询语言</strong>：支持类似 SQL 的查询语法，提供强大的数据分析能力。</li>
+</ul>
+<h4 id="2-核心概念-5"><a href="#2-核心概念-5" class="headerlink" title="2. 核心概念"></a>2. <strong>核心概念</strong></h4><ul>
+<li><strong>列式存储</strong>：数据按列存储，减少磁盘 I&#x2F;O，提高查询性能。</li>
+<li><strong>MergeTree 引擎</strong>：ClickHouse 的核心存储引擎，支持分区、排序键和压缩算法。</li>
+<li><strong>分区（Partition）</strong>：将数据按时间或其他维度分区，提高查询效率。</li>
+<li><strong>排序键（Ordering Key）</strong>：定义数据在列中的排序方式，影响查询性能。</li>
+<li><strong>压缩算法</strong>：支持多种压缩算法，减少存储空间。</li>
+</ul>
+<h4 id="3-设计目的-5"><a href="#3-设计目的-5" class="headerlink" title="3. 设计目的"></a>3. <strong>设计目的</strong></h4><ul>
+<li>提供高性能的 OLAP 查询能力，适用于实时数据分析场景。</li>
+<li>支持大规模数据的高效查询和分析。</li>
+</ul>
+<h4 id="4-使用场景-5"><a href="#4-使用场景-5" class="headerlink" title="4. 使用场景"></a>4. <strong>使用场景</strong></h4><ul>
+<li>实时数据分析</li>
+<li>大数据分析</li>
+<li>数据仓库</li>
+<li>商业智能（BI）</li>
+<li>用户行为分析</li>
+</ul>
 
               
             </div>
@@ -338,7 +580,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/jenkins/" class="category-chain-item">jenkins</a>
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
   
   
 
@@ -358,8 +600,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>jenkins部署vue项目</div>
-      <div>http://example.com/jenkins部署vue项目/</div>
+      <div>常见数据库分类</div>
+      <div>http://example.com/常见数据库分类/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +613,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月15日</div>
+          <div>2025年4月19日</div>
         </div>
       
       
@@ -401,18 +643,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E5%88%86%E5%B8%83%E5%BC%8FID/" title="分布式ID">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">分布式ID</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/%E6%9D%83%E9%99%90/" title="权限">
-                        <span class="hidden-mobile">权限</span>
+                      <a href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/" title="分布式限流">
+                        <span class="hidden-mobile">分布式限流</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
