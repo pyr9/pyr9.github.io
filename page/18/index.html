@@ -207,6 +207,197 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/SpringCloud%E9%9B%86%E6%88%90Ribbon/" target="_self">
+          SpringCloud集成Ribbon
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/SpringCloud%E9%9B%86%E6%88%90Ribbon/" target="_self">
+        <div>
+          
+          负载均衡（load balance） 简单来说负载均衡就是将客户的请求平摊到多个服务上，从而达到系统的高可用，常用的负载均衡方式有Nginx，F5 常见的负载均衡方式有两种： 服务端负载均衡 客户端负载均衡    服务端负载均衡工作原理服务端负载均衡是最常见的负载均衡方式，其工作原理如下图。   在客户端和服务端之间建立一个独立的负载均衡服务器，该服务器既可以是硬件设备（例如 F5），也可以是软件
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-22 15:12" pubdate>
+              2022-07-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">#负载均衡</a>
+            
+              <a href="/tags/Ribbon/">#Ribbon</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/springCloud%E4%B9%8B%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/" target="_self">
+          springCloud之自动扩展
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/springCloud%E4%B9%8B%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/" target="_self">
+        <div>
+          
+          什么是自动扩展？自动扩展分为水平扩展和垂直扩展  水平扩展就是一台机子不够了，就再搞几台 垂直扩展是硬件层面的，比如双核不够了，就4核  自动扩展的意义 提高了高可用性和容错能力。比如某个服务不可用了，自动扩展可以再增加一个新服务来替换他。 增加了可伸缩性。允许访问流量可以自动选择水平扩展的规模。 具有最佳使用率，并节约成本。按需使用，需要几台就部署几台 优先考虑某些服务或服务组。低优先级服务中实
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-20 21:52" pubdate>
+              2022-07-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E6%89%A9%E5%B1%95/">#自动扩展</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90Hystrix/" target="_self">
+          springCloud之集成Hystrix
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/springCloud%E4%B9%8B%E9%9B%86%E6%88%90Hystrix/" target="_self">
+        <div>
+          
+          服务熔断什么是服务熔断？ 服务熔断就是对服务的调用执行熔断，对于后续的请求，不再调用目标服务，而是直接返回一个合理的信息，比如说请求量太大，返回一个”此时服务过载”，从而可以快速释放资源  保护系统   为什么会有这种熔断机制的出现?在微服务相互调用的时候可能会出现服务调用发生异常或调用超时,多此请求造成服务积压导致服务无法使用后接着级联导致调用此服务的消费者也出现异常或调用超时,最后导致整个系统
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-20 14:34" pubdate>
+              2022-07-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+            
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">#服务熔断</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/springCloud%E7%BD%91%E5%85%B3/" target="_self">
           springCloud网关
         </a>
@@ -630,174 +821,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/spring%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88/" target="_self">
-          spring事务失效
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/spring%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88/" target="_self">
-        <div>
-          
-          ~&#x2F;IdeaProjects&#x2F;hexo_blog&#x2F;source&#x2F;_posts&#x2F;spring事务失效.md ![image-20220626230019084](&#x2F;Users&#x2F;panyurou&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;im
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-26 22:59" pubdate>
-              2022-06-26
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/java%E5%91%BD%E4%BB%A4-jstack-%E5%B7%A5%E5%85%B7/" target="_self">
-          java命令--jstack的使用
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/java%E5%91%BD%E4%BB%A4-jstack-%E5%B7%A5%E5%85%B7/" target="_self">
-        <div>
-          
-          jstack用于生成java虚拟机当前时刻的线程快照。可以用来分析线程问题（如死锁），CPU突然飙升问题 1. 案例一 找出死锁1.1 问题代码1234567891011121314151617181920212223242526272829303132333435public class DeadLockTest &amp;#123;   private static Object lock1 &#x3D; ne
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-25 22:50" pubdate>
-              2022-06-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM/" class="category-chain-item">JVM</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/java%E5%91%BD%E4%BB%A4/">#java命令</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/" target="_self">
-          对象内存回收
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/" target="_self">
-        <div>
-          
-          垃圾回收垃圾收集主要是针对堆和方法区进行。程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后就会消失，因此不需要对这三个区域进行垃圾回收。 判断一个对象是否可被回收要对垃圾进行回收，首先得判断这个对象是否可以被回收，有两种方法来判断：  引用计数法给对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-24 20:29" pubdate>
-              2022-06-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM/" class="category-chain-item">JVM</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-            
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">#垃圾回收</a>
-            
-              <a href="/tags/%E5%B8%B8%E8%A7%81%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">#常见引用类型</a>
-            
-              <a href="/tags/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%B1%BB%E6%98%AF%E6%97%A0%E7%94%A8%E7%9A%84%E7%B1%BB/">#如何判断一个类是无用的类</a>
-            
-              <a href="/tags/finalize-%E6%96%B9%E6%B3%95/">#finalize()方法</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/17/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/#board">16</a><a class="page-number" href="/page/17/#board">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/#board">19</a><a class="page-number" href="/page/20/#board">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/#board">24</a><a class="extend next" rel="next" href="/page/19/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/17/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/#board">16</a><a class="page-number" href="/page/17/#board">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/#board">19</a><a class="page-number" href="/page/20/#board">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/#board">25</a><a class="extend next" rel="next" href="/page/19/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
