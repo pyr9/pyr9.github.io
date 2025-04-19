@@ -1,0 +1,843 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 定义分布式区别于单机限流的场景,它把整个分布式环境中所有服务当做一个整体来考量。比如说针对IP的限流,我们限制了1个IP每秒最多10个访问,不管来自这个IP的请求落在了哪台机器上,只要是访问了集群中的服务节点,那么都都会受到限流规则的制约。 从上面的例子不难看出,我们必须将限流信息保存在一个”中心化的组件上,这样它就可以获取到集群中所有机器的访问状态,目前前有两个比较主流的限流方案:  网关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式限流">
+<meta property="og:url" content="http://example.com/%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="1. 定义分布式区别于单机限流的场景,它把整个分布式环境中所有服务当做一个整体来考量。比如说针对IP的限流,我们限制了1个IP每秒最多10个访问,不管来自这个IP的请求落在了哪台机器上,只要是访问了集群中的服务节点,那么都都会受到限流规则的制约。 从上面的例子不难看出,我们必须将限流信息保存在一个”中心化的组件上,这样它就可以获取到集群中所有机器的访问状态,目前前有两个比较主流的限流方案:  网关">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-15T12:00:18.000Z">
+<meta property="article:modified_time" content="2025-04-19T10:39:25.143Z">
+<meta property="article:author" content="Panyurou">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>分布式限流 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 62vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="分布式限流"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-15 20:00" pubdate>
+          2025年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          9.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">分布式限流</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h1><p>分布式区别于单机限流的场景,它把整个分布式环境中所有服务当做一个整体来考量。比如说针对IP的限流,我们限制了1个IP每秒最多10个访问,不管来自这个IP的请求落在了哪台机器上,只要是访问了集群中的服务节点,那么都都会受到限流规则的制约。</p>
+<p>从上面的例子不难看出,我们必须将限流信息保存在一个”中心化的组件上,这样它就可以获取到集群中所有机器的访问状态,目前前有两个比较主流的限流方案:</p>
+<ul>
+<li>网关层限流将限流规则应用在所有流量的入口处</li>
+<li>中间件限流 将限流信息存储在分布式环境中某个中间件里(比如Redis缓存),每个组件都可以从这里获取到当前时刻的流量统试,从而决定是拒绝服务还是放行流量</li>
+</ul>
+<h1 id="2-常见的限流规则"><a href="#2-常见的限流规则" class="headerlink" title="2. 常见的限流规则"></a>2. 常见的限流规则</h1><ol>
+<li><p>QPS和连接数控制</p>
+<ul>
+<li>针对连接数和QPS(querypersecond)限流来说, 我们可以设定IP维度的限流, 也可以设置基于单个服务器的限流。</li>
+<li>在真实环境中通常会设置多个维度的限流规则, 比如设定同一个IP每秒访问频率小于10, 连接数小于5,再设定每台机器QPS最高1000,连接数最大保持200。更进一步,我们可以把某个服务器组或整个机房的服务器当做一个整体, 设置更hign-level的限流规则, 这些所有限流规则都会共同作用于洗量控制。</li>
+</ul>
+</li>
+<li><p>传输速率</p>
+<ul>
+<li>对于”传输速率”大家都不会陌生, 比如资源的下载速度。有的网站在这方面的限流逻辑做的更细致,比如普通注册用户下载速度为100k&#x2F;s,购买会员后是10M&#x2F;S, 这背后就是基于用户组或者用户标签的限流逻辑。</li>
+</ul>
+</li>
+<li><p>黑白名单</p>
+<ul>
+<li><p>黑白名单是各个大型企业应用里很常见的限流和放行手段, 而且黑白名单往往是动态变化的。举个例子,如果某个IP在一段时间的的访问次数过于频繁,被系统识别为机器人用户或流量攻击,那么这个IP就会被加入到黑名单,从而限制其对系统资源的访问,这就是我们俗称的”封IP”。</p>
+<blockquote>
+<p>我们平时见到的爬虫程序,比如说爬知乎上的美女图片,或者爬券商系统的股票分时信息,这类爬虫程序都必须实现更换IP的功能,以防被加入黑名单。有时我们还会发现公司的网络无法访问12306这类大型公共网站, 这也是因为了某些公司的出网IP是同一个地址, 因此在访问量过高的情况下,这个IP地址就被对方系统识别,进而被添加到了黑名单。使用家庭宽带的同学们应该知道,大部分网络运营商都会将用户分配到不同出网IP段,或者时不时动态更换用户的IP地址。</p>
+</blockquote>
+</li>
+<li><p>白名单就更好理解了,相当于御赐金牌在身,可以自由穿梭在各种限流规则里,畅行无阻。比如某些电商公司会将超大卖家的账号加入白名单,因为这类卖家往往有自己的一套运维系统,需要对接公司的IT系统做大量的商品发布、补货等等操作。</p>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>同学们肯定发现了这样一种情况,在春运抢票的时候,当你面对这么一堆验证码图片,不管你怎么选,即使你用毕生所学学选出了正确答案,提交后依然都会被告知你选 错了。要么就是让你面对一堆鬼都看不出是什么东西的图片。不要不疑自己的智商,其实,这就是网站的一种别样的限流措施。在拷问河用户智商的同时,通过这种”故 意”刁难的手段,光明正大地限制访问流量,从而大幅降低系统的访问压力,真不得不敬佩产品经理的智(良)慧(心)。</p>
+</blockquote>
+<h1 id="3-限流实现方案"><a href="#3-限流实现方案" class="headerlink" title="3. 限流实现方案"></a>3. 限流实现方案</h1><h2 id="1-guava-RateLimiter-客户端限流"><a href="#1-guava-RateLimiter-客户端限流" class="headerlink" title="1. guava RateLimiter 客户端限流"></a>1. guava RateLimiter 客户端限流</h2><h3 id="1-定义-1"><a href="#1-定义-1" class="headerlink" title="1. 定义"></a>1. 定义</h3><p>Guava 的 <code>RateLimiter</code> 是一个轻量级的客户端限流工具，适用于单机环境下的流量控制。它基于令牌桶算法实现，能够平滑地限制请求速率。</p>
+<p><strong>核心特性：</strong></p>
+<ul>
+<li>支持固定的生成速率（QPS）。</li>
+<li>支持突发请求（允许短时间内超出速率限制）。</li>
+<li>非阻塞式和阻塞式两种获取令牌的方式。</li>
+</ul>
+<h3 id="2-原理"><a href="#2-原理" class="headerlink" title="2. 原理"></a>2. 原理</h3><p><strong>令牌桶算法</strong>：系统以固定速率生成令牌，每个请求需要消耗一个令牌。如果没有足够的令牌，则请求被阻塞或拒绝。</p>
+<h3 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h3><ol>
+<li>引入依赖</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.google.guava<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>guava<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>18.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>代码实战</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Controller</span> </span>&#123;<br>  RateLimiter limiter = RateLimiter.create(<span class="hljs-number">2.0</span>);<br>  <br>  <span class="hljs-comment">//场景一：非阻塞限流</span><br>  <span class="hljs-meta">@GetMapping(&quot;/tryAcquire&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">tryAcquire</span><span class="hljs-params">(Integer count)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span>(limiter.tryAcquire(count))&#123; <span class="hljs-comment">// count:一次占用几个令牌</span><br>      log.info(<span class="hljs-string">&quot;success, rate is &#123;&#125;&quot;</span>, limiter.getRate());<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      log.info(<span class="hljs-string">&quot;fail, rate is &#123;&#125;&quot;</span>, limiter.getRate());<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;fail&quot;</span>;<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-comment">//场景二：限定时间的非阻塞限流, 如：看在指定时间内，能否满足我的调用请求</span><br>  <span class="hljs-meta">@GetMapping(&quot;/tryAcquireWithTimeout&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">tryAcquireWithTimeout</span><span class="hljs-params">(Integer countInteger timeout)</span></span>&#123;<br>    <span class="hljs-keyword">if</span> (limiter.tryAcquire(count, timeout, TimeUnit.SSECONDS))<br>      log.info(<span class="hljs-string">&quot;success, rate is &#123;&#125;&quot;</span>, limiter.getRate())<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      log.info(<span class="hljs-string">&quot;fail, rate is &#123;&#125;&quot;</span>, limiter.getRate());<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;fail&quot;</span>;<br>    &#125;<br>  &#125;<br><br><br>  <span class="hljs-comment">//场景三：同步阻塞限流。能获取就获取，获取不到就阻塞</span><br>  <span class="hljs-meta">@GetMapping(&quot;/acquire&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">acquire</span><span class="hljs-params">(Integer count)</span> </span>&#123;<br>    limiter.acquire(count);<br>    log.info(<span class="hljs-string">&quot;success, rate is &#123;&#125;&quot;</span>, limiter.getRate());<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>  &#125;                                  <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-基于Nginx限流"><a href="#2-基于Nginx限流" class="headerlink" title="2. 基于Nginx限流"></a>2. 基于Nginx限流</h2><h3 id="1-配置单机限流（类似IP限流）"><a href="#1-配置单机限流（类似IP限流）" class="headerlink" title="1. 配置单机限流（类似IP限流）"></a>1. 配置单机限流（类似IP限流）</h3><p>Nginx 提供了内置的限流模块，可以在网关层实现分布式限流。</p>
+<h4 id="1-优点"><a href="#1-优点" class="headerlink" title="1. 优点"></a>1. 优点</h4><ul>
+<li>简单高效，适合网关层限流。</li>
+<li>不需要修改后端业务代码。</li>
+</ul>
+<h4 id="2-实现步骤"><a href="#2-实现步骤" class="headerlink" title="2. 实现步骤"></a>2. 实现步骤</h4><ol>
+<li>修改nginx.conf</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml">limit_req_zone $binary_remote_addr zone=iplimit:20m rate=1r/s;<br><br>server &#123;<br>    server_name www.imooc-training.com;<br>    location /access-limit/ &#123;<br>        proxy_pass http://127.0.0.1:10086/;<br>        limit_req zone=iplimit burst=2 nodelay;<br>        limit_req_status 504;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>limit_req_zone $binary_remote_addr zone&#x3D;iplimit:20m rate&#x3D;1r&#x2F;s;</p>
+<ul>
+<li><p>$binary_remote_addr :  binary_目的是缩写内存占用,remote_addr表示通过IP地址来限流</p>
+</li>
+<li><p>zone&#x3D;iplimit:20m:   iplimit是一块内存区域(记录访问频率信息),20m是指这块内有存区域的大小为20Mb</p>
+</li>
+<li><p>rate&#x3D;1r&#x2F;s.:  比如100r&#x2F;m,标识访问的限流频率</p>
+</li>
+</ul>
+</li>
+<li><p>limit_req zone&#x3D;iplimit burst&#x3D;2 nodelay;</p>
+<ul>
+<li>zone&#x3D;iplimit:  引用limit_req_zone中的zone变量</li>
+<li>burst&#x3D;2,设置一个大小为2的缓冲区域,当大量请求到来。请求数量超过限流频率时,将其放入缓冲区域</li>
+<li>nodelay&#x3D;&gt;缓冲区满了以后,直接返回503异常</li>
+</ul>
+</li>
+<li><p>limit_req_status 504</p>
+<ul>
+<li>异常情况,返回504(默认是503)</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>测试controller</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/nginx&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">nginx</span><span class="hljs-params">()</span></span>&#123;<br>  log.info(<span class="hljs-string">&quot;Nginx success&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-基于服务器级别限流"><a href="#2-基于服务器级别限流" class="headerlink" title="2. 基于服务器级别限流"></a>2. 基于服务器级别限流</h3><p>不管什么IP加在一起不能超过某个值，通常情况下,server级别的限流速率是最大的。</p>
+<h4 id="1-实现步骤"><a href="#1-实现步骤" class="headerlink" title="1. 实现步骤"></a>1. 实现步骤</h4><ol>
+<li>改niginx.conf</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">limit_req_zone <span class="hljs-variable">$server_name</span> <span class="hljs-attribute">zone</span>=serverlimit:10m <span class="hljs-attribute">rate</span>=1r/s;<br>limit_req <span class="hljs-attribute">zone</span>=serverlimit <span class="hljs-attribute">burst</span>=1 nodeelay;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-基于连接数"><a href="#3-基于连接数" class="headerlink" title="3. 基于连接数"></a>3. 基于连接数</h3><p>当前active的连接数</p>
+<h4 id="1-实现步骤-1"><a href="#1-实现步骤-1" class="headerlink" title="1. 实现步骤"></a>1. 实现步骤</h4><ol>
+<li>改niginx.conf</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment">#每个server最多保持100个连接</span><br><span class="hljs-attribute">limit_conn</span> perserver <span class="hljs-number">100</span>;<br><br><span class="hljs-attribute">limit_conn_zone</span> $binary_remote_addr zone=perip:<span class="hljs-number">20</span>m;<br><span class="hljs-comment">#每个IP地址最多保持1个连接</span><br><span class="hljs-attribute">limit_conn</span> perip <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>测试</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/nginx-conn&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">nginxConn</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(defaultValue = &quot;0&quot;)</span> <span class="hljs-keyword">int</span> secs)</span> </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      Thread.sleep( millis: <span class="hljs-number">1000</span> * secs);<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-redis-Lua"><a href="#3-redis-Lua" class="headerlink" title="3. redis+Lua"></a>3. redis+Lua</h2><h3 id="1-定义-2"><a href="#1-定义-2" class="headerlink" title="1. 定义"></a>1. 定义</h3><p>利用Redis原子操作，通过Lua脚本实现令牌生成与获取，避免并发问题。</p>
+<h3 id="2-实现步骤-1"><a href="#2-实现步骤-1" class="headerlink" title="2. 实现步骤"></a>2. 实现步骤</h3><ol>
+<li>编写Lua限流脚本</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 获取方法签名特征</span><br><span class="hljs-keyword">local</span> methodKey = KEYS[<span class="hljs-number">1</span>]<br>redis.<span class="hljs-built_in">log</span>(redis.LOG_DEBUG, <span class="hljs-string">&#x27;key is&#x27;</span>, methodKey)<br><br><span class="hljs-comment">-- 调用脚本传入的限流大小</span><br><span class="hljs-keyword">local</span> limit = <span class="hljs-built_in">tonumber</span>(ARGV[<span class="hljs-number">1</span>])<br><br><span class="hljs-comment">-- 获取当前流量大小</span><br><span class="hljs-keyword">local</span> count = <span class="hljs-built_in">tonumber</span>(redis.call(<span class="hljs-string">&#x27;get&#x27;</span>, methodKey) <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;0&quot;</span>)<br><br><span class="hljs-comment">-- 是否超出限流阈值</span><br><span class="hljs-keyword">if</span> count + <span class="hljs-number">1</span> &gt; limit <span class="hljs-keyword">then</span><br>    <span class="hljs-comment">-- 拒绝服务访问</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br><span class="hljs-keyword">else</span><br>    <span class="hljs-comment">-- 没有超过阈值</span><br>    <span class="hljs-comment">-- 设置当前访问的数量+1</span><br>    redis.call(<span class="hljs-string">&quot;INCRBY&quot;</span>, methodKey, <span class="hljs-number">1</span>)<br>    <span class="hljs-comment">-- 设置过期时间</span><br>    redis.call(<span class="hljs-string">&quot;EXPIRE&quot;</span>, methodKey, <span class="hljs-number">1</span>)<br>    <span class="hljs-comment">-- 放行</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>Java 集成Lua和Redis</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-redis&lt;/artifactId<br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-aop&lt;/artifactId<br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.imooc.springcloud;<br><br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> org.springframework.core.io.ClassPathResource;<br><span class="hljs-keyword">import</span> org.springframework.data.redis.connection.RedisConnectionFactory;<br><span class="hljs-keyword">import</span> org.springframework.data.redis.core.RedisTemplate;<br><span class="hljs-keyword">import</span> org.springframework.data.redis.core.StringRedisTemplate;<br><span class="hljs-keyword">import</span> org.springframework.data.redis.core.script.DefaultRedisScript;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Created by 半仙.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RedisConfiguration</span> </span>&#123;<br><br>    <span class="hljs-comment">// 如果本地也配置了StringRedisTemplate，可能会产生冲突</span><br>    <span class="hljs-comment">// 可以指定@Primary，或者指定加载特定的@Qualifier</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> RedisTemplate&lt;String, String&gt; <span class="hljs-title">redisTemplate</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">            RedisConnectionFactory factory)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StringRedisTemplate(factory);<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> DefaultRedisScript <span class="hljs-title">loadRedisScript</span><span class="hljs-params">()</span> </span>&#123;<br>        DefaultRedisScript redisScript = <span class="hljs-keyword">new</span> DefaultRedisScript();<br>        redisScript.setLocation(<span class="hljs-keyword">new</span> ClassPathResource(<span class="hljs-string">&quot;ratelimiter.lua&quot;</span>));<br>        redisScript.setResultType(java.lang.Boolean.class);<br>        <span class="hljs-keyword">return</span> redisScript;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.imooc.springcloud.annotation;<br><br><span class="hljs-keyword">import</span> java.lang.annotation.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Created by 半仙.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Target(&#123;ElementType.METHOD&#125;)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-meta">@Documented</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> AccessLimiter &#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">limit</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-function">String <span class="hljs-title">methodKey</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> &quot;&quot;</span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.imooc.springcloud.annotation;<br><br><span class="hljs-keyword">import</span> com.google.common.collect.Lists;<br><span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;<br><span class="hljs-keyword">import</span> org.aspectj.lang.JoinPoint;<br><span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Aspect;<br><span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Before;<br><span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Pointcut;<br><span class="hljs-keyword">import</span> org.aspectj.lang.reflect.MethodSignature;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.data.redis.core.StringRedisTemplate;<br><span class="hljs-keyword">import</span> org.springframework.data.redis.core.script.RedisScript;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-keyword">import</span> org.springframework.util.StringUtils;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.stream.Collectors;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Created by 半仙.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccessLimiterAspect</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> StringRedisTemplate stringRedisTemplate;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisScript&lt;Boolean&gt; rateLimitLua;<br><br>    <span class="hljs-meta">@Pointcut(&quot;@annotation(com.imooc.springcloud.annotation.AccessLimiter)&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cut</span><span class="hljs-params">()</span> </span>&#123;<br>        log.info(<span class="hljs-string">&quot;cut&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Before(&quot;cut()&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">before</span><span class="hljs-params">(JoinPoint joinPoint)</span> </span>&#123;<br>        <span class="hljs-comment">// 1. 获得方法签名，作为method Key</span><br>        MethodSignature signature = (MethodSignature) joinPoint.getSignature();<br>        Method method = signature.getMethod();<br><br>        AccessLimiter annotation = method.getAnnotation(AccessLimiter.class);<br>        <span class="hljs-keyword">if</span> (annotation == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        String key = annotation.methodKey();<br>        Integer limit = annotation.limit();<br><br>        <span class="hljs-comment">// 如果没设置methodkey, 从调用方法签名生成自动一个key</span><br>        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(key)) &#123;<br>            Class[] type = method.getParameterTypes();<br>            key = method.getClass() + method.getName();<br><br>            <span class="hljs-keyword">if</span> (type != <span class="hljs-keyword">null</span>) &#123;<br>                String paramTypes = Arrays.stream(type)<br>                        .map(Class::getName)<br>                        .collect(Collectors.joining(<span class="hljs-string">&quot;,&quot;</span>));<br>                log.info(<span class="hljs-string">&quot;param types: &quot;</span> + paramTypes);<br>                key += <span class="hljs-string">&quot;#&quot;</span> + paramTypes;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">// 2. 调用Redis</span><br>        <span class="hljs-keyword">boolean</span> acquired = stringRedisTemplate.execute(<br>                rateLimitLua, <span class="hljs-comment">// Lua script的真身</span><br>                Lists.newArrayList(key), <span class="hljs-comment">// Lua脚本中的Key列表</span><br>                limit.toString() <span class="hljs-comment">// Lua脚本Value列表</span><br>        );<br><br>        <span class="hljs-keyword">if</span> (!acquired) &#123;<br>            log.error(<span class="hljs-string">&quot;your access is blocked, key=&#123;&#125;&quot;</span>, key);<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;Your access is blocked&quot;</span>);<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.imooc.springcloud;<br><br><span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Created by 半仙.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Controller</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> AccessLimiter accessLimiter;<br><br>    <span class="hljs-meta">@GetMapping(&quot;test&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;<br>        accessLimiter.limitAccess(<span class="hljs-string">&quot;ratelimiter-test&quot;</span>, <span class="hljs-number">3</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 提醒！ 注意配置扫包路径（com.imooc.springcloud路径不同）</span><br>    <span class="hljs-meta">@GetMapping(&quot;test-annotation&quot;)</span><br>    <span class="hljs-meta">@com</span>.imooc.springcloud.annotation.AccessLimiter(limit = <span class="hljs-number">1</span>)<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">testAnnotation</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>分布式限流</div>
+      <div>http://example.com/分布式限流/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月15日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Prometheus/" title="Prometheus">
+                        <span class="hidden-mobile">Prometheus</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":220,"height":320},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
