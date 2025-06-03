@@ -16,25 +16,23 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. idea 安装插件安装Java Decompiler  2. 执行反编译命令1java -cp &quot;D:\software\JetBrains\IntelliJ IDEA 2024.3.5\plugins\java-decompiler\lib\java-decompiler.jar&quot; org.jetbrains.java.decompiler.main.decompile">
+    <meta name="description" content="1. Eureka注册服务IP的方式当服务注册到Eureka、Nacos等注册中心时，它会将自己的IP地址上报。Spring Boot默认可能会使用如下几种方式来获取本机 IP:  localhost  网卡上的IP(如:192.168.x.x ，172.17.x.x , 10.x.x.x)  如果设置了preferred-networks，则优先从这些网段中选一个作为注册地址 如果没有设置这个选">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jar包反编译">
-<meta property="og:url" content="http://example.com/jar%E5%8C%85%E5%8F%8D%E7%BC%96%E8%AF%91/index.html">
+<meta property="og:title" content="Eureka注册服务IP的方式">
+<meta property="og:url" content="http://example.com/Eureka%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1IP%E7%9A%84%E6%96%B9%E5%BC%8F/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1. idea 安装插件安装Java Decompiler  2. 执行反编译命令1java -cp &quot;D:\software\JetBrains\IntelliJ IDEA 2024.3.5\plugins\java-decompiler\lib\java-decompiler.jar&quot; org.jetbrains.java.decompiler.main.decompile">
+<meta property="og:description" content="1. Eureka注册服务IP的方式当服务注册到Eureka、Nacos等注册中心时，它会将自己的IP地址上报。Spring Boot默认可能会使用如下几种方式来获取本机 IP:  localhost  网卡上的IP(如:192.168.x.x ，172.17.x.x , 10.x.x.x)  如果设置了preferred-networks，则优先从这些网段中选一个作为注册地址 如果没有设置这个选">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250603215554615.png">
-<meta property="article:published_time" content="2025-06-03T13:54:31.000Z">
-<meta property="article:modified_time" content="2025-06-03T13:58:47.885Z">
+<meta property="article:published_time" content="2025-06-03T14:02:49.000Z">
+<meta property="article:modified_time" content="2025-06-03T14:05:37.788Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250603215554615.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>jar包反编译 - 楼上有只喵</title>
+  <title>Eureka注册服务IP的方式 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="jar包反编译"></span>
+            <span id="subtitle" data-typed-text="Eureka注册服务IP的方式"></span>
           
         </div>
 
@@ -196,7 +194,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-03 21:54" pubdate>
+        <time datetime="2025-06-03 22:02" pubdate>
           2025年6月3日 晚上
         </time>
       </span>
@@ -209,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          378 字
+          311 字
         
       </span>
     
@@ -221,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          2 分钟
+          1 分钟
         
       </span>
     
@@ -269,16 +267,21 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">jar包反编译</h1>
+            <h1 style="display: none">Eureka注册服务IP的方式</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-idea-安装插件"><a href="#1-idea-安装插件" class="headerlink" title="1. idea 安装插件"></a>1. idea 安装插件</h1><p>安装Java Decompiler</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250603215554615.png" srcset="/img/loading.gif" lazyload alt="image-20250603215554615"></p>
-<h1 id="2-执行反编译命令"><a href="#2-执行反编译命令" class="headerlink" title="2. 执行反编译命令"></a>2. 执行反编译命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">java -cp &quot;D:\software\JetBrains\IntelliJ IDEA 2024.3.5\plugins\java-decompiler\lib\java-decompiler.jar&quot; org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler -dgs=true wms-inv-2.0.1.jingao.12.jar &quot;D:\code\wms\database\wms-inv&quot;<br></code></pre></td></tr></table></figure>
-
-<h1 id="3-解压jar包"><a href="#3-解压jar包" class="headerlink" title="3. 解压jar包"></a>3. 解压jar包</h1><p>使用上述命令执行后，会在 <code>D:\code\wms\database\wms-inv</code>下生成jar包，解压缩即可</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">jar xf wms-inv-2.0.1.jingao.12.jar<br></code></pre></td></tr></table></figure>
+              <h1 id="1-Eureka注册服务IP的方式"><a href="#1-Eureka注册服务IP的方式" class="headerlink" title="1. Eureka注册服务IP的方式"></a>1. Eureka注册服务IP的方式</h1><p>当服务注册到Eureka、Nacos等注册中心时，它会将自己的IP地址上报。Spring Boot默认可能会使用如下几种方式来获取本机 IP:</p>
+<ul>
+<li><p>localhost</p>
+</li>
+<li><p>网卡上的IP(如:192.168.x.x ，172.17.x.x , 10.x.x.x)</p>
+</li>
+<li><p>如果设置了preferred-networks，则优先从这些网段中选一个作为注册地址</p>
+<p>如果没有设置这个选项，有时会错误地将localhost或者错误的IP注册到服务中心，导致其他服务无法访问。</p>
+</li>
+</ul>
+<h1 id="2-解决注册到Eureka一直显示localhost的问题"><a href="#2-解决注册到Eureka一直显示localhost的问题" class="headerlink" title="2. 解决注册到Eureka一直显示localhost的问题"></a>2. 解决注册到Eureka一直显示localhost的问题</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">-Dspring.cloud.inetutils.preferred-networks=<span class="hljs-number">172.28</span><br></code></pre></td></tr></table></figure>
 
 
               
@@ -296,8 +299,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>jar包反编译</div>
-      <div>http://example.com/jar包反编译/</div>
+      <div>Eureka注册服务IP的方式</div>
+      <div>http://example.com/Eureka注册服务IP的方式/</div>
     </div>
     <div class="license-meta">
       
@@ -339,18 +342,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/Eureka%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1IP%E7%9A%84%E6%96%B9%E5%BC%8F/" title="Eureka注册服务IP的方式">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Eureka注册服务IP的方式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/mybatis%E5%88%86%E2%BB%9A%E6%9F%A5%E8%AF%A2%E5%BC%82%E6%AD%A5%E5%AF%BC%E5%87%BA%E5%88%86%E2%BB%9A%E9%87%8D%E5%A4%8D%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/" title="mybatis分⻚查询异步导出分⻚重复/丢失问题">
-                        <span class="hidden-mobile">mybatis分⻚查询异步导出分⻚重复/丢失问题</span>
+                      <a href="/jar%E5%8C%85%E5%8F%8D%E7%BC%96%E8%AF%91/" title="jar包反编译">
+                        <span class="hidden-mobile">jar包反编译</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
