@@ -207,6 +207,128 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/%E5%B8%B8%E8%A7%81sql%E4%BC%98%E5%8C%96-%E4%BA%8C/" target="_self">
+          常见sql优化(二)
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%B8%B8%E8%A7%81sql%E4%BC%98%E5%8C%96-%E4%BA%8C/" target="_self">
+        <div>
+          
+          一  分页查询优化1. 根据自增且连续的主键排序的分页查询 原则：按照主键去查询  1mysql&gt; select * from employees limit 90000,5;  表示从表 employees 中取出从 10001 行开始的 10 行记录。看似只查询了 10 条记录，实际这条 SQL 是先读取 10010 条记录，然后抛弃前 10000 条记录，然后读到后面 10 条想要的数
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-07 22:04" pubdate>
+              2021-12-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mysql%E7%B4%A2%E5%BC%95/">#mysql索引</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%B8%B8%E8%A7%81sql%E4%BC%98%E5%8C%96/" target="_self">
+          sql优化方式
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%B8%B8%E8%A7%81sql%E4%BC%98%E5%8C%96/" target="_self">
+        <div>
+          
+          1. sql优化方式1. 创建和使用索引 索引常用查询字段：对经常出现在WHERE、JOIN、ORDER BY、GROUP BY中的字段建立索引。 组合索引：创建包含多个列的组合索引，以满足多个条件查询的需求。 覆盖索引：选择性地创建覆盖索引，使查询可以直接从索引中获取数据而无需访问表数据。 避免过多索引：过多的索引会影响写操作的性能，应在查询和写操作之间找到平衡。 遵守最左前缀法则：如果索引了多
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-05 22:08" pubdate>
+              2021-12-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mysql%E7%B4%A2%E5%BC%95/">#mysql索引</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/Explain%E8%AF%A6%E8%A7%A3/" target="_self">
           Explain详解
         </a>
@@ -647,128 +769,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/spring/">#spring</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8BStream%E6%B5%81/" target="_self">
-          Java8新特性之Stream流
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8BStream%E6%B5%81/" target="_self">
-        <div>
-          
-          Java8新特性之Stream流1.什么是Stream？Java 8 API添加了一个新的抽象称为流Stream，可以让你以一种声明的方式处理数据。通过声明性方式，能够对集合中的每个元素进行一系列并行或串行的流水线操作。例： 1234567public class StreamDemo1 &amp;#123;    public static void main(String[] args) &amp;#123;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-04 22:36" pubdate>
-              2021-10-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/stream%E6%B5%81/">#stream流</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Java8%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8Blambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" target="_self">
-          Java8的新特性之lambda表达式
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Java8%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8Blambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" target="_self">
-        <div>
-          
-          1.函数接口函数接口（@FunctionalInterface）需要满足两个条件：  类型是接口 有且只有一个抽象方法  例如：Runnable接口 1234@FunctionalInterfacepublic interface Runnable &amp;#123;    public abstract void run();&amp;#125;  其实这也是要求我们接口的设计尽量小，符合单一责任制，一个接口
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-04 22:32" pubdate>
-              2021-10-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">#lambda表达式</a>
             
           </div>
         
