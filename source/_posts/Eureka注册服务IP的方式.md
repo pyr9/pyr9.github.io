@@ -1,6 +1,6 @@
 ---
 title: Eureka注册服务IP的方式
-date: 2025-06-03 22:02:49
+date: 2025-05-24 22:02:49
 tags:
 categories:
 ---
