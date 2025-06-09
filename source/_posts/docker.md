@@ -2,7 +2,7 @@
 title: docker
 date: 2023-04-18 14:20:45
 tags:
-categories: 
+categories: docker
 ---
 
 # 1 docker解决了什么问题？

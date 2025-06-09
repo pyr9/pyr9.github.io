@@ -2,7 +2,7 @@
 title: docker搭建ELK
 date: 2024-01-04 09:56:22
 tags:
-categories:
+categories: docker
 ---
 
 # 1. ELK是什么？

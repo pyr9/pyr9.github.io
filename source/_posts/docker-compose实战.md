@@ -2,7 +2,7 @@
 title: docker-compose实战
 date: 2024-11-27 14:43:51
 tags:
-categories:
+categories: docker
 password: 19980617pyr
 ---
 
