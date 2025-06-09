@@ -16,30 +16,25 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.启动容器服务，加载镜像 1➜  ~ docker run -d --name ch-server --ulimit nofile&#x3D;262144:262144 -p 8123:8123 -p 9000:9000 -p 9009:9009 yandex&#x2F;clickhouse-server   2.查看服务 1➜  ~ docker ps   3.进入docker容器内，使用用户名和密码连接数据库。">
+    <meta name="description" content="1. 下载Docker找到一台可以联网的 CentOS 机器：用于下载 Docker 及其依赖。 地址：https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;static&#x2F;stable&#x2F;x86_64&#x2F; 2. 创建一个目录来存放需要的文件12mkdir docker-packagescd docker-packages  3. 准备需要的脚本3.1. docker.service将其中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker安装clickhouse">
-<meta property="og:url" content="http://example.com/docker-%E5%AE%89%E8%A3%85clickhouse/index.html">
+<meta property="og:title" content="离线安装docker">
+<meta property="og:url" content="http://example.com/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1.启动容器服务，加载镜像 1➜  ~ docker run -d --name ch-server --ulimit nofile&#x3D;262144:262144 -p 8123:8123 -p 9000:9000 -p 9009:9009 yandex&#x2F;clickhouse-server   2.查看服务 1➜  ~ docker ps   3.进入docker容器内，使用用户名和密码连接数据库。">
+<meta property="og:description" content="1. 下载Docker找到一台可以联网的 CentOS 机器：用于下载 Docker 及其依赖。 地址：https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;static&#x2F;stable&#x2F;x86_64&#x2F; 2. 创建一个目录来存放需要的文件12mkdir docker-packagescd docker-packages  3. 准备需要的脚本3.1. docker.service将其中">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225548754.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225555839.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225603858.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225615339.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225624031.png">
-<meta property="article:published_time" content="2022-02-01T13:44:28.000Z">
-<meta property="article:modified_time" content="2025-06-09T13:19:58.216Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1749446823708-033483db-393b-4b2b-b37c-4d0c08c377ae.png">
+<meta property="article:published_time" content="2025-06-09T13:16:20.000Z">
+<meta property="article:modified_time" content="2025-06-09T13:18:52.863Z">
 <meta property="article:author" content="Panyurou">
-<meta property="article:tag" content="分布式框架">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225548754.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1749446823708-033483db-393b-4b2b-b37c-4d0c08c377ae.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>docker安装clickhouse - 楼上有只喵</title>
+  <title>离线安装docker - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -190,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="docker安装clickhouse"></span>
+            <span id="subtitle" data-typed-text="离线安装docker"></span>
           
         </div>
 
@@ -201,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-02-01 21:44" pubdate>
-          2022年2月1日 晚上
+        <time datetime="2025-06-09 21:16" pubdate>
+          2025年6月9日 晚上
         </time>
       </span>
     
@@ -214,7 +209,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          372 字
+          2.3k 字
         
       </span>
     
@@ -226,7 +221,7 @@
         
         
           <!-- compatible with older versions-->
-          2 分钟
+          8 分钟
         
       </span>
     
@@ -274,32 +269,29 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">docker安装clickhouse</h1>
+            <h1 style="display: none">离线安装docker</h1>
             
             <div class="markdown-body">
               
-              <p>1.启动容器服务，加载镜像</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">➜  <span class="hljs-operator">~</span> docker run <span class="hljs-operator">-</span>d <span class="hljs-comment">--name ch-server --ulimit nofile=262144:262144 -p 8123:8123 -p 9000:9000 -p 9009:9009 yandex/clickhouse-server</span><br></code></pre></td></tr></table></figure>
+              <h1 id="1-下载Docker"><a href="#1-下载Docker" class="headerlink" title="1. 下载Docker"></a>1. 下载Docker</h1><p>找到一台可以联网的 CentOS 机器：用于下载 Docker 及其依赖。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://download.docker.com/linux/static/stable/x86_64/">https://download.docker.com/linux/static/stable/x86_64/</a></p>
+<h1 id="2-创建一个目录来存放需要的文件"><a href="#2-创建一个目录来存放需要的文件" class="headerlink" title="2. 创建一个目录来存放需要的文件"></a>2. 创建一个目录来存放需要的文件</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir docker-packages<br>cd docker-packages<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225548754.png" srcset="/img/loading.gif" lazyload alt="image-20230228225548754"></p>
-<p>2.查看服务</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">➜  <span class="hljs-operator">~</span> docker ps<br></code></pre></td></tr></table></figure>
+<h1 id="3-准备需要的脚本"><a href="#3-准备需要的脚本" class="headerlink" title="3. 准备需要的脚本"></a>3. 准备需要的脚本</h1><h2 id="3-1-docker-service"><a href="#3-1-docker-service" class="headerlink" title="3.1. docker.service"></a>3.1. docker.service</h2><p>将其中的ip地址，改成您的服务器地址，其它参数不用改。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs shell">[Unit]<br>Description=Docker Application Container Engine<br>Documentation=https://docs.docker.com<br>After=network-online.target firewalld.service<br>Wants=network-online.target<br> <br>[Service]<br>Type=notify<br><span class="hljs-meta">#</span><span class="bash"> the default is not to use systemd <span class="hljs-keyword">for</span> cgroups because the delegate issues still</span><br><span class="hljs-meta">#</span><span class="bash"> exists and systemd currently does not support the cgroup feature <span class="hljs-built_in">set</span> required</span><br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-keyword">for</span> containers run by docker</span><br>ExecStart=/usr/bin/dockerd --selinux-enabled=false --insecure-registry=172.28.49.13<br>ExecReload=/bin/kill -s HUP $MAINPID<br><span class="hljs-meta">#</span><span class="bash"> Having non-zero Limit*s causes performance problems due to accounting overhead</span><br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-keyword">in</span> the kernel. We recommend using cgroups to <span class="hljs-keyword">do</span> container-local accounting.</span><br>LimitNOFILE=infinity<br>LimitNPROC=infinity<br>LimitCORE=infinity<br><span class="hljs-meta">#</span><span class="bash"> Uncomment TasksMax <span class="hljs-keyword">if</span> your systemd version supports it.</span><br><span class="hljs-meta">#</span><span class="bash"> Only systemd 226 and above support this version.</span><br><span class="hljs-meta">#</span><span class="bash">TasksMax=infinity</span><br>TimeoutStartSec=0<br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-built_in">set</span> delegate yes so that systemd does not reset the cgroups of docker containers</span><br>Delegate=yes<br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-built_in">kill</span> only the docker process, not all processes <span class="hljs-keyword">in</span> the cgroup</span><br>KillMode=process<br><span class="hljs-meta">#</span><span class="bash"> restart the docker process <span class="hljs-keyword">if</span> it exits prematurely</span><br>Restart=on-failure<br>StartLimitBurst=3<br>StartLimitInterval=60s<br> <br>[Install]<br>WantedBy=multi-user.target<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225555839.png" srcset="/img/loading.gif" lazyload alt="image-20230228225555839"></p>
-<p>3.进入docker容器内，使用用户名和密码连接数据库。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">➜  <span class="hljs-operator">~</span> docker <span class="hljs-keyword">exec</span> <span class="hljs-operator">-</span>it <span class="hljs-number">46</span>bb792f7762 <span class="hljs-operator">/</span>bin<span class="hljs-operator">/</span>bash<br>root<span class="hljs-variable">@46bb792f7762</span>:<span class="hljs-operator">/</span># clickhouse<span class="hljs-operator">-</span>client<br></code></pre></td></tr></table></figure>
+<h2 id="3-2-一键安装脚本"><a href="#3-2-一键安装脚本" class="headerlink" title="3.2.  一键安装脚本"></a>3.2.  一键安装脚本</h2><p>install.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/sh</span><br> <br>echo &#x27;解压tar包&#x27;<br>tar -xvf $1<br>echo &#x27;将docker目录下所有文件复制到/usr/bin目录&#x27;<br>cp docker/* /usr/bin<br>echo &#x27;将docker.service 复制到/etc/systemd/system/目录&#x27;<br>cp docker.service /etc/systemd/system/<br>echo &#x27;添加文件可执行权限&#x27;<br>chmod +x /etc/systemd/system/docker.service<br>echo &#x27;重新加载配置文件&#x27;<br>systemctl daemon-reload<br>echo &#x27;启动docker&#x27;<br>systemctl start docker<br>echo &#x27;设置开机自启&#x27;<br>systemctl enable docker.service<br>echo &#x27;docker安装成功&#x27;<br>docker -v<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225603858.png" srcset="/img/loading.gif" lazyload alt="image-20230228225603858"></p>
-<blockquote>
-<p>如果有密码，输入下面命令：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">&gt;</span>root<span class="hljs-variable">@46bb792f7762</span>:<span class="hljs-operator">/</span># clickhouse<span class="hljs-operator">-</span>client <span class="hljs-operator">-</span>u <span class="hljs-keyword">default</span> <span class="hljs-comment">--password test</span><br></code></pre></td></tr></table></figure>
-</blockquote>
-<p>4.查看数据库</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">46</span>bb792f7762 :) <span class="hljs-keyword">show</span> databases;<br></code></pre></td></tr></table></figure>
+<h2 id="3-3-一键卸载脚本"><a href="#3-3-一键卸载脚本" class="headerlink" title="3.3.  一键卸载脚本"></a>3.3.  一键卸载脚本</h2><p>uninstall.sh:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/sh</span><br> <br>echo &#x27;停止docker&#x27;<br>systemctl stop docker<br>echo &#x27;删除docker.service&#x27;<br>rm -f /etc/systemd/system/docker.service<br>echo &#x27;删除docker文件&#x27;<br>rm -rf /usr/bin/docker*<br>echo &#x27;重新加载配置文件&#x27;<br>systemctl daemon-reload<br>echo &#x27;卸载成功&#x27;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225615339.png" srcset="/img/loading.gif" lazyload alt="image-20230228225615339"></p>
-<p>5.dbeaver 查看</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20230228225624031.png" srcset="/img/loading.gif" lazyload alt="image-20230228225624031"></p>
+<h1 id="4-上传文件和安装包到服务器上"><a href="#4-上传文件和安装包到服务器上" class="headerlink" title="4. 上传文件和安装包到服务器上"></a>4. 上传文件和安装包到服务器上</h1><p>你可以通过 USB 设备、SCP、FTP 等方式将下载好的包及脚本传输到目标 CentOS 机器上。</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/1749446823708-033483db-393b-4b2b-b37c-4d0c08c377ae.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h1 id="5-给脚本赋予执行权限"><a href="#5-给脚本赋予执行权限" class="headerlink" title="5. 给脚本赋予执行权限"></a>5. 给脚本赋予执行权限</h1><p>分别给install.sh和uninstall.sh赋予可执行权限。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">chmod +x install.sh<br>chmod +x uninstall.sh<br></code></pre></td></tr></table></figure>
+
+<h1 id="6-执行安装"><a href="#6-执行安装" class="headerlink" title="6. 执行安装"></a>6. 执行安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sh install.sh docker-26.1.4.tgz<br></code></pre></td></tr></table></figure>
 
               
             </div>
@@ -317,7 +309,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Clickhouse/" class="category-chain-item">Clickhouse</a>
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
   
   
 
@@ -329,13 +321,6 @@
     </div>
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%A1%86%E6%9E%B6/">#分布式框架</a>
-      
-    </div>
-  
 </div>
 
 
@@ -344,8 +329,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker安装clickhouse</div>
-      <div>http://example.com/docker-安装clickhouse/</div>
+      <div>离线安装docker</div>
+      <div>http://example.com/离线安装docker/</div>
     </div>
     <div class="license-meta">
       
@@ -357,7 +342,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年2月1日</div>
+          <div>2025年6月9日</div>
         </div>
       
       
@@ -387,18 +372,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/clickhouse%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="clickhouse基本数据类型">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">clickhouse基本数据类型</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/clickhouse%E5%85%A5%E9%97%A8/" title="clickhouse入门">
-                        <span class="hidden-mobile">clickhouse入门</span>
+                      <a href="/PPT%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="PPT快捷键">
+                        <span class="hidden-mobile">PPT快捷键</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
