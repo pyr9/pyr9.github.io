@@ -16,25 +16,27 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 下载Docker找到一台可以联网的 CentOS 机器：用于下载 Docker 及其依赖。 地址：https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;static&#x2F;stable&#x2F;x86_64&#x2F; 2. 创建一个目录来存放需要的文件12mkdir docker-packagescd docker-packages  3. 准备需要的脚本3.1. docker.service将其中">
+    <meta name="description" content="1. 母版原理 在母版的版式中所设计的元素，使用了相同版式的PPT也会存在 在主母版的元素会影响子模版，在子模版之中的元素只会单独存在  2. 应用技巧 批量修改 调整LOGO  调整标题 调整元素   设置参考线：避免直接在PPT设置，容易误触编辑 插入文字&#x2F;图片占位符  3. 操作 点击PPT上方的视图菜单，在弹出的菜单栏，找到幻灯片母版     根据需求插入文字或图片    在版式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="离线安装docker">
-<meta property="og:url" content="http://example.com/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/index.html">
+<meta property="og:title" content="母版使用原理及技巧">
+<meta property="og:url" content="http://example.com/%E6%AF%8D%E7%89%88%E4%BD%BF%E7%94%A8%E5%8E%9F%E7%90%86%E5%8F%8A%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1. 下载Docker找到一台可以联网的 CentOS 机器：用于下载 Docker 及其依赖。 地址：https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;static&#x2F;stable&#x2F;x86_64&#x2F; 2. 创建一个目录来存放需要的文件12mkdir docker-packagescd docker-packages  3. 准备需要的脚本3.1. docker.service将其中">
+<meta property="og:description" content="1. 母版原理 在母版的版式中所设计的元素，使用了相同版式的PPT也会存在 在主母版的元素会影响子模版，在子模版之中的元素只会单独存在  2. 应用技巧 批量修改 调整LOGO  调整标题 调整元素   设置参考线：避免直接在PPT设置，容易误触编辑 插入文字&#x2F;图片占位符  3. 操作 点击PPT上方的视图菜单，在弹出的菜单栏，找到幻灯片母版     根据需求插入文字或图片    在版式">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1749446823708-033483db-393b-4b2b-b37c-4d0c08c377ae.png">
-<meta property="article:published_time" content="2025-06-09T13:16:20.000Z">
-<meta property="article:modified_time" content="2025-06-09T13:18:52.863Z">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250610214928008.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250610221951888.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250610222201924.png">
+<meta property="article:published_time" content="2025-06-10T13:44:09.000Z">
+<meta property="article:modified_time" content="2025-06-10T14:22:52.086Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1749446823708-033483db-393b-4b2b-b37c-4d0c08c377ae.png">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250610214928008.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>离线安装docker - 楼上有只喵</title>
+  <title>母版使用原理及技巧 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +187,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="离线安装docker"></span>
+            <span id="subtitle" data-typed-text="母版使用原理及技巧"></span>
           
         </div>
 
@@ -196,8 +198,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-09 21:16" pubdate>
-          2025年6月9日 晚上
+        <time datetime="2025-06-10 21:44" pubdate>
+          2025年6月10日 晚上
         </time>
       </span>
     
@@ -209,7 +211,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.3k 字
+          182 字
         
       </span>
     
@@ -221,7 +223,7 @@
         
         
           <!-- compatible with older versions-->
-          8 分钟
+          1 分钟
         
       </span>
     
@@ -269,29 +271,37 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">离线安装docker</h1>
+            <h1 style="display: none">母版使用原理及技巧</h1>
             
             <div class="markdown-body">
               
-              <h1 id="1-下载Docker"><a href="#1-下载Docker" class="headerlink" title="1. 下载Docker"></a>1. 下载Docker</h1><p>找到一台可以联网的 CentOS 机器：用于下载 Docker 及其依赖。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://download.docker.com/linux/static/stable/x86_64/">https://download.docker.com/linux/static/stable/x86_64/</a></p>
-<h1 id="2-创建一个目录来存放需要的文件"><a href="#2-创建一个目录来存放需要的文件" class="headerlink" title="2. 创建一个目录来存放需要的文件"></a>2. 创建一个目录来存放需要的文件</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir docker-packages<br>cd docker-packages<br></code></pre></td></tr></table></figure>
+              <h1 id="1-母版原理"><a href="#1-母版原理" class="headerlink" title="1. 母版原理"></a>1. 母版原理</h1><ol>
+<li>在母版的版式中所设计的元素，使用了相同版式的PPT也会存在</li>
+<li>在主母版的元素会影响子模版，在子模版之中的元素只会单独存在</li>
+</ol>
+<h1 id="2-应用技巧"><a href="#2-应用技巧" class="headerlink" title="2. 应用技巧"></a>2. 应用技巧</h1><ol>
+<li>批量修改<ol>
+<li>调整LOGO </li>
+<li>调整标题</li>
+<li>调整元素</li>
+</ol>
+</li>
+<li>设置参考线：避免直接在PPT设置，容易误触编辑</li>
+<li>插入文字&#x2F;图片占位符</li>
+</ol>
+<h1 id="3-操作"><a href="#3-操作" class="headerlink" title="3. 操作"></a>3. 操作</h1><ol>
+<li>点击PPT上方的视图菜单，在弹出的菜单栏，找到幻灯片母版</li>
+</ol>
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250610214928008.png" srcset="/img/loading.gif" lazyload alt="image-20250610214928008" style="zoom:100%;" />
 
-<h1 id="3-准备需要的脚本"><a href="#3-准备需要的脚本" class="headerlink" title="3. 准备需要的脚本"></a>3. 准备需要的脚本</h1><h2 id="3-1-docker-service"><a href="#3-1-docker-service" class="headerlink" title="3.1. docker.service"></a>3.1. docker.service</h2><p>将其中的ip地址，改成您的服务器地址，其它参数不用改。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs shell">[Unit]<br>Description=Docker Application Container Engine<br>Documentation=https://docs.docker.com<br>After=network-online.target firewalld.service<br>Wants=network-online.target<br> <br>[Service]<br>Type=notify<br><span class="hljs-meta">#</span><span class="bash"> the default is not to use systemd <span class="hljs-keyword">for</span> cgroups because the delegate issues still</span><br><span class="hljs-meta">#</span><span class="bash"> exists and systemd currently does not support the cgroup feature <span class="hljs-built_in">set</span> required</span><br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-keyword">for</span> containers run by docker</span><br>ExecStart=/usr/bin/dockerd --selinux-enabled=false --insecure-registry=172.28.49.13<br>ExecReload=/bin/kill -s HUP $MAINPID<br><span class="hljs-meta">#</span><span class="bash"> Having non-zero Limit*s causes performance problems due to accounting overhead</span><br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-keyword">in</span> the kernel. We recommend using cgroups to <span class="hljs-keyword">do</span> container-local accounting.</span><br>LimitNOFILE=infinity<br>LimitNPROC=infinity<br>LimitCORE=infinity<br><span class="hljs-meta">#</span><span class="bash"> Uncomment TasksMax <span class="hljs-keyword">if</span> your systemd version supports it.</span><br><span class="hljs-meta">#</span><span class="bash"> Only systemd 226 and above support this version.</span><br><span class="hljs-meta">#</span><span class="bash">TasksMax=infinity</span><br>TimeoutStartSec=0<br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-built_in">set</span> delegate yes so that systemd does not reset the cgroups of docker containers</span><br>Delegate=yes<br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-built_in">kill</span> only the docker process, not all processes <span class="hljs-keyword">in</span> the cgroup</span><br>KillMode=process<br><span class="hljs-meta">#</span><span class="bash"> restart the docker process <span class="hljs-keyword">if</span> it exits prematurely</span><br>Restart=on-failure<br>StartLimitBurst=3<br>StartLimitInterval=60s<br> <br>[Install]<br>WantedBy=multi-user.target<br></code></pre></td></tr></table></figure>
-
-<h2 id="3-2-一键安装脚本"><a href="#3-2-一键安装脚本" class="headerlink" title="3.2.  一键安装脚本"></a>3.2.  一键安装脚本</h2><p>install.sh</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/sh</span><br> <br>echo &#x27;解压tar包&#x27;<br>tar -xvf $1<br>echo &#x27;将docker目录下所有文件复制到/usr/bin目录&#x27;<br>cp docker/* /usr/bin<br>echo &#x27;将docker.service 复制到/etc/systemd/system/目录&#x27;<br>cp docker.service /etc/systemd/system/<br>echo &#x27;添加文件可执行权限&#x27;<br>chmod +x /etc/systemd/system/docker.service<br>echo &#x27;重新加载配置文件&#x27;<br>systemctl daemon-reload<br>echo &#x27;启动docker&#x27;<br>systemctl start docker<br>echo &#x27;设置开机自启&#x27;<br>systemctl enable docker.service<br>echo &#x27;docker安装成功&#x27;<br>docker -v<br></code></pre></td></tr></table></figure>
-
-<h2 id="3-3-一键卸载脚本"><a href="#3-3-一键卸载脚本" class="headerlink" title="3.3.  一键卸载脚本"></a>3.3.  一键卸载脚本</h2><p>uninstall.sh:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/sh</span><br> <br>echo &#x27;停止docker&#x27;<br>systemctl stop docker<br>echo &#x27;删除docker.service&#x27;<br>rm -f /etc/systemd/system/docker.service<br>echo &#x27;删除docker文件&#x27;<br>rm -rf /usr/bin/docker*<br>echo &#x27;重新加载配置文件&#x27;<br>systemctl daemon-reload<br>echo &#x27;卸载成功&#x27;<br></code></pre></td></tr></table></figure>
-
-<h1 id="4-上传文件和安装包到服务器上"><a href="#4-上传文件和安装包到服务器上" class="headerlink" title="4. 上传文件和安装包到服务器上"></a>4. 上传文件和安装包到服务器上</h1><p>你可以通过 USB 设备、SCP、FTP 等方式将下载好的包及脚本传输到目标 CentOS 机器上。</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/1749446823708-033483db-393b-4b2b-b37c-4d0c08c377ae.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h1 id="5-给脚本赋予执行权限"><a href="#5-给脚本赋予执行权限" class="headerlink" title="5. 给脚本赋予执行权限"></a>5. 给脚本赋予执行权限</h1><p>分别给install.sh和uninstall.sh赋予可执行权限。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">chmod +x install.sh<br>chmod +x uninstall.sh<br></code></pre></td></tr></table></figure>
-
-<h1 id="6-执行安装"><a href="#6-执行安装" class="headerlink" title="6. 执行安装"></a>6. 执行安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sh install.sh docker-26.1.4.tgz<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>根据需求插入文字或图片</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250610221951888.png" srcset="/img/loading.gif" lazyload alt="image-20250610221951888"></p>
+<ol start="3">
+<li>在版式里可以查看幻灯片母版</li>
+</ol>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250610222201924.png" srcset="/img/loading.gif" lazyload alt="image-20250610222201924"></p>
 
               
             </div>
@@ -309,7 +319,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/docker/" class="category-chain-item">docker</a>
+  <a href="/categories/PPT%E9%AB%98%E6%89%8B%E4%B9%8B%E8%B7%AF/" class="category-chain-item">PPT高手之路</a>
   
   
 
@@ -329,8 +339,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>离线安装docker</div>
-      <div>http://example.com/离线安装docker/</div>
+      <div>母版使用原理及技巧</div>
+      <div>http://example.com/母版使用原理及技巧/</div>
     </div>
     <div class="license-meta">
       
@@ -342,7 +352,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月9日</div>
+          <div>2025年6月10日</div>
         </div>
       
       
@@ -372,18 +382,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/%E6%AF%8D%E7%89%88%E4%BD%BF%E7%94%A8%E5%8E%9F%E7%90%86%E5%8F%8A%E6%8A%80%E5%B7%A7/" title="母版使用原理及技巧">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">母版使用原理及技巧</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/PPT%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="PPT快捷键">
-                        <span class="hidden-mobile">PPT快捷键</span>
+                      <a href="/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85docker/" title="离线安装docker">
+                        <span class="hidden-mobile">离线安装docker</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
