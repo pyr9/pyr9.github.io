@@ -2,8 +2,7 @@
 title: docker-compose实战
 date: 2024-11-27 14:43:51
 tags:
-categories: docker
-password: 19980617pyr
+categories: docker    
 ---
 
 # 1. 常用命令
