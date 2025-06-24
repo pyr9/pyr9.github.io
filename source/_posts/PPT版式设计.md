@@ -53,14 +53,6 @@ categories: PPT高手之路
 
 # 2.  PPT整容美化
 
-## 1. Color Claim
-
-网站地址:https://www.vanschneider.com/colors
-
-- 比较独特的配色，搜集了较多配色，无需翻墙即可使用
-- 配色多是两种颜色，适合PPT初学者
-- 缺点是颜色库较少
-
 ## 2. islide 插件安装
 
 - 一键统一字体添加参考线
