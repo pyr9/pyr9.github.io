@@ -207,6 +207,39 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/" target="_self">
+          分布式限流
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/" target="_self">
+        <div>
+          
+          1. 定义分布式区别于单机限流的场景,它把整个分布式环境中所有服务当做一个整体来考量。比如说针对IP的限流,我们限制了1个IP每秒最多10个访问,不管来自这个IP的请求落在了哪台机器上,只要是访问了集群中的服务节点,那么都都会受到限流规则的制约。 从上面的例子不难看出,我们必须将限流信息保存在一个”中心化的组件上,这样它就可以获取到集群中所有机器的访问状态,目前前有两个比较主流的限流方案:  网关
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-15 20:00" pubdate>
+              2025-04-15
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/Prometheus/" target="_self">
           Prometheus
         </a>
@@ -591,60 +624,6 @@
               <a href="/tags/xss%E8%B7%A8%E7%AB%99%E6%BC%8F%E6%B4%9E/">#xss跨站漏洞</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/docker-compose%E5%AE%9E%E6%88%98/" target="_self">
-          docker-compose实战
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/docker-compose%E5%AE%9E%E6%88%98/" target="_self">
-        <div>
-          
-          1. 常用命令 前台启动, 启动项目中的所有服务 docker-compose up  后台启动, 启动所有服务并在后台运行 docker-compose up -d  重新编译文件并启动  docker-compose up --build nginx   停止所有服务, 保留容器docker-compose stop   停止所有服务, 删除容器docker-compose down  删除容
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-11-27 14:43" pubdate>
-              2024-11-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/docker/" class="category-chain-item">docker</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
         
       </div>
     </article>
