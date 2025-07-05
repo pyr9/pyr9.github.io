@@ -1,8 +1,8 @@
 ---
-title: Kubernetes快速实战与核心原理
+title: Kubernetes核心原理
 date: 2025-06-29 16:51:58
 tags:
-categories: Kubernetes
+Categories: Kubernetes
 ---
 
 # 1.  K8s简介
