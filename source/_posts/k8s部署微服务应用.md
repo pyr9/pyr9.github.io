@@ -158,7 +158,7 @@ kubectl get services
 
 ## 1. Pod 的划分策略
 
-#### 建议的 Pod 划分方案：
+建议的 Pod 划分方案：
 
 - **课程服务组合**：
   - `course-dubbo-service` 和 `course-edge-service` 放在同一个 Pod 中。
@@ -173,7 +173,7 @@ kubectl get services
   - 单独部署为一个 Pod。
   - 原因：作为所有外部请求的统一入口，需要具备高可用性和负载均衡能力。
 
-#### 小结：
+**小结**：
 
 > 同一业务域内、调用频繁的服务建议放在同一个 Pod 中，以提升内部通信效率；对外交互频繁或职责独立的服务应单独部署。
 
@@ -194,7 +194,7 @@ dubbo:
 
 每个对外暴露的服务都需要通过 Kubernetes 的 Service 对象来实现访问控制。
 
-#### 推荐方式：
+**推荐方式：**
 
 - 使用 `ClusterIP` 类型的 Service 供内部服务之间访问；
 - 使用 `NodePort` 或 `LoadBalancer` 类型的 Service 对外暴露服务；
@@ -204,7 +204,7 @@ dubbo:
 
 整个系统的核心入口是 **API 网关（api-gateway）**，它负责接收所有外部请求，并根据路由规则转发给对应的微服务。
 
-#### 对外暴露方式：
+**对外暴露方式：**
 
 - 使用 `Ingress` 控制器结合域名进行统一接入；
 - 如果没有 Ingress，也可以使用 `LoadBalancer` 类型的 Service；
