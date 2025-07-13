@@ -7,69 +7,64 @@ Categories: Kubernetes
 
 # 1.  K8s简介
 
-Kubernetes（通常简称为K8s）是一个开源的容器编排和管理平台，用于**自动化部署**、**扩展**和**管理容器化应用程序**。它提供了一组丰富的功能和工具，用于简化容器化应用程序的部署、伸缩和运维。翻译成大白话就是：**K8S 是负责自动化运维管理多个Docker 程序的集群**。
+Kubernetes（通常简称为K8s）是一个开源的容器编排的工具，用于**自动化部署、扩展和管理容器化应用**。它提供了一组丰富的功能和工具，用于简化容器化应用程序的部署、伸缩和运维。
+
+**为什么出现k8s?**
+
+这要容器技术兴起开始说，为了解决“一次打包，到处运行”的问题，大家引入了docker,  随着项目越来越大，一个微服务应用可能由几十个甚至上百个容器组成，这时候就出现了新的问题。
+
+1. 容器的管理问题： 启动、停止、重启、升级很多容器很麻烦
+2. 如何自动重启失败的容器？如果某个服务挂了，怎么让它自动恢复？
+3. 如何应对流量高峰？实现自动扩容？
+4. 多个容器分布在不同机器上时，怎么通信，网络怎么配？
+5. 怎么更实现更新版本时，用户不能感知到停机？
+
+这些问题加在一起， 导致运维工作变得极其复杂。Google 看到了这个问题，开发了 Kubernetes，目标就是：提供一个统一的平台，用来自动化地部署、扩展和管理容器化应用。
+
+你可以把他想象成一个容器管家：
+
+- 你告诉它：“我要运行一个服务，副本数是3个。”
+- 它就会自动帮你启动3个容器，并确保它们一直正常运行。
+- 如果其中一个容器坏了，它会自动重新启动一个新的。
+- 如果访问量变多了，它可以自动增加副本数量。
+- 所有这些都不需要你手动操作。
 
 # 2. **K8s核心特性**
 
 - 服务发现与负载均衡：无需修改你的应用程序即可使用陌生的服务发现机制。
+- 自我修复：重新启动失败的容器，在节点死亡时替换并重新调度容器，杀死不响应用户定义的健康检查的容器。
+- 自动化上线和回滚：Kubernetes会分步骤地将针对应用或其配置的更改上线，同时监视应用程序运行状况以确保你不会同时终止所有实例。
+- 水平扩缩：使用一个简单的命令、一个UI或基于CPU使用情况自动对应用程序进行扩缩。
 - 存储编排：自动挂载所选存储系统，包括本地存储。
 - Secret和配置管理：部署更新Secrets和应用程序的配置时不必重新构建容器镜像，且不必将软件堆栈配置中的秘密信息暴露出来。
-
 - 批量执行：除了服务之外，Kubernetes还可以管理你的批处理和CI工作负载，在期望时替换掉失效的容器。
-- 水平扩缩：使用一个简单的命令、一个UI或基于CPU使用情况自动对应用程序进行扩缩。
-- 自动化上线和回滚：Kubernetes会分步骤地将针对应用或其配置的更改上线，同时监视应用程序运行状况以确保你不会同时终止所有实例。
 - 自动装箱：根据资源需求和其他约束自动放置容器，同时避免影响可用性。
-- 自我修复：重新启动失败的容器，在节点死亡时替换并重新调度容器，杀死不响应用户定义的健康检查的容器。
 
-# 3. K8s组成
+使用场景：快速部署应用、快速扩展应用、无缝对接新的应用功能、节省资源，优化硬件资源的使用；
 
-K8s需要一个集群来运行和管理容器化应用程序。Kubernetes 集群由多个计算节点组成，其中包括主节点（Master Node）和从节点（Worker Node）。
+# 3. K8s核心概念
 
-- 主节点负责管理和控制整个集群的状态和配置，安装了K8s的核心组件
+## 1 Pod
 
-- 从节点是实际运行容器的计算节点。
-  - 从节点（Worker Node）上的容器化环境一般是通过 Docker 运行的。
-  - 每个 Worker Node 上可以运行多个容器， 其中每个容器都可以托管一个或多个 Pod。
+Pod 是 Kubernetes 中最小的可部署单元。一个 Pod 可以包含一个或多个容器（通常是一个），这些容器共享存储、网络和规范化的运行配置。
 
-<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240122164513407.png" alt="image-20240122164513407" style="zoom:70%;" />
-
-# 4. K8s核心概念
-
-## 4.1 Deployment
-
-Deployment负责创建和更新应用程序的实例。创建Deployment后，Kubernetes Master 将应用程序实例调度到集群中的各个节点上。如果托管实例的节点关闭或被删除，Deployment控制器会将该实例替换为群集中另一个节点上的实例。这提供了一种自我修复机制来解决机器故障维护问题。
-
-- Deployment 可以部署service，也可以部署Pod。这张图可以理解为：在master上发起了一个deployment，选中了三个节点中的一个，然后部署了一个新的应用，运行在容器中
-
-
-<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240122141719723.png" alt="image-20240122141719723" style="zoom: 50%;" />
-
-- 怎么通过deployment完成应用扩容？
-  1. 从master发起一个，想给service里的一个Pod，扩容成4个实例
-  2. 在其他节点上启动pod，通过打标签将这组pod标识为同一个service
-  3. service可以感知哪个pod出现问题，然后就不会把流量转发给他
-- 滚动更新的过程：停掉一个pod启动一个，停掉一个启动一个
-
-## 4.2 Pod
-
-Pod相当于**逻辑主机**的概念，负责托管应用实例。包括一个或多个应用程序容器（如 Docker），以及这些容器的一些共享资源（共享存储、网络、运行信息等）。
-
-- Pod 是一种逻辑概念，用于组织和管理容器的基本单位, k8S 对docker进行了一些封装, 就成了pod。它是一个抽象的概念，用于封装一个或多个相关的容器、存储卷、网络和其他资源
-- 所有的应用，服务最终都是运行在pod上，pod是一个容器
+- 所有的应用，服务最终都是运行在pod上
 - pod有一个独立的ip，pod里的容器可以共享网络，共享IP
-- pod里面可以有任意多个容器，以及任意多个存储(volumn)
 
-<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240122142025469.png" alt="image-20240122142025469" style="zoom:50%;" />
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250713152823707.png" alt="image-20250713152823707" style="zoom:50%;" />
 
-- k8s调度pod, 把pod运行起来。Pod在node上运行，一个Node上可以有任意多个pod。
+## 2 Deployment
 
-<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240122143320022.png" alt="image-20240122143320022" style="zoom:33%;" />
+Deployment 是一种控制器对象，用于管理 Pod 的部署和扩展。它提供了一种声明式的方法来描述期望的应用程序状态。
 
+- Deployment 负责管理其下所有 Pod 的生命周期，包括创建、更新和删除。如果某个 Pod 失败或被删除，Deployment 会自动创建新的 Pod 来替换它。
+- 通过 Deployment，您可以定义应用程序所需的副本数量，并确保集群中始终有指定数量的 Pod 在运行。此外，Deployment 支持滚动更新（Rolling Updates）和回滚（Rollbacks），使得应用更新过程更加平滑。
 
+## 3 service
 
-## 4.3 service
+Service 定义了一组逻辑 Pods 和访问这组 Pods 的策略，是真实服务的抽象。Service 提供了一个 IP 地址和 DNS 名称，用于稳定地访问这些 Pods。
 
-service是一个逻辑层的概念，将一堆pod通过打标签的方式，划分成逻辑组，从而方便实现负载均衡. 尽管每个Pod 都有一个唯一的IP地址，但是如果没有Service，这些IP不会暴露在群集外部。Service允许您的应用程序接收流量。
+- 由于 Pod 是动态的，它们可能因为各种原因被销毁和重建，导致 IP 地址变化。Service 提供了一个稳定的网络端点，使得其他服务或外部用户能够可靠地与一组 Pods 进行通信，如果没有Service，pod的IP不会暴露在群集外部。
 
 - Service也可以用在ServiceSpec标记type的方式暴露，type类型如下：
 
@@ -79,46 +74,83 @@ service是一个逻辑层的概念，将一堆pod通过打标签的方式，划�
 
   - ExternalName：通过返回带有该名称的CNAME记录，使用任意名称（由spec中的externalName指定）公开Service。不使用代理。
 
-- 下图三个pod对应一个service B，通常表示一个应用的多个副本，即对同一个应用扩容，从一个实例变成了三个，他们对外提供相同的服务。通过service的IP可以对多个Pod的地址进行负载均衡
-
-  > 灰度发布的时候，可以先将一个版本改掉，再依次改其他的
-
-<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240122144759597.png" alt="image-20240122144759597" style="zoom:50%;" />
-
-- 通过打标签的方式识别Pod属于哪个service
-
-<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20240122145618560.png" alt="image-20240122145618560" style="zoom:50%;" />
-
+  
 
 
 > 为什么Pod已经有了IP还需要service再包一层呢？
 >
 > - 当Pod出现意外挂掉时，这个服务无法访问，他肯定会去其他位置新启动一个服务，通过service的IP依旧可以找到这个新建的服务
 
-# 5. **K8s 核心架构原理**
+## 4 **Volume**
 
-K8S 是属于**主从设备模型（Master-Slave 架构）**，即有 Master 节点负责核心的调度、管理和运维，Slave 节点则执行用户的程序。但是在 K8S 中，主节点一般被称为**Master Node 或者 Head Node**，而从节点则被称为**Worker Node 或者 Node**。
+Volume是Pod中能够被多个容器访问的共享目录，Kubernetes中的Volume是定义在Pod上，可以被一个或多个Pod中的容器挂载到某个目录下
+
+## 5 **Namespace**
+
+Namespace用于实现多租户的资源隔离，可将集群内部的资源对象分配到不同的Namespace中，形成逻辑上的不同项目、小组或用户组，便于不同的Namespace在共享使用整个集群的资源的同时还能被分别管理；
+
+
+
+# 4. **K8s的组件有哪些？作用是什么？**
+
+K8s需要一个集群来运行和管理容器化应用程序。Kubernetes 集群由多个计算节点组成，其中包括主节点（Master Node）和从节点（Worker Node）。
+
+- 主节点负责管理整个集群的，安装了K8s的核心组件。
+
+- 从节点是容器应用真正运行的地方。
+  - 从节点（Worker Node）上的容器化环境一般是通过 Docker 运行的。
+  - 每个 Worker Node 上可以运行多个容器， 其中每个容器都可以托管一个或多个 Pod。
+
+- master节点包含的组件有：kube-api-server、kube-controller-manager、kube-scheduler、etcd
+- node节点包含的组件有：kubelet、kube-proxy、container-runtime
 
 ![image-20250701214938688](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250701214938688.png)
 
-注意：Master Node 和 Worker Node 是分别安装了 K8S 的 Master 和 Woker 组件的实体服务器，每个 Node都对应了一台实体服务器（虽然 Master Node 可以和其中一个 Worker Node 安装在同一台服务器，但是建议Master Node 单独部署），**所有 Master Node 和 Worker Node 组成了 K8S 集群**，同一个集群可能存在多个Master Node 和 Worker Node
+## 1  **Master Node**的组件
 
-## 5.1  **Master Node**的组件
+### 1. **kube API Server**
 
-- **API Server**。**K8S 的请求入口服务**。API Server 负责接收 K8S 所有请求（来自 UI 界面或者 CLI 命令行工具），然后，API Server 根据用户的具体请求，去通知其他组件干活。
+- **K8S 的请求入口服务**。
 
-- **Controller Manager**。**K8S 所有 Worker Node 的监控器**。Controller Manager 有很多具体的Controller， Node Controller、Service Controller、Volume Controller 等。Controller 负责监控和调整在 Worker Node 上部署的服务的状态，比如用户要求 A 服务部署 2 个副本，那么当其中一个服务挂了的时候，Controller 会马上调整，让 Scheduler 再选择一个 Worker Node 重新部署服务。
+- 它是k8s集群管理的统一访问入口，接收 K8S 所有请求，实现了认证、授权和准入控制等安全功能；
+- API Server 根据用户的具体请求，去通知其他组件干活。
+- api-server是其他组件之间的数据交互和通信的枢纽，其他组件彼此之间并不会直接通信，其他组件对资源对象的增、删、改、查和监听操作都是交由api-server处理后，api-server再提交给etcd数据库做持久化存储，只有api-server才能直接操作etcd数据库，其他组件都不能直接操作etcd数据库，其他组件都是通过api-server间接的读取，写入数据到etcd。
 
-- **etcd**。**K8S 的存储服务**。etcd 存储了 K8S 的关键配置和用户配置，K8S 中仅 API Server 才具备读写权限，其他组件必须通过 API Server 的接口才能读写数据。
-- **Scheduler**。**K8S 所有 Worker Node 的调度器**。当用户要部署服务时，Scheduler 会选择最合适的Worker Node（服务器）来部署。
+### 2. **kube Controller Manager**
 
-## 5.2  **Worker Node**的组件
+- **k8s集群内部的管理控制中心**， 他是Kubernetes的大脑，它通过apiserver监控整个集群的状态，并确保集群处于预期的工作状态。
+- kube-controller-manager由一系列的控制器组成，像Replication Controller控制副本，Node Controller节点控制，Deployment Controller管理deployment等等
+- Controller 负责监控和调整在 Worker Node 上部署的服务的状态，比如用户要求 A 服务部署 2 个副本，那么当其中一个服务挂了的时候，Controller 会马上调整，让 Scheduler 再选择一个 Worker Node 重新部署服务。
 
-- **Kubelet**。**Worker Node 的监视器，以及与 Master Node 的通讯器**。Kubelet 是 Master Node 安插在 Worker Node 上的“眼线”，它会定期向 Master Node 汇报自己 Node 上运行的服务的状态，并接受来自 Master Node 的指示采取调整措施。负责控制所有容器的启动停止，保证节点工作正常。
-- **Kube-Proxy**。**K8S 的网络代理**。Kube-Proxy 负责 Node 在 K8S 的网络通讯、以及对外部网络流量的负载均衡。
-- **Container Runtime**。**Worker Node 的运行环境**。即安装了容器化所需的软件环境确保容器化程序能够跑起来，比如 Docker Engine运行环境。
+### 3. **kube Scheduler**
 
-## 5.3 各组件协同工作的过程
+- **K8S 负责集群资源调度的调度器**。
+- 其作用是将待调度的pod通过一系列复杂的调度算法计算出最合适的node节点，然后将pod绑定到目标节点上。当用户要部署服务时，Scheduler 会选择最合适的Worker Node（服务器）来部署。
+
+### 4. **etcd**
+
+- **K8S 的存储服务， 是一个分布式的键值对存储数据库**。
+- etcd 存储了 K8S 的关键配置和用户配置，像k8s本身的节点信息，组件信息，还有通过kubernetes运行的pod，deployment，service等等, 都需要持久化到etc。
+- K8S 中仅 API Server 才具备读写权限，其他组件必须通过 API Server 的接口才能读写数据。
+- 生产环境中为了保证数据中心的高可用和数据的一致性，一般会部署最少三个节点。
+
+## 2  **Worker Node**的组件
+
+### 1.  **Kubelet**
+
+- **Worker Node 的监视器，以及与 Master Node 的通讯器**。
+- 每个工作节点上都运行一个kubelet服务进程，它会定期向 Master Node 汇报自己 Node 上运行的服务的状态，并接收并执行master发来的指令，管理Pod及Pod中的容器。比如创建、更新、终止pod等任务，kubelet 即通过控制docker来创建、更新、销毁容器。
+
+### 2. **Kube-Proxy**
+
+- **K8S 的网络代理**。Kube-Proxy 负责 Node 在 K8S 的网络通讯、以及对外部网络流量的负载均衡。
+- 核心功能是将到某个Service的访问请求转发到后端的多个Pod实例上
+
+### 3. Container Runtime
+
+- **Worker Node 的运行环境**。即安装了容器化所需的软件环境确保容器化程序能够跑起来，比如 Docker Engine运行环境。
+
+## 3 各组件协同工作的过程
 
 以用K8S部署Nginx的过程为例, **我们在master节点执行一条命令要master部署一个nginx应用**
 
@@ -127,60 +159,29 @@ kubectl create deployment nginx --image=nginx
 ```
 
 1. 这条命令首先发到master节点的网关api server，这是matser的唯一入口
+2. kube api server将命令请求交给kube controller mannager进行控制
+3. kube controller mannager 进行应用部署解析.  controller mannager 会生成一次部署信息，并通过api server将信息存入etcd存储中
+4. kube scheduler调度器通过api server从etcd存储中，拿到要部署的应用，开始调度看哪个节点有资源适合部署,   scheduler把计算出来的调度信息通过api server再放到etcd中
+5. 每一个node节点的监控组件kubelet，随时和master保持联系（给api-server发送请求不断获取最新数据），拿到master节点存储在etcd中的部署信息
+6. 假设node2的kubelet拿到部署信息，显示他自己节点要部署某某应用. kubelet就自己run一个应用在当前机器上，并随时给master汇报当前应用的状态信息,  node和master也是通过master的api-server组件联系的
 
-2. api server将命令请求交给controller mannager进行控制
+![image-20250713122653667](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250713122653667.png)
 
-3. controller mannager 进行应用部署解析.  controller mannager 会生成一次部署信息，并通过api server将信息存入etcd存储中
+# 5. kubelet的功能、作用是什么？
 
-4. scheduler调度器通过api server从etcd存储中，拿到要部署的应用，开始调度看哪个节点有资源适合部署
+kubelet是部署在每个node节点上的，它主要有4个功能：
 
-5. scheduler把计算出来的调度信息通过api server再放到etcd中
+## 1. 节点管理
 
-6. 每一个node节点的监控组件kubelet，随时和master保持联系（给api-server发送请求不断获取最新数据），拿到master节点存储在etcd中的部署信息
+kubelet启动时会向api-server进行注册，然后会定时的向api-server汇报本节点信息状态，资源使用状态等，这样master就能够知道node节点的资源剩余，节点是否失联等等相关的信息了。master知道了整个集群所有节点的资源情况，这对于 pod 的调度和正常运行至关重要。
+## 2. pod管理
 
-7. 假设node2的kubelet拿到部署信息，显示他自己节点要部署某某应用. kubelet就自己run一个应用在当前机器上，并随时给master汇报当前应用的状态信息,  node和master也是通过master的api-server组件联系的
+kubelet负责维护node节点上pod的生命周期，当kubelet监听到master的下发到自己节点的任务时，比如要创建、更新、删除一个pod，kubelet 就会通过CRI（容器运行时接口）插件来调用不同的容器运行时来创建、更新、删除容器；
 
-# 6. K8s基础集群部署
+## 3. 容器健康检查
 
-## 1. 部署ETCD（主节点）
+pod中可以定义启动探针、存活探针、就绪探针等3种，我们最常用的就是存活探针、就绪探针，kubelet 会定期调用容器中的探针来检测容器是否存活，是否就绪，如果是存活探针，则会根据探测结果对检查失败的容器进行相应的重启策略。
 
- kubernetes需要存储很多东西，像它本身的节点信息，组件信息，还有通过kubernetes运行的pod，deployment，service等等。都需要持久化。etcd就是它的数据中心。生产环境中为了保证数据中心的高可用和数据的一致性，一般会部署最少三个节点。
+## 4. Metrics Server资源监控
 
-端口：2379， 2380
-
-## 2. 部署APIServer（主节点）
-
-kube-apiserver是Kubernetes最重要的核心组件之一，主要提供以下的功能
-
-- 提供集群管理的REST API接口，包括认证授权（我们现在没有用到）数据校验以及集群状态变更等
-- 提供其他模块之间的数据交互和通信的枢纽（其他模块通过API Server查询或修改数据，只有API Server才直接操作etcd）
-
-> 生产环境为了保证apiserver的高可用一般会部署2+个节点，在上层做一个lb做负载均衡，比如haproxy。
-
-端口：6443， 8080
-
-## 3. 部署ControllerManager（主节点）
-
-- Controller Manager是Kubernetes的大脑，它通过apiserver监控整个集群的状态，并确保集群处于预期的工作状态。 
-
-- Controller Manager由kube-controller-manager和cloud-controller-manager组成。
-  - kube-controller-manager由一系列的控制器组成，像Replication Controller控制副本，Node Controller节点控制，Deployment Controller管理deployment等等
-  - cloud-controller-manager在Kubernetes启用Cloud Provider的时候才需要，用来配合云服务提供商的控制
-
-## 4. 部署Scheduler（主节点）
-
-kube-scheduler负责分配调度Pod到集群内的节点上，它监听kube-apiserver，查询还未分配Node的Pod，然后根据调度策略为这些Pod分配节点。kubernetes的各种调度策略就是它实现的。
-
-## 5. 部署CalicoNode（所有节点）
-
-Calico实现了CNI接口，是kubernetes网络方案的一种选择，它一个纯三层的数据中心网络方案（不需要Overlay），并且与OpenStack、Kubernetes、AWS、GCE等IaaS和容器平台都有良好的集成。 
-
-Calico在每一个计算节点利用Linux Kernel实现了一个高效的vRouter来负责数据转发，而每个vRouter通过BGP协议负责把自己上运行的workload的路由信息像整个Calico网络内传播——小规模部署可以直接互联，大规模下可通过指定的BGP route reflector来完成。 这样保证最终所有的workload之间的数据流量都是通过IP路由的方式完成互联的。
-
-## 6. 配置kubectl命令（任意节点）
-
-kubectl是Kubernetes的命令行工具，是Kubernetes用户和管理员必备的管理工具。 kubectl提供了大量的子命令，方便管理Kubernetes集群中的各种功能。
-
-## 7. 配置kubelet（工作节点）
-
-每个工作节点上都运行一个kubelet服务进程，默认监听10250端口，接收并执行master发来的指令，管理Pod及Pod中的容器。每个kubelet进程会在API Server上注册节点自身信息，定期向master节点汇报节点的资源使用情况，并通过cAdvisor监控节点和容器的资源。
+在node节点上部署Metrics Server用于监控node节点、pod的CPU、内存、文件系统、网络使用等资源使用情况，而kubelet则通过Metrics Server获取所在节点及容器的上的数据。

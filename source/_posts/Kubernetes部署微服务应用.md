@@ -1,5 +1,5 @@
 ---
-title: k8s部署微服务应用
+title: Kubernetes部署微服务应用
 date: 2025-07-05 16:06:49
 tags:
 categories: Kubernetes
