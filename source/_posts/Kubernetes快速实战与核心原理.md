@@ -46,12 +46,45 @@ Kubernetes（通常简称为K8s）是一个开源的容器编排的工具，用�
 
 ## 1 Pod
 
+### 1. 定义
+
 Pod 是 Kubernetes 中最小的可部署单元。一个 Pod 可以包含一个或多个容器（通常是一个），这些容器共享存储、网络和规范化的运行配置。
 
 - 所有的应用，服务最终都是运行在pod上
 - pod有一个独立的ip，pod里的容器可以共享网络，共享IP
 
 <img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250713152823707.png" alt="image-20250713152823707" style="zoom:50%;" />
+
+### 2. pod的生命周期
+
+Pending（挂起）：API server已经创建pod并保存在Etcd当中，但这个Pod里有些容器因为某种原因而不能被顺利创建。比如，正在下载镜像的过程，配置文件有误
+
+Running（运行中）：Pod内所有的容器已经创建，且至少有一个容器处于运行状态、正在启动括正在重启状态；
+
+Succeed（成功）：Pod内所有容器均已退出，且不会再重启；
+
+Failed（失败）：Pod内所有容器均已退出，且至少有一个容器为退出失败状态
+
+Unknown（未知）：某于某种原因apiserver无法获取该pod的状态，可能由于网络通行问题导致；
+
+### 3. pod的重启策略
+
+通过命令`kubectl explain pod.spec`查看pod的重启策略。
+
+- Always：但凡pod对象终止就重启，此为默认策略;
+- Never： 不重启
+- OnFailure：仅在pod对象出现错误时才重启;
+
+<img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250713174239215.png" alt="image-20250713174239215" style="zoom:50%;" />
+
+> docker 的重启策略是：
+>
+> - **no**：默认策略，容器退出后不会自动重启。适用于一次性任务或测试场景。
+>
+> - **always**：无论退出原因，容器都会自动重启。即使 Docker 守护进程重启，容器也会随之启动。
+>
+> - **on-failure[:n]**：仅在容器异常退出（非 0 状态码）时重启。可选参数 *n* 指定最大重启次数。
+> - **unless-stopped**：与 *always* 类似，但如果容器被手动停止（如 *docker stop*），即使 Docker 守护进程重启，容器也不会自动启动。
 
 ## 2 Deployment
 
@@ -185,3 +218,4 @@ pod中可以定义启动探针、存活探针、就绪探针等3种，我们最�
 ## 4. Metrics Server资源监控
 
 在node节点上部署Metrics Server用于监控node节点、pod的CPU、内存、文件系统、网络使用等资源使用情况，而kubelet则通过Metrics Server获取所在节点及容器的上的数据。
+
