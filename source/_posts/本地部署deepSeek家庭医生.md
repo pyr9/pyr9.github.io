@@ -100,12 +100,31 @@ DeepSeek 也指由 DeepSeek 公司开发的、类似于ChatGPT的大模型智能
            // 同步调用deepseek，当前页面会卡住，直到获得所有的数据才会返回给页面
            return ollamaChatClient.call(msg);
        }
+     
+      @GetMapping("/ai/stream2")
+       public List<String> aiOllamaStream2(@RequestParam String msg) {
+           Prompt prompt = new Prompt(new UserMessage(msg));
+           Flux<ChatResponse> streamResponse = ollamaChatClient.stream(prompt);
+   
+           List<String> list = streamResponse.toStream().map(chatResponse -> {
+               String content = chatResponse.getResult().getOutput().getContent();
+               log.info(content);
+               return content;
+           }).collect(Collectors.toList());
+           return list;
+       }
    }
    ```
 
-4. 测试调用
+4. 测试调用 /ai/chat
 
    ![image-20250309203035563](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309203035563.png)
+
+5. 测试调用 /ai/stream2
+
+查看控制台日志，可以看到流式输出
+
+![image-20250716213927224](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250716213927224.png)
 
 # 6. Ollama 定制deepseek医生角色
 
