@@ -26,9 +26,10 @@
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309191456727.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309192242484.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309203035563.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250716213927224.png">
 <meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309202913177.png">
 <meta property="article:published_time" content="2025-03-09T11:07:57.000Z">
-<meta property="article:modified_time" content="2025-03-09T12:35:54.971Z">
+<meta property="article:modified_time" content="2025-07-16T13:39:51.384Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309191456727.png">
@@ -212,7 +213,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.9k 字
+          2.4k 字
         
       </span>
     
@@ -224,7 +225,7 @@
         
         
           <!-- compatible with older versions-->
-          6 分钟
+          8 分钟
         
       </span>
     
@@ -318,12 +319,16 @@
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">ai:</span><br>    <span class="hljs-attr">ollama:</span><br>      <span class="hljs-attr">base-url:</span> <span class="hljs-string">http://127.0.0.1:11434</span><br>      <span class="hljs-attr">chat:</span><br>        <span class="hljs-attr">model:</span> <span class="hljs-string">deepseek-r1:latest</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>增加接口测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;ollama&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OllamaController</span> </span>&#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> OllamaChatClient ollamaChatClient;<br><br><br>    <span class="hljs-meta">@GetMapping(&quot;/ai/chat&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">aiOllamaChat</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String msg)</span> </span>&#123;<br>        <span class="hljs-comment">// 同步调用deepseek，当前页面会卡住，直到获得所有的数据才会返回给页面</span><br>        <span class="hljs-keyword">return</span> ollamaChatClient.call(msg);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;ollama&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OllamaController</span> </span>&#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> OllamaChatClient ollamaChatClient;<br><br><br>    <span class="hljs-meta">@GetMapping(&quot;/ai/chat&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">aiOllamaChat</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String msg)</span> </span>&#123;<br>        <span class="hljs-comment">// 同步调用deepseek，当前页面会卡住，直到获得所有的数据才会返回给页面</span><br>        <span class="hljs-keyword">return</span> ollamaChatClient.call(msg);<br>    &#125;<br>  <br>   <span class="hljs-meta">@GetMapping(&quot;/ai/stream2&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">aiOllamaStream2</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String msg)</span> </span>&#123;<br>        Prompt prompt = <span class="hljs-keyword">new</span> Prompt(<span class="hljs-keyword">new</span> UserMessage(msg));<br>        Flux&lt;ChatResponse&gt; streamResponse = ollamaChatClient.stream(prompt);<br><br>        List&lt;String&gt; list = streamResponse.toStream().map(chatResponse -&gt; &#123;<br>            String content = chatResponse.getResult().getOutput().getContent();<br>            log.info(content);<br>            <span class="hljs-keyword">return</span> content;<br>        &#125;).collect(Collectors.toList());<br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>测试调用</p>
+<li><p>测试调用 &#x2F;ai&#x2F;chat</p>
 <p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250309203035563.png" srcset="/img/loading.gif" lazyload alt="image-20250309203035563"></p>
 </li>
+<li><p>测试调用 &#x2F;ai&#x2F;stream2</p>
+</li>
 </ol>
+<p>查看控制台日志，可以看到流式输出</p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20250716213927224.png" srcset="/img/loading.gif" lazyload alt="image-20250716213927224"></p>
 <h1 id="6-Ollama-定制deepseek医生角色"><a href="#6-Ollama-定制deepseek医生角色" class="headerlink" title="6. Ollama 定制deepseek医生角色"></a>6. Ollama 定制deepseek医生角色</h1><ol>
 <li>新建my_doctor_0_1 文件, 指明当前角色以及性格</li>
 </ol>
