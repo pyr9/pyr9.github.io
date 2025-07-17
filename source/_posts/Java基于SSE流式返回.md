@@ -175,3 +175,125 @@ public class SSEEventSourceListener extends EventSourceListener {
     }
 }
 ```
+
+# 4. **当前端取消请求时，通知后端也立即中断 AI 的处理流程**
+
+## 4.1. 流程
+
+前端取消请求时，通知后端取消对应的 AI 请求
+
+- 前端使用 `useFetchHook`（假设是基于 `fetch` 或 `axios`）时，可以使用 `AbortController` 来中断请求。
+- 前端中断请求后，主动发送一个取消请求到后端，告诉后端“我不要这个请求了，请取消 AI 推理”。
+
+## 4.2. 前端实现（Vue + useFetchHook）
+
+```typescript
+import { ref } from 'vue'
+import { useFetch } from '@vueuse/core'
+
+export default {
+  setup() {
+    const controller = new AbortController()
+    const signal = controller.signal
+
+    const { data, error, isFetching } = useFetch('https://your-api.com/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ prompt: 'Tell me a joke' }),
+      signal
+    }).json()
+
+    const cancelRequest = () => {
+      controller.abort() // 中断当前请求
+
+      // 可选：发送一个取消请求给后端，通知它停止处理
+      fetch('https://your-api.com/chat/cancel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: 'user123',
+          sessionId: 'session456'
+        })
+      })
+    }
+
+    return {
+      data,
+      error,
+      isFetching,
+      cancelRequest
+    }
+  }
+}
+```
+
+## 4.3. 后端实现
+
+```java
+@RestController
+@RequestMapping("/chat")
+public class ChatController {
+
+    @Autowired
+    private ChatSessionManager chatSessionManager;
+  
+    @PostMapping("/chat")
+    public void chat(@RequestBody ChatRequest chatRequest, HttpServletRequest request) {
+    String sessionId = chatRequest.getSessionId();
+    String userId = chatRequest.getUserId();
+
+    // 构造请求体
+    ObjectMapper mapper = new ObjectMapper();
+    String requestBody = mapper.writeValueAsString(chatCompletion);
+
+    Request request = new Request.Builder()
+    .url(this.apiHost)
+    .post(RequestBody.create(MediaType.parse("application/json"), requestBody))
+    .build();
+
+    SSEEventSourceListener listener = new SSEEventSourceListener(emitter, userId, sessionId);
+    EventSource eventSource = EventSources.createFactory(okHttpClient).newEventSource(request, listener);
+
+    // 保存 eventSource 到 session manager
+    chatSessionManager.addSession(sessionId, eventSource);
+    }
+
+    @PostMapping("/cancel")
+    public ResponseEntity<String> cancelChat(@RequestBody Map<String, String> payload) {
+        String sessionId = payload.get("sessionId");
+        chatSessionManager.cancelSession(sessionId);
+        return ResponseEntity.ok("Chat request canceled.");
+    }
+}
+```
+
+```java
+@Component
+public class ChatSessionManager {
+
+    // session ID -> EventSource
+    private final Map<String, EventSource> sessions = new ConcurrentHashMap<>();
+
+    public void addSession(String sessionId, EventSource eventSource) {
+        sessions.put(sessionId, eventSource);
+    }
+
+    public void removeSession(String sessionId) {
+        sessions.remove(sessionId);
+    }
+
+    public void cancelSession(String sessionId) {
+        EventSource eventSource = sessions.get(sessionId);
+        if (eventSource != null) {
+            eventSource.cancel(); // 取消 SSE 请求
+            sessions.remove(sessionId);
+        }
+    }
+}
+```
+
+> 注：如果使用 **Redis**，可以将 session 信息存入 Redis，实现分布式取消。
