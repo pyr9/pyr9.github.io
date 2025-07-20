@@ -28,7 +28,7 @@ pom.xml增加
         </dependency>
 ```
 
-## 2. 支持maven编译sql文件
+## 2. 支持maven编译sql文件(根据情况，可以不配)
 
 pom.xml增加
 
@@ -53,7 +53,7 @@ spring:
     enabled: true ## 开启flyway, sithMesDev不开启为false
     baseline-on-migrate: true #对于已经存在的项目，数据库中存在数据，通过设置baseline告诉flyway，这个baseline及之前的sql脚本都不要执行了
     locations:
-      - classpath:db/migration #指定项目中需要迁移的sql文件在哪个位置，在springboot项目中classpath指的是resource文件夹
+      - classpath:db.migration #指定项目中需要迁移的sql文件在哪个位置，在springboot项目中classpath指的是resource文件夹
     table: flyway_schema_history_xxx # 版本控制日志表，默认flyway_schema_history,不同系统建议修改表名，如flyway_schema_history_admin
 ```
 
