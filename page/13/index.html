@@ -207,6 +207,201 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/" target="_self">
+          Activiti——流程实例
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/" target="_self">
+        <div>
+          
+          1. 概念流程实例（ProcessInstance）代表流程定义的执行实例。例如：用户或程序按照流程定义内容发起一个流程，这就是一个流程实例。 流程定义和流程实例的图解：  2. 启动流程实例 并添加Businesskey Businesskey：业务标识，通常为业务表的主键，业务标识和流程实例一一对应。业务标识来源于业务系统。存储业务标识就是根据业务标识来关联查询业务系统的数据。 启动流程实例时
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-09 11:17" pubdate>
+              2023-02-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" target="_self">
+          SSH免密登录
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" target="_self">
+        <div>
+          
+          1. 客户端生成公私钥 执行ssh-keygen在用户目录.ssh文件夹下创建公私钥:  id_rsa （私钥）  id_rsa.pub (公钥)     2. 上传公钥到服务器 进入服务端.ssh目录下 cd ~&#x2F;.ssh  将客户端生成的id_rsa.pub 复制到 authorized_keys 里 vim authorized_keys   3. 测试免密登录ssh root@localh
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-06 15:47" pubdate>
+              2023-02-06
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Activiti%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%BB%8B%E7%BB%8D/" target="_self">
+          Activiti——数据表介绍
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Activiti%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%BB%8B%E7%BB%8D/" target="_self">
+        <div>
+          
+          Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两个字母标识。 用途也和服务的 API 对应  表的命名规则和作用 ACT_RE ：’RE’表示 repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。 ACT_RU：’RU’表示 runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-02 21:55" pubdate>
+              2023-02-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/activiti%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" target="_self">
+          Activiti——基本操作
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/activiti%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" target="_self">
+        <div>
+          
+          1 流程定义 使用activiti流程建模工具(activity-designer)定义业务流程(.bpmn文件) 。  .bpmn文件就是业务流程定义文件，通过xml定义业务流程。  使用idea插件设置流程图， 设置流程中需要的节点，节点负责人。具体步骤参考：    2 流程定义部署 activiti部署业务流程定义（.bpmn文件）。即：将流程图的内容存储到数据库  123456789101
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-28 23:21" pubdate>
+              2023-01-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/Activiti-BPMN-visualizer-%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_self">
           Activiti BPMN visualizer 的安装和使用
         </a>
@@ -447,201 +642,6 @@
       <span class="category-chain">
         
   <a href="/categories/maven/" class="category-chain-item">maven</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/jekins%E6%94%AFwar%E5%8C%85%E9%83%A8%E7%BD%B2/" target="_self">
-          jenkins之war包部署
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/jekins%E6%94%AFwar%E5%8C%85%E9%83%A8%E7%BD%B2/" target="_self">
-        <div>
-          
-          1. 插件安装 Maven Integration  Pipeline Maven Integration  Deploy to container     2. 新建任务 3 源码配置 Credentials 需要选择在用户列表，配置了该仓库ssh key的用户   4 构建后操作4.1 部署到服务器构建后，部署war包到指定服务器，我这里是部署在了本地的tomcat服务上  注意：  war文
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-15 19:46" pubdate>
-              2023-01-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/jenkins/" class="category-chain-item">jenkins</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/IDEA%E8%A7%A3%E5%86%B3resources%E8%B5%84%E6%BA%90%E6%89%BE%E4%B8%8D%E5%88%B0/" target="_self">
-          IDEA解决resources资源找不到
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/IDEA%E8%A7%A3%E5%86%B3resources%E8%B5%84%E6%BA%90%E6%89%BE%E4%B8%8D%E5%88%B0/" target="_self">
-        <div>
-          
-          pom中删除&lt;packaging&gt;pom&lt;&#x2F;packaging&gt;。加了这个pom不会处理resources目录
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-12 15:48" pubdate>
-              2023-01-12
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Mac%E4%B8%8B%E5%AE%89%E8%A3%85jekins/" target="_self">
-          Mac下安装jenkins
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Mac%E4%B8%8B%E5%AE%89%E8%A3%85jekins/" target="_self">
-        <div>
-          
-          1. 可持续化集成CI​      持续集成即CI（Continuous integration）是一种软件开发实践,可以让团队在持续的基础上不断收到反馈并进行改进，不必等到开发周期后期才寻找缺陷。持续集成要点：  统一的代码库 git 统一的依赖包管理 nexus 测试自动化 构建全自动化 maven 部署自动化 可追踪的集成记录 ：某一次有问题，可以找到上次集成。或者上上次集成，然后代码回滚
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-10 22:04" pubdate>
-              2023-01-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/jenkins/" class="category-chain-item">jenkins</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E5%B7%A5%E4%BD%9C%E6%B5%81/" target="_self">
-          工作流
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E5%B7%A5%E4%BD%9C%E6%B5%81/" target="_self">
-        <div>
-          
-          1. 工作流是什么？工作流就是计算机对业务流程自动化执行管理。有了工作流可以更好的管理业务流程，提高系统扩展性。 2. Activity 7 activity是一个工作流引擎，activity可以将业务系统中复杂的业务流程抽取出来，使用专门的建模语言BPMN2.0进行定义。 业务流程按照预先定义的流程进行执行，实现了系统的流程由activiti进行管理，减少业务系统由于流程变更进行系统升级改造的工
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-14 13:52" pubdate>
-              2022-12-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
   
   
 
