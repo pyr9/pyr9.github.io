@@ -1,5 +1,5 @@
 ---
-title: 基于AiService实现智能文章小助手
+title: LangChain4j之AiService
 date: 2025-07-20 16:35:02
 tags:
 categories: LangChain4j
