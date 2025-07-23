@@ -207,6 +207,128 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/rabbitMq%E9%9B%86%E7%BE%A4/" target="_self">
+          rabbitMq集群
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/rabbitMq%E9%9B%86%E7%BE%A4/" target="_self">
+        <div>
+          
+          普通集群模式 queue的消息，只会放在一个rabbtimq实例上。每个实例都同步queue的结构和queue消息的真正位置。  消费的时候，实际上如果连接到了另外一个实例，那么那个实例会从queue所在实例上拉取数据过来。   这种集群模式的消息可靠性不是很高。因为如果其中有个节点服务宕机了，那这个节点上的数据就无法消费了，需要等到这个节点服务恢复后才能消费。 镜像集群模式 这种模式是在普通集群
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-21 23:38" pubdate>
+              2022-09-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Mysql%E9%9B%86%E7%BE%A4/" target="_self">
+          Mysql集群
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Mysql%E9%9B%86%E7%BE%A4/" target="_self">
+        <div>
+          
+          1 主从模式 一个master可以拥有多个slave，一个slave只对应一个master 一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。 所有的读请求全部走从节点。这样也可以很轻松实现水平扩容，支撑读高并发。 一主多从的结构，主要目的是实现数据的多点备份（没有故障自动转移和负载均衡）  缺点：  从库要从binlog获取数据并重放，这肯定与主库写入数据存在时间延迟，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-21 16:46" pubdate>
+              2022-09-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">#集群</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/zookeeper%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
           zookeeper的使用场景
         </a>
@@ -683,132 +805,6 @@
               <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
             
               <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
-          垃圾收集器
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" target="_self">
-        <div>
-          
-          1 垃圾收集算法1.1 标记 - 清除算法算法分为“标记”和“清除”两个阶段:首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。缺点:（1）效率问题， 标记和清除两个过程的效率都不高；（2）空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存面不得不提前触发另一次垃圾收集动作。 1.2 标记 - 整
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 17:33" pubdate>
-              2022-09-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM/" class="category-chain-item">JVM</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
-            
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">#垃圾收集器</a>
-            
-              <a href="/tags/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/">#垃圾收集算法</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
-          对象内存分配
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
-        <div>
-          
-          对象内存分配策略 JVM通过逃逸分析确定该对象不会被外部访问。如果不会逃逸可以将该对象在栈上分配内存 大多数情况下，对象在新生代中 Eden 区分配。 大对象直接进入老年代 长期存活的对象将进入老年代  对象动态年龄判断 老年代空间分配担保机制  对象栈上分配概念 我们通过JVM内存分配可以知道JAVA中的对象都是在堆上进行分配，当对象没有被引用的时候，需要依靠GC进行回收内存，如果对象数量较多的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-14 16:04" pubdate>
-              2022-09-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JVM/" class="category-chain-item">JVM</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
             
           </div>
         

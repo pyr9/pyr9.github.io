@@ -207,12 +207,120 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E5%9F%BA%E4%BA%8EAiService%E5%AE%9E%E7%8E%B0%E6%99%BA%E8%83%BD%E6%96%87%E7%AB%A0%E5%B0%8F%E5%8A%A9%E6%89%8B/" target="_self">
-          基于AiService实现智能文章小助手
+        <a href="/LangChain4j%E4%B9%8BTools/" target="_self">
+          LangChain4j之Tools
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E5%9F%BA%E4%BA%8EAiService%E5%AE%9E%E7%8E%B0%E6%99%BA%E8%83%BD%E6%96%87%E7%AB%A0%E5%B0%8F%E5%8A%A9%E6%89%8B/" target="_self">
+      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BTools/" target="_self">
+        <div>
+          
+          1. Tools是什么？大模型Tools（工具）可以通过结构化接口将模型能力与现实世界操作连接。例如：  天气查询工具：封装天气API，接收城市参数后返回实时数据； 数据库操作工具：将SQL查询转化为自然语言交互接口； 代码执行工具：调用编译器或解释器完成代码调试。   目前大模型的不足：大模型在解决问题时，是基于互联网上很多历史资料进行预测的，而且答案具有一定的随机性，那如果我问”今天是几月几号
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-23 22:11" pubdate>
+              2025-07-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/LangChain4j%E4%B9%8BChatMemory/" target="_self">
+          LangChain4j之ChatMemory
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BChatMemory/" target="_self">
+        <div>
+          
+          1. ChatMemory是什么？ChatMemory是LangChain4j提供的用来存储历史对话的组件，并且还支持窗口限制、淘汰机制、持久化机制等等扩展功能。 2. 使用1. 基本使用123456789101112131415161718192021222324252627282930313233343536import dev.langchain4j.memory.ChatMemory;im
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-21 21:57" pubdate>
+              2025-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/LangChain4j%E4%B9%8BAiService/" target="_self">
+          LangChain4j之AiService
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BAiService/" target="_self">
         <div>
           
           1. AiService是什么？LangChain4j 的 AiService 是一个非常方便的工具，它允许开发者通过定义接口和使用注解的方式快速创建基于语言模型的服务。这个机制极大地简化了与语言模型（如 Qwen、ChatGPT 等）交互的过程，使得开发者可以更专注于业务逻辑而非底层通信细节。 主要概念 接口定义：你首先需要定义一个接口，其中的方法代表了你希望语言模型执行的任务。 注解：在方法上
@@ -323,7 +431,7 @@
       <a class="index-excerpt" href="/Vue3%E8%B7%A8%E5%B1%82%E7%BA%A7%E9%80%9A%E4%BF%A1%E6%8A%80%E5%B7%A7/" target="_self">
         <div>
           
-          1. 从父到孙provide &#x2F; inject 是 Vue 提供的跨层级通信机制，不再依赖 props 层层传递；  父  12345&lt;script setup lang&#x3D;&quot;ts&quot;&gt;    import &amp;#123; provide &amp;#125; from &amp;#x27;vue&amp;#x27;    const rules &#x3D; &amp;#123; name: &amp;#x2
+          1. Provide 和 Inject provide和inject允许祖先组件向任意深度的后代组件提供数据，而不需要经过中间组件 props逐层传递。 祖先组件使用provide来提供数据，后代组件使用inject来接收这些数据。这种方式非常适合用于主题、用户偏好设置等全局或半全局的数据共享。  123456789&lt;script setup lang&#x3D;&quot;ts&quot;&gt;
         </div>
       </a>
 
@@ -618,114 +726,6 @@
       <span class="category-chain">
         
   <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/oracle%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" target="_self">
-          oracle数据迁移
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/oracle%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" target="_self">
-        <div>
-          
-          1. oracle数据库迁移1. 导出dmp文件1expdp mycim3_qj_new&#x2F;mycim3_qj_new@&#x2F;&#x2F;10.108.140.102:1521&#x2F;ORCL schemas&#x3D;MYCIM3_QJ_NEW directory&#x3D;DATA_PUMP_DIR dumpfile&#x3D;export.dmp logfile&#x3D;export.log  注：导出结束以后会显示这个文件在哪个路径下面，注意看最后
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 11:10" pubdate>
-              2025-07-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Kubernetes%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" target="_self">
-          Kubernetes部署微服务应用
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Kubernetes%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" target="_self">
-        <div>
-          
-          1.  K8s部署Java项目的步骤1. 构建镜像1. 增加Dockerfile12345678910111213# 使用官方的 OpenJDK 镜像作为基础镜像FROM docker.xuanyuan.me&#x2F;openjdk:8-jdk-alpine# 设置工作目录WORKDIR &#x2F;app# 复制本地的 JAR 包到容器中COPY .&#x2F;build&#x2F;libs&#x2F;micro-weather-weathe
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-05 16:06" pubdate>
-              2025-07-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Kubernetes/" class="category-chain-item">Kubernetes</a>
   
   
 

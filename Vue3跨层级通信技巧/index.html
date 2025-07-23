@@ -16,15 +16,15 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 从父到孙provide &#x2F; inject 是 Vue 提供的跨层级通信机制，不再依赖 props 层层传递；  父  12345&lt;script setup lang&#x3D;&quot;ts&quot;&gt;    import &amp;#123; provide &amp;#125; from &amp;#x27;vue&amp;#x27;    const rules &#x3D; &amp;#123; name: &amp;#x2">
+    <meta name="description" content="1. Provide 和 Inject provide和inject允许祖先组件向任意深度的后代组件提供数据，而不需要经过中间组件 props逐层传递。 祖先组件使用provide来提供数据，后代组件使用inject来接收这些数据。这种方式非常适合用于主题、用户偏好设置等全局或半全局的数据共享。  123456789&lt;script setup lang&#x3D;&quot;ts&quot;&gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue3跨层级通信技巧">
 <meta property="og:url" content="http://example.com/Vue3%E8%B7%A8%E5%B1%82%E7%BA%A7%E9%80%9A%E4%BF%A1%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="1. 从父到孙provide &#x2F; inject 是 Vue 提供的跨层级通信机制，不再依赖 props 层层传递；  父  12345&lt;script setup lang&#x3D;&quot;ts&quot;&gt;    import &amp;#123; provide &amp;#125; from &amp;#x27;vue&amp;#x27;    const rules &#x3D; &amp;#123; name: &amp;#x2">
+<meta property="og:description" content="1. Provide 和 Inject provide和inject允许祖先组件向任意深度的后代组件提供数据，而不需要经过中间组件 props逐层传递。 祖先组件使用provide来提供数据，后代组件使用inject来接收这些数据。这种方式非常适合用于主题、用户偏好设置等全局或半全局的数据共享。  123456789&lt;script setup lang&#x3D;&quot;ts&quot;&gt;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-07-19T07:58:34.000Z">
-<meta property="article:modified_time" content="2025-07-19T08:01:33.341Z">
+<meta property="article:modified_time" content="2025-07-21T13:52:50.855Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          397 字
+          1.5k 字
         
       </span>
     
@@ -219,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -271,19 +271,17 @@
             
             <div class="markdown-body">
               
-              <h1 id="1-从父到孙"><a href="#1-从父到孙" class="headerlink" title="1. 从父到孙"></a>1. 从父到孙</h1><p><code>provide</code> &#x2F; <code>inject</code> 是 Vue 提供的<strong>跨层级通信机制</strong>，不再依赖 props 层层传递；</p>
-<ul>
-<li>父</li>
+              <h1 id="1-Provide-和-Inject"><a href="#1-Provide-和-Inject" class="headerlink" title="1. Provide 和 Inject"></a>1. <strong>Provide 和 Inject</strong></h1><ul>
+<li><code>provide</code>和<code>inject</code>允许祖先组件向任意深度的后代组件提供数据，而不需要经过中间组件 props逐层传递。</li>
+<li>祖先组件使用<code>provide</code>来提供数据，后代组件使用<code>inject</code>来接收这些数据。这种方式非常适合用于主题、用户偏好设置等全局或半全局的数据共享。</li>
 </ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;script setup lang=<span class="hljs-string">&quot;ts&quot;</span>&gt;<br>    <span class="hljs-keyword">import</span> &#123; provide &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br>    <span class="hljs-keyword">const</span> rules = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;required&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-string">&#x27;number&#x27;</span> &#125;<br>    provide(<span class="hljs-string">&#x27;rules&#x27;</span>, rules)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;script setup lang=<span class="hljs-string">&quot;ts&quot;</span>&gt;<br>    <span class="hljs-keyword">import</span> &#123; provide &#125; from <span class="hljs-string">&#x27;vue&#x27;</span><br>    <span class="hljs-keyword">const</span> rules = &#123; name: <span class="hljs-string">&#x27;required&#x27;</span>, age: <span class="hljs-string">&#x27;number&#x27;</span> &#125;<br>    provide(<span class="hljs-string">&#x27;rules&#x27;</span>, rules)<br>&lt;/script&gt;<br>&lt;script setup lang=<span class="hljs-string">&quot;ts&quot;</span>&gt;<br>    <span class="hljs-keyword">import</span> &#123; inject &#125; from <span class="hljs-string">&#x27;vue&#x27;</span><br>    <span class="hljs-keyword">const</span> rules = inject(<span class="hljs-string">&#x27;rules&#x27;</span>)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li>孙</li>
+<h1 id="2-Pinia"><a href="#2-Pinia" class="headerlink" title="2. Pinia"></a>2. Pinia</h1><ul>
+<li>Pinia则是Vue 3的新一代状态管理库，它更轻量且易于使用。</li>
+<li>实现思路：定义store存储变量，在子组件中更新store的值，在父组件监听</li>
 </ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;script setup lang=<span class="hljs-string">&quot;ts&quot;</span>&gt;<br>    <span class="hljs-keyword">import</span> &#123; inject &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br>    <span class="hljs-keyword">const</span> rules = inject(<span class="hljs-string">&#x27;rules&#x27;</span>)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
-
-
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java">export <span class="hljs-keyword">const</span> useModelStore = defineStore(<span class="hljs-string">&#x27;model&#x27;</span>, () =&gt; &#123;<br>  <span class="hljs-comment">// 当前模型</span><br>  <span class="hljs-keyword">const</span> currentModelInfo = ref&lt;GetSessionListVO&gt;(&lt;GetSessionListVO&gt;&#123;&#125;);<br><br>  <span class="hljs-comment">// 设置当前模型</span><br>  <span class="hljs-keyword">const</span> setCurrentModelInfo = (modelInfo: GetSessionListVO) =&gt; &#123;<br>    currentModelInfo.value = modelInfo;<br>  &#125;;<br>  <span class="hljs-keyword">return</span> &#123;<br>    currentModelInfo,<br>    setCurrentModelInfo,<br>  &#125;<br>&#125;);<br>&lt;script setup lang=<span class="hljs-string">&quot;ts&quot;</span>&gt;<br>  <span class="hljs-function">function <span class="hljs-title">handleClick</span><span class="hljs-params">(item: GetSessionListVO)</span> </span>&#123;<br>    modelStore.setCurrentModelInfo(item);<br>  &#125;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>    &lt;div<br>      <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;model-select&quot;</span><br>      :<span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;&#123; &#x27;bg-[rgba(0,0,0,.04)] is-select&#x27;: item.modelName === currentModelName &#125;&quot;</span><br>      <span class="hljs-meta">@click</span>=<span class="hljs-string">&quot;handleClick(item)&quot;</span><br>    &gt;<br>&lt;/template&gt;<br>&lt;script setup lang=<span class="hljs-string">&quot;ts&quot;</span>&gt;<br>  watch(<br>      () =&gt; modelStore.currentModelInfo,<br>      (val) =&gt; &#123;<br>        <span class="hljs-keyword">if</span> (val.modelName === modelStore.defaultModel.modelName) &#123;<br>          <span class="hljs-keyword">return</span>;<br>        &#125;<br>        senderRef.value.openHeader();<br>      &#125;,<br>    );<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
 
               
             </div>
