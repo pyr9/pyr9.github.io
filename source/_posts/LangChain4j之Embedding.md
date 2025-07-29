@@ -1,6 +1,6 @@
 ---
 title: LangChain4j之Embedding
-date: 2025-07-29 19:34:13
+date: 2025-07-23 19:34:13
 tags:
 categories: LangChain4j
 ---
@@ -52,9 +52,9 @@ public class Main {
 
 我们使用Redis来演示对于向量的增删查改
 
-## 3.1 使用Redis向量数据库
+## 1 使用Redis向量数据库
 
-## 1. 启动redis
+### 1. 启动redis
 
 普通的Redis是不支持向量存储和查询的，需要额外的redisearch模块，这里直接使用docker来运行一个带有redisearch模块的redis容器的，命令为：
 
@@ -62,7 +62,7 @@ public class Main {
 docker run -p 6379:6379 docker.1ms.run/redis/redis-stack-server
 ```
 
-## 2. 添加依赖
+### 2. 添加依赖
 
 ```xml
 <dependency>
@@ -72,7 +72,7 @@ docker run -p 6379:6379 docker.1ms.run/redis/redis-stack-server
 </dependency>
 ```
 
-## 3. 代码存储
+### 3. 代码存储
 
 ```java
 RedisEmbeddingStore embeddingStore = RedisEmbeddingStore.builder()
