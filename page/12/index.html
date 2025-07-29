@@ -207,6 +207,39 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/postgresql-%E6%9F%A5%E8%AF%A2%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%A1%8C/" target="_self">
+          postgresql 常用SQL整理
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/postgresql-%E6%9F%A5%E8%AF%A2%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%A1%8C/" target="_self">
+        <div>
+          
+          删除id最小的重复行  123DELETE FROM mes.stool_po where id in(    SELECT MIN(id) FROM mes.stool_po GROUP BY purchasing_doc_number, purchasing_doc_item_number HAVING COUNT(id) &gt; 1)   查询根据purchasing_doc_numbe
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-21 10:53" pubdate>
+              2023-04-21
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/docker/" target="_self">
           docker
         </a>
@@ -638,65 +671,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E7%BB%84%E4%BB%BB%E5%8A%A1/" target="_self">
-          Activiti——组任务
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E7%BB%84%E4%BB%BB%E5%8A%A1/" target="_self">
-        <div>
-          
-          在流程定义中在任务结点的 assignee 固定设置任务负责人，在流程定义时将参与者固定设置在.bpmn 文件中，如果临时任务负责人变更则需要修改流程定义，系统可扩展性差。 针对这种情况可以给任务设置多个候选人，可以从候选人中选择参与者来完成任务。  1. 设置任务候选人在流程图中任务节点的配置中设置 candidate-users(候选人)，多个候选人之间用逗号分开。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-12 20:53" pubdate>
-              2023-02-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/11/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/#board">27</a><a class="extend next" rel="next" href="/page/13/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/11/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/#board">28</a><a class="extend next" rel="next" href="/page/13/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
