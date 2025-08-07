@@ -2,7 +2,7 @@
 title: flex 布局
 date: 2022-05-29 18:28:29
 tags: css flex
-categories: 前端
+categories: 前端布局
 ---
 
 # 1 开启flex 布局

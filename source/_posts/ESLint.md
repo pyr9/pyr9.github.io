@@ -5,7 +5,7 @@ tags:
 - 前端
 - 代码规范
 - eslint
-categories: 前端
+categories: 前端布局
 ---
 
 # 1 ESLint是什么？

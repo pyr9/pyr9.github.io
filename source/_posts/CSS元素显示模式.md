@@ -2,7 +2,7 @@
 title: CSS元素显示模式
 date: 2022-11-26 22:25:29
 tags: CSS
-categories: 前端
+categories: 前端布局
 ---
 
 # 1 定义

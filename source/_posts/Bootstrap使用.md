@@ -3,7 +3,7 @@ title: 响应式开发
 date: 2022-11-27 20:09:19
 tags:
 - CSS
-categories: 前端
+categories: 前端布局
 ---
 
 # 1 响应式开发

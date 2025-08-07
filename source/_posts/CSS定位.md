@@ -3,7 +3,7 @@ title: CSS定位
 date: 2022-11-27 11:58:44
 tags:
 - CSS
-categories: 前端
+categories: 前端布局
 ---
 
 # 1. 为什么需要定位？

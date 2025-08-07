@@ -3,7 +3,7 @@ title: bootstrap基本样式
 date: 2022-10-28 09:43:26
 tags: 
 - CSS
-categories: 前端
+categories: 前端布局
 ---
 
 # 边框

@@ -3,7 +3,7 @@ title: CSS盒子模型
 date: 2022-11-20 18:52:44
 tags:
 - CSS
-categories: 前端
+categories: 前端布局
 ---
 
 # 1 块级元素水平居中

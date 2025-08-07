@@ -3,7 +3,7 @@ title: CSS浮动
 date: 2022-11-20 21:39:58
 tags:
 - CSS
-categories: 前端
+categories: 前端布局
 ---
 
 > 多个块级元素纵向排列找标准流，横向排列找浮动。

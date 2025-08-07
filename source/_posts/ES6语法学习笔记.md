@@ -3,7 +3,7 @@ title: ES6语法学习笔记
 date: 2022-11-04 15:53:43
 tags:
 - es6
-categories: 前端
+categories: 前端布局
 ---
 
 # 1 Let和const
