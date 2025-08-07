@@ -2,7 +2,7 @@
 title: dubbo3.0
 date: 2024-02-13 10:33:59
 tags:
-categories: 中间件
+categories: 微服务
 ---
 
 # 1. Dubbo和Feign的区别和联系

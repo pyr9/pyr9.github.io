@@ -2,7 +2,7 @@
 title: java禁止上传带有js脚本的pdf文件
 date: 2025-01-24 10:54:10
 tags: xss跨站漏洞
-categories: 工具类
+categories: Java基础
 ---
 
 防止上传的pdf文件中，包含危害的Java script，导致的XSS漏洞

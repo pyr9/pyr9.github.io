@@ -2,7 +2,7 @@
 title: 分布式ID
 date: 2023-03-17 10:11:18
 tags:
-categories: 分布式
+categories: 微服务
 ---
 
 # 1. 为什么需要分布式ID

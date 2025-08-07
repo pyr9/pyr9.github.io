@@ -2,7 +2,7 @@
 title: Prometheus
 date: 2025-03-21 08:09:51
 tags:
-categories: 监控
+categories: 应用监控工具
 ---
 
 # 通过 Prometheus 和 Grafana 监控 Spring Cloud 服务

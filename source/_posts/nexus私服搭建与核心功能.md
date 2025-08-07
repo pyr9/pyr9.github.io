@@ -2,7 +2,7 @@
 title: nexus私服搭建与核心功能
 date: 2023-01-15 20:42:13
 tags:
-categories: maven
+categories: Java基础
 ---
 
 # 1. 私服是什么？

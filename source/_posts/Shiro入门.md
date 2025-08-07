@@ -2,7 +2,7 @@
 title: Shiro入门
 date: 2023-02-26 21:09:10
 tags: Shiro
-categories: 权限管理
+categories: Springboot
 ---
 
 # 1. shiro 概念

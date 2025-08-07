@@ -3,7 +3,7 @@ title: 使用Spock框架编写测试代码
 date: 2021-10-07 19:02:07
 tags:
 - spock
-categories: 测试框架
+categories: Java基础
 ---
 
 ## Spock 介绍

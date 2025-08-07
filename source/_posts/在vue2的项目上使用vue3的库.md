@@ -2,7 +2,7 @@
 title: 在vue2的项目上使用vue3的库
 date: 2025-02-12 15:56:02
 tags: xss跨站漏洞
-categories: vue
+categories: Vue
 ---
 
 # 1. 业务场景

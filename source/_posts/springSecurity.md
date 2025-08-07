@@ -2,7 +2,7 @@
 title: SpringSecurity
 date: 2023-02-18 23:01:38
 tags: SpringSecurity
-categories: 权限管理
+categories: Springboot
 ---
 
 # 1. 权限管理
