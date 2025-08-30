@@ -2,8 +2,8 @@
 title: MES系统后台设计
 date: 2024-01-24 14:57:26
 tags:
-password: 19980617pyr
-categories: 项目
+password: panyuro@163.com!!
+categories: 实战问题复盘
 ---
 
 # 1. 什么是MES
