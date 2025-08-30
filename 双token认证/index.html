@@ -1,0 +1,866 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 双token认证流程1.1. 登录阶段 用户输入账号 + 密码。 服务端验证成功后，颁发：    Access Token（访问令牌，短期有效，典型：15分钟~1小时） Refresh Token（刷新令牌，长期有效，典型：7天~90天）     前端保存：    Access Token → 放在内存 &#x2F; Vuex &#x2F; Redux &#x2F; Pinia &#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="双token认证">
+<meta property="og:url" content="http://example.com/%E5%8F%8Ctoken%E8%AE%A4%E8%AF%81/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="1. 双token认证流程1.1. 登录阶段 用户输入账号 + 密码。 服务端验证成功后，颁发：    Access Token（访问令牌，短期有效，典型：15分钟~1小时） Refresh Token（刷新令牌，长期有效，典型：7天~90天）     前端保存：    Access Token → 放在内存 &#x2F; Vuex &#x2F; Redux &#x2F; Pinia &#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-14T13:40:56.000Z">
+<meta property="article:modified_time" content="2025-08-30T03:05:18.815Z">
+<meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="鉴权">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>双token认证 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 62vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="双token认证"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-14 21:40" pubdate>
+          2025年8月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">双token认证</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="1-双token认证流程"><a href="#1-双token认证流程" class="headerlink" title="1. 双token认证流程"></a>1. 双token认证流程</h1><h2 id="1-1-登录阶段"><a href="#1-1-登录阶段" class="headerlink" title="1.1. 登录阶段"></a>1.1. 登录阶段</h2><ol>
+<li>用户输入账号 + 密码。</li>
+<li>服务端验证成功后，颁发：</li>
+</ol>
+<ul>
+<li><ul>
+<li><strong>Access Token</strong>（访问令牌，短期有效，典型：15分钟~1小时）</li>
+<li><strong>Refresh Token</strong>（刷新令牌，长期有效，典型：7天~90天）</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>前端保存：</li>
+</ol>
+<ul>
+<li><ul>
+<li>Access Token → 放在内存 &#x2F; Vuex &#x2F; Redux &#x2F; Pinia &#x2F; localStorage（要防止 XSS）。</li>
+<li>Refresh Token → 优先选择：服务端数据库 + Redis + HttpOnly Cookie（防止被前端JS脚本获取）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="1-2-请求接口"><a href="#1-2-请求接口" class="headerlink" title="1.2. 请求接口"></a>1.2. 请求接口</h2><ol>
+<li>前端每次请求时，在 <code>Authorization</code> Header 里带上：</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 请求拦截器：加上 Access Token</span><br>api.interceptors.request.use(<span class="hljs-function">(<span class="hljs-params">config</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> token = getAccessToken();<br>  <span class="hljs-keyword">if</span> (token) &#123;<br>    config.headers.Authorization = <span class="hljs-string">`Bearer <span class="hljs-subst">$&#123;Access Token&#125;</span>`</span>;<br>  &#125;<br>  <span class="hljs-keyword">return</span> config;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h2 id="1-3-使用Refresh-Token签发新的-Access-Token"><a href="#1-3-使用Refresh-Token签发新的-Access-Token" class="headerlink" title="1.3. 使用Refresh Token签发新的 Access Token"></a>1.3. 使用Refresh Token签发新的 Access Token</h2><p>服务端验证 Access Token 是否快要过期、快要过期的话，使用Refresh Token重新生成Access Token</p>
+<ul>
+<li>如果合法 → 返回正常结果。</li>
+<li>如果将要过期 → 签发新的 Access Token（我们这里的场景是使用clent_id, secret_key去调用第三方的&#x2F;refresh 接口，签发新的Access Token）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">Key:   auth:token:access:&#123;clientId&#125;_&#123;username&#125;   <br>Value: &#123; token: <span class="hljs-string">&quot;xxx&quot;</span>, expiresAt: <span class="hljs-number">1727800000000</span> &#125;<br><br>Key:   auth:token:refresh:&#123;clientId&#125;_&#123;username&#125;<br>Value: &#123; token: <span class="hljs-string">&quot;rt_xxx&quot;</span>, expiresAt: <span class="hljs-string">&quot;...&quot;</span>, revoked: <span class="hljs-keyword">false</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="1-4-用户登出"><a href="#1-4-用户登出" class="headerlink" title="1.4.  用户登出"></a>1.4.  用户登出</h2><ol>
+<li>前端清除 Access Token + Refresh Token。</li>
+<li>服务端可选择在数据库&#x2F;Redis 中标记该 Refresh Token 失效，确保不能再被使用。</li>
+</ol>
+<h1 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2. 代码实现"></a>2. 代码实现</h1><h2 id="2-1-初始方案（生产踩坑）"><a href="#2-1-初始方案（生产踩坑）" class="headerlink" title="2.1. 初始方案（生产踩坑）"></a>2.1. 初始方案（生产踩坑）</h2><p>生产出现接口调用，频繁报错401的问题（核心原因是访问token的过期时间太久+并发，令牌提前20分钟就过期，会在并发情况下出现token多次覆盖，接口使用旧token，导致鉴权失败）</p>
+<h3 id="2-1-1-代码"><a href="#2-1-1-代码" class="headerlink" title="2.1.1. 代码"></a>2.1.1. 代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TokenServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TokenService</span> </span><br><span class="hljs-class">    <span class="hljs-title">private</span> <span class="hljs-title">static</span> <span class="hljs-title">final</span> <span class="hljs-title">Map</span>&lt;<span class="hljs-title">String</span>, <span class="hljs-title">TokenVo</span>&gt; <span class="hljs-title">ToKEN_MAP</span> </span>= <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;()<br>        <span class="hljs-comment">// 获取 token 主方法</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getJwtToken</span><span class="hljs-params">(String clientId, String username, <span class="hljs-keyword">boolean</span> refresh)</span> </span>&#123;<br>            String cacheKey = <span class="hljs-string">&quot;Authorization_&quot;</span> + clientId + <span class="hljs-string">&quot;_&quot;</span> + username;<br>            <span class="hljs-comment">// 先从缓存里获取 Token</span><br>            TokenVo tokenVo = TOKEN_MAP.get(<span class="hljs-string">&quot;Authorization_&quot;</span> + clientId + username);<br>            <br>            <span class="hljs-keyword">if</span> (tokenVo == <span class="hljs-keyword">null</span> || refresh) &#123;<br>                <span class="hljs-comment">// 缓存不存在 → 从接口获取</span><br>                tokenVo = <span class="hljs-keyword">this</span>.getTokenFromSaas(clientId, username);<br>                <span class="hljs-keyword">return</span> tokenVo.getTokenString();<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 缓存存在 → 检查是否快过期</span><br>                <span class="hljs-keyword">long</span> diff = tokenVo.getExpiresDate().getTime() - <span class="hljs-keyword">new</span> Date().getTime();<br>                <span class="hljs-keyword">if</span> (diff &lt; <span class="hljs-number">20</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1000</span>) &#123;  <span class="hljs-comment">// 剩余时间小于 20 分钟</span><br>                    <span class="hljs-comment">// 刷新 Token</span><br>                    tokenVo = getRefreshTokenFromSaas(tokenVo, clientId, username);<br>                &#125;<br>                <span class="hljs-comment">// 返回 Token</span><br>                <span class="hljs-keyword">return</span> tokenVo.getTokenString();<br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-1-2-存在问题"><a href="#2-1-2-存在问题" class="headerlink" title="2.1.2. 存在问题"></a>2.1.2. 存在问题</h3><h4 id="1-缓存被多次覆盖（数据竞争）"><a href="#1-缓存被多次覆盖（数据竞争）" class="headerlink" title="1. 缓存被多次覆盖（数据竞争）"></a>1. 缓存被多次覆盖（数据竞争）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">tokenVo = getRefreshTokenFromSaas(...);<br>TOKEN_MAP.put(key, tokenVo); <span class="hljs-comment">// 多个线程同时 put</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>现象：</strong></p>
+<ul>
+<li>线程 A 刷新成功，<code>put</code> 新 token</li>
+<li>线程 B 刷新成功（或失败），也 <code>put</code> 数据</li>
+<li>结果：<strong>后</strong> <code>put</code> <strong>的覆盖先</strong> <code>put</code> <strong>的</strong></li>
+</ul>
+<p><strong>后果：</strong></p>
+<ul>
+<li>缓存中的 token 可能不是最新的</li>
+<li>如果线程 B 刷新失败，它可能把一个<strong>过期的 token 写回去</strong></li>
+<li>导致后续请求失败</li>
+</ul>
+<p>数据不一致，状态混乱</p>
+<hr>
+<h4 id="2-资源浪费（多次调用-SaaS-刷新接口）"><a href="#2-资源浪费（多次调用-SaaS-刷新接口）" class="headerlink" title="2. 资源浪费（多次调用 SaaS 刷新接口）"></a>2. 资源浪费（多次调用 SaaS 刷新接口）</h4><p><strong>现象：</strong></p>
+<ul>
+<li>线程 A：发现 token 快过期 → 调用 <code>getRefreshTokenFromSaas()</code></li>
+<li>线程 B：也发现 token 快过期 → 也调用 <code>getRefreshTokenFromSaas()</code></li>
+<li>结果：<strong>同一个</strong> <code>refresh_token</code> <strong>被用了两次</strong></li>
+</ul>
+<p><strong>后果：</strong></p>
+<ul>
+<li>即使 SaaS 允许 <code>refresh_token</code> 可重复使用</li>
+<li>你也发起了 <strong>2 次 HTTP 请求</strong></li>
+<li>浪费带宽、连接池、CPU、日志容量</li>
+<li>可能触发 SaaS 的 <strong>限流（Rate Limit）</strong></li>
+</ul>
+<h4 id="3-访问令牌被吊销（如果它是一次性的）"><a href="#3-访问令牌被吊销（如果它是一次性的）" class="headerlink" title="3. 访问令牌被吊销（如果它是一次性的）"></a>3. 访问令牌被吊销（如果它是一次性的）</h4><p><strong>现象：</strong></p>
+<ul>
+<li>很多 SaaS 系统（如 OAuth2 规范）要求 <code>refresh_token</code> <strong>一次性使用</strong></li>
+<li>第一次刷新后，旧 <code>refresh_token</code> 失效，返回新的 <code>refresh_token</code></li>
+<li>线程 A 成功刷新，拿到新 token</li>
+<li>线程 B 使用<strong>同一个旧</strong> <code>refresh_token</code> 再次刷新 → <strong>失败！401 Unauthorized</strong></li>
+</ul>
+<p><strong>后果：</strong></p>
+<ul>
+<li>线程 B 抛异常，可能导致业务失败</li>
+<li>日志中出现大量 <code>Invalid refresh token</code> 错误</li>
+<li>用户看到“系统错误”，体验极差</li>
+</ul>
+<p>这是最典型的“并发刷新导致 token 失效”问题</p>
+<h4 id="4-生成多个有效的-access-token（多节点）"><a href="#4-生成多个有效的-access-token（多节点）" class="headerlink" title="4. 生成多个有效的 access_token（多节点）"></a>4. <strong>生成多个有效的</strong> <code>access_token</code>（多节点）</h4><p><strong>现象：</strong></p>
+<ul>
+<li>每个 Pod 刷新后，都拿到一个新的 <code>access_token</code></li>
+<li>导致系统中同时存在 <strong>多个有效的 access_token</strong></li>
+<li>结果：<strong>有的 Pod 用新 token，有的用旧 token</strong></li>
+</ul>
+<p><strong>后果：</strong></p>
+<ul>
+<li>如果你要<strong>撤销用户访问</strong>（如用户登出），必须通知 SaaS 吊销所有 token</li>
+<li>你不知道有多少个 token 在使用 → <strong>无法有效管理</strong></li>
+<li>安全审计困难</li>
+</ul>
+<h4 id="5-无法统一控制生命周期（多节点）"><a href="#5-无法统一控制生命周期（多节点）" class="headerlink" title="5. 无法统一控制生命周期（多节点）"></a>5. 无法统一控制生命周期（多节点）</h4><ul>
+<li>你想强制所有 Pod 使用新 token？ → 必须重启所有 Pod 或等待缓存过期</li>
+<li>你想在用户登出时<strong>立即失效 token</strong>？ → 无法通知所有 Pod 清除本地缓存</li>
+</ul>
+<p><strong>失去了对 token 的“全局控制权”</strong></p>
+<h2 id="2-2-最终方案"><a href="#2-2-最终方案" class="headerlink" title="2.2. 最终方案"></a>2.2. 最终方案</h2><h3 id="2-2-1-优化思路"><a href="#2-2-1-优化思路" class="headerlink" title="2.2.1. 优化思路"></a>2.2.1. 优化思路</h3><h4 id="1-集中缓存"><a href="#1-集中缓存" class="headerlink" title="1. 集中缓存"></a>1. <strong>集中缓存</strong></h4><ul>
+<li>将 Token 存到 Redis 或其他分布式缓存中</li>
+<li>所有节点统一读取和更新 Token</li>
+<li>避免各节点刷新覆盖问题</li>
+</ul>
+<h4 id="2-分布式锁控制刷新"><a href="#2-分布式锁控制刷新" class="headerlink" title="2. 分布式锁控制刷新"></a>2. 分布式锁控制刷新</h4><ul>
+<li>使用 Redis 分布式锁（Redisson、Spring RedisLock 等）</li>
+<li>保证同一时间只有一个线程&#x2F;节点在刷新 Token</li>
+<li>其他请求阻塞等待刷新完成</li>
+</ul>
+<h4 id="3-增加重试机制"><a href="#3-增加重试机制" class="headerlink" title="3. 增加重试机制"></a>3. 增加重试机制</h4><ul>
+<li>接口调用返回 401 时再刷新 Token</li>
+<li>防止刷新失败或网络异常导致请求失败</li>
+</ul>
+<h3 id="2-2-2-代码"><a href="#2-2-2-代码" class="headerlink" title="2.2.2. 代码"></a>2.2.2. 代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> RedissonClient redissonClient;<br><br><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> RedisTemplate&lt;String, TokenVo&gt; redisTemplate;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String TOKEN_KEY = <span class="hljs-string">&quot;Authorization_%s_%s&quot;</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String LOCK_KEY = <span class="hljs-string">&quot;LOCK_TOKEN_%s_%s&quot;</span>;<br><br><span class="hljs-comment">// 获取 Token</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getToken</span><span class="hljs-params">(String clientId, String username)</span> </span>&#123;<br>    String tokenKey = String.format(TOKEN_KEY, clientId, username);<br>    String lockKey = String.format(LOCK_KEY, clientId, username);<br><br>    TokenVo tokenVo = redisTemplate.opsForValue().get(tokenKey);<br>    <span class="hljs-keyword">long</span> now = System.currentTimeMillis();<br><br>    <span class="hljs-keyword">if</span> (tokenVo == <span class="hljs-keyword">null</span> || tokenVo.getExpiresDate().getTime() - now &lt; <span class="hljs-number">20</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1000</span>) &#123;<br>        <span class="hljs-comment">// 使用分布式锁保证单点刷新</span><br>        RLock lock = redissonClient.getLock(lockKey);<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">if</span> (lock.tryLock(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>, TimeUnit.SECONDS)) &#123; <span class="hljs-comment">// 等待10秒，锁5秒过期</span><br>                tokenVo = redisTemplate.opsForValue().get(tokenKey); <span class="hljs-comment">// 再次读取，防止重复刷新</span><br>                <span class="hljs-keyword">if</span> (tokenVo == <span class="hljs-keyword">null</span> || tokenVo.getExpiresDate().getTime() - now &lt; <span class="hljs-number">20</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1000</span>) &#123;<br>                    <span class="hljs-keyword">try</span> &#123;<br>                        tokenVo = getRefreshTokenFromSaas(tokenVo, clientId, username);<br>                    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                        log.error(<span class="hljs-string">&quot;刷新 Token 失败，重新获取&quot;</span>, e);<br>                        tokenVo = getTokenFromSaas(clientId, username);<br>                    &#125;<br>                    <span class="hljs-comment">// 更新 Redis</span><br>                    redisTemplate.opsForValue().set(tokenKey, tokenVo, <span class="hljs-number">60</span>, TimeUnit.MINUTES);<br>                &#125;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 如果获取锁失败，短等待后再取缓存</span><br>                Thread.sleep(<span class="hljs-number">50</span>);<br>                tokenVo = redisTemplate.opsForValue().get(tokenKey);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            Thread.currentThread().interrupt();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">if</span> (lock.isHeldByCurrentThread()) &#123;<br>                lock.unlock();<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> tokenVo.getTokenString();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E6%88%98%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98/" class="category-chain-item">实战问题复盘</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%89%B4%E6%9D%83/">#鉴权</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>双token认证</div>
+      <div>http://example.com/双token认证/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月14日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E5%A4%9A%E7%94%A8%E6%88%B7%E5%B9%B6%E5%8F%91SSE%E5%AF%BC%E8%87%B4%E8%B5%84%E6%BA%90%E6%B3%84%E9%9C%B2/" title="多用户并发SSE导致资源泄露解决方案">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">多用户并发SSE导致资源泄露解决方案</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/SpringAI%E4%B9%8B%E5%9F%BA%E4%BA%8ERAG%E5%AE%9E%E7%8E%B0%E4%B8%80%E5%A5%97%E4%BC%81%E4%B8%9A%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D%E7%B3%BB%E7%BB%9F/" title="SpringAI之基于RAG实现一套企业智能客服系统">
+                        <span class="hidden-mobile">SpringAI之基于RAG实现一套企业智能客服系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":220,"height":320},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
