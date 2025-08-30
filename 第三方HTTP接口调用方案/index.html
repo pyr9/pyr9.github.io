@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 场景为解决多智能体接口、第三方 API（如翻译服务、AI 解析接口）的调用一致性问题，基于 Spring WebFlux 的 WebClient 封装统一 HTTP 调用框架，支持 GET&#x2F;POST&#x2F;PUT 等请求方法，实现 “一处配置、多处复用” 的调用模式。 2. 解决方案1. 封装统一HTTP调用框架 统一管理接口超时时间（连接超时 3s、读取超时 10s）、重试策">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三方HTTP接口调用方案">
+<meta property="og:url" content="http://example.com/%E7%AC%AC%E4%B8%89%E6%96%B9HTTP%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="1. 场景为解决多智能体接口、第三方 API（如翻译服务、AI 解析接口）的调用一致性问题，基于 Spring WebFlux 的 WebClient 封装统一 HTTP 调用框架，支持 GET&#x2F;POST&#x2F;PUT 等请求方法，实现 “一处配置、多处复用” 的调用模式。 2. 解决方案1. 封装统一HTTP调用框架 统一管理接口超时时间（连接超时 3s、读取超时 10s）、重试策">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-23T05:05:54.000Z">
+<meta property="article:modified_time" content="2025-08-30T05:28:36.793Z">
+<meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="工具类">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>第三方HTTP接口调用方案 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 62vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第三方HTTP接口调用方案"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-23 13:05" pubdate>
+          2025年8月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第三方HTTP接口调用方案</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="1-场景"><a href="#1-场景" class="headerlink" title="1. 场景"></a>1. 场景</h1><p>为解决多智能体接口、第三方 API（如翻译服务、AI 解析接口）的调用一致性问题，基于 Spring WebFlux 的 WebClient 封装统一 HTTP 调用框架，支持 GET&#x2F;POST&#x2F;PUT 等请求方法，实现 “一处配置、多处复用” 的调用模式。</p>
+<h1 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h1><h2 id="1-封装统一HTTP调用框架"><a href="#1-封装统一HTTP调用框架" class="headerlink" title="1. 封装统一HTTP调用框架"></a>1. 封装统一HTTP调用框架</h2><ol>
+<li>统一管理接口超时时间（连接超时 3s、读取超时 10s）、重试策略（最多 3 次重试 ）</li>
+<li>响应式处理与异常统一转换：利用 WebClient 的响应式特性（Mono&#x2F;Flux）处理异步请求，通过<code>onErrorResume</code>将不同接口的异常（如 404、500、超时）统一转换为业务异常（<code>ApiException</code>），配合全局异常处理器返回标准化错误信息</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Builder</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApiCallHttpRequest</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String systemCode;<br>    <span class="hljs-keyword">private</span> String apiCallCode;                    <span class="hljs-comment">// 接口调用标识（可选）</span><br>    <span class="hljs-keyword">private</span> HttpMethod method;                     <span class="hljs-comment">// 请求方法</span><br>    <span class="hljs-keyword">private</span> String url;                            <span class="hljs-comment">// 完整URL</span><br>    <span class="hljs-keyword">private</span> Map&lt;String, Object&gt; params;            <span class="hljs-comment">// 请求参数（body 或 query）</span><br>    <span class="hljs-keyword">private</span> Map&lt;String, String&gt; headers; <span class="hljs-comment">// 请求头</span><br>    <span class="hljs-keyword">private</span> Long bizId; <span class="hljs-comment">//业务ID</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;<br><span class="hljs-keyword">import</span> org.jetbrains.annotations.Nullable;<br><span class="hljs-keyword">import</span> org.springframework.core.io.FileSystemResource;<br><span class="hljs-keyword">import</span> org.springframework.core.io.Resource;<br><span class="hljs-keyword">import</span> org.springframework.http.HttpMethod;<br><span class="hljs-keyword">import</span> org.springframework.http.HttpStatusCode;<br><span class="hljs-keyword">import</span> org.springframework.http.MediaType;<br><span class="hljs-keyword">import</span> org.springframework.http.client.MultipartBodyBuilder;<br><span class="hljs-keyword">import</span> org.springframework.web.reactive.function.BodyInserters;<br><span class="hljs-keyword">import</span> org.springframework.web.reactive.function.client.WebClient;<br><span class="hljs-keyword">import</span> reactor.core.publisher.Mono;<br><br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.InputStream;<br><span class="hljs-keyword">import</span> java.time.Duration;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><span class="hljs-keyword">import</span> java.util.Objects;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 通用 HTTP 工具类（基于 WebClient）</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpUtil</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> WebClient webClient;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">HttpUtil</span><span class="hljs-params">(WebClient.Builder webClientBuilder)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.webClient = webClientBuilder.build();<br>    &#125;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * GET 请求</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">get</span><span class="hljs-params">(ApiCallHttpRequest callHttpRequest)</span> </span>&#123;<br>        callHttpRequest.setMethod(HttpMethod.GET);<br>        <span class="hljs-keyword">return</span> doRequest(callHttpRequest);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * DELETE 请求</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">delete</span><span class="hljs-params">(ApiCallHttpRequest callHttpRequest)</span> </span>&#123;<br>        callHttpRequest.setMethod(HttpMethod.DELETE);<br>        <span class="hljs-keyword">return</span> doRequest(callHttpRequest);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 发送 POST 请求</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">post</span><span class="hljs-params">(ApiCallHttpRequest callHttpRequest)</span> </span>&#123;<br>        callHttpRequest.setMethod(HttpMethod.POST);<br>        <span class="hljs-keyword">return</span> doRequest(callHttpRequest);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 通用请求（GET / DELETE）</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 响应字符串</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">doRequest</span><span class="hljs-params">(ApiCallHttpRequest callHttpRequest)</span> </span>&#123;<br>        <span class="hljs-keyword">long</span> startTime = System.currentTimeMillis(); <span class="hljs-comment">// 记录开始时间</span><br>        HttpMethod method = callHttpRequest.getMethod();<br>        String url = callHttpRequest.getUrl();<br>        Map&lt;String, Object&gt; params = callHttpRequest.getParams();<br>        Map&lt;String, String&gt; headers = callHttpRequest.getHeaders();<br>        WebClient.RequestHeadersSpec&lt;?&gt; request;<br><br>        <span class="hljs-keyword">if</span> (method == HttpMethod.GET || method == HttpMethod.DELETE) &#123;<br>            <span class="hljs-comment">// GET / DELETE 用 query 参数</span><br>            <span class="hljs-keyword">if</span> (params != <span class="hljs-keyword">null</span> &amp;&amp; !params.isEmpty()) &#123;<br>                request = webClient.method(method).uri(uriBuilder -&gt; &#123;<br>                    uriBuilder.path(url);<br>                    params.forEach(uriBuilder::queryParam);<br>                    <span class="hljs-keyword">return</span> uriBuilder.build();<br>                &#125;);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                request = webClient.method(method).uri(url);<br>            &#125;<br><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (method == HttpMethod.POST || method == HttpMethod.PUT || method == HttpMethod.PATCH) &#123;<br>            WebClient.RequestBodySpec bodySpec = webClient.method(method).uri(url);<br><br>            <span class="hljs-comment">// 设置 headers</span><br>            bodySpec = setHeaders(headers, bodySpec);<br><br>            <span class="hljs-keyword">if</span> (params != <span class="hljs-keyword">null</span> &amp;&amp; !params.isEmpty()) &#123;<br>                <span class="hljs-comment">// 是否包含文件</span><br>                <span class="hljs-keyword">boolean</span> hasFile = params.values().stream()<br>                        .anyMatch(v -&gt; v <span class="hljs-keyword">instanceof</span> Resource || v <span class="hljs-keyword">instanceof</span> java.io.File);<br><br>                <span class="hljs-keyword">if</span> (hasFile) &#123;<br>                    MultipartBodyBuilder bodyBuilder = <span class="hljs-keyword">new</span> MultipartBodyBuilder();<br>                    <span class="hljs-keyword">for</span> (Map.Entry&lt;String, Object&gt; entry : params.entrySet()) &#123;<br>                        Object value = entry.getValue();<br>                        <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> Resource) &#123;<br>                            bodyBuilder.part(entry.getKey(), value);<br>                        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> java.io.File) &#123;<br>                            bodyBuilder.part(entry.getKey(), <span class="hljs-keyword">new</span> FileSystemResource((java.io.File) value));<br>                        &#125; <span class="hljs-keyword">else</span> &#123;<br>                            bodyBuilder.part(entry.getKey(), value);<br>                        &#125;<br>                    &#125;<br>                    bodySpec.contentType(MediaType.MULTIPART_FORM_DATA)<br>                            .body(BodyInserters.fromMultipartData(bodyBuilder.build()));<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    bodySpec.contentType(MediaType.APPLICATION_JSON)<br>                            .bodyValue(params);<br>                &#125;<br>            &#125;<br><br>            request = bodySpec;<br><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 其他方法，默认无 body</span><br>            request = webClient.method(method).uri(url);<br>        &#125;<br><br>        request = setHeaders(headers, request);<br>        String responseBody = getResponseBody(callHttpRequest, request.retrieve());<br><br>        <span class="hljs-comment">// 计算耗时</span><br>        <span class="hljs-keyword">long</span> duration = System.currentTimeMillis() - startTime;<br>        log.info(<span class="hljs-string">&quot;请求apicode: &#123;&#125; 请求地址：&#123;&#125;, 参数：&#123;&#125;， Headers: &#123;&#125;, 返回值：&#123;&#125; 耗时: &#123;&#125;ms&quot;</span>, callHttpRequest.getApiCallCode(), callHttpRequest.getUrl(), callHttpRequest.getParams(), callHttpRequest.getHeaders(), responseBody, duration);<br>        <span class="hljs-keyword">return</span> responseBody;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 单独处理参数中的不可序列化的文件对象</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Map&lt;String, Object&gt; <span class="hljs-title">sanitizeParams</span><span class="hljs-params">(Map&lt;String, Object&gt; params)</span> </span>&#123;<br>        Map&lt;String, Object&gt; safeParams = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (Map.Entry&lt;String, Object&gt; entry : params.entrySet()) &#123;<br>            Object value = entry.getValue();<br>            <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> InputStream) &#123;<br>                safeParams.put(entry.getKey(), <span class="hljs-string">&quot;InputStream[ignored]&quot;</span>);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> File file) &#123;<br>                safeParams.put(entry.getKey(), Map.of(<br>                        <span class="hljs-string">&quot;fileName&quot;</span>, file.getName(),<br>                        <span class="hljs-string">&quot;fileSize&quot;</span>, file.length()<br>                ));<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> Resource resource) &#123;<br>                safeParams.put(entry.getKey(), Map.of(<br>                        <span class="hljs-string">&quot;resourceName&quot;</span>, Objects.requireNonNull(resource.getFilename()),<br>                        <span class="hljs-string">&quot;resourceDescription&quot;</span>, resource.getDescription()<br>                ));<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                safeParams.put(entry.getKey(), value);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> safeParams;<br>    &#125;<br><br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> WebClient.RequestHeadersSpec&lt;?&gt; setHeaders(Map&lt;String, String&gt; headers, WebClient.RequestHeadersSpec&lt;?&gt; request) &#123;<br>        <span class="hljs-keyword">if</span> (headers != <span class="hljs-keyword">null</span> &amp;&amp; !headers.isEmpty()) &#123;<br>            request = request.headers(h -&gt; headers.forEach(h::add));<br><br>        &#125;<br>        <span class="hljs-keyword">return</span> request;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> WebClient.<span class="hljs-function">RequestBodySpec <span class="hljs-title">setHeaders</span><span class="hljs-params">(Map&lt;String, String&gt; headers, WebClient.RequestBodySpec request)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (headers != <span class="hljs-keyword">null</span> &amp;&amp; !headers.isEmpty()) &#123;<br>            request = request.headers(h -&gt; headers.forEach(h::add));<br>        &#125;<br>        <span class="hljs-keyword">return</span> request;<br>    &#125;<br><br><br>    <span class="hljs-meta">@Nullable</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getResponseBody</span><span class="hljs-params">(ApiCallHttpRequest callHttpRequest, WebClient.ResponseSpec request)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> request<br>                .onStatus(HttpStatusCode::isError,<br>                        clientResponse -&gt;<br>                                clientResponse.bodyToMono(String.class)<br>                                        .flatMap(body -&gt; Mono.error(<span class="hljs-keyword">new</span> ApiCallException(<br>                                                callHttpRequest,<br>                                                clientResponse.statusCode().value(),<br>                                                body,<br>                                                JAI_SERVICE_ERROR<br>                                        ))))<br>                .bodyToMono(String.class)<br>                .retryWhen(<br>                        reactor.util.retry.Retry.backoff(<span class="hljs-number">3</span>, Duration.ofSeconds(<span class="hljs-number">1</span>))<br>                                .maxBackoff(Duration.ofSeconds(<span class="hljs-number">10</span>))<br>                                .filter(ex -&gt; !(ex <span class="hljs-keyword">instanceof</span> java.util.concurrent.TimeoutException))<br>                                .onRetryExhaustedThrow((spec, signal) -&gt; signal.failure())<br>                )<br>                .timeout(Duration.ofMinutes(<span class="hljs-number">5</span>))<br>                .block();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-增加统一日志表"><a href="#2-增加统一日志表" class="headerlink" title="2. 增加统一日志表"></a>2. 增加统一日志表</h2><p>增加统一日志表<code>api_call_log</code>记录 “请求 - 响应  - 异常栈“ 方便后续定位问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-meta">@TableName(&quot;api_call_log&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApiCallLog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseEntity</span> </span>&#123;<br><br>    <span class="hljs-meta">@Serial</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 逐渐</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@TableId</span><br>    <span class="hljs-keyword">private</span> Long id;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调用来源系统编码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String systemCode;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 接口名称/标识</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String apiCode;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 请求参数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String requestPayload;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 请求头</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String requestHeaders;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 响应状态码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer responseCode;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 错误消息/补充信息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String message;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 响应数据</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String responseData;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 业务ID，可存订单ID、任务ID、会话ID等</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long bizId;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-正常调用日志写入（可增加拦截器）"><a href="#1-正常调用日志写入（可增加拦截器）" class="headerlink" title="1. 正常调用日志写入（可增加拦截器）"></a>1. 正常调用日志写入（可增加拦截器）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> ResultBody&lt;commonResponseData&gt; <span class="hljs-title">chat</span><span class="hljs-params">(T chatRequest, ChatModelVo chatModelVo)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>    beforeChat(chatRequest);<br>    Map&lt;String, Object&gt; params = buildRequestParams(chatRequest);<br>    Map&lt;String, String&gt; headers = buildRequestHeaders();<br>    ApiCallHttpRequest request = buildApiCallHttpRequest(chatRequest, chatModelVo, params, headers);<br>    Object responseData = jaiHttpUtil.doRequest(request, getResponseDataClass(chatRequest));<br>    apiCallLogService.saveLog(request, responseData);<br>    commonResponseData result = rebuild(chatRequest, responseData);<br>    saveChatMessage(chatRequest.getUserId(), chatRequest.getSessionId(), result);<br>    <span class="hljs-keyword">return</span> ResultBody.success(result);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-异常状态日志写入"><a href="#2-异常状态日志写入" class="headerlink" title="2. 异常状态日志写入"></a>2. 异常状态日志写入</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.ExceptionHandler;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestControllerAdvice;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 全局异常处理器</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@RestControllerAdvice</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApiCallExceptionHandler</span> </span>&#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> IApiCallLogService apiCallLogService;<br><br>    <span class="hljs-meta">@ExceptionHandler(ApiCallException.class)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> R&lt;Void&gt; <span class="hljs-title">handleApiCallException</span><span class="hljs-params">(ApiCallException ex)</span> </span>&#123;<br>        apiCallLogService.saveLog(ex.getRequest(), ex.getResponseData(), ex);<br>        <span class="hljs-keyword">return</span> R.fail(JAI_SERVICE_ERROR, ex.getMessage());<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-全链路日志追踪"><a href="#3-全链路日志追踪" class="headerlink" title="3. 全链路日志追踪"></a>3. 全链路日志追踪</h2><ol>
+<li><p>集成Spring Cloud Sleuth， 生成traceID <a target="_blank" rel="noopener" href="https://pyr9.github.io/%E8%B7%A8%E5%BA%94%E7%94%A8%E7%9A%84%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/#2-%E8%B0%83%E7%94%A8%E9%93%BE%E8%B7%AF%E6%A8%A1%E5%9E%8B">集成Spring Cloud Sleuth </a></p>
+</li>
+<li><p>集成ELK实现日志检索.  <a target="_blank" rel="noopener" href="https://pyr9.github.io/docker%E6%90%AD%E5%BB%BAELK/">docker搭建ELK</a></p>
+</li>
+<li><p>使用链路追踪工具—skywalking&#x2F;ZIpKin <a target="_blank" rel="noopener" href="https://pyr9.github.io/Skywalking%E7%9B%91%E6%8E%A7/">skywalking</a>&#x2F;<a target="_blank" rel="noopener" href="https://pyr9.github.io/%E8%B7%A8%E5%BA%94%E7%94%A8%E7%9A%84%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/#3-Sleuth%E4%B8%8EZipkin%E9%9B%86%E6%88%90">ZIpKin</a></p>
+</li>
+</ol>
+<h1 id="3-项目成果"><a href="#3-项目成果" class="headerlink" title="3. 项目成果"></a>3. 项目成果</h1><ul>
+<li>开发效率提升：统一 HTTP 框架支持 10 + 第三方接口的快速接入，新接口集成时间从平均 2 天缩短至 4 小时，代码复用率提升 70%；</li>
+<li>稳定性增强：通过统一的超时控制与重试策略，第三方接口调用失败率从 12% 降至 3%，配合完整的日志链路，问题排查时间缩短 80%；</li>
+</ul>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E6%88%98%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98/" class="category-chain-item">实战问题复盘</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">#工具类</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第三方HTTP接口调用方案</div>
+      <div>http://example.com/第三方HTTP接口调用方案/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月23日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%A4%9A%E7%B1%BB%E5%9E%8B%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%9F%E4%B8%80%E8%B0%83%E7%94%A8%E4%B8%8E%E6%89%A9%E5%B1%95%E6%80%A7%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="多类型智能体的统一调用与扩展性解决方案">
+                        <span class="hidden-mobile">多类型智能体的统一调用与扩展性解决方案</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":220,"height":320},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
