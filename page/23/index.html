@@ -207,6 +207,75 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/" target="_self">
+          对象内存回收
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/" target="_self">
+        <div>
+          
+          垃圾回收垃圾收集主要是针对堆和方法区进行。程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后就会消失，因此不需要对这三个区域进行垃圾回收。 判断一个对象是否可被回收要对垃圾进行回收，首先得判断这个对象是否可以被回收，有两种方法来判断：  引用计数法给对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-06-24 20:29" pubdate>
+              2022-06-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JVM/" class="category-chain-item">JVM</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">#性能调优</a>
+            
+              <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">#垃圾回收</a>
+            
+              <a href="/tags/%E5%B8%B8%E8%A7%81%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">#常见引用类型</a>
+            
+              <a href="/tags/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%B1%BB%E6%98%AF%E6%97%A0%E7%94%A8%E7%9A%84%E7%B1%BB/">#如何判断一个类是无用的类</a>
+            
+              <a href="/tags/finalize-%E6%96%B9%E6%B3%95/">#finalize()方法</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/java%E5%91%BD%E4%BB%A4-jinfo&amp;jstat%E5%B7%A5%E5%85%B7/" target="_self">
           java命令--jinfo&amp;jstat
         </a>
@@ -715,67 +784,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E6%A6%82%E5%BF%B5/">#概念</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E4%BB%A3%E7%A0%81%E5%B7%B2%E6%9C%89%E7%9A%84%E8%AE%BE%E8%AE%A1/" target="_self">
-          重构-改善代码已有的设计
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E4%BB%A3%E7%A0%81%E5%B7%B2%E6%9C%89%E7%9A%84%E8%AE%BE%E8%AE%A1/" target="_self">
-        <div>
-          
-          如果没有单元测试和重构，我没办法写代码  1 重构的意义 保持代码易读、易修改 避免代码太复杂，无法理解，无法调试。（或许一个修改只需要10分钟，但是你得花费1个小时去理解这段代码 如果没有良好设计，或许某一段时间内你的进展迅速，但恶劣的设计很快就让你的速度慢下来。你会把时间花在 调试上面，无法添加新功能。修改时间越来越长，因为你必须花越来越多的时间去理解系统。  2 重构的定义在不改变代码外在
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-14 22:36" pubdate>
-              2022-04-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E4%BB%A3%E7%A0%81%E4%B9%8B%E4%B8%91/" class="category-chain-item">代码之丑</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%87%8D%E6%9E%84/">#重构</a>
             
           </div>
         
