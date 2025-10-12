@@ -61,6 +61,8 @@ spring:
 
 在项目src/main/resources下新建文件夹层级db/migration，将需要执行的sql文件放进去
 
+**注意**：用 **斜杠** `**/**` 分隔
+
 ![image-20231109154251326](https://panyuro.oss-cn-beijing.aliyuncs.com/image-20231109154251326.png)
 
 
