@@ -1,0 +1,919 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 环境准备当前Java项目是使用docker安装的，想切换成k3s安装，两台Linux机器，搭建主从    节点 IP 角色    node1 172.28.49.11 master   node2 172.28.49.13 worker   2. K3s安装2.1.  安装 k3s 主节点（Master）2.1.1. 执行安装命令1234curl -sfL https:&#x2F;&#x2F;get.k3s.i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k3s部署Java项目">
+<meta property="og:url" content="http://example.com/k3s%E9%83%A8%E7%BD%B2Java%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="1. 环境准备当前Java项目是使用docker安装的，想切换成k3s安装，两台Linux机器，搭建主从    节点 IP 角色    node1 172.28.49.11 master   node2 172.28.49.13 worker   2. K3s安装2.1.  安装 k3s 主节点（Master）2.1.1. 执行安装命令1234curl -sfL https:&#x2F;&#x2F;get.k3s.i">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1759213852952-f55e33fb-9dc9-437f-8e33-29cec570acd3.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1759213804109-204ac34a-4824-492c-beab-3be5e0d485f1.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1759217367871-8479a8b9-9779-40e5-a92b-5603e66ebf27.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1759217399413-2fc24366-25ea-471a-a7ee-415e47e4e0c4.png">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1759214761756-8a2d0850-e891-418a-bb12-3769e2b62d2a.png">
+<meta property="article:published_time" content="2025-09-12T11:12:55.000Z">
+<meta property="article:modified_time" content="2025-10-12T11:19:07.160Z">
+<meta property="article:author" content="Panyurou">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1759213852952-f55e33fb-9dc9-437f-8e33-29cec570acd3.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>k3s部署Java项目 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 62vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="k3s部署Java项目"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-09-12 19:12" pubdate>
+          2025年9月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">k3s部署Java项目</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1. 环境准备"></a>1. 环境准备</h1><p>当前Java项目是使用docker安装的，想切换成k3s安装，两台Linux机器，搭建主从</p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>IP</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>node1</td>
+<td>172.28.49.11</td>
+<td>master</td>
+</tr>
+<tr>
+<td>node2</td>
+<td>172.28.49.13</td>
+<td>worker</td>
+</tr>
+</tbody></table>
+<h1 id="2-K3s安装"><a href="#2-K3s安装" class="headerlink" title="2. K3s安装"></a>2. K3s安装</h1><h2 id="2-1-安装-k3s-主节点（Master）"><a href="#2-1-安装-k3s-主节点（Master）" class="headerlink" title="2.1.  安装 k3s 主节点（Master）"></a>2.1.  安装 k3s 主节点（Master）</h2><h3 id="2-1-1-执行安装命令"><a href="#2-1-1-执行安装命令" class="headerlink" title="2.1.1. 执行安装命令"></a>2.1.1. 执行安装命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">curl -sfL https://get.k3s.io | \<br>  K3S_KUBECONFIG_MODE=&quot;644&quot; \<br>  sh -s - server \<br>  --node-name test-app-for-mes <br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>使用–node-name test-app-for-mes 是为了设置主机名，因为主机名实际是test_app_for_mes, <strong>违反了 Kubernetes 的命名规范（如未违反，可不用设置）</strong></li>
+</ul>
+<h3 id="2-1-2-查看当前状态"><a href="#2-1-2-查看当前状态" class="headerlink" title="2.1.2. 查看当前状态"></a>2.1.2. 查看当前状态</h3><p>需要是active， 且日志不报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">systemctl status k3s<br>kubectl get nodes -A<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/1759213852952-f55e33fb-9dc9-437f-8e33-29cec570acd3.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="2-2-安装-k3s-worker（从节点）"><a href="#2-2-安装-k3s-worker（从节点）" class="headerlink" title="2.2.  安装 k3s worker（从节点）"></a>2.2.  安装 k3s worker（从节点）</h2><h3 id="2-2-1-主节点获取Join-token"><a href="#2-2-1-主节点获取Join-token" class="headerlink" title="2.2.1. 主节点获取Join token"></a>2.2.1. 主节点获取Join token</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">cat /var/lib/rancher/k3s/server/node-token<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-安装agent"><a href="#2-2-2-安装agent" class="headerlink" title="2.2.2. 安装agent"></a>2.2.2. 安装agent</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">curl -sfL https://get.k3s.io | \<br>  K3S_URL=https://172.28.49.11:6443 \<br>  K3S_TOKEN=K10032798e8d89a392dc81fa66822edc9d3bb8d660be060bdef71df5a2d0269a396::server:bd8ef4a1a6a0c514df13a24e39b445df \<br>  INSTALL_K3S_EXEC=&quot;--node-name test-midd-for-mes&quot; \<br>  sh -<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-3-验证集群状态"><a href="#2-2-3-验证集群状态" class="headerlink" title="2.2.3. 验证集群状态"></a>2.2.3. 验证集群状态</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">kubectl get nodes<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/1759213804109-204ac34a-4824-492c-beab-3be5e0d485f1.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>PS：如果执行卡住，可以在新开一个窗口，查看日志原因：journalctl -u k3s-agent -f</p>
+<h1 id="3-编写-Kubernetes-资源"><a href="#3-编写-Kubernetes-资源" class="headerlink" title="3.  编写 Kubernetes 资源"></a>3.  编写 Kubernetes 资源</h1><h2 id="3-1-Deployment"><a href="#3-1-Deployment" class="headerlink" title="3.1.  Deployment"></a>3.1.  Deployment</h2><p>mycim-webapp-deployment.yaml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs plain">apiVersion: apps/v1<br>kind: Deployment<br>metadata:<br>  name: mycim-webapp-deployment<br>  namespace: mycim<br>  labels:<br>    app: mycim-webapp-dev<br>spec:<br>  replicas: 4<br>  selector:<br>    matchLabels:<br>      app: mycim-webapp-dev<br>  template:<br>    metadata:<br>      labels:<br>        app: mycim-webapp-dev<br>    spec:<br>      containers:<br>      - name: mycim-webapp-dev<br>        image: docker.xxx.com/ja-zjmes/dev/webapp/qj-mycim:10d2be77<br>        ports:<br>        - containerPort: 8080<br>        env:<br>          - name: TZ<br>            value: &quot;Asia/Shanghai&quot;<br>        volumeMounts:<br>        - name: localtime-volume<br>          mountPath: /etc/localtime<br>          readOnly: true<br>        - name: config-volume<br>          mountPath: /home/mycim/config<br>        - name: logs-volume<br>          mountPath: /home/mycim/logs<br>        livenessProbe:<br>          tcpSocket:<br>            port: 8080<br>          initialDelaySeconds: 120<br>          periodSeconds: 10<br>        readinessProbe:<br>          tcpSocket:<br>            port: 8080<br>          initialDelaySeconds: 120<br>          periodSeconds: 5<br>      volumes:<br>        - name: localtime-volume<br>          hostPath:<br>            path: /etc/localtime<br>        - name: config-volume<br>          hostPath:<br>            path: /home/xxx/qj-mycim/config<br>        - name: logs-volume<br>          hostPath:<br>            path: /home/xxx/qj-mycim/logs<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-2-Service"><a href="#3-2-Service" class="headerlink" title="3.2. Service"></a>3.2. Service</h2><p>mycim-webapp-service.yaml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">#Service 服务发现<br>apiVersion: v1<br>kind: Service<br>metadata:<br>  name: mycim-webapp-dev-service<br>  namespace: mycim<br>spec:<br>  selector:<br>    app: mycim-webapp-dev<br>  ports:<br>    - protocol: TCP<br>      port: 8080    # ClusterIP 端口<br>      targetPort: 8080     # Pod 上的实际端口<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-3-Ingress-（可选）"><a href="#3-3-Ingress-（可选）" class="headerlink" title="3.3.  Ingress （可选）"></a>3.3.  Ingress （可选）</h2><p>如果你想通过域名&#x2F;宿主机 80 访问：</p>
+<p> mycim-webapp-ingress.yaml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">apiVersion: networking.k8s.io/v1<br>kind: Ingress<br>metadata:<br>  name: mycim-webapp-dev-ingress<br>  namespace: mycim<br>  annotations:<br>    kubernetes.io/ingress.class: &quot;traefik&quot;<br>spec:<br>  rules:<br>  - http:<br>      paths:<br>      - path: /<br>        pathType: Prefix<br>        backend:<br>          service:<br>            name: mycim-webapp-dev-service<br>            port:<br>              number: 8080<br></code></pre></td></tr></table></figure>
+
+<p>使用到了 k3s 内置的Traefik , 所以需要保证它正常运行，可执行</p>
+<p>kubectl get pods -n kube-system | grep traefik</p>
+<h1 id="4-部署到-k3s"><a href="#4-部署到-k3s" class="headerlink" title="4.  部署到 k3s"></a>4.  部署到 k3s</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">kubectl create namespace mycim<br>kubectl apply -f mycim-webapp-deployment.yaml<br>kubectl apply -f mycim-webapp-service.yaml<br>kubectl apply -f mycim-webapp-ingress.yaml<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>查看 Pod 状态：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">kubectl get pods -o wide<br>kubectl get svc<br>kubectl get ingress<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/1759217367871-8479a8b9-9779-40e5-a92b-5603e66ebf27.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/1759217399413-2fc24366-25ea-471a-a7ee-415e47e4e0c4.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h1 id="5-常见问题"><a href="#5-常见问题" class="headerlink" title="5. 常见问题"></a>5. 常见问题</h1><h2 id="5-1-核心镜像拉取失败"><a href="#5-1-核心镜像拉取失败" class="headerlink" title="5.1.  核心镜像拉取失败"></a>5.1.  核心镜像拉取失败</h2><h3 id="5-1-1-详细报错"><a href="#5-1-1-详细报错" class="headerlink" title="5.1.1. 详细报错"></a>5.1.1. 详细报错</h3><p>Warning  FailedCreatePodSandBox  11m (x316 over 3h36m)  kubelet  (combined from similar events): Failed to create pod sandbox: rpc error: code &#x3D; DeadlineExceeded desc &#x3D; failed to start sandbox “90b5b09ba2e907a2fc5a117916e8b421b74556892c7ae8764b77f729c4c31934”: failed to get sandbox image “rancher&#x2F;mirrored-pause:3.6”: failed to pull image “rancher&#x2F;mirrored-pause:3.6”: failed to pull and unpack image “docker.io&#x2F;rancher&#x2F;mirrored-pause:3.6”: failed to resolve reference “docker.io&#x2F;rancher&#x2F;mirrored-pause:3.6”: failed to do request: Head “<a target="_blank" rel="noopener" href="https://registry-1.docker.io/v2/rancher/mirrored-pause/manifests/3.6&quot;">https://registry-1.docker.io/v2/rancher/mirrored-pause/manifests/3.6&quot;</a>: dial tcp 128.242.240.212:443: i&#x2F;o timeout</p>
+<h3 id="5-1-2-解决方式："><a href="#5-1-2-解决方式：" class="headerlink" title="5.1.2. 解决方式："></a>5.1.2. 解决方式：</h3><ol>
+<li>修改镜像源</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo mkdir -p /etc/rancher/k3s<br>sudo touch /etc/rancher/k3s/registries.yaml<br>vim /etc/rancher/k3s/registries.yaml<br>mirrors:<br>  docker.io:<br>    endpoint:<br>      - https://docker.1ms.run<br>      - https://docker.xuanyuan.me<br>  rancher:<br>    endpoint:<br>      - https://docker.1ms.run<br>      - https://docker.xuanyuan.me<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>重启k3s</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl restart k3s<br></code></pre></td></tr></table></figure>
+
+<p>注：如果不生效，可尝试删除&#x2F;var&#x2F;lib&#x2F;rancher&#x2F;k3s&#x2F;（谨慎！！）， 避免缓存影响</p>
+<h2 id="5-2-不想使用80端口访问"><a href="#5-2-不想使用80端口访问" class="headerlink" title="5.2. 不想使用80端口访问"></a>5.2. 不想使用80端口访问</h2><p>traefik 默认暴露的是80和443，由于网络策略原因需要修改成宿主机通过<a target="_blank" rel="noopener" href="http://172.28.49.11:8080/">http://172.28.49.11:8080/</a> 访问。</p>
+<ol>
+<li>修改端口</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">kubectl -n kube-system edit svc traefik<br></code></pre></td></tr></table></figure>
+
+<p>ports:</p>
+<p>  - name: web</p>
+<p>​    nodePort: 31869</p>
+<p>​    port: 8080 (本来是80)</p>
+<p>​    protocol: TCP</p>
+<p>​    targetPort: web</p>
+<ol>
+<li>查看是否修改成功</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">kubectl -n kube-system get svc traefik<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/1759214761756-8a2d0850-e891-418a-bb12-3769e2b62d2a.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h1 id="6-常用命令"><a href="#6-常用命令" class="headerlink" title="6. 常用命令"></a>6. 常用命令</h1><h2 id="6-1-集群管理"><a href="#6-1-集群管理" class="headerlink" title="6.1. 集群管理"></a>6.1. 集群管理</h2><ul>
+<li><strong>停止 K3s 服务</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl stop k3s<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>重启 K3s 服务</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl restart k3s<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看 K3s 服务状态</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl status k3s<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-2-应用部署与管理"><a href="#6-2-应用部署与管理" class="headerlink" title="6.2. 应用部署与管理"></a>6.2. 应用部署与管理</h2><ul>
+<li><strong>部署应用</strong>（通过 YAML 文件）：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl apply -f deployment.yaml<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看部署状态</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get deployments<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看 Pod 状态</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get pods<br><span class="hljs-comment"># 查看所有命名空间的 Pod</span><br>kubectl get pods --all-namespaces<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看 Pod 详细信息</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl describe pod &lt;pod-name&gt;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看服务（Service）</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get services<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>删除部署</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl delete deployment &lt;deployment-name&gt;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>修改默认namespace</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">kubectl config set-context --current --namespace=mycim<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-3-日志与调试"><a href="#6-3-日志与调试" class="headerlink" title="6.3. 日志与调试"></a>6.3. 日志与调试</h2><ul>
+<li><strong>查看 Pod 日志</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 实时查看日志</span><br>kubectl logs &lt;pod-name&gt; -f<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看 K3s 服务器日志</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">journalctl -u k3s -f<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看工作节点日志</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">journalctl -u k3s-agent -f<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-4-配置与信息查询"><a href="#6-4-配置与信息查询" class="headerlink" title="6.4. 配置与信息查询"></a>6.4. 配置与信息查询</h2><ul>
+<li><strong>查看集群信息</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl cluster-info<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看 K3s 配置</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo cat /etc/rancher/k3s/k3s.yaml<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>获取命名空间</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get namespaces<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-5-其他常用操作"><a href="#6-5-其他常用操作" class="headerlink" title="6.5. 其他常用操作"></a>6.5. 其他常用操作</h2><ul>
+<li><strong>查看资源使用情况</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl top nodes<br>kubectl top pods<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>执行 Pod 内命令</strong>：<strong>bash</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl <span class="hljs-built_in">exec</span> -it &lt;pod-name&gt; -- /bin/sh<br></code></pre></td></tr></table></figure>
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Kubernetes/" class="category-chain-item">Kubernetes</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>k3s部署Java项目</div>
+      <div>http://example.com/k3s部署Java项目/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年9月12日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Async%E5%92%8CScheduled%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE/" title="@Async和@Scheduled线程池统一配置">
+                        <span class="hidden-mobile">@Async和@Scheduled线程池统一配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":220,"height":320},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
