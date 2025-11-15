@@ -207,6 +207,520 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/Async%E5%92%8CScheduled%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE/" target="_self">
+          @Async和@Scheduled线程池统一配置
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Async%E5%92%8CScheduled%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE/" target="_self">
+        <div>
+          
+          1. 配置方式1.1. 配置线程池 Spring 的 @Async 注解会自动查找名为 taskExecutor 或 executor 的 Executor 类型 Bean，但是从 Spring Boot 2.7 开始，Spring Boot 默认自动配置一个名为 taskExecutor 的 ThreadPoolTaskExecutor Bean，所以还需要使用AsyncConfigurer，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-28 21:18" pubdate>
+              2025-08-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E7%AC%AC%E4%B8%89%E6%96%B9HTTP%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E6%96%B9%E6%A1%88/" target="_self">
+          第三方HTTP接口调用方案
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E7%AC%AC%E4%B8%89%E6%96%B9HTTP%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E6%96%B9%E6%A1%88/" target="_self">
+        <div>
+          
+          1. 场景为解决多智能体接口、第三方 API（如翻译服务、AI 解析接口）的调用一致性问题，基于 Spring WebFlux 的 WebClient 封装统一 HTTP 调用框架，支持 GET&#x2F;POST&#x2F;PUT 等请求方法，实现 “一处配置、多处复用” 的调用模式。 2. 解决方案1. 封装统一HTTP调用框架 统一管理接口超时时间（连接超时 3s、读取超时 10s）、重试策
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-23 13:05" pubdate>
+              2025-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E6%88%98%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98/" class="category-chain-item">实战问题复盘</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">#工具类</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%A4%9A%E7%B1%BB%E5%9E%8B%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%9F%E4%B8%80%E8%B0%83%E7%94%A8%E4%B8%8E%E6%89%A9%E5%B1%95%E6%80%A7%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+          多类型智能体的统一调用与扩展性解决方案
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%A4%9A%E7%B1%BB%E5%9E%8B%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%9F%E4%B8%80%E8%B0%83%E7%94%A8%E4%B8%8E%E6%89%A9%E5%B1%95%E6%80%A7%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+        <div>
+          
+          1. 场景项目需集成问答 &#x2F; 文件解析 &#x2F; ESG &#x2F; 翻译 4 类智能体，各智能体接口协议（请求参数、返回格式）差异大，且后续需新增智能体，直接硬编码调用会导致代码冗余（重复处理参数转换、异常），扩展成本高（新增 1 个智能体需修改 5 处以上业务代码）。 2. 解决方案“插件化”AI模型调用的核心组件 ，新增模型只需加类，零修改 1. 请求参数多态实现 设计Bas
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-19 22:13" pubdate>
+              2025-08-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E6%88%98%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98/" class="category-chain-item">实战问题复盘</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%A4%9A%E6%80%81/">#多态</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%A4%9A%E7%94%A8%E6%88%B7%E5%B9%B6%E5%8F%91SSE%E5%AF%BC%E8%87%B4%E8%B5%84%E6%BA%90%E6%B3%84%E9%9C%B2/" target="_self">
+          多用户并发SSE导致资源泄露解决方案
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%A4%9A%E7%94%A8%E6%88%B7%E5%B9%B6%E5%8F%91SSE%E5%AF%BC%E8%87%B4%E8%B5%84%E6%BA%90%E6%B3%84%E9%9C%B2/" target="_self">
+        <div>
+          
+          1 场景AI对话项目使用SSE通信，如果用户刷新 &#x2F; 关闭页面，后端不清理连接，就可能导致 资源泄露。 2. 解决方案1. 非零超时+ 回调清理（必做）1. 非零超时 SseEmitter 默认 0L 表示永不超时，最容易导致僵尸连接。 设置合理的超时时间（比如 30s~5min），避免连接永远挂在服务器上。 超时会触发 onTimeout → 你就能清理 session。  12&#x2F;&#x2F;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-17 21:07" pubdate>
+              2025-08-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E6%88%98%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98/" class="category-chain-item">实战问题复盘</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%9A%E4%BF%A1/">#通信</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%8F%8Ctoken%E8%AE%A4%E8%AF%81/" target="_self">
+          双token认证
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E5%8F%8Ctoken%E8%AE%A4%E8%AF%81/" target="_self">
+        <div>
+          
+          1. 双token认证流程1.1. 登录阶段 用户输入账号 + 密码。 服务端验证成功后，颁发：    Access Token（访问令牌，短期有效，典型：15分钟~1小时） Refresh Token（刷新令牌，长期有效，典型：7天~90天）     前端保存：    Access Token → 放在内存 &#x2F; Vuex &#x2F; Redux &#x2F; Pinia &#x2F;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-14 21:40" pubdate>
+              2025-08-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E6%88%98%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98/" class="category-chain-item">实战问题复盘</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%89%B4%E6%9D%83/">#鉴权</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/SpringAI%E4%B9%8B%E5%9F%BA%E4%BA%8ERAG%E5%AE%9E%E7%8E%B0%E4%B8%80%E5%A5%97%E4%BC%81%E4%B8%9A%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D%E7%B3%BB%E7%BB%9F/" target="_self">
+          SpringAI之基于RAG实现一套企业智能客服系统
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/SpringAI%E4%B9%8B%E5%9F%BA%E4%BA%8ERAG%E5%AE%9E%E7%8E%B0%E4%B8%80%E5%A5%97%E4%BC%81%E4%B8%9A%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D%E7%B3%BB%E7%BB%9F/" target="_self">
+        <div>
+          
+          1. 前期准备首先，我们需要把现有的常见文件整理成文档，可以是txt、pdf、xlsx、markdown等格式都可以，我们这里将问题和答案转成txt文件，文件为：外卖常见问题.txt 1234567891011121314Q：在线支付取消订单后钱怎么返还？订单取消后，款项会在一个工作日内，直接返还到您的美团账户余额。Q：怎么查看退款是否成功？退款会在一个工作日之内到美团账户余额，可在“账号管理——
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-12 21:25" pubdate>
+              2025-08-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/SpringAI/" class="category-chain-item">SpringAI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/SpringAI%E4%B9%8BHelloWorld/" target="_self">
+          SpringAI之HelloWorld
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/SpringAI%E4%B9%8BHelloWorld/" target="_self">
+        <div>
+          
+          前期准备：引入依赖 123456789101112131415161718&lt;dependencyManagement&gt;  &lt;dependencies&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.ai&lt;&#x2F;groupId&gt;      &lt;artifactId&gt;spring-a
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-09 21:32" pubdate>
+              2025-08-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/SpringAI/" class="category-chain-item">SpringAI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Jackson%E5%AE%9E%E7%8E%B0Java%E5%A4%9A%E6%80%81%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+          Jackson实现Java多态序列化
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Jackson%E5%AE%9E%E7%8E%B0Java%E5%A4%9A%E6%80%81%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+        <div>
+          
+          在开发 RESTful API 或微服务架构时，我们经常会遇到这样的需求：同一个接口返回不同类型的数据对象，但这些对象具有共同的基类。例如，聊天系统中的不同消息类型、AI 平台中的多种模型请求等。 这时，就需要使用 多态序列化&#x2F;反序列化 来正确处理这些对象。而 Jackson 作为 Java 生态中最主流的 JSON 处理库，提供了强大的多态支持。 1. 问题场景假设我们有一个聊天系统，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-07 20:02" pubdate>
+              2025-08-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/LangChain4j%E4%B9%8B%E5%9F%BA%E4%BA%8ERAG%E5%AE%9E%E7%8E%B0%E4%B8%80%E5%A5%97%E4%BC%81%E4%B8%9A%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D%E7%B3%BB%E7%BB%9F/" target="_self">
+          LangChain4j之基于RAG实现一套企业智能客服系统
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/LangChain4j%E4%B9%8B%E5%9F%BA%E4%BA%8ERAG%E5%AE%9E%E7%8E%B0%E4%B8%80%E5%A5%97%E4%BC%81%E4%B8%9A%E6%99%BA%E8%83%BD%E5%AE%A2%E6%9C%8D%E7%B3%BB%E7%BB%9F/" target="_self">
+        <div>
+          
+          1. 前期准备首先，我们需要把现有的常见文件整理成文档，可以是txt、pdf、xlsx、markdown等格式都可以，我们这里将问题和答案转成txt文件，文件为：外卖常见问题.txt 1234567891011121314Q：在线支付取消订单后钱怎么返还？订单取消后，款项会在一个工作日内，直接返还到您的美团账户余额。Q：怎么查看退款是否成功？退款会在一个工作日之内到美团账户余额，可在“账号管理——
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-03 21:55" pubdate>
+              2025-08-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/java%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E5%AF%B9%E8%B1%A1/" target="_self">
           java中常见的数据交换对象
         </a>
@@ -225,492 +739,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2025-07-29 21:09" pubdate>
               2025-07-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/LangChain4j%E4%B9%8BTools/" target="_self">
-          LangChain4j之Tools
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BTools/" target="_self">
-        <div>
-          
-          1. Tools是什么？大模型Tools（工具）可以通过结构化接口将模型能力与现实世界操作连接。例如：  天气查询工具：封装天气API，接收城市参数后返回实时数据； 数据库操作工具：将SQL查询转化为自然语言交互接口； 代码执行工具：调用编译器或解释器完成代码调试。   目前大模型的不足：大模型在解决问题时，是基于互联网上很多历史资料进行预测的，而且答案具有一定的随机性，那如果我问”今天是几月几号
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-23 22:11" pubdate>
-              2025-07-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/LangChain4j%E4%B9%8BEmbedding/" target="_self">
-          LangChain4j之Embedding
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BEmbedding/" target="_self">
-        <div>
-          
-          1. 什么是向量一个二维向量可以理解为平面坐标轴中的一个坐标点(x，y)，在编程领域，一个二维向量就是一个大小为二的float类型的数组。 2. 文本向量化文本向量化是指，利用大模型可以把一个字、一个词或一段话映射为一个多维向量。这样，我们可以基于向量来判断两句话之间的相似度。 我们可以直接在LangChain4j中来调用向量模型来对一句话进行向量化体验。 12345678910111213141
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-23 19:34" pubdate>
-              2025-07-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/LangChain4j%E4%B9%8BChatMemory/" target="_self">
-          LangChain4j之ChatMemory
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BChatMemory/" target="_self">
-        <div>
-          
-          1. ChatMemory是什么？ChatMemory是LangChain4j提供的用来存储历史对话的组件，并且还支持窗口限制、淘汰机制、持久化机制等等扩展功能。 2. 使用1. 基本使用123456789101112131415161718192021222324252627282930313233343536import dev.langchain4j.memory.ChatMemory;im
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-21 21:57" pubdate>
-              2025-07-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/LangChain4j%E4%B9%8BAiService/" target="_self">
-          LangChain4j之AiService
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BAiService/" target="_self">
-        <div>
-          
-          1. AiService是什么？LangChain4j 的 AiService 是一个非常方便的工具，它允许开发者通过定义接口和使用注解的方式快速创建基于语言模型的服务。这个机制极大地简化了与语言模型（如 Qwen、ChatGPT 等）交互的过程，使得开发者可以更专注于业务逻辑而非底层通信细节。 主要概念 接口定义：你首先需要定义一个接口，其中的方法代表了你希望语言模型执行的任务。 注解：在方法上
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-20 16:35" pubdate>
-              2025-07-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/LangChain4j%E5%85%A5%E9%97%A8/" target="_self">
-          LangChain4j入门
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/LangChain4j%E5%85%A5%E9%97%A8/" target="_self">
-        <div>
-          
-          1. 什么是LangChain4j它是Java版本的LangChain，提供了一个开发框架，使得开发者可以很容易的用来构建具有LLM能力的应用程序。如何将大模型能力和Java编程语言相结合，这就是LangChain4j所做的。  LLM就是Large Language Model，也就是常说的大语言模型，简称大模型。  2. langchain4j集成OpenAi（Java）1. 引入依赖1234
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-20 15:19" pubdate>
-              2025-07-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Vue3%E8%B7%A8%E5%B1%82%E7%BA%A7%E9%80%9A%E4%BF%A1%E6%8A%80%E5%B7%A7/" target="_self">
-          Vue3跨层级通信技巧
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Vue3%E8%B7%A8%E5%B1%82%E7%BA%A7%E9%80%9A%E4%BF%A1%E6%8A%80%E5%B7%A7/" target="_self">
-        <div>
-          
-          1. Provide 和 Inject provide和inject允许祖先组件向任意深度的后代组件提供数据，而不需要经过中间组件 props逐层传递。 祖先组件使用provide来提供数据，后代组件使用inject来接收这些数据。这种方式非常适合用于主题、用户偏好设置等全局或半全局的数据共享。  123456789&lt;script setup lang&#x3D;&quot;ts&quot;&gt;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 15:58" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/mybatis-plus%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/" target="_self">
-          mybatis-plus字段自动填充
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/mybatis-plus%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/" target="_self">
-        <div>
-          
-          1. 主键ID生成1.1. 在主键上加注解12345@Datapublic class User &amp;#123;    @TableId(type &#x3D; IdType.ID_WORKER)    private Long id;&amp;#125;  1.2. 全局配置默认ID生成策略1234mybatis-plus:  global-config:    db-config:      id-type: a
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 15:55" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/hutool%E5%A5%BD%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" target="_self">
-          hutool好用的方法
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/hutool%E5%A5%BD%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" target="_self">
-        <div>
-          
-          1. 动态获取bean对象1private static final ChatSessionManager chatSessionManager &#x3D; SpringUtils.getBean(ChatSessionManager.class);  2. 生成UUID1String uuid &#x3D; IdUtil.simpleUUID();  3. 常量12345678910111213141516171
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-17 19:05" pubdate>
-              2025-07-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Lombok%E4%B9%8B-RequiredArgsConstructor/" target="_self">
-          Lombok之@RequiredArgsConstructor
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Lombok%E4%B9%8B-RequiredArgsConstructor/" target="_self">
-        <div>
-          
-          1. @RequiredArgsConstructor是什么?@RequiredArgsConstructor 是 Lombok 提供的一个注解，用于自动生成构造函数。这个构造函数只包含那些被声明为 final 或者标注了 @NonNull 的字段，从而确保这些字段在对象创建时必须被初始化，以避免潜在的空指针异常等问题。 2. 通过@RequiredArgsConstructor简化Bean注入通
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-17 19:03" pubdate>
-              2025-07-17
             </time>
           </div>
         

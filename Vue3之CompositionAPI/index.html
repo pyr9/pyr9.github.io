@@ -1,0 +1,792 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Composition API 是 Vue 3 引入的新特性，它的核心思想是：基于逻辑功能来组织代码，而不是基于选项类型。 Composition API主要解决了 Options API 在复杂组件中面临的几个主要问题： 1. 解决逻辑碎片化，优化代码组织1.1. 问题Options API 中，逻辑需分散在 data、methods、computed 等不同选项中，当组件功能复杂（如同时包含表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3之CompositionAPI">
+<meta property="og:url" content="http://example.com/Vue3%E4%B9%8BCompositionAPI/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="Composition API 是 Vue 3 引入的新特性，它的核心思想是：基于逻辑功能来组织代码，而不是基于选项类型。 Composition API主要解决了 Options API 在复杂组件中面临的几个主要问题： 1. 解决逻辑碎片化，优化代码组织1.1. 问题Options API 中，逻辑需分散在 data、methods、computed 等不同选项中，当组件功能复杂（如同时包含表">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-15T11:09:10.000Z">
+<meta property="article:modified_time" content="2025-11-15T11:31:53.746Z">
+<meta property="article:author" content="Panyurou">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Vue3之CompositionAPI - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 62vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue3之CompositionAPI"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-15 19:09" pubdate>
+          2025年10月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue3之CompositionAPI</h1>
+            
+            <div class="markdown-body">
+              
+              <p>Composition API 是 Vue 3 引入的新特性，它的核心思想是：<strong>基于逻辑功能来组织代码，而不是基于选项类型</strong>。</p>
+<p>Composition API主要解决了 Options API 在复杂组件中面临的几个主要问题：</p>
+<h2 id="1-解决逻辑碎片化，优化代码组织"><a href="#1-解决逻辑碎片化，优化代码组织" class="headerlink" title="1. 解决逻辑碎片化，优化代码组织"></a>1. 解决逻辑碎片化，优化代码组织</h2><h3 id="1-1-问题"><a href="#1-1-问题" class="headerlink" title="1.1. 问题"></a>1.1. 问题</h3><p>Options API 中，逻辑需分散在 <code>data</code>、<code>methods</code>、<code>computed</code> 等不同选项中，当组件功能复杂（如同时包含表单验证、数据请求、状态管理）时，相关代码会被 “拆分” 到各个选项，形成 “碎片化” 结构 —— 开发者需在多个选项间跳转才能理解完整逻辑。</p>
+<h3 id="1-2-解决"><a href="#1-2-解决" class="headerlink" title="1.2. 解决"></a>1.2. 解决</h3><p>Composition API 允许将<strong>同一功能的相关代码（数据、方法、计算属性）聚合在一起</strong>，通过 <code>setup</code> 函数（或 <code>&lt;script setup&gt;</code> 语法糖）按 “逻辑关注点” 组织，而非按 “选项类型” 拆分。</p>
+<h3 id="1-3-例子说明"><a href="#1-3-例子说明" class="headerlink" title="1.3. 例子说明"></a>1.3. 例子说明</h3><p>一个简单的<strong>计数器</strong>和一个<strong>搜索框，</strong>对比 Options API 和 Composition API。</p>
+<h4 id="1-3-1-vue2-Options-API-实现"><a href="#1-3-1-vue2-Options-API-实现" class="headerlink" title="1.3.1. vue2 Options API  实现"></a>1.3.1. <strong>vue2 Options API  实现</strong></h4><p><strong>在 Options API 中</strong>，代码会是这样混杂的：</p>
+<ul>
+<li>两个功能的代码像打散了的拼图一样混在一起。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,        <span class="hljs-comment">// 计数器功能</span><br>      <span class="hljs-attr">searchQuery</span>: <span class="hljs-string">&#x27;&#x27;</span>  <span class="hljs-comment">// 搜索功能</span><br>    &#125;<br>  &#125;,<br>  <span class="hljs-attr">methods</span>: &#123;<br>    <span class="hljs-function"><span class="hljs-title">increment</span>(<span class="hljs-params"></span>)</span> &#123; ... &#125;, <span class="hljs-comment">// 计数器</span><br>    <span class="hljs-function"><span class="hljs-title">decrement</span>(<span class="hljs-params"></span>)</span> &#123; ... &#125;, <span class="hljs-comment">// 计数器</span><br>    <span class="hljs-function"><span class="hljs-title">reset</span>(<span class="hljs-params"></span>)</span> &#123; ... &#125;,     <span class="hljs-comment">// 计数器</span><br>    <span class="hljs-comment">// 搜索功能没有方法，它的逻辑在watch里</span><br>  &#125;,<br>  <span class="hljs-attr">computed</span>: &#123;<br>    <span class="hljs-function"><span class="hljs-title">searchUpperCase</span>(<span class="hljs-params"></span>)</span> &#123; ... &#125; <span class="hljs-comment">// 搜索功能</span><br>  &#125;,<br>  <span class="hljs-attr">watch</span>: &#123;<br>    <span class="hljs-function"><span class="hljs-title">searchQuery</span>(<span class="hljs-params"></span>)</span> &#123; ... &#125; <span class="hljs-comment">// 搜索功能</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-3-2-vue3-Composition-API-实现"><a href="#1-3-2-vue3-Composition-API-实现" class="headerlink" title="1.3.2. vue3 Composition API 实现"></a>1.3.2. <strong>vue3</strong> <strong>Composition API 实现</strong></h4><p><strong>在 Composition API 中</strong>，代码结构非常清晰：</p>
+<ul>
+<li>你可以一眼看出这个组件由哪两大功能组成，并且修改或删除其中一个功能时，完全不会影响到另一个。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;script setup&gt;<br>  <span class="hljs-keyword">import</span> &#123; ref, computed, watch &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span>;<br><br><span class="hljs-comment">// ------ 计数器功能逻辑块 ------</span><br><span class="hljs-keyword">const</span> count = ref(<span class="hljs-number">0</span>);<br><span class="hljs-keyword">const</span> increment = <span class="hljs-function">() =&gt;</span> &#123; count.value++; &#125;;<br><span class="hljs-keyword">const</span> decrement = <span class="hljs-function">() =&gt;</span> &#123; count.value--; &#125;;<br><span class="hljs-keyword">const</span> reset = <span class="hljs-function">() =&gt;</span> &#123; count.value = <span class="hljs-number">0</span>; &#125;;<br><br><span class="hljs-comment">// ------ 搜索功能逻辑块 ------</span><br><span class="hljs-keyword">const</span> searchQuery = ref(<span class="hljs-string">&#x27;&#x27;</span>);<br><span class="hljs-keyword">const</span> searchUpperCase = computed(<span class="hljs-function">() =&gt;</span> &#123; ... &#125;);<br>watch(searchQuery, <span class="hljs-function">(<span class="hljs-params">newQuery</span>) =&gt;</span> &#123; ... &#125;);<br><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-解决逻辑复用，替代复杂的-mixin"><a href="#2-解决逻辑复用，替代复杂的-mixin" class="headerlink" title="2. 解决逻辑复用，替代复杂的 mixin"></a>2. 解决逻辑复用，替代复杂的 mixin</h2><h3 id="2-1-问题"><a href="#2-1-问题" class="headerlink" title="2.1. 问题"></a>2.1. 问题</h3><p>在 Vue 2 Options API 中，逻辑复用主要依赖 <code>mixin</code>，但存在三大痛点：</p>
+<ul>
+<li><strong>命名冲突</strong>：多个 mixin 可能定义同名的 <code>data</code> 或 <code>methods</code>，合并时会覆盖且难以排查；</li>
+<li><strong>来源不明</strong>：组件中使用的属性 &#x2F; 方法，无法快速判断是来自自身还是某个 mixin；</li>
+<li><strong>依赖模糊</strong>：mixin 与组件间可能存在隐式依赖（如 mixin 依赖组件的某个 <code>data</code>），维护时容易出错。</li>
+</ul>
+<h3 id="2-2-解决"><a href="#2-2-解决" class="headerlink" title="2.2. 解决"></a>2.2. 解决</h3><ul>
+<li>组合函数是返回响应式状态和方法的普通函数（如 <code>useUserData()</code>、<code>useFormValidation()</code>），可直接在组件中调用；</li>
+<li>不存在命名冲突：组合函数返回的内容需显式解构或赋值给变量，名称由组件自主控制；</li>
+<li>来源清晰：组件中使用的逻辑可直接追溯到对应的组合函数，依赖关系透明；</li>
+<li>灵活性高：可根据需求选择性引入部分逻辑，无需像 mixin 那样 “全量混入”。</li>
+</ul>
+<h3 id="2-3-例子说明"><a href="#2-3-例子说明" class="headerlink" title="2.3. 例子说明"></a>2.3. 例子说明</h3><p>以计数器为例子</p>
+<h4 id="2-3-1-vue2-mixins-实现"><a href="#2-3-1-vue2-mixins-实现" class="headerlink" title="2.3.1. vue2 mixins 实现"></a>2.3.1. <strong>vue2</strong> mixins 实现</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;template&gt;<br>  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Component A<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Count: &#123;&#123; Count &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;Increment&quot;</span>&gt;</span>+1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;Decrement&quot;</span>&gt;</span>-1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;Reset&quot;</span>&gt;</span>Reset<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;/template&gt;<br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;ts&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="javascript"><span class="xml"><span class="hljs-keyword">import</span> &#123; defineComponent &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span></span></span><br><span class="javascript"><span class="xml"><span class="hljs-keyword">import</span> &#123; counterMixin &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/mixins/counterMixin&#x27;</span></span></span><br><span class="javascript"><span class="xml"></span></span><br><span class="javascript"><span class="xml"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> defineComponent(&#123;</span></span><br><span class="javascript"><span class="xml">  <span class="hljs-attr">mixins</span>: [counterMixin],</span></span><br><span class="javascript"><span class="xml">  </span></span><br><span class="javascript"><span class="xml">  <span class="hljs-function"><span class="hljs-title">mounted</span>(<span class="hljs-params"></span>)</span> &#123;</span></span><br><span class="javascript"><span class="xml">    <span class="hljs-comment">// 使用默认配置</span></span></span><br><span class="javascript"><span class="xml">    <span class="hljs-built_in">this</span>.InitCounter()</span></span><br><span class="javascript"><span class="xml">  &#125;</span></span><br><span class="javascript"><span class="xml">&#125;)</span></span><br><span class="javascript"><span class="xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="hljs-keyword">import</span> &#123; Component, Vue &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue-facing-decorator&#x27;</span> <span class="hljs-comment">// 或者使用传统的 Options API</span><br><br><span class="hljs-comment">// 使用 Options API 方式的 Mixin</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> counterMixin = &#123;<br>  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,<br>      <span class="hljs-attr">min</span>: -<span class="hljs-literal">Infinity</span>,<br>      <span class="hljs-attr">max</span>: <span class="hljs-literal">Infinity</span><br>    &#125;<br>  &#125;,<br>  <br>  <span class="hljs-attr">computed</span>: &#123;<br>    <span class="hljs-function"><span class="hljs-title">isMin</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.count &lt;= <span class="hljs-built_in">this</span>.min<br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-title">isMax</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.count &gt;= <span class="hljs-built_in">this</span>.max<br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-title">isEven</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.count % <span class="hljs-number">2</span> === <span class="hljs-number">0</span><br>    &#125;<br>  &#125;,<br>  <br>  <span class="hljs-attr">methods</span>: &#123;<br>    <span class="hljs-function"><span class="hljs-title">Increment</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.count &lt; <span class="hljs-built_in">this</span>.max) &#123;<br>        <span class="hljs-built_in">this</span>.count++<br>      &#125;<br>    &#125;,<br>    <br>    <span class="hljs-function"><span class="hljs-title">Decrement</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.count &gt; <span class="hljs-built_in">this</span>.min) &#123;<br>        <span class="hljs-built_in">this</span>.count--<br>      &#125;<br>    &#125;,<br>    <br>    <span class="hljs-function"><span class="hljs-title">Reset</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-built_in">this</span>.count = <span class="hljs-number">0</span><br>    &#125;,<br>    <br>    <span class="hljs-function"><span class="hljs-title">SetValue</span>(<span class="hljs-params">value: <span class="hljs-built_in">number</span></span>)</span> &#123;<br>      <span class="hljs-keyword">if</span> (value &gt;= <span class="hljs-built_in">this</span>.min &amp;&amp; value &lt;= <span class="hljs-built_in">this</span>.max) &#123;<br>        <span class="hljs-built_in">this</span>.count = value<br>      &#125;<br>    &#125;,<br>    <br>    <span class="hljs-comment">// 初始化配置的方法</span><br>    <span class="hljs-function"><span class="hljs-title">initCounter</span>(<span class="hljs-params">options: &#123; min?: <span class="hljs-built_in">number</span>; max?: <span class="hljs-built_in">number</span>; initialValue?: <span class="hljs-built_in">number</span> &#125; = &#123;&#125;</span>)</span> &#123;<br>      <span class="hljs-built_in">this</span>.min = options.min ?? -<span class="hljs-literal">Infinity</span><br>      <span class="hljs-built_in">this</span>.max = options.max ?? <span class="hljs-literal">Infinity</span><br>      <span class="hljs-built_in">this</span>.count = options.initialValue ?? <span class="hljs-number">0</span><br>    &#125;<br>  &#125;,<br>  <br>  <span class="hljs-function"><span class="hljs-title">mounted</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Counter mixin mounted&#x27;</span>)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-3-2-vue3-Composition-API-实现"><a href="#2-3-2-vue3-Composition-API-实现" class="headerlink" title="2.3.2. vue3 Composition API 实现"></a>2.3.2. <strong>vue3</strong> Composition API 实现</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;template&gt;<br>  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Component A<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Count: &#123;&#123; count &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;increment&quot;</span>&gt;</span>+1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;decrement&quot;</span>&gt;</span>-1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;reset&quot;</span>&gt;</span>Reset<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;isEven&quot;</span>&gt;</span>Even number!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;/template&gt;<br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">setup</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;ts&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="javascript"><span class="xml"><span class="hljs-keyword">import</span> &#123; useCounter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/composables/useCounter&#x27;</span></span></span><br><span class="javascript"><span class="xml"></span></span><br><span class="javascript"><span class="xml"><span class="hljs-comment">// 使用默认配置   每个组件可以只使用需要的部分功能, 通过解构重命名返回值</span></span></span><br><span class="javascript"><span class="xml"><span class="hljs-keyword">const</span> &#123; count, increment, decrement, reset, isEven &#125; = useCounter()</span></span><br><span class="javascript"><span class="xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="hljs-keyword">import</span> &#123; ref, computed &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><br><span class="hljs-keyword">interface</span> UseCounterOptions &#123;<br>  initialValue?: <span class="hljs-built_in">number</span><br>  min?: <span class="hljs-built_in">number</span><br>  max?: <span class="hljs-built_in">number</span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useCounter</span>(<span class="hljs-params">options: UseCounterOptions = &#123;&#125;</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> &#123; initialValue = <span class="hljs-number">0</span>, min = -<span class="hljs-literal">Infinity</span>, max = <span class="hljs-literal">Infinity</span> &#125; = options<br><br>  <span class="hljs-keyword">const</span> count = ref(initialValue)<br><br>  <span class="hljs-keyword">const</span> isMin = computed(<span class="hljs-function">() =&gt;</span> count.value &lt;= min)<br>  <span class="hljs-keyword">const</span> isMax = computed(<span class="hljs-function">() =&gt;</span> count.value &gt;= max)<br>  <span class="hljs-keyword">const</span> isEven = computed(<span class="hljs-function">() =&gt;</span> count.value % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>)<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (count.value &lt; max) &#123;<br>      count.value++<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">decrement</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (count.value &gt; min) &#123;<br>      count.value--<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reset</span>(<span class="hljs-params"></span>) </span>&#123;<br>    count.value = initialValue<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setValue</span>(<span class="hljs-params">value: <span class="hljs-built_in">number</span></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (value &gt;= min &amp;&amp; value &lt;= max) &#123;<br>      count.value = value<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-comment">// 状态</span><br>    count,<br>    <br>    <span class="hljs-comment">// 计算属性</span><br>    isMin,<br>    isMax,<br>    isEven,<br>    <br>    <span class="hljs-comment">// 方法</span><br>    increment,<br>    decrement,<br>    reset,<br>    setValue<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-解决类型推导困难，提升-TypeScript-支持"><a href="#3-解决类型推导困难，提升-TypeScript-支持" class="headerlink" title="3. 解决类型推导困难，提升 TypeScript 支持"></a>3. 解决类型推导困难，提升 TypeScript 支持</h2><h3 id="3-1-问题"><a href="#3-1-问题" class="headerlink" title="3.1. 问题"></a>3.1. 问题</h3><p>Options API 的 “选项式” 结构与 TypeScript 的 “类型系统” 天然适配性差，对 TypeScript 的类型推断不太友好。</p>
+<ul>
+<li>计算属性、方法返回值需要手动声明类型</li>
+<li><code>methods</code> 中的 <code>this</code> 指向模糊，TypeScript 难以准确推断 <code>this</code> 上的属性和方法类型，需频繁使用 <code>this as 类型</code> 断言，代码冗余且易出错。</li>
+</ul>
+<h3 id="3-2-解决"><a href="#3-2-解决" class="headerlink" title="3.2. 解决"></a>3.2. 解决</h3><p>Composition API 天生对 TypeScript 友好：</p>
+<ul>
+<li>响应式数据（<code>ref</code>&#x2F;<code>reactive</code>）可自动推导类型，无需额外定义接口（如 <code>const count = ref(0)</code> 会自动推导为 <code>Ref&lt;number&gt;</code> 类型）；</li>
+<li><code>setup</code> 函数中无 <code>this</code> 依赖，所有变量和方法均通过显式定义或函数返回获取，TypeScript 可精准推导类型，减少类型断言，提升开发体验和代码健壮性。</li>
+</ul>
+<h3 id="3-3-例子说明"><a href="#3-3-例子说明" class="headerlink" title="3.3. 例子说明"></a>3.3. 例子说明</h3><h4 id="3-3-1-vue2"><a href="#3-3-1-vue2" class="headerlink" title="3.3.1. vue2"></a>3.3.1. vue2</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;script lang=<span class="hljs-string">&quot;ts&quot;</span>&gt;<br>  <span class="hljs-keyword">import</span> &#123; defineComponent &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br>  <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; User, UserFormData &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/types/user&#x27;</span><br><br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> defineComponent(&#123;<br>    <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-comment">// 需要重复定义类型</span><br>        <span class="hljs-attr">user</span>: <span class="hljs-literal">null</span> <span class="hljs-keyword">as</span> User | <span class="hljs-literal">null</span>,<br>        <span class="hljs-attr">formData</span>: &#123;<br>          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>          <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>          <span class="hljs-attr">role</span>: <span class="hljs-string">&#x27;user&#x27;</span>,<br>          <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span><br>        &#125; <span class="hljs-keyword">as</span> UserFormData,<br>        <span class="hljs-attr">loading</span>: <span class="hljs-literal">false</span><br>      &#125;<br>    &#125;,<br><br>    <span class="hljs-attr">computed</span>: &#123;<br>      <span class="hljs-comment">// 计算属性的类型推断有限</span><br>      isFormValid(): <span class="hljs-built_in">boolean</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.formData.name.length &gt; <span class="hljs-number">0</span> &amp;&amp; <br>          <span class="hljs-built_in">this</span>.formData.email.includes(<span class="hljs-string">&#x27;@&#x27;</span>) &amp;&amp;<br>          <span class="hljs-built_in">this</span>.formData.password.length &gt;= <span class="hljs-number">6</span><br>      &#125;,<br><br>      <span class="hljs-comment">// 需要手动声明返回类型</span><br>      userAgeDescription(): <span class="hljs-built_in">string</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.user?.age ? <span class="hljs-string">`Age: <span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.user.age&#125;</span>`</span> : <span class="hljs-string">&#x27;Age not specified&#x27;</span><br>      &#125;<br>    &#125;,<br><br>    <span class="hljs-attr">methods</span>: &#123;<br>      <span class="hljs-comment">// 参数和返回值类型需要手动声明</span><br>      <span class="hljs-keyword">async</span> submitForm(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; &#123;<br>        <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">true</span><br>      <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-comment">// this.formData 的类型提示有限</span><br>    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> api.createUser(<span class="hljs-built_in">this</span>.formData)<br>    <span class="hljs-built_in">this</span>.user = response.data<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Failed to create user&#x27;</span>, error)<br>  &#125; <span class="hljs-keyword">finally</span> &#123;<br>    <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">false</span><br>  &#125;<br>  &#125;,<br><br>  <span class="hljs-comment">// 方法间的类型共享困难</span><br>  updateUser(updates: Partial&lt;User&gt;): <span class="hljs-built_in">void</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.user) &#123;<br>      <span class="hljs-built_in">this</span>.user = &#123; ...this.user, ...updates &#125;<br>    &#125;<br>  &#125;<br> &#125;,<br><br>  <span class="hljs-function"><span class="hljs-title">mounted</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-comment">// 生命周期中的 this 类型提示不完整</span><br>    <span class="hljs-built_in">this</span>.loadUser(<span class="hljs-number">1</span>)<br>  &#125;<br>  &#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-3-2-vue3"><a href="#3-3-2-vue3" class="headerlink" title="3.3.2. vue3"></a>3.3.2. vue3</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> &#123; ref, computed, reactive &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; User, UserFormData &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/types/user&#x27;</span><br><span class="hljs-keyword">import</span> &#123; userApi &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/api/userApi&#x27;</span><br><br><span class="hljs-keyword">interface</span> UseUserFormOptions &#123;<br>  initialRole?: User[<span class="hljs-string">&#x27;role&#x27;</span>]<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useUserForm</span>(<span class="hljs-params">options: UseUserFormOptions = &#123;&#125;</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> &#123; initialRole = <span class="hljs-string">&#x27;user&#x27;</span> &#125; = options<br><br>  <span class="hljs-comment">// 响应式数据 with explicit types</span><br>  <span class="hljs-keyword">const</span> user = ref&lt;User | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>)<br>  <span class="hljs-keyword">const</span> loading = ref(<span class="hljs-literal">false</span>)<br>  <span class="hljs-keyword">const</span> error = ref&lt;<span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>)<br><br>  <span class="hljs-comment">// 表单数据 with type inference</span><br>  <span class="hljs-keyword">const</span> formData = reactive&lt;UserFormData&gt;(&#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>    <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>    <span class="hljs-attr">role</span>: initialRole,<br>    <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span><br>  &#125;)<br><br>  <span class="hljs-comment">// 计算属性 with full type inference</span><br>  <span class="hljs-keyword">const</span> isFormValid = computed(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> formData.name.length &gt; <span class="hljs-number">0</span> &amp;&amp; <br>           formData.email.includes(<span class="hljs-string">&#x27;@&#x27;</span>) &amp;&amp;<br>           formData.password.length &gt;= <span class="hljs-number">6</span><br>  &#125;)<br><br><br>  <span class="hljs-comment">// 异步方法 with proper typing</span><br>  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">submitForm</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">User</span>&gt; </span>&#123;<br>    loading.value = <span class="hljs-literal">true</span><br>    error.value = <span class="hljs-literal">null</span><br>    <br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> userApi.createUser(formData)<br>      user.value = response.data<br>      <span class="hljs-keyword">return</span> response.data<br>    &#125; <span class="hljs-keyword">catch</span> (err) &#123;<br>      error.value = <span class="hljs-string">&#x27;Failed to create user&#x27;</span><br>      <span class="hljs-keyword">throw</span> err<br>    &#125; <span class="hljs-keyword">finally</span> &#123;<br>      loading.value = <span class="hljs-literal">false</span><br>    &#125;<br>  &#125;<br><br><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-comment">// State</span><br>    user,<br>    formData,<br>    loading,<br>    error,<br>    <br>    <span class="hljs-comment">// Computed</span><br>    isFormValid,<br>    userAgeDescription,<br>    <br>    <span class="hljs-comment">// Methods</span><br>    submitForm,<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue3之CompositionAPI</div>
+      <div>http://example.com/Vue3之CompositionAPI/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年10月15日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4/" title="vue自定义权限控制指令v-permission">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vue自定义权限控制指令v-permission</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/saToken%E4%BD%BF%E7%94%A8/" title="saToken使用">
+                        <span class="hidden-mobile">saToken使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":220,"height":320},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

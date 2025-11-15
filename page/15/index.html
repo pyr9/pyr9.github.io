@@ -207,15 +207,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0tomcat/" target="_self">
-          项目部署到tomcat的三种方式
+        <a href="/%E7%BB%84%E4%BB%BB%E5%8A%A1/" target="_self">
+          Activiti——组任务
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0tomcat/" target="_self">
+      <a class="index-excerpt" href="/%E7%BB%84%E4%BB%BB%E5%8A%A1/" target="_self">
         <div>
           
-          1.项目直接放入 webapps 目录中 把项目打包，放入webapps目录下    依次运行tomcat 的bin目录下shutdown.sh,startup.sh   在浏览器输入：http:&#x2F;&#x2F;localhost:8080&#x2F;项目名，就可以进入到项目的index页面      2 修改 conf&#x2F;server.xml 文件进入tomcat下conf&#x2F;server.xml，在
+          在流程定义中在任务结点的 assignee 固定设置任务负责人，在流程定义时将参与者固定设置在.bpmn 文件中，如果临时任务负责人变更则需要修改流程定义，系统可扩展性差。 针对这种情况可以给任务设置多个候选人，可以从候选人中选择参与者来完成任务。  1. 设置任务候选人在流程图中任务节点的配置中设置 candidate-users(候选人)，多个候选人之间用逗号分开。
         </div>
       </a>
 
@@ -223,269 +223,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-24 20:00" pubdate>
-              2023-01-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E7%89%88%E6%9C%AC%E5%BF%AB%E9%80%9F%E8%BF%AD%E4%BB%A3%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1/" target="_self">
-          版本快速迭代流程设计
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E7%89%88%E6%9C%AC%E5%BF%AB%E9%80%9F%E8%BF%AD%E4%BB%A3%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1/" target="_self">
-        <div>
-          
-          1 整体流程设计 不同的开发提交当天的变动到统一的代码仓库 jenkins集成部署到开发环境 测试手动从jenkins的test仓库拉取打好的jar包，部署到测试环境，进行测试 测试完成后由运维从jenkins的release仓库拉取打好的jar包，部署到生产环境   2. 发布窗口机制上述发布流程是比较重的，我们不可能每天走一遍。可以设置一个固定的发布时间，一般设置在周四。  比如周四下午四点，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-24 12:31" pubdate>
-              2023-01-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/nexus%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/" target="_self">
-          nexus私服搭建与核心功能
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/nexus%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD/" target="_self">
-        <div>
-          
-          1. 私服是什么？私服是一个特殊的远程仓库，它是架设在局域网内的仓库服务。私服代理广域网上的远程仓库，供局域网内的Maven用户使用。 当Maven需要下载构建的使用，它先从私服请求，如果私服上没有的话，则从外部的远程仓库下载，然后缓存在私服上，再为Maven的下载请求提供服务。 使用私服的好处  节省自己的外网带宽：大量的对于外部远程仓库的重复请求会消耗很大的带宽 加速Maven的构建：不停的请
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-15 20:42" pubdate>
-              2023-01-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/jekins%E6%94%AFwar%E5%8C%85%E9%83%A8%E7%BD%B2/" target="_self">
-          jenkins之war包部署
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/jekins%E6%94%AFwar%E5%8C%85%E9%83%A8%E7%BD%B2/" target="_self">
-        <div>
-          
-          1. 插件安装 Maven Integration  Pipeline Maven Integration  Deploy to container     2. 新建任务 3 源码配置 Credentials 需要选择在用户列表，配置了该仓库ssh key的用户   4 构建后操作4.1 部署到服务器构建后，部署war包到指定服务器，我这里是部署在了本地的tomcat服务上  注意：  war文
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-15 19:46" pubdate>
-              2023-01-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/jenkins/" class="category-chain-item">jenkins</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/IDEA%E8%A7%A3%E5%86%B3resources%E8%B5%84%E6%BA%90%E6%89%BE%E4%B8%8D%E5%88%B0/" target="_self">
-          IDEA解决resources资源找不到
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/IDEA%E8%A7%A3%E5%86%B3resources%E8%B5%84%E6%BA%90%E6%89%BE%E4%B8%8D%E5%88%B0/" target="_self">
-        <div>
-          
-          pom中删除&lt;packaging&gt;pom&lt;&#x2F;packaging&gt;。加了这个pom不会处理resources目录
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-12 15:48" pubdate>
-              2023-01-12
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Mac%E4%B8%8B%E5%AE%89%E8%A3%85jekins/" target="_self">
-          Mac下安装jenkins
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Mac%E4%B8%8B%E5%AE%89%E8%A3%85jekins/" target="_self">
-        <div>
-          
-          1. 可持续化集成CI​      持续集成即CI（Continuous integration）是一种软件开发实践,可以让团队在持续的基础上不断收到反馈并进行改进，不必等到开发周期后期才寻找缺陷。持续集成要点：  统一的代码库 git 统一的依赖包管理 nexus 测试自动化 构建全自动化 maven 部署自动化 可追踪的集成记录 ：某一次有问题，可以找到上次集成。或者上上次集成，然后代码回滚
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-10 22:04" pubdate>
-              2023-01-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/jenkins/" class="category-chain-item">jenkins</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/%E5%B7%A5%E4%BD%9C%E6%B5%81/" target="_self">
-          工作流
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/%E5%B7%A5%E4%BD%9C%E6%B5%81/" target="_self">
-        <div>
-          
-          1. 工作流是什么？工作流就是计算机对业务流程自动化执行管理。有了工作流可以更好的管理业务流程，提高系统扩展性。 2. Activity 7 activity是一个工作流引擎，activity可以将业务系统中复杂的业务流程抽取出来，使用专门的建模语言BPMN2.0进行定义。 业务流程按照预先定义的流程进行执行，实现了系统的流程由activiti进行管理，减少业务系统由于流程变更进行系统升级改造的工
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-14 13:52" pubdate>
-              2022-12-14
+            <time datetime="2023-02-12 20:53" pubdate>
+              2023-02-12
             </time>
           </div>
         
@@ -522,15 +261,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/maven%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" target="_self">
-          maven基本概念
+        <a href="/Activiti%E2%80%94%E2%80%94%E5%88%86%E9%85%8D%E4%BB%BB%E5%8A%A1%E8%B4%9F%E8%B4%A3%E4%BA%BA/" target="_self">
+          Activiti——分配任务负责人
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/maven%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" target="_self">
+      <a class="index-excerpt" href="/Activiti%E2%80%94%E2%80%94%E5%88%86%E9%85%8D%E4%BB%BB%E5%8A%A1%E8%B4%9F%E8%B4%A3%E4%BA%BA/" target="_self">
         <div>
           
-          maven遵循约定大于配置 maven编译的路径为 src&#x2F;main&#x2F;java maven 打包后的路径在 &#x2F;target&#x2F;classes maven项目的配置文件存储在&#x2F;resources目录下 maven打包就是，运行mvn package把 &#x2F;target&#x2F;classes下的文件，打成一个jar包或者war包，打在targ
+          1 固定分配在进行业务流程建模时指定固定的任务负责人， 如图：  2 表达式分配Activiti 使用 UEL 表达式， UEL 是 java EE6 规范的一部分， UEL（Unified Expression Language）即 统一表达式语言， activiti 支持两个 UEL 表达式： UEL-value 和 UEL-method。  2.1  UEL-value assignee 这
         </div>
       </a>
 
@@ -538,41 +277,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-11 20:19" pubdate>
-              2022-12-11
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" target="_self">
-          vue的生命周期选项
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" target="_self">
-        <div>
-          
-          1. beforeCreate 在组件实例初始化之后调用，也就是new Vue()之后  初始化了主要的生命周期函数   2. created 初始化了data()，computed()，methods()，watch() 使用场景：调用ajax来获取自己的首屏数据  3.beforeMount 内存中已经编译生成好了html结构，但是还没有渲染。   mount表示挂载的意思，就是说要将内存中渲
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-01 15:10" pubdate>
-              2022-12-01
+            <time datetime="2023-02-09 23:33" pubdate>
+              2023-02-09
             </time>
           </div>
         
@@ -587,7 +293,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
   
   
 
@@ -609,15 +315,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/Bootstrap%E4%BD%BF%E7%94%A8/" target="_self">
-          响应式开发
+        <a href="/%E6%B5%81%E7%A8%8B%E5%AE%9A%E4%B9%89%E6%93%8D%E4%BD%9C/" target="_self">
+          Activiti——流程定义操作
         </a>
       </h1>
 
-      <a class="index-excerpt" href="/Bootstrap%E4%BD%BF%E7%94%A8/" target="_self">
+      <a class="index-excerpt" href="/%E6%B5%81%E7%A8%8B%E5%AE%9A%E4%B9%89%E6%93%8D%E4%BD%9C/" target="_self">
         <div>
           
-          1 响应式开发1.1 响应式开发原理响应式开发就是使用媒体查询，针对不同宽度的设备进行布局和样式的调整，从而适配不同设备。     1.2 案例12345678910111213141516171819202122232425262728&#x2F;*1. 超小屏幕下 小于768 容器宽度为100%*&#x2F;@media screen and (max-width: 767px) &amp;#123;    .conta
+          1 流程定义信息查询查询流程相关信息，包含流程定义，流程部署，流程定义版本    -&gt; ACT_RE_PROCDEF 1234567891011121314151617@Test   public void queryProcessDefinition()&amp;#123;       ProcessEngine processEngine &#x3D; ProcessEngines.getDefaultP
         </div>
       </a>
 
@@ -625,8 +331,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-27 20:09" pubdate>
-              2022-11-27
+            <time datetime="2023-02-09 23:18" pubdate>
+              2023-02-09
             </time>
           </div>
         
@@ -641,7 +347,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%B8%83%E5%B1%80/" class="category-chain-item">前端布局</a>
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
   
   
 
@@ -653,12 +359,320 @@
           </div>
         
         
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/CSS/">#CSS</a>
-            
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/" target="_self">
+          Activiti——流程实例
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C/" target="_self">
+        <div>
+          
+          1. 概念流程实例（ProcessInstance）代表流程定义的执行实例。例如：用户或程序按照流程定义内容发起一个流程，这就是一个流程实例。 流程定义和流程实例的图解：  2. 启动流程实例 并添加Businesskey Businesskey：业务标识，通常为业务表的主键，业务标识和流程实例一一对应。业务标识来源于业务系统。存储业务标识就是根据业务标识来关联查询业务系统的数据。 启动流程实例时
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-09 11:17" pubdate>
+              2023-02-09
+            </time>
           </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" target="_self">
+          SSH免密登录
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/SSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" target="_self">
+        <div>
+          
+          1. 客户端生成公私钥 执行ssh-keygen在用户目录.ssh文件夹下创建公私钥:  id_rsa （私钥）  id_rsa.pub (公钥)     2. 上传公钥到服务器 进入服务端.ssh目录下 cd ~&#x2F;.ssh  将客户端生成的id_rsa.pub 复制到 authorized_keys 里 vim authorized_keys   3. 测试免密登录ssh root@localh
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-06 15:47" pubdate>
+              2023-02-06
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Activiti%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%BB%8B%E7%BB%8D/" target="_self">
+          Activiti——数据表介绍
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Activiti%E6%95%B0%E6%8D%AE%E8%A1%A8%E4%BB%8B%E7%BB%8D/" target="_self">
+        <div>
+          
+          Activiti 的表都以   ACT_   开头。 第二部分是表示表的用途的两个字母标识。 用途也和服务的 API 对应  表的命名规则和作用 ACT_RE ：’RE’表示 repository。 这个前缀的表包含了流程定义和流程静态资源 （图片，规则，等等）。 ACT_RU：’RU’表示 runtime。 这些运行时的表，包含流程实例，任务，变量，异步任务，等运行中的数据。 Activiti
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-02 21:55" pubdate>
+              2023-02-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/activiti%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" target="_self">
+          Activiti——基本操作
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/activiti%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" target="_self">
+        <div>
+          
+          1 流程定义 使用activiti流程建模工具(activity-designer)定义业务流程(.bpmn文件) 。  .bpmn文件就是业务流程定义文件，通过xml定义业务流程。  使用idea插件设置流程图， 设置流程中需要的节点，节点负责人。具体步骤参考：    2 流程定义部署 activiti部署业务流程定义（.bpmn文件）。即：将流程图的内容存储到数据库  123456789101
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-28 23:21" pubdate>
+              2023-01-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Activiti-BPMN-visualizer-%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_self">
+          Activiti BPMN visualizer 的安装和使用
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Activiti-BPMN-visualizer-%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" target="_self">
+        <div>
+          
+          1 安装插件里搜索Activiti BPMN visualizer安装  2 画一个流程图1. 右键生成一个bpmn20.xml文件 2. 在文件的任意位置点击右键：view bpmn(Activiti)Diagram 3. 打开可视化编辑器， 右键start events –&gt;start event画一个开始事件。    用户任务   添加结束   连线   查看更新后的xml文件
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-28 16:33" pubdate>
+              2023-01-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Activiti/" class="category-chain-item">Activiti</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/jenkins%E9%9B%86%E6%88%90%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83%E6%9E%84%E5%BB%BA/" target="_self">
+          jenkins集成部署环境构建
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/jenkins%E9%9B%86%E6%88%90%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83%E6%9E%84%E5%BB%BA/" target="_self">
+        <div>
+          
+          更新机制是指项目如何进行更新，主要有两种方式：一种是自动推送，另外一种是手动拉取。前者用于开发环境、后者可以用于所有环境 1. 手动拉取拉取更新流程：    sudo -i 输入密码，进入root目录 上述流程由 deploy.sh 脚本实现：  123456789101112#!&#x2F;bin&#x2F;bash -ecd &quot;&#96;dirname $0&#96;&quot;. .&#x2F;pom.sh#1. downlo
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-26 12:52" pubdate>
+              2023-01-26
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0tomcat/" target="_self">
+          项目部署到tomcat的三种方式
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0tomcat/" target="_self">
+        <div>
+          
+          1.项目直接放入 webapps 目录中 把项目打包，放入webapps目录下    依次运行tomcat 的bin目录下shutdown.sh,startup.sh   在浏览器输入：http:&#x2F;&#x2F;localhost:8080&#x2F;项目名，就可以进入到项目的index页面      2 修改 conf&#x2F;server.xml 文件进入tomcat下conf&#x2F;server.xml，在
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-24 20:00" pubdate>
+              2023-01-24
+            </time>
+          </div>
+        
+        
         
       </div>
     </article>

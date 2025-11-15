@@ -207,6 +207,492 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/LangChain4j%E4%B9%8BTools/" target="_self">
+          LangChain4j之Tools
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BTools/" target="_self">
+        <div>
+          
+          1. Tools是什么？大模型Tools（工具）可以通过结构化接口将模型能力与现实世界操作连接。例如：  天气查询工具：封装天气API，接收城市参数后返回实时数据； 数据库操作工具：将SQL查询转化为自然语言交互接口； 代码执行工具：调用编译器或解释器完成代码调试。   目前大模型的不足：大模型在解决问题时，是基于互联网上很多历史资料进行预测的，而且答案具有一定的随机性，那如果我问”今天是几月几号
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-23 22:11" pubdate>
+              2025-07-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/LangChain4j%E4%B9%8BEmbedding/" target="_self">
+          LangChain4j之Embedding
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BEmbedding/" target="_self">
+        <div>
+          
+          1. 什么是向量一个二维向量可以理解为平面坐标轴中的一个坐标点(x，y)，在编程领域，一个二维向量就是一个大小为二的float类型的数组。 2. 文本向量化文本向量化是指，利用大模型可以把一个字、一个词或一段话映射为一个多维向量。这样，我们可以基于向量来判断两句话之间的相似度。 我们可以直接在LangChain4j中来调用向量模型来对一句话进行向量化体验。 12345678910111213141
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-23 19:34" pubdate>
+              2025-07-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/LangChain4j%E4%B9%8BChatMemory/" target="_self">
+          LangChain4j之ChatMemory
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BChatMemory/" target="_self">
+        <div>
+          
+          1. ChatMemory是什么？ChatMemory是LangChain4j提供的用来存储历史对话的组件，并且还支持窗口限制、淘汰机制、持久化机制等等扩展功能。 2. 使用1. 基本使用123456789101112131415161718192021222324252627282930313233343536import dev.langchain4j.memory.ChatMemory;im
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-21 21:57" pubdate>
+              2025-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/LangChain4j%E4%B9%8BAiService/" target="_self">
+          LangChain4j之AiService
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/LangChain4j%E4%B9%8BAiService/" target="_self">
+        <div>
+          
+          1. AiService是什么？LangChain4j 的 AiService 是一个非常方便的工具，它允许开发者通过定义接口和使用注解的方式快速创建基于语言模型的服务。这个机制极大地简化了与语言模型（如 Qwen、ChatGPT 等）交互的过程，使得开发者可以更专注于业务逻辑而非底层通信细节。 主要概念 接口定义：你首先需要定义一个接口，其中的方法代表了你希望语言模型执行的任务。 注解：在方法上
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-20 16:35" pubdate>
+              2025-07-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/LangChain4j%E5%85%A5%E9%97%A8/" target="_self">
+          LangChain4j入门
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/LangChain4j%E5%85%A5%E9%97%A8/" target="_self">
+        <div>
+          
+          1. 什么是LangChain4j它是Java版本的LangChain，提供了一个开发框架，使得开发者可以很容易的用来构建具有LLM能力的应用程序。如何将大模型能力和Java编程语言相结合，这就是LangChain4j所做的。  LLM就是Large Language Model，也就是常说的大语言模型，简称大模型。  2. langchain4j集成OpenAi（Java）1. 引入依赖1234
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-20 15:19" pubdate>
+              2025-07-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LangChain4j/" class="category-chain-item">LangChain4j</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Vue3%E8%B7%A8%E5%B1%82%E7%BA%A7%E9%80%9A%E4%BF%A1%E6%8A%80%E5%B7%A7/" target="_self">
+          Vue3跨层级通信技巧
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Vue3%E8%B7%A8%E5%B1%82%E7%BA%A7%E9%80%9A%E4%BF%A1%E6%8A%80%E5%B7%A7/" target="_self">
+        <div>
+          
+          1. Provide 和 Inject provide和inject允许祖先组件向任意深度的后代组件提供数据，而不需要经过中间组件 props逐层传递。 祖先组件使用provide来提供数据，后代组件使用inject来接收这些数据。这种方式非常适合用于主题、用户偏好设置等全局或半全局的数据共享。  123456789&lt;script setup lang&#x3D;&quot;ts&quot;&gt;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-19 15:58" pubdate>
+              2025-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/mybatis-plus%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/" target="_self">
+          mybatis-plus字段自动填充
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/mybatis-plus%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/" target="_self">
+        <div>
+          
+          1. 主键ID生成1.1. 在主键上加注解12345@Datapublic class User &amp;#123;    @TableId(type &#x3D; IdType.ID_WORKER)    private Long id;&amp;#125;  1.2. 全局配置默认ID生成策略1234mybatis-plus:  global-config:    db-config:      id-type: a
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-19 15:55" pubdate>
+              2025-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/hutool%E5%A5%BD%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" target="_self">
+          hutool好用的方法
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/hutool%E5%A5%BD%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" target="_self">
+        <div>
+          
+          1. 动态获取bean对象1private static final ChatSessionManager chatSessionManager &#x3D; SpringUtils.getBean(ChatSessionManager.class);  2. 生成UUID1String uuid &#x3D; IdUtil.simpleUUID();  3. 常量12345678910111213141516171
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-17 19:05" pubdate>
+              2025-07-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Lombok%E4%B9%8B-RequiredArgsConstructor/" target="_self">
+          Lombok之@RequiredArgsConstructor
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/Lombok%E4%B9%8B-RequiredArgsConstructor/" target="_self">
+        <div>
+          
+          1. @RequiredArgsConstructor是什么?@RequiredArgsConstructor 是 Lombok 提供的一个注解，用于自动生成构造函数。这个构造函数只包含那些被声明为 final 或者标注了 @NonNull 的字段，从而确保这些字段在对象创建时必须被初始化，以避免潜在的空指针异常等问题。 2. 通过@RequiredArgsConstructor简化Bean注入通
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-17 19:03" pubdate>
+              2025-07-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/Java%E5%9F%BA%E4%BA%8ESSE%E6%B5%81%E5%BC%8F%E8%BF%94%E5%9B%9E/" target="_self">
           Java基于SSE流式返回
         </a>
@@ -240,450 +726,6 @@
       <span class="category-chain">
         
   <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/gitignore%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0/" target="_self">
-          gitignore文件添加
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/gitignore%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0/" target="_self">
-        <div>
-          
-          1. 删除缓存1git rm -r --cached .idea&#x2F;  2. gitignore 文件示例12345678910111213141516171819202122232425262728293031323334353637# 编译产生的文件&#x2F;target&#x2F;&#x2F;bin&#x2F;# IntelliJ IDEA IDE 配置文件（如果使用）&#x2F;.idea&#x2F;&#x2F;*.iml# Eclipse IDE 配译文件
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 11:17" pubdate>
-              2025-07-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/oracle%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" target="_self">
-          oracle数据迁移
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/oracle%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" target="_self">
-        <div>
-          
-          1. oracle数据库迁移1. 导出dmp文件1expdp mycim3_qj_new&#x2F;mycim3_qj_new@&#x2F;&#x2F;10.108.140.102:1521&#x2F;ORCL schemas&#x3D;MYCIM3_QJ_NEW directory&#x3D;DATA_PUMP_DIR dumpfile&#x3D;export.dmp logfile&#x3D;export.log  注：导出结束以后会显示这个文件在哪个路径下面，注意看最后
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 11:10" pubdate>
-              2025-07-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Kubernetes%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" target="_self">
-          Kubernetes部署微服务应用
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Kubernetes%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" target="_self">
-        <div>
-          
-          1.  K8s部署Java项目的步骤1. 构建镜像1. 增加Dockerfile12345678910111213# 使用官方的 OpenJDK 镜像作为基础镜像FROM docker.xuanyuan.me&#x2F;openjdk:8-jdk-alpine# 设置工作目录WORKDIR &#x2F;app# 复制本地的 JAR 包到容器中COPY .&#x2F;build&#x2F;libs&#x2F;micro-weather-weathe
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-05 16:06" pubdate>
-              2025-07-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Kubernetes/" class="category-chain-item">Kubernetes</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Kubernetes%E9%83%A8%E7%BD%B2Nginx/" target="_self">
-          Kubernetes部署Nginx
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Kubernetes%E9%83%A8%E7%BD%B2Nginx/" target="_self">
-        <div>
-          
-          1. K8S部署Nginx在k8s-master机器上执行 1. 创建一次deployment部署1kubectl create deployment nginx ‐‐image&#x3D;nginx    2. 创建 Service使用 kubectl expose 来为之前创建的名为 nginx 的 Deployment 创建一个 Service 1kubectl expose deployment n
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-01 22:00" pubdate>
-              2025-07-01
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Kubernetes%E5%BF%AB%E9%80%9F%E5%AE%9E%E6%88%98%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" target="_self">
-          Kubernetes核心原理
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/Kubernetes%E5%BF%AB%E9%80%9F%E5%AE%9E%E6%88%98%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" target="_self">
-        <div>
-          
-          1.  K8s简介Kubernetes（通常简称为K8s）是一个开源的容器编排的工具，用于自动化部署、扩展和管理容器化应用。它提供了一组丰富的功能和工具，用于简化容器化应用程序的部署、伸缩和运维。 为什么出现k8s? 这要容器技术兴起开始说，为了解决“一次打包，到处运行”的问题，大家引入了docker,  随着项目越来越大，一个微服务应用可能由几十个甚至上百个容器组成，这时候就出现了新的问题。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-29 16:51" pubdate>
-              2025-06-29
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/PPT%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" target="_self">
-          PPT设计思维
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/PPT%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" target="_self">
-        <div>
-          
-          1.  丢掉默认1. 留白 面对默认的版面和模版，注意检查留白，通常都会发现留白太少  留白要适当，不是越大越好，但通常是大留白比较好驾驭，尤其内容不多的时候  不要在一页幻灯片堆砌很多的内容，不要让幻灯片看起来很满，满就是挤，眼睛里要注意的内容太多，视觉就容易紧张  甚至，一页幻灯片越少越容易设计，越空越容易排版    2. 行距 当你插入了或者面对一段默认的文本框&#x2F;文字，注意观察行距
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-24 20:44" pubdate>
-              2025-06-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/PPT%E9%AB%98%E6%89%8B%E4%B9%8B%E8%B7%AF/" class="category-chain-item">PPT高手之路</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/PPT%E6%96%87%E5%AD%97%E5%A4%AA%E5%B0%91%E7%BE%8E%E5%8C%96/" target="_self">
-          PPT文字太少美化
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/PPT%E6%96%87%E5%AD%97%E5%A4%AA%E5%B0%91%E7%BE%8E%E5%8C%96/" target="_self">
-        <div>
-          
-          1. 根据演讲删减内容只保留关键的内容进行排版，不重要的内容通过演讲者口述  改造前：     改造后    2. 无中生有1. 提炼关键的中文进行强调 改造前     改造后   2. 增加对应内容丰富页面 改造前    改造后   3. 增加英文文案 改造前     改造后   3. 提高“图版率”1. 增加图片2. 增加色块 3. 增加线段改造完成后，线段会撑开整体内容所占面积  改造前
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-22 16:55" pubdate>
-              2025-06-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/PPT%E9%AB%98%E6%89%8B%E4%B9%8B%E8%B7%AF/" class="category-chain-item">PPT高手之路</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/PPT%E9%85%8D%E8%89%B2%E7%9A%84%E6%96%B9%E6%B3%95/" target="_self">
-          PPT配色的方法
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/PPT%E9%85%8D%E8%89%B2%E7%9A%84%E6%96%B9%E6%B3%95/" target="_self">
-        <div>
-          
-          1. 四大配色方案1. 单色系 定义：任选一个彩色与黑白灰进行搭配     使用：彩色一定是放在重要的位置上 具体场景   单纯罗列     强调某一个    2. 同色系 定义：在同色系中任选3-4个，与黑白灰进行搭配   3. 邻近色 定义：邻近色与黑白灰进行搭配，做渐变会比较自然      4. 对比色 定义：对比色与黑白灰进行搭配，对比色用来强调某一个内容       使用    2.
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-20 20:18" pubdate>
-              2025-06-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/PPT%E9%AB%98%E6%89%8B%E4%B9%8B%E8%B7%AF/" class="category-chain-item">PPT高手之路</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/PPT%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" target="_self">
-          PPT常见操作
-        </a>
-      </h1>
-
-      <a class="index-excerpt" href="/PPT%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" target="_self">
-        <div>
-          
-          1. 统一更改PPT字体设计 -》 字体  2. 文字在图片里居中形状里直接可以插入文本，更改颜色，不需要在形状里再插入文本框  3. 更改形状
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-19 21:46" pubdate>
-              2025-06-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/PPT%E9%AB%98%E6%89%8B%E4%B9%8B%E8%B7%AF/" class="category-chain-item">PPT高手之路</a>
   
   
 
