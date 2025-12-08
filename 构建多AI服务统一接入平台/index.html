@@ -1,0 +1,847 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="https://tva1.sinaimg.cn/large/008vxvgGly1h7fk2r0tdtj30qo0qoaan.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Panyurou">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 项目背景作为全栈工程师，我需要搭建一个AI对话平台，需要对接AI团队提供的两种SSE接口：  基于LangChain开发的Python项目接口 基于RAGFlow开发的接口  不同接口对应不同的智能体，后端采用Java Spring Boot，前端使用Vue3，实现了流式对话和思考链可视化功能。 2.  系统架构设计 2.1.1. 后端技术栈 Spring Boot 3.x：核心框架，提供R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建多AI服务统一接入平台">
+<meta property="og:url" content="http://example.com/%E6%9E%84%E5%BB%BA%E5%A4%9AAI%E6%9C%8D%E5%8A%A1%E7%BB%9F%E4%B8%80%E6%8E%A5%E5%85%A5%E5%B9%B3%E5%8F%B0/index.html">
+<meta property="og:site_name" content="楼上有只喵">
+<meta property="og:description" content="1. 项目背景作为全栈工程师，我需要搭建一个AI对话平台，需要对接AI团队提供的两种SSE接口：  基于LangChain开发的Python项目接口 基于RAGFlow开发的接口  不同接口对应不同的智能体，后端采用Java Spring Boot，前端使用Vue3，实现了流式对话和思考链可视化功能。 2.  系统架构设计 2.1.1. 后端技术栈 Spring Boot 3.x：核心框架，提供R">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1765161801394-a12a7ce2-fae4-410d-8db5-a48c98887164.png">
+<meta property="article:published_time" content="2025-11-22T10:52:23.000Z">
+<meta property="article:modified_time" content="2025-12-08T11:01:23.382Z">
+<meta property="article:author" content="Panyurou">
+<meta property="article:tag" content="项目架构设计">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/1765161801394-a12a7ce2-fae4-410d-8db5-a48c98887164.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>构建多AI服务统一接入平台 - 楼上有只喵</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"8ec0537ec0d0edefcfc4e16de58bccd7","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 62vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>楼上有只喵</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://panyuro.oss-cn-beijing.aliyuncs.com/pg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="构建多AI服务统一接入平台"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-22 18:52" pubdate>
+          2025年11月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">构建多AI服务统一接入平台</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="1-项目背景"><a href="#1-项目背景" class="headerlink" title="1. 项目背景"></a>1. 项目背景</h1><p>作为全栈工程师，我需要搭建一个AI对话平台，需要对接AI团队提供的两种SSE接口：</p>
+<ul>
+<li>基于LangChain开发的Python项目接口</li>
+<li>基于RAGFlow开发的接口</li>
+</ul>
+<p>不同接口对应不同的智能体，后端采用Java Spring Boot，前端使用Vue3，实现了流式对话和思考链可视化功能。</p>
+<h1 id="2-系统架构设计"><a href="#2-系统架构设计" class="headerlink" title="2.  系统架构设计"></a>2.  系统架构设计</h1><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/1765161801394-a12a7ce2-fae4-410d-8db5-a48c98887164.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="2-1-1-后端技术栈"><a href="#2-1-1-后端技术栈" class="headerlink" title="2.1.1. 后端技术栈"></a>2.1.1. 后端技术栈</h3><ul>
+<li><strong>Spring Boot 3.x</strong>：核心框架，提供RESTful API和依赖注入</li>
+<li><strong>SseEmitter</strong>：推送 SSE 给前端</li>
+<li><strong>OkHttp EventSource</strong>：HTTP客户端，用于调用AI服务</li>
+</ul>
+<h3 id="2-1-2-前端技术栈"><a href="#2-1-2-前端技术栈" class="headerlink" title="2.1.2. 前端技术栈"></a>2.1.2. 前端技术栈</h3><ul>
+<li><strong>Vue 3</strong>：组合式API，响应式编程</li>
+<li><strong>HookFetch :</strong> 封装流式网络请求</li>
+</ul>
+<h3 id="2-1-3-AI服务层"><a href="#2-1-3-AI服务层" class="headerlink" title="2.1.3. AI服务层"></a>2.1.3. AI服务层</h3><ul>
+<li><strong>RAGFlow</strong>：基于检索增强生成的AI服务</li>
+<li><strong>LangChain</strong>：Python项目，提供链式AI能力</li>
+</ul>
+<h1 id="3-后端实现"><a href="#3-后端实现" class="headerlink" title="3. 后端实现"></a>3. 后端实现</h1><p>目标： 接收前端请求 → 调用对应智能体接口（Ragflow or Python） → 消费 SSE → 按统一格式推送给前端  </p>
+<h2 id="3-1-多智能体请求体系设计-基于-Jackson-多态反序列化-TypeIdResolver"><a href="#3-1-多智能体请求体系设计-基于-Jackson-多态反序列化-TypeIdResolver" class="headerlink" title="3.1.  多智能体请求体系设计: 基于 Jackson 多态反序列化 + TypeIdResolver"></a>3.1.  多智能体请求体系设计: 基于 Jackson 多态反序列化 + TypeIdResolver</h2><p>在本项目中，智能体种类不同，但它们都共用同一个后端入口 API：【POST &#x2F;api&#x2F;chat】，因此需要实现不同智能体要能根据同一个请求 JSON，自动映射到不同的 Java 请求类。</p>
+<ul>
+<li>ESG 问答智能体（Python LangChain 智能体）</li>
+<li>行政助手智能体（基于ragflow）</li>
+<li>营销服智能体（基于ragflow）</li>
+<li>…未来可能会更多</li>
+</ul>
+<h3 id="3-1-1-BaseChatRequest：所有智能体的通用请求结构"><a href="#3-1-1-BaseChatRequest：所有智能体的通用请求结构" class="headerlink" title="3.1.1. BaseChatRequest：所有智能体的通用请求结构"></a>3.1.1. BaseChatRequest：所有智能体的通用请求结构</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@EqualsAndHashCode(callSuper = true)</span><br><span class="hljs-meta">@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = &quot;category&quot;, visible = true)</span><br><span class="hljs-meta">@JsonTypeIdResolver(ChatModelResolver.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseChatRequest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CommonChatRequest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IChatRequest</span> </span>&#123;<br><br>    <span class="hljs-meta">@NotEmpty(message = &quot;传入的模型类别不能为空&quot;)</span><br>    <span class="hljs-keyword">private</span> String category;<br><br>    <span class="hljs-keyword">private</span> String role;<br>    <span class="hljs-keyword">private</span> Long userId;<br>    <span class="hljs-keyword">private</span> Boolean stream;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> enableThinking;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> searchEnabled;<br><br>    <span class="hljs-meta">@JsonIgnore</span><br>    <span class="hljs-keyword">private</span> Long chatMessageId;<br><br>    <span class="hljs-meta">@JsonIgnore</span><br>    <span class="hljs-keyword">private</span> Long chatModelId;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getQuestion</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-keyword">return</span> EMPTY; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>category</code> 决定智能体类型</li>
+</ul>
+<p>请求报文中会携带category：这个字段指明使用哪一个智能体。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;category&quot;</span>: <span class="hljs-string">&quot;RAGFLOW_CHAT&quot;</span>,<br>  <span class="hljs-attr">&quot;question&quot;</span>: <span class="hljs-string">&quot;xxx&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="JsonTypeInfo-启用多态反序列化"><a href="#JsonTypeInfo-启用多态反序列化" class="headerlink" title="@JsonTypeInfo 启用多态反序列化"></a><code>@JsonTypeInfo</code> 启用多态反序列化</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = &quot;category&quot;, visible = true)</span><br><span class="hljs-meta">@JsonTypeIdResolver(ChatModelResolver.class)</span><br></code></pre></td></tr></table></figure>
+
+<p>含义：</p>
+<ul>
+<li>使用请求 JSON 中的 <code>&quot;category&quot;</code> 决定最终对象类型</li>
+<li>对象类型由 <strong>自定义解析器 ChatModelResolver</strong> 完成</li>
+<li>可见性为 true 表示 category 字段仍然会保留在最终对象里</li>
+</ul>
+<h3 id="3-1-2-ChatModelResolver：真正决定“category-→-哪个子类”的地方"><a href="#3-1-2-ChatModelResolver：真正决定“category-→-哪个子类”的地方" class="headerlink" title="3.1.2. ChatModelResolver：真正决定“category → 哪个子类”的地方"></a>3.1.2. ChatModelResolver：真正决定“category → 哪个子类”的地方</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChatModelResolver</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TypeIdResolver</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> JavaType baseType;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(JavaType javaType)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.baseType = javaType;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> JavaType <span class="hljs-title">typeFromId</span><span class="hljs-params">(DatabindContext context, String category)</span> </span>&#123;<br>        ChatModelCategory normalizedCategory = ChatModelCategory.normalizeCategory(category);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">switch</span> (normalizedCategory) &#123;<br>            <span class="hljs-keyword">case</span> JASOLAR_CHAT -&gt; context.constructType(ChatRequest.class);<br>            <span class="hljs-keyword">case</span> ESG_FAQS -&gt; context.constructType(ESGChatRequest.class);<br>            <span class="hljs-keyword">case</span> DOCUMENT_TRANSLATION -&gt; context.constructType(DocumentTranslationRequest.class);<br>            <span class="hljs-keyword">case</span> RAGFLOW_CHAT -&gt; context.constructType(RagflowChatRequest.class);<br>        &#125;;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> JsonTypeInfo.<span class="hljs-function">Id <span class="hljs-title">getMechanism</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> JsonTypeInfo.Id.CUSTOM;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>根据 category 自动映射到对应类</strong></p>
+<ul>
+<li><code>JASOLAR_CHAT</code> → ChatRequest</li>
+<li><code>ESG_FAQS</code> → ESGChatRequest</li>
+<li><code>DOCUMENT_TRANSLATION</code> → DocumentTranslationRequest</li>
+<li><code>RAGFLOW_CHAT</code> → RagflowChatRequest</li>
+</ul>
+<h3 id="3-1-3-示例：ESGChatRequest（某个具体智能体的请求类）"><a href="#3-1-3-示例：ESGChatRequest（某个具体智能体的请求类）" class="headerlink" title="3.1.3. 示例：ESGChatRequest（某个具体智能体的请求类）"></a>3.1.3. 示例：ESGChatRequest（某个具体智能体的请求类）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ESGChatRequest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseChatRequest</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String question;<br>    <span class="hljs-keyword">private</span> String processId;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getQuestion</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> question;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-2-多智能体执行体系：ChatServiceFactory-BaseChatServiceImpl-各智能体实现"><a href="#3-2-多智能体执行体系：ChatServiceFactory-BaseChatServiceImpl-各智能体实现" class="headerlink" title="3.2.  多智能体执行体系：ChatServiceFactory + BaseChatServiceImpl + 各智能体实现"></a>3.2.  多智能体执行体系：ChatServiceFactory + BaseChatServiceImpl + 各智能体实现</h2><h3 id="3-2-1-ChatServiceFactory-—-智能体服务查找工厂"><a href="#3-2-1-ChatServiceFactory-—-智能体服务查找工厂" class="headerlink" title="3.2.1. ChatServiceFactory — 智能体服务查找工厂"></a>3.2.1. ChatServiceFactory — 智能体服务查找工厂</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChatServiceFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ApplicationContextAware</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;String, IChatService&lt;BaseChatRequest&gt;&gt; chatServiceMap = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setApplicationContext</span><span class="hljs-params">(ApplicationContext ctx)</span> <span class="hljs-keyword">throws</span> BeansException </span>&#123;<br>        Map&lt;String, IChatService&gt; serviceMap = ctx.getBeansOfType(IChatService.class);<br>        <span class="hljs-keyword">for</span> (IChatService service : serviceMap.values()) &#123;<br>            chatServiceMap.put(service.getCategory(), service);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> IChatService&lt;BaseChatRequest&gt; <span class="hljs-title">getChatService</span><span class="hljs-params">(String category)</span> </span>&#123;<br>        ChatModelCategory normalizedCategory = ChatModelCategory.normalizeCategory(category);<br>        IChatService&lt;BaseChatRequest&gt; service = chatServiceMap.get(normalizedCategory.getCode());<br>        <span class="hljs-keyword">if</span> (service == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;不支持的模型类别: &quot;</span> + category);<br>        <span class="hljs-keyword">return</span> service;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Spring 初始化时自动扫描所有 <code>IChatService</code> 的实现</li>
+<li>存入 map：<code>category → 实现类</code></li>
+<li>Controller 或 SseService 根据 category 自动选中对应 Service</li>
+</ul>
+<h3 id="3-2-2-SseServiceImpl-—-统一的-SSE-分发处理器"><a href="#3-2-2-SseServiceImpl-—-统一的-SSE-分发处理器" class="headerlink" title="3.2.2. SseServiceImpl — 统一的 SSE 分发处理器"></a>3.2.2. SseServiceImpl — 统一的 SSE 分发处理器</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">chat</span><span class="hljs-params">(BaseChatRequest chatRequest, HttpServletRequest request)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>    ChatModelVo chatModelVo = getChatModel(chatRequest);<br>    IChatService&lt;BaseChatRequest&gt; chatService = getChatService(chatRequest, chatModelVo);<br>    chatMessageService.saveByChatRequest(chatRequest, chatModelVo);<br><br>    <span class="hljs-keyword">if</span> (chatRequest.getStream()) &#123;<br>        SseEmitter emitter = <span class="hljs-keyword">new</span> SseEmitter(TimeUnit.MINUTES.toMillis(<span class="hljs-number">5</span>));<br>        <span class="hljs-keyword">return</span> chatService.sseChat(chatRequest, emitter, chatModelVo);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> chatService.chat(chatRequest, chatModelVo);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>根据请求自动找到智能体模型与 service</li>
+<li>根据 stream 字段决定是否走 SSE</li>
+<li>SSE 调用走智能体自己的实现</li>
+<li>普通调用走非流式实现</li>
+</ul>
+<h3 id="3-2-3-BaseChatServiceImpl-—-智能体的模板方法架构"><a href="#3-2-3-BaseChatServiceImpl-—-智能体的模板方法架构" class="headerlink" title="3.2.3. BaseChatServiceImpl — 智能体的模板方法架构"></a>3.2.3. BaseChatServiceImpl — 智能体的模板方法架构</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> SseEmitter <span class="hljs-title">sseChat</span><span class="hljs-params">(T chatRequest, SseEmitter emitter, ChatModelVo chatModelVo)</span> </span>&#123;<br>    beforeChat(chatRequest);<br>    OpenAiStreamClient client = createOpenAiStreamClient(chatRequest);<br><br>    SSEEventSourceListener listener = <span class="hljs-keyword">new</span> SSEEventSourceListener(emitter, chatRequest, chatModelVo);<br>    BaseChatCompletion completion = buildChatCompletion(chatRequest);<br>    Map&lt;String, String&gt; headers = buildRequestHeaders(chatModelVo);<br><br>    client.streamChatCompletion(completion, headers, listener);<br>    <br>    logApiCall(completion);<br>    <span class="hljs-keyword">return</span> emitter;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不同智能体只需要实现 doBuildChatCompletion() &amp; buildRequestHeaders() 即可。</p>
+<h3 id="3-2-4-示例：RagflowChatServiceImpl-—-Ragflow-智能体实现"><a href="#3-2-4-示例：RagflowChatServiceImpl-—-Ragflow-智能体实现" class="headerlink" title="3.2.4. 示例：RagflowChatServiceImpl — Ragflow 智能体实现"></a>3.2.4. 示例：RagflowChatServiceImpl — Ragflow 智能体实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RagflowChatServiceImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseChatServiceImpl</span>&lt;<span class="hljs-title">RagflowChatRequest</span>&gt; </span>&#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String BEARER_PREFIX = <span class="hljs-string">&quot;Bearer &quot;</span>;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> ChatSessionModelMapper chatSessionModelMapper;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getCategory</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-keyword">return</span> ChatModelCategory.RAGFLOW_CHAT.getCode(); &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> BaseChatCompletion <span class="hljs-title">doBuildChatCompletion</span><span class="hljs-params">(RagflowChatRequest ragflowRequest)</span> </span>&#123;<br>        RagflowChatCompletion chatCompletion = RagflowChatCompletion<br>                .builder()<br>                .question(ragflowRequest.getQuestion())<br>                .build();<br>        val chatSessionModelVo = chatSessionModelMapper.selectVoOne(Wrappers.lambdaQuery(ChatSessionModel.class)<br>                .eq(ChatSessionModel::getChatModelId, ragflowRequest.getChatModelId())<br>                .eq(ChatSessionModel::getChatSessionId, ragflowRequest.getSessionId())<br>                .eq(ChatSessionModel::getSessionSource, PlatformProvider.RAGFLOW.getCode())<br>        );<br>        <span class="hljs-keyword">if</span>(chatSessionModelVo != <span class="hljs-keyword">null</span> &amp;&amp; StrUtil.isNotBlank(chatSessionModelVo.getExternalSessionId())) &#123;<br>            chatCompletion.setSessionId(chatSessionModelVo.getExternalSessionId());<br>        &#125;<br>        <span class="hljs-keyword">return</span> chatCompletion;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> Map&lt;String, String&gt; <span class="hljs-title">buildRequestHeaders</span><span class="hljs-params">(ChatModelVo chatModelVo)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> Map.of(HttpHeaders.AUTHORIZATION, BEARER_PREFIX + chatModelVo.getApiKey());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-3-统一-SSE-流处理体系"><a href="#3-3-统一-SSE-流处理体系" class="headerlink" title="3.3. 统一 SSE 流处理体系"></a>3.3. 统一 SSE 流处理体系</h2><h3 id="3-3-1-SSEEventSourceListener：全系统的-SSE-流核心"><a href="#3-3-1-SSEEventSourceListener：全系统的-SSE-流核心" class="headerlink" title="3.3.1.  SSEEventSourceListener：全系统的 SSE 流核心"></a>3.3.1.  SSEEventSourceListener：全系统的 SSE 流核心</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onEvent</span><span class="hljs-params">(EventSource eventSource, String id, String type, String data)</span> </span>&#123;<br>    log.info(<span class="hljs-string">&quot;接收到的 SSE 数据: &quot;</span> + data);<br><br>    <span class="hljs-comment">// 1) 动态选择解析器</span><br>    SSEApiResponseHandler parser = parserFactory.getParser(chatModelVo.getCategory());<br><br>    <span class="hljs-comment">// 2) 解析 SSE 数据</span><br>    ApiResponse&lt;?&gt; response = parser.handle(data);<br>    <span class="hljs-keyword">if</span> (response == <span class="hljs-keyword">null</span> || !response.isOK()) &#123;<br>        handleError(response);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 3) 判断是否结束事件</span><br>    <span class="hljs-keyword">if</span> (ObjectUtil.equals(parser.doneSignal(), response.getData())) &#123;<br>        eventSource.cancel();<br>        emitter.complete();<br>        chatSessionManager.cancelSession(chatRequest.getSessionId().toString());<br>        saveChatMessage(chatMessageId);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 4) 反序列化为统一 IChatResponseData</span><br>    IChatResponseData responseData = response.parseData(parser.getResponseDataClazz());<br>    String content = responseData.getContent();<br>    responseData.setChatMessageId(String.valueOf(chatMessageId));<br><br>    <span class="hljs-comment">// 5) 推送给前端</span><br>    <span class="hljs-keyword">if</span> (StringUtils.isNotEmpty(content) || responseData.hasReference()) &#123;<br>        emitter.send(objectMapper.writeValueAsString(responseData));<br>    &#125;<br><br>    <span class="hljs-comment">// 6) Ragflow 的 externalSessionId 存储</span><br>    updateExternalSessionId(responseData);<br><br>    <span class="hljs-comment">// 7) 统一后处理钩子</span><br>    chatResponsePostProcessorManager.process(chatModelVo.getCategory(), responseData, chatRequest);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-2-SSEApiResponseHandlerFactory：策略工厂"><a href="#3-3-2-SSEApiResponseHandlerFactory：策略工厂" class="headerlink" title="3.3.2.  SSEApiResponseHandlerFactory：策略工厂"></a>3.3.2.  SSEApiResponseHandlerFactory：策略工厂</h3><p>根据 category：</p>
+<ul>
+<li>是 ragflow → 使用 Ragflow 解析器</li>
+<li>否则 → 默认使用 OpenAI 格式解析器</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SSEApiResponseHandlerFactory</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> SSEApiResponseHandler <span class="hljs-title">getParser</span><span class="hljs-params">(String category)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (ChatModelCategory.isRagflowChatModel(category)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> RagflowSSEResponseHandler();<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> OpenAiSSEResponseHandler();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-3-RagflowSSEResponseHandler-amp-OpenAiSSEResponseHandler"><a href="#3-3-3-RagflowSSEResponseHandler-amp-OpenAiSSEResponseHandler" class="headerlink" title="3.3.3. RagflowSSEResponseHandler &amp;  OpenAiSSEResponseHandler"></a>3.3.3. RagflowSSEResponseHandler &amp;  OpenAiSSEResponseHandler</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RagflowSSEResponseHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">SSEApiResponseHandler</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ApiResponse&lt;?&gt; handle(String rawResponse) &#123;<br>        <span class="hljs-keyword">if</span> (rawResponse != <span class="hljs-keyword">null</span> &amp;&amp; (rawResponse.contains(DONE_SIGNAL))) &#123;<br>            <span class="hljs-keyword">return</span> ApiResponse.success(DONE_SIGNAL);<br>        &#125;<br>        ObjectMapper mapper = <span class="hljs-keyword">new</span> ObjectMapper();<br>        JsonNode responseData;<br>        <span class="hljs-keyword">try</span> &#123;<br>            responseData = mapper.readTree(rawResponse);<br>        &#125; <span class="hljs-keyword">catch</span> (JsonProcessingException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ApiResponse.success(responseData);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">doneSignal</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> DONE_SIGNAL;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Class&lt;? extends IChatResponseData&gt; getResponseDataClazz() &#123;<br>        <span class="hljs-keyword">return</span> RagflowChatResponseData.class;<br>    &#125;<br>&#125;<br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OpenAiSSEResponseHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">SSEApiResponseHandler</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ApiResponse&lt;?&gt; handle(String rawResponse) &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            ObjectMapper mapper = <span class="hljs-keyword">new</span> ObjectMapper();<br>            <span class="hljs-keyword">return</span> mapper.readValue(rawResponse, ApiResponse.class);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(e.getMessage(), e);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">doneSignal</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> Boolean.TRUE;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Class&lt;? extends IChatResponseData&gt; getResponseDataClazz() &#123;<br>        <span class="hljs-keyword">return</span> OpenAiChatResponseData.class;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-4-SSE-流统一输出格式：IChatResponseData"><a href="#3-4-SSE-流统一输出格式：IChatResponseData" class="headerlink" title="3.4.  SSE 流统一输出格式：IChatResponseData"></a>3.4.  SSE 流统一输出格式：IChatResponseData</h2><h3 id="3-4-1-统一封装成-IChatResponseData"><a href="#3-4-1-统一封装成-IChatResponseData" class="headerlink" title="3.4.1.  统一封装成 IChatResponseData"></a>3.4.1.  统一封装成 IChatResponseData</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.jasolar.common.chat.entity.chat.response;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IChatResponseData</span> </span>&#123;<br>    <span class="hljs-function">String <span class="hljs-title">getContent</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function">Boolean <span class="hljs-title">hasReference</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-4-2-OpenAiChatResponseData-amp-RagflowChatResponseData"><a href="#3-4-2-OpenAiChatResponseData-amp-RagflowChatResponseData" class="headerlink" title="3.4.2. OpenAiChatResponseData  &amp; RagflowChatResponseData"></a>3.4.2. OpenAiChatResponseData  &amp; RagflowChatResponseData</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@JsonIgnoreProperties(ignoreUnknown = true)</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OpenAiChatResponseData</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IChatResponseData</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String id;<br>    <span class="hljs-keyword">private</span> String answer;<br>    <span class="hljs-meta">@JsonProperty(&quot;this_answer&quot;)</span><br>    <span class="hljs-keyword">private</span> String thisAnswer;<br>    <span class="hljs-keyword">private</span> Map&lt;String, Object&gt; reference; <span class="hljs-comment">// 可能为空对象 &#123;&#125;</span><br>    <span class="hljs-meta">@JsonProperty(&quot;session_id&quot;)</span><br>    <span class="hljs-keyword">private</span> String sessionId;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> status;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getContent</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> thisAnswer;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Boolean <span class="hljs-title">hasReference</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>    &#125;<br>&#125;<br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@JsonIgnoreProperties(ignoreUnknown = true)</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RagflowChatResponseData</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IChatResponseData</span>, <span class="hljs-title">IHasSessionId</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String event;       <span class="hljs-comment">// message 或 message_end</span><br>    <span class="hljs-meta">@JsonProperty(&quot;session_id&quot;)</span><br>    <span class="hljs-keyword">private</span> String sessionId;<br>    <span class="hljs-keyword">private</span> ResponseData data;  <span class="hljs-comment">// 消息体</span><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getContent</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> data.getContent();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Boolean <span class="hljs-title">hasReference</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> ObjectUtil.isNotEmpty(data.getReference());<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getExternalSessionId</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> sessionId;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getSessionSource</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> PlatformProvider.RAGFLOW.getCode();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="4-前端实现"><a href="#4-前端实现" class="headerlink" title="4. 前端实现"></a>4. 前端实现</h1><p>目标： 统一消费流式输出  </p>
+<h2 id="4-1-startSSE：前端-SSE-流的入口"><a href="#4-1-startSSE：前端-SSE-流的入口" class="headerlink" title="4.1.  startSSE：前端 SSE 流的入口"></a>4.1.  startSSE：前端 SSE 流的入口</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs tsx">const &#123; stream, loading: isLoading, cancel &#125; = useHookFetch(&#123;<br>  request: send,<br>  onError: (err) =&gt; &#123;<br>    console.warn(&#x27;错误拦截&#x27;, err);<br>  &#125;,<br>&#125;);<br>async function startSSE(submitResult) &#123;<br>  const &#123; isValid, handler, chatContent &#125; = validateChat(submitResult);<br>  if (!isValid || !handler) return;<br><br>  senderRef.value?.clear();<br>  addMessage(chatContent, true);     // 用户消息<br>  addMessage(&#x27;&#x27;, false);             // AI 空气泡<br><br>  const streamParams = handler.buildParams(chatContent, submitResult, route);<br><br>  if (streamParams.stream) &#123;<br>    for await (const chunk of stream(streamParams)) &#123;<br>      handleDataChunk(chunk.result);<br>    &#125;<br>  &#125; else &#123;<br>    const rs = await send(streamParams);<br>    handleDataChunk(JSON.parse(rs));<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-2-categoryHandlers：前端策略模式"><a href="#4-2-categoryHandlers：前端策略模式" class="headerlink" title="4.2.  categoryHandlers：前端策略模式"></a>4.2.  categoryHandlers：前端策略模式</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CategoryHandler &#123;<br>  validate?: <span class="hljs-function">(<span class="hljs-params">chatContent: <span class="hljs-built_in">string</span>, submitResult: SubmitResult</span>) =&gt;</span> <span class="hljs-built_in">boolean</span>;<br>  buildParams: <span class="hljs-function">(<span class="hljs-params">chatContent: <span class="hljs-built_in">string</span>, submitResult: SubmitResult, route: ReturnType&lt;<span class="hljs-keyword">typeof</span> useRoute&gt;</span>) =&gt;</span> SendDTO;<br>  afterSend?: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;<br>&#125;<br><br> <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> categoryHandlers: Record&lt;<span class="hljs-built_in">string</span>, CategoryHandler&gt; = &#123;<br>   [ChatModelCategoryConstants.ESG_FAQS]: &#123;<br>    <span class="hljs-function"><span class="hljs-title">validate</span>(<span class="hljs-params">chatContent, submitResult</span>)</span> &#123;<br>      <span class="hljs-keyword">const</span> processId = submitResult.inputTags.processId[<span class="hljs-number">0</span>];<br>      <span class="hljs-keyword">if</span> (!isString(processId)) &#123;<br>        ElMessage.error(<span class="hljs-string">`输入内容有误，流程编号不能为空`</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>      &#125;<br>      <span class="hljs-keyword">const</span> match = chatContent.match(<span class="hljs-regexp">/问题：(.*)$/</span>);<br>      <span class="hljs-keyword">if</span> (!match || !match[<span class="hljs-number">1</span>].trim()) &#123;<br>        ElMessage.error(<span class="hljs-string">`输入内容有误，问题不能为空`</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>      &#125;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-title">buildParams</span>(<span class="hljs-params">chatContent, submitResult, route</span>)</span> &#123;<br>      <span class="hljs-keyword">const</span> baseParams = getBaseParams(route);<br>      <span class="hljs-keyword">return</span> &#123;<br>        ...baseParams,<br>        <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">processId</span>: submitResult.inputTags.processId[<span class="hljs-number">0</span>],<br>        <span class="hljs-attr">question</span>: chatContent,<br>      &#125;;<br>    &#125;,<br>    <span class="hljs-attr">afterSend</span>: <span class="hljs-literal">undefined</span>, <span class="hljs-comment">// 依赖UI层的senderRef, 先留空，UI中再注入</span><br>  &#125;,<br>    [ChatModelCategoryConstants.RAGFLOW_CHAT]: &#123;<br>    <span class="hljs-function"><span class="hljs-title">buildParams</span>(<span class="hljs-params">chatContent, _, route</span>)</span> &#123;<br>      <span class="hljs-keyword">const</span> baseParams = getBaseParams(route);<br>      <span class="hljs-keyword">const</span> request: ChatRequest = &#123;<br>        ...baseParams,<br>        <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">question</span>: chatContent,<br>      &#125;;<br>      <span class="hljs-keyword">return</span> request;<br>    &#125;,<br>  &#125;<br> &#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-3-handleDataChunk-统一解析不同模型流"><a href="#4-3-handleDataChunk-统一解析不同模型流" class="headerlink" title="4.3.  handleDataChunk :  统一解析不同模型流"></a>4.3.  handleDataChunk :  统一解析不同模型流</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleDataChunk</span>(<span class="hljs-params">chunk: AnyObject</span>) </span>&#123;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> reasoningChunk = chunk.choices?.[<span class="hljs-number">0</span>].delta.reasoning_content;<br>    <span class="hljs-keyword">if</span> (reasoningChunk) &#123;<br>      <span class="hljs-comment">// 开始思考链状态</span><br>      bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].thinkingStatus = <span class="hljs-string">&#x27;thinking&#x27;</span>;<br>      bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].loading = <span class="hljs-literal">true</span>;<br>      bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].thinlCollapse = <span class="hljs-literal">true</span>;<br>      <span class="hljs-keyword">if</span> (bubbleItems.value.length) &#123;<br>        bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].reasoning_content += reasoningChunk;<br>      &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 另一种思考中形式，content中有 &lt;think&gt;&lt;/think&gt; 的格式</span><br>    <span class="hljs-comment">// 一开始匹配到 &lt;think&gt; 开始，匹配到 &lt;/think&gt; 结束，并处理标签中的内容为思考内容</span><br>    <span class="hljs-keyword">const</span> parsedChunk = chunk.choices?.[<span class="hljs-number">0</span>].delta.content || chunk.data?.content;<br>    <span class="hljs-keyword">if</span> (parsedChunk) &#123;<br>      <span class="hljs-keyword">const</span> thinkStart = parsedChunk.includes(<span class="hljs-string">&#x27;&lt;think&gt;&#x27;</span>);<br>      <span class="hljs-keyword">const</span> thinkEnd = parsedChunk.includes(<span class="hljs-string">&#x27;&lt;/think&gt;&#x27;</span>);<br>      <span class="hljs-keyword">if</span> (thinkStart) &#123;<br>        isThinking = <span class="hljs-literal">true</span>;<br>      &#125;<br>      <span class="hljs-keyword">if</span> (thinkEnd) &#123;<br>        isThinking = <span class="hljs-literal">false</span>;<br>      &#125;<br>      <span class="hljs-keyword">if</span> (isThinking) &#123;<br>        <span class="hljs-comment">// 开始思考链状态</span><br>        bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].thinkingStatus = <span class="hljs-string">&#x27;thinking&#x27;</span>;<br>        bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].loading = <span class="hljs-literal">true</span>;<br>        bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].thinlCollapse = <span class="hljs-literal">true</span>;<br>        <span class="hljs-keyword">if</span> (bubbleItems.value.length) &#123;<br>          bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].reasoning_content += parsedChunk<br>            .replace(<span class="hljs-string">&#x27;&lt;think&gt;&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>            .replace(<span class="hljs-string">&#x27;&lt;/think&gt;&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>);<br>        &#125;<br>      &#125;<br>      <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// 结束 思考链状态</span><br>        bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].thinkingStatus = <span class="hljs-string">&#x27;end&#x27;</span>;<br>        bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].loading = <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">if</span> (bubbleItems.value.length) &#123;<br>          bubbleItems.value[bubbleItems.value.length - <span class="hljs-number">1</span>].content += parsedChunk;<br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">catch</span> (err) &#123;<br>    <span class="hljs-comment">// 这里如果使用了中断，会有报错，可以忽略不管</span><br>    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;解析数据时出错:&#x27;</span>, err);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" class="category-chain-item">AI应用开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">#项目架构设计</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>构建多AI服务统一接入平台</div>
+      <div>http://example.com/构建多AI服务统一接入平台/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Panyurou</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月22日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Ragflow%E5%9F%BA%E7%A1%80%E7%95%8C%E9%9D%A2%E6%93%8D%E4%BD%9C/" title="Ragflow基础界面操作">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Ragflow基础界面操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/mySQL%E4%B9%8Bexplain%E5%91%BD%E4%BB%A4%E5%AE%9E%E6%88%98/" title="mySQL之explain命令实战">
+                        <span class="hidden-mobile">mySQL之explain命令实战</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"qd1LewMysRdi4JAFsksjyM6W-gzGzoHsz","appKey":"4LxNS5VqutWhHwKm1Toa4JBr","path":"window.location.pathname","placeholder":"说点什么吧...","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?8ec0537ec0d0edefcfc4e16de58bccd7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":220,"height":320},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
