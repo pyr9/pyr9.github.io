@@ -16,30 +16,23 @@
   <meta name="author" content="Panyurou">
   <meta name="keywords" content="">
   
-    <meta name="description" content="官网下载：https:&#x2F;&#x2F;www.trae.cn&#x2F; 1. 代码生成1. 配置规则 使用openCode或者其他工具，扫描项目生成项目规则，如下：  会生成类似文件：xxx-project-skill.md, 会包括：技术栈、代码风格、格式化规范、Vue组件规范、命名约定 等  配置生成的md文件到trae，后续生成的代码就会默认遵守这些规则，比如：使用的组件就会是当前项目使用的elmentUi">
+    <meta name="description" content="1. 介绍下Langchain1. 一句话定义LangChain 是一个面向大语言模型（LLM）的应用开发框架，用来把 LLM 和各种外部数据源、工具、流程串起来，快速构建复杂的 AI 应用，而不仅是“调一次 API 问个问题”。  2. 解决的核心痛点直接用 LLM API 会遇到这些问题：  上下文有限：大模型记不住多轮对话、长文档内容。 缺乏实时信息：不懂最新数据、私有数据。 只会“聊天”，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Trae solo模式使用">
-<meta property="og:url" content="http://example.com/Trae%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="LangChain4j概念整理">
+<meta property="og:url" content="http://example.com/LangChain4j%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86/index.html">
 <meta property="og:site_name" content="楼上有只喵">
-<meta property="og:description" content="官网下载：https:&#x2F;&#x2F;www.trae.cn&#x2F; 1. 代码生成1. 配置规则 使用openCode或者其他工具，扫描项目生成项目规则，如下：  会生成类似文件：xxx-project-skill.md, 会包括：技术栈、代码风格、格式化规范、Vue组件规范、命名约定 等  配置生成的md文件到trae，后续生成的代码就会默认遵守这些规则，比如：使用的组件就会是当前项目使用的elmentUi">
+<meta property="og:description" content="1. 介绍下Langchain1. 一句话定义LangChain 是一个面向大语言模型（LLM）的应用开发框架，用来把 LLM 和各种外部数据源、工具、流程串起来，快速构建复杂的 AI 应用，而不仅是“调一次 API 问个问题”。  2. 解决的核心痛点直接用 LLM API 会遇到这些问题：  上下文有限：大模型记不住多轮对话、长文档内容。 缺乏实时信息：不懂最新数据、私有数据。 只会“聊天”，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227095855057.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227100434966.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227102218167.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227100700916.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227100918605.png">
-<meta property="og:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227101352280.png">
-<meta property="article:published_time" content="2026-02-27T11:49:37.000Z">
-<meta property="article:modified_time" content="2026-03-01T12:20:19.664Z">
+<meta property="article:published_time" content="2026-03-03T08:52:35.000Z">
+<meta property="article:modified_time" content="2026-03-03T11:48:23.254Z">
 <meta property="article:author" content="Panyurou">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227095855057.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Trae solo模式使用 - 楼上有只喵</title>
+  <title>LangChain4j概念整理 - 楼上有只喵</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -190,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Trae solo模式使用"></span>
+            <span id="subtitle" data-typed-text="LangChain4j概念整理"></span>
           
         </div>
 
@@ -201,8 +194,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-02-27 19:49" pubdate>
-          2026年2月27日 晚上
+        <time datetime="2026-03-03 16:52" pubdate>
+          2026年3月3日 下午
         </time>
       </span>
     
@@ -214,7 +207,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          245 字
+          1.1k 字
         
       </span>
     
@@ -226,7 +219,7 @@
         
         
           <!-- compatible with older versions-->
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -274,33 +267,66 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Trae solo模式使用</h1>
+            <h1 style="display: none">LangChain4j概念整理</h1>
             
             <div class="markdown-body">
               
-              <p><strong>官网下载</strong>：<a target="_blank" rel="noopener" href="https://www.trae.cn/">https://www.trae.cn/</a></p>
-<h1 id="1-代码生成"><a href="#1-代码生成" class="headerlink" title="1. 代码生成"></a>1. 代码生成</h1><h2 id="1-配置规则"><a href="#1-配置规则" class="headerlink" title="1. 配置规则"></a>1. 配置规则</h2><ol>
-<li><p>使用openCode或者其他工具，扫描项目生成项目规则，如下：</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227095855057.png" srcset="/img/loading.gif" lazyload alt="image-20260227095855057"></p>
-<p>会生成类似文件：xxx-project-skill.md, 会包括：技术栈、代码风格、格式化规范、Vue组件规范、命名约定 等</p>
+              <h1 id="1-介绍下Langchain"><a href="#1-介绍下Langchain" class="headerlink" title="1. 介绍下Langchain"></a>1. 介绍下Langchain</h1><h2 id="1-一句话定义"><a href="#1-一句话定义" class="headerlink" title="1. 一句话定义"></a>1. 一句话定义</h2><p>LangChain 是一个<strong>面向大语言模型（LLM）的应用开发框架</strong>，用来把 LLM 和各种外部数据源、工具、流程串起来，快速构建复杂的 AI 应用，而不仅是“调一次 API 问个问题”。</p>
+<hr>
+<h2 id="2-解决的核心痛点"><a href="#2-解决的核心痛点" class="headerlink" title="2. 解决的核心痛点"></a>2. 解决的核心痛点</h2><p>直接用 LLM API 会遇到这些问题：</p>
+<ul>
+<li><strong>上下文有限</strong>：大模型记不住多轮对话、长文档内容。</li>
+<li><strong>缺乏实时信息</strong>：不懂最新数据、私有数据。</li>
+<li><strong>只会“聊天”，不会“做事”</strong>：不能查数据库、调接口、算结果。</li>
+<li><strong>多步任务难编排</strong>：需要多轮推理、多工具协作时，自己写控制流很麻烦。</li>
+</ul>
+<p>LangChain 就是把这些“胶水逻辑”封装成易用的模块，让开发者专注业务，而不是底层拼装。</p>
+<hr>
+<h2 id="3-几个核心概念（面试高频）"><a href="#3-几个核心概念（面试高频）" class="headerlink" title="3. 几个核心概念（面试高频）"></a>3. 几个核心概念（面试高频）</h2><p>你可以挑 3～4 个重点讲：</p>
+<ol>
+<li><p><strong>Models（模型）</strong></p>
+<p>抽象了对 LLM 的调用，不只 OpenAI，还支持本地模型、Azure OpenAI、Anthropic 等。</p>
+<p>你只需要换配置，不用改业务逻辑。</p>
 </li>
-<li><p>配置生成的md文件到trae，后续生成的代码就会默认遵守这些规则，比如：使用的组件就会是当前项目使用的elmentUi</p>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227100434966.png" srcset="/img/loading.gif" lazyload alt="image-20260227100434966"></p>
+<li><p><strong>PromptTemplate（提示词模板）</strong></p>
+<p>把提示词做成模板，动态填充变量，方便复用、统一管理提示词版本。</p>
+</li>
+<li><p><strong>Chains（链）</strong></p>
+<p>把多个步骤串联成一个流程，比如：</p>
+<p>“检索文档 → 组装 Prompt → 调用 LLM → 解析结果”。</p>
+<p>常见链：<code>LLMChain</code>、<code>SequentialChain</code>、<code>RouterChain</code>。</p>
+</li>
+<li><p><strong>Retrievers &#x2F; Vector Stores（检索器 &#x2F; 向量数据库）</strong></p>
+<p>用于 RAG（检索增强生成）：先把文档向量化存入 Milvus、Pinecone、FAISS 等，再根据用户问题检索相关内容，和问题一起送给 LLM，提升准确率。</p>
+</li>
+<li><p><strong>Tools &amp; Agents（工具与代理）</strong></p>
+<ul>
+<li>Tools：封装外部能力，如查天气、查数据库、调用内部接口。</li>
+<li>Agents：让 LLM 自己“决定”什么时候用什么工具，比如 ReAct Agent：思考 → 选工具 → 执行 → 再思考。</li>
+</ul>
 </li>
 </ol>
-<h2 id="2-选择文件，输入问题"><a href="#2-选择文件，输入问题" class="headerlink" title="2. 选择文件，输入问题"></a>2. 选择文件，输入问题</h2><p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227102218167.png" srcset="/img/loading.gif" lazyload alt="image-20260227102218167"></p>
-<h1 id="2-前端实时预览"><a href="#2-前端实时预览" class="headerlink" title="2. 前端实时预览"></a>2. 前端实时预览</h1><ol>
-<li>新增浏览器</li>
+<blockquote>
+<p>比如做一个“文档问答机器人”：</p>
+<ol>
+<li><p>用 LangChain 的 <code>TextLoader</code>加载文档，<code>RecursiveCharacterTextSplitter</code>切分成块；</p>
+</li>
+<li><p>用 <code>OpenAIEmbeddings</code>转成向量，存到 <code>FAISS</code>；</p>
+</li>
+<li><p>用户提问时，用 <code>Retriever</code>查出相关片段；</p>
+</li>
+<li><p>用 <code>PromptTemplate</code>组装成“上下文 + 问题”；</p>
+</li>
+<li><p>交给 LLM 生成答案并返回。</p>
+<p>整个过程在 LangChain 里就是用几条链式调用就能搭出来。</p>
+</li>
 </ol>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227100700916.png" srcset="/img/loading.gif" lazyload alt="image-20260227100700916"></p>
-<ol start="2">
-<li>输入项目地址，可以直接访问</li>
-</ol>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227100918605.png" srcset="/img/loading.gif" lazyload alt="image-20260227100918605"></p>
-<ol start="3">
-<li>对话添加选择的元素，进行更细致的代码修改</li>
-</ol>
-<p><img src="https://panyuro.oss-cn-beijing.aliyuncs.com/image-20260227101352280.png" srcset="/img/loading.gif" lazyload alt="image-20260227101352280"></p>
+</blockquote>
+<h2 id="5-典型应用场景（顺带展示业务理解）"><a href="#5-典型应用场景（顺带展示业务理解）" class="headerlink" title="5. 典型应用场景（顺带展示业务理解）"></a>5. 典型应用场景（顺带展示业务理解）</h2><ul>
+<li><strong>RAG 问答系统</strong>：企业知识库、文档助手、客服机器人。</li>
+<li><strong>Agent 自动化</strong>：自动查资料、写报告、调用内部系统的智能助手。</li>
+<li><strong>多模态 &#x2F; 多步骤工作流</strong>：比如“分析财报 → 查行业数据 → 生成投资建议”。</li>
+</ul>
 
               
             </div>
@@ -318,7 +344,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/AI%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B/" class="category-chain-item">AI编程助手</a>
+  <a href="/categories/AI%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" class="category-chain-item">AI应用开发</a>
   
   
 
@@ -338,8 +364,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Trae solo模式使用</div>
-      <div>http://example.com/Trae使用/</div>
+      <div>LangChain4j概念整理</div>
+      <div>http://example.com/LangChain4j概念整理/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +377,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年2月27日</div>
+          <div>2026年3月3日</div>
         </div>
       
       
@@ -381,18 +407,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/LangChain4j%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86/" title="LangChain4j概念整理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LangChain4j概念整理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/dify%E5%85%A5%E9%97%A8/" title="dify入门">
-                        <span class="hidden-mobile">dify入门</span>
+                      <a href="/Trae%E4%BD%BF%E7%94%A8/" title="Trae solo模式使用">
+                        <span class="hidden-mobile">Trae solo模式使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
